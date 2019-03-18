@@ -1,0 +1,899 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{326D8444-658C-499E-96B5-B680A9BF662E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>com.organo.x4ever</RootNamespace>
+    <AssemblyName>com.organo.x4ever</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Animated\AnimatedButton.cs" />
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Cells\PickerCell.cs" />
+    <Compile Include="Connection\IInternetConnection.cs" />
+    <Compile Include="Controls\Accordion.cs" />
+    <Compile Include="Controls\AccordionExtended.cs" />
+    <Compile Include="Controls\AccordionMultiView.cs" />
+    <Compile Include="Controls\CheckBox.cs" />
+    <Compile Include="Controls\CircleImage.cs" />
+    <Compile Include="Controls\CustomWebView.cs" />
+    <Compile Include="Controls\FooterView.xaml.cs">
+      <DependentUpon>FooterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ImageAlignment.cs" />
+    <Compile Include="Controls\EntryWithImage.cs" />
+    <Compile Include="Controls\PopupLayout.cs" />
+    <Compile Include="Controls\LanguageOption.cs" />
+    <Compile Include="Controls\TopBarAccountView.xaml.cs">
+      <DependentUpon>TopBarAccountView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TopBarPopupView.xaml.cs">
+      <DependentUpon>TopBarPopupView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TopBarView.xaml.cs">
+      <DependentUpon>TopBarView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\BoolToLabelOpacityConverter.cs" />
+    <Compile Include="Converters\ConvertableConverter.cs" />
+    <Compile Include="Converters\CurrencyDoubleConverter.cs" />
+    <Compile Include="Converters\DoubleToIntConverter.cs" />
+    <Compile Include="Converters\InverseBooleanConverter.cs" />
+    <Compile Include="Converters\LoadingLabelHeightConverter.cs" />
+    <Compile Include="Converters\PeriodIntervalToDatetimeConverter.cs" />
+    <Compile Include="Converters\PoundToKiligramConverter.cs" />
+    <Compile Include="Converters\ShortDatePatternConverter.cs" />
+    <Compile Include="Converters\SplitStringConverter.cs" />
+    <Compile Include="Converters\ToUpperConverter.cs" />
+    <Compile Include="Converters\WholePercentToDecimalPercent.cs" />
+    <Compile Include="Effects\Control\Animation.cs" />
+    <Compile Include="Effects\Control\ControlEntity.cs" />
+    <Compile Include="Effects\Control\IAnimation.cs" />
+    <Compile Include="Effects\Control\IControlEntity.cs" />
+    <Compile Include="Extensions\Capitalize.cs" />
+    <Compile Include="Extensions\ExtensionCheck.cs" />
+    <Compile Include="Extensions\ImageResourceExtension.cs" />
+    <Compile Include="Extensions\MetaObjectFromCollection.cs" />
+    <Compile Include="Extensions\MonthName.cs" />
+    <Compile Include="Extensions\SetValueAnimation.cs" />
+    <Compile Include="Extensions\SliderValueAnimate.cs" />
+    <Compile Include="Extensions\TrackerObjectFromCollection.cs" />
+    <Compile Include="Globals\Helper.cs" />
+    <Compile Include="Globals\IAppConfiguration.cs" />
+    <Compile Include="Globals\IHelper.cs" />
+    <Compile Include="Handler\ExceptionHandler.cs" />
+    <Compile Include="Helpers\IDeviceInfo.cs" />
+    <Compile Include="Helpers\IImageResizerHelpers.cs" />
+    <Compile Include="Helpers\ImageResizer.cs" />
+    <Compile Include="Models\ApplicationSetting.cs" />
+    <Compile Include="Models\ApplicationUserSelection.cs" />
+    <Compile Include="Models\CountryProvince.cs" />
+    <Compile Include="Models\ImageSize.cs" />
+    <Compile Include="Globals\IMedia.cs" />
+    <Compile Include="Globals\IMessage.cs" />
+    <Compile Include="Globals\IScreen.cs" />
+    <Compile Include="Globals\Media.cs" />
+    <Compile Include="Globals\Message.cs" />
+    <Compile Include="Globals\Timer.cs" />
+    <Compile Include="Helpers\IAppVersionProvider.cs" />
+    <Compile Include="Localization\TextResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TextResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Globals\AppConfiguration.cs" />
+    <Compile Include="Localization\TextResources.en-GB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TextResources.en-GB.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Localization\TextResources.en-US.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TextResources.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Localization\TextResources.es-US.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TextResources.es-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Localization\TextResources.fr-CA.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TextResources.fr-CA.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Localization\TextResources.it-IT.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TextResources.it-IT.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AppConfig.cs" />
+    <Compile Include="Models\FileDetail.cs" />
+    <Compile Include="Models\Log.cs" />
+    <Compile Include="Models\MealPlanDetail.cs" />
+    <Compile Include="Models\MealPlanOptionDetail.cs" />
+    <Compile Include="Models\MealPlanOptionGridDetail.cs" />
+    <Compile Include="Models\MealPlanOptionListDetail.cs" />
+    <Compile Include="Models\Media\MediaContent.cs" />
+    <Compile Include="Models\Media\MediaContentDetail.cs" />
+    <Compile Include="Models\Menu.cs" />
+    <Compile Include="Models\MessageDetail.cs" />
+    <Compile Include="Models\MessageModel.cs" />
+    <Compile Include="Models\ApplicationLanguage.cs" />
+    <Compile Include="Models\MilestonePercentage.cs" />
+    <Compile Include="Models\News\NewsModel.cs" />
+    <Compile Include="Models\Notifications\UserPushTokenModel.cs" />
+    <Compile Include="Models\Province.cs" />
+    <Compile Include="Models\Testimonial.cs" />
+    <Compile Include="Models\Milestone.cs" />
+    <Compile Include="Models\User\UserMilestone.cs" />
+    <Compile Include="Models\User\UserMilestoneExtended.cs" />
+    <Compile Include="Models\Password.cs" />
+    <Compile Include="Models\ReturningMessage.cs" />
+    <Compile Include="Models\UserRegister.cs" />
+    <Compile Include="Models\User\Meta.cs" />
+    <Compile Include="Models\User\Tracker.cs" />
+    <Compile Include="Models\User\UserMeta.cs" />
+    <Compile Include="Models\User\UserPictureGallery.cs" />
+    <Compile Include="Models\User\UserSetting.cs" />
+    <Compile Include="Models\User\UserTracker.cs" />
+    <Compile Include="Models\User\UserWithDetail.cs" />
+    <Compile Include="Models\Validation\InputValidation.cs" />
+    <Compile Include="Models\Validation\ValidationErrors.cs" />
+    <Compile Include="Models\VisitedPage.cs" />
+    <Compile Include="Models\WeightVolume.cs" />
+    <Compile Include="Models\Youtube\YoutubeConfiguration.cs" />
+    <Compile Include="Models\Youtube\YoutubeItem.cs" />
+    <Compile Include="Models\Youtube\YoutubeVideo.cs" />
+    <Compile Include="Models\Youtube\YoutubeVideoCollection.cs" />
+    <Compile Include="Notification\XPushNotificationListener.cs" />
+    <Compile Include="Pages\Account\AddressPage.xaml.cs">
+      <DependentUpon>AddressPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Account\BasicInfoPage.xaml.cs">
+      <DependentUpon>BasicInfoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Account\PersonalInfoPage.xaml.cs">
+      <DependentUpon>PersonalInfoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Account\UploadPhotoPage.xaml.cs">
+      <DependentUpon>UploadPhotoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ChangePassword\ChangePasswordPage.xaml.cs">
+      <DependentUpon>ChangePasswordPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Community\CommunityPage.xaml.cs">
+      <DependentUpon>CommunityPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Content\Pending.xaml.cs">
+      <DependentUpon>Pending.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ErrorPages\ErrorPage.xaml.cs">
+      <DependentUpon>ErrorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ErrorPages\InternetConnectionPage.xaml.cs">
+      <DependentUpon>InternetConnectionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ForgotPassword\NewPassword.xaml.cs">
+      <DependentUpon>NewPassword.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ForgotPassword\RequestPasswordPage.xaml.cs">
+      <DependentUpon>RequestPasswordPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\HowItWorks\HowItWorksPage.xaml.cs">
+      <DependentUpon>HowItWorksPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\MainPage\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Extended\ExtendedCarouselView.cs" />
+    <Compile Include="Extended\ExampleStrings.cs" />
+    <Compile Include="Extended\Utilities\TimerWrapper.cs" />
+    <Compile Include="Extensions\CarouselExtensions.cs" />
+    <Compile Include="Extensions\ExceptionExtensions.cs" />
+    <Compile Include="Extensions\IEnumerableExtensions.cs" />
+    <Compile Include="Extensions\IListExtensions.cs" />
+    <Compile Include="Extensions\ObservableCollectionExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Notification\INotificationServices.cs" />
+    <Compile Include="Globals\ISetDeviceProperty.cs" />
+    <Compile Include="Localization\ILocalize.cs" />
+    <Compile Include="Localization\TranslateExtension.cs" />
+    <Compile Include="Models\Authentication\AuthenticationResult.cs" />
+    <Compile Include="Models\Authentication\AuthenticationResults.cs" />
+    <Compile Include="Models\Authentication\IAuthenticationResult.cs" />
+    <Compile Include="Models\Authentication\IAuthenticationResults.cs" />
+    <Compile Include="Models\Authentication\IUserInfo.cs" />
+    <Compile Include="Models\Authentication\UserInfo.cs" />
+    <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\Local\Grouping.cs" />
+    <Compile Include="Pages\Base\ModelBoundCarouselPage.cs" />
+    <Compile Include="Pages\Base\ModelBoundContentPage.cs" />
+    <Compile Include="Pages\Base\ModelBoundContentView.cs" />
+    <Compile Include="Pages\Base\ModelBoundTabbedPage.cs" />
+    <Compile Include="Pages\MealPlan\MealPlanPage.xaml.cs">
+      <DependentUpon>MealPlanPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Media\AudioPlayerPage.xaml.cs">
+      <DependentUpon>AudioPlayerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\MenuPage.xaml.cs">
+      <DependentUpon>MenuPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\MilestonePages\UserMilestonePage.xaml.cs">
+      <DependentUpon>UserMilestonePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\News\NewsPage.xaml.cs">
+      <DependentUpon>NewsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\OGX\OgxSystemPage.xaml.cs">
+      <DependentUpon>OgxSystemPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Profile\MyProfile.xaml.cs">
+      <DependentUpon>MyProfile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Profile\Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Profile\ProfileSetting.xaml.cs">
+      <DependentUpon>ProfileSetting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Profile\PictureGalleryPage.xaml.cs">
+      <DependentUpon>PictureGalleryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Profile\TrackerDetailPage.xaml.cs">
+      <DependentUpon>TrackerDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Registration\RegisterPage.xaml.cs">
+      <DependentUpon>RegisterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Registration\TermAndConditionsPage.xaml.cs">
+      <DependentUpon>TermAndConditionsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Rewards\RewardsPage.xaml.cs">
+      <DependentUpon>RewardsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\RootPage.cs" />
+    <Compile Include="Pages\Splash\SplashView.cs" />
+    <Compile Include="Pages\Storage\FileExplorerPage.xaml.cs">
+      <DependentUpon>FileExplorerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Testimonial\TestimonialPhotoPage.xaml.cs">
+      <DependentUpon>TestimonialPhotoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Testimonial\TestimonialDetailPage.xaml.cs">
+      <DependentUpon>TestimonialDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Testimonial\TestimonialPage.xaml.cs">
+      <DependentUpon>TestimonialPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Tracker\TrackerGalleryPage.xaml.cs">
+      <DependentUpon>TrackerGalleryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\TrainingVideo\TrainingVideoPage.xaml.cs">
+      <DependentUpon>TrainingVideoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\UserSettings\UserSettingPage.xaml.cs">
+      <DependentUpon>UserSettingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Video\PlaylistPage.xaml.cs">
+      <DependentUpon>PlaylistPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Welcome\WelcomePage.xaml.cs">
+      <DependentUpon>WelcomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\YouTube\YoutubeTestimonialPage.xaml.cs">
+      <DependentUpon>YoutubeTestimonialPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Permissions\DevicePermission.cs" />
+    <Compile Include="Permissions\IDevicePermissionServices.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\CurrencyAttribute.cs" />
+    <Compile Include="Properties\DisplayAttribute.cs" />
+    <Compile Include="Services\ApplicationLanguageService.cs" />
+    <Compile Include="Services\ApplicationServices.cs" />
+    <Compile Include="Services\ApplicationSettingService.cs" />
+    <Compile Include="Services\AuthenticationService.cs" />
+    <Compile Include="Services\BackButtonPress.cs" />
+    <Compile Include="Services\ClientService.cs" />
+    <Compile Include="Services\IApplicationLanguageService.cs" />
+    <Compile Include="Services\IApplicationServices.cs" />
+    <Compile Include="Services\IApplicationSettingService.cs" />
+    <Compile Include="Services\IAudioPlayerService.cs" />
+    <Compile Include="Services\IBackButtonPress.cs" />
+    <Compile Include="Services\IBackgroundService.cs" />
+    <Compile Include="Services\IBaseService.cs" />
+    <Compile Include="Services\FileService.cs" />
+    <Compile Include="Services\GeoCodingService.cs" />
+    <Compile Include="Services\IAuthenticationService.cs" />
+    <Compile Include="Services\IAuthenticator.cs" />
+    <Compile Include="Services\IConfigFetcher.cs" />
+    <Compile Include="Services\IFileDownloadService.cs" />
+    <Compile Include="Services\IFileService.cs" />
+    <Compile Include="Services\IGeoCodingService.cs" />
+    <Compile Include="Services\IHttpClientHandlerFactory.cs" />
+    <Compile Include="Services\ILocalFile.cs" />
+    <Compile Include="Services\ILogServices.cs" />
+    <Compile Include="Services\IMealPlanService.cs" />
+    <Compile Include="Services\IMediaContentService.cs" />
+    <Compile Include="Services\IMediaPlayerServices.cs" />
+    <Compile Include="Services\IMenuServices.cs" />
+    <Compile Include="Services\IMessageService.cs" />
+    <Compile Include="Services\IInformationMessageServices.cs" />
+    <Compile Include="Services\IMetaService.cs" />
+    <Compile Include="Services\IMilestonePercentageService.cs" />
+    <Compile Include="Services\IMilestoneService.cs" />
+    <Compile Include="Services\INewsService.cs" />
+    <Compile Include="Services\IProvinceServices.cs" />
+    <Compile Include="Services\IResourceService.cs" />
+    <Compile Include="Services\ISecureStorage.cs" />
+    <Compile Include="Services\ITestimonialService.cs" />
+    <Compile Include="Services\ITrackerService.cs" />
+    <Compile Include="Services\IUserMilestoneService.cs" />
+    <Compile Include="Services\IUserPushTokenServices.cs" />
+    <Compile Include="Services\IUserService.cs" />
+    <Compile Include="Services\IUserSettingService.cs" />
+    <Compile Include="Services\IWeightVolumeService.cs" />
+    <Compile Include="Services\IYoutubeDataServices.cs" />
+    <Compile Include="Services\LogServices.cs" />
+    <Compile Include="Services\MealPlanService.cs" />
+    <Compile Include="Services\MediaContentService.cs" />
+    <Compile Include="Services\MenuServices.cs" />
+    <Compile Include="Services\MessageService.cs" />
+    <Compile Include="Services\MetaService.cs" />
+    <Compile Include="Services\MilestonePercentageService.cs" />
+    <Compile Include="Services\MilestoneService.cs" />
+    <Compile Include="Services\NewsService.cs" />
+    <Compile Include="Services\ProvinceServices.cs" />
+    <Compile Include="Services\ResourceService.cs" />
+    <Compile Include="Services\TestimonialService.cs" />
+    <Compile Include="Services\TrackerService.cs" />
+    <Compile Include="Services\UserMilestoneService.cs" />
+    <Compile Include="Services\UserPushTokenServices.cs" />
+    <Compile Include="Services\UserService.cs" />
+    <Compile Include="Services\UserSettingService.cs" />
+    <Compile Include="Services\WeightVolumeService.cs" />
+    <Compile Include="Services\YoutubeDataServices.cs" />
+    <Compile Include="Statics\AppConfigTags.cs" />
+    <Compile Include="Statics\ChartColor.cs" />
+    <Compile Include="Statics\ColorShade.cs" />
+    <Compile Include="Statics\CommonConstants.cs" />
+    <Compile Include="Statics\EnumMessageType.cs" />
+    <Compile Include="Statics\FileType.cs" />
+    <Compile Include="Statics\Fonts.cs" />
+    <Compile Include="Statics\FontSizes.cs" />
+    <Compile Include="Statics\Gender.cs" />
+    <Compile Include="Statics\HttpConstants.cs" />
+    <Compile Include="Statics\IdentityConstants.cs" />
+    <Compile Include="Statics\ImageConstants.cs" />
+    <Compile Include="Statics\ImageIdentity.cs" />
+    <Compile Include="Statics\Keys.cs" />
+    <Compile Include="Statics\MessagingServiceConstants.cs" />
+    <Compile Include="Statics\MetaConstants.cs" />
+    <Compile Include="Statics\Palette.cs" />
+    <Compile Include="Statics\PopupType.cs" />
+    <Compile Include="Statics\RowSizes.cs" />
+    <Compile Include="Statics\StorageConstants.cs" />
+    <Compile Include="Statics\Thicknesses.cs" />
+    <Compile Include="Statics\TimerMessage.cs" />
+    <Compile Include="Statics\TrackerConstants.cs" />
+    <Compile Include="Statics\UserSettings.cs" />
+    <Compile Include="Statics\WriteLog.cs" />
+    <Compile Include="Statics\YoutubeVideoCollectionType.cs" />
+    <Compile Include="Triggers\SwitchViewEventTrigger.cs" />
+    <Compile Include="Triggers\SwitchView.cs" />
+    <Compile Include="Utilities\ActionType.cs" />
+    <Compile Include="Utilities\EnumUtil.cs" />
+    <Compile Include="Utilities\ImageSide.cs" />
+    <Compile Include="ViewModels\Account\AccountViewModel.cs" />
+    <Compile Include="ViewModels\Account\AddressViewModel.cs" />
+    <Compile Include="ViewModels\Account\PersonalInfoViewModel.cs" />
+    <Compile Include="ViewModels\Account\UploadPhotoViewModel.cs" />
+    <Compile Include="ViewModels\Base\BaseViewModel.cs" />
+    <Compile Include="ViewModels\ChangePassword\ChangePasswordViewModel.cs" />
+    <Compile Include="ViewModels\Community\CommunityViewModel.cs" />
+    <Compile Include="ViewModels\Content\ContentViewModel.cs" />
+    <Compile Include="ViewModels\ErrorPages\ErrorViewModel.cs" />
+    <Compile Include="ViewModels\ErrorPages\InternetConnectionViewModel.cs" />
+    <Compile Include="ViewModels\ForgotPassword\RequestPasswordViewModel.cs" />
+    <Compile Include="ViewModels\HowItWorks\HowItWorksViewModel.cs" />
+    <Compile Include="ViewModels\Login\LoginViewModel.cs" />
+    <Compile Include="ViewModels\MealPlan\MealPlanViewModel.cs" />
+    <Compile Include="ViewModels\Media\AudioPlayerViewModel.cs" />
+    <Compile Include="ViewModels\Menu\MenuPageViewModel.cs" />
+    <Compile Include="ViewModels\Message\MessageViewModel.cs" />
+    <Compile Include="ViewModels\Milestones\UserMilestoneViewModel.cs" />
+    <Compile Include="ViewModels\News\NewsViewModel.cs" />
+    <Compile Include="ViewModels\OGX\OGXViewModel.cs" />
+    <Compile Include="ViewModels\Profile\ChartType.cs" />
+    <Compile Include="ViewModels\Profile\MyProfileViewModel.cs" />
+    <Compile Include="ViewModels\Profile\SettingViewModel.cs" />
+    <Compile Include="ViewModels\Registration\RegisterViewModel.cs" />
+    <Compile Include="ViewModels\Registration\TermAndConditionViewModel.cs" />
+    <Compile Include="ViewModels\Rewards\RewardsViewModel.cs" />
+    <Compile Include="ViewModels\Splash\SplashViewModel.cs" />
+    <Compile Include="ViewModels\Storage\FileExplorerViewModel.cs" />
+    <Compile Include="ViewModels\Testimonial\TestimonialDetailViewModel.cs" />
+    <Compile Include="ViewModels\Testimonial\TestimonialPhotoViewModel.cs" />
+    <Compile Include="ViewModels\Testimonial\TestimonialViewModel.cs" />
+    <Compile Include="ViewModels\Tracker\TrackerGalleryViewModel.cs" />
+    <Compile Include="ViewModels\TrainingVideo\TrainingVideoViewModel.cs" />
+    <Compile Include="ViewModels\Video\PlaylistViewModel.cs" />
+    <Compile Include="ViewModels\Welcome\WelcomeViewModel.cs" />
+    <Compile Include="ViewModels\YouTube\YoutubeViewModel.cs" />
+    <Compile Include="Views\CustomTabView.cs" />
+    <Compile Include="Views\EntryCustom.cs" />
+    <Compile Include="Views\FloatingActionButtonView.cs" />
+    <Compile Include="Views\NonPersistentSelectedItemListView.xaml.cs">
+      <DependentUpon>NonPersistentSelectedItemListView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\TextResources.en-GB.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TextResources.en-GB.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\TextResources.en-US.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TextResources.en-US.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\TextResources.es-US.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TextResources.es-US.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\TextResources.fr-CA.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TextResources.fr-CA.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\TextResources.it-IT.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TextResources.it-IT.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\TextResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TextResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Connectivity.Plugin, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugin.Connectivity.1.0.3\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Connectivity.Plugin.dll</HintPath>
+    </Reference>
+    <Reference Include="Connectivity.Plugin.Abstractions, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugin.Connectivity.1.0.3\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Connectivity.Plugin.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="LocalNotifications.Plugin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugin.LocalNotifications.1.0.0.0\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10\LocalNotifications.Plugin.dll</HintPath>
+    </Reference>
+    <Reference Include="LocalNotifications.Plugin.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugin.LocalNotifications.1.0.0.0\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10\LocalNotifications.Plugin.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microcharts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microcharts.0.8.3-pre\lib\portable-net45+win8+wpa81+wp8\Microcharts.dll</HintPath>
+    </Reference>
+    <Reference Include="Microcharts.Forms, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microcharts.Forms.0.8.3-pre\lib\portable-net45+win8+wpa81+wp8\Microcharts.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.ActiveDirectory.GraphClient, Version=2.1.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Azure.ActiveDirectory.GraphClient.2.1.1\lib\portable-net4+sl5+win+wpa+wp8\Microsoft.Azure.ActiveDirectory.GraphClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Edm, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Data.Edm.5.6.4\lib\portable-net45+wp8+win8+wpa\Microsoft.Data.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Data.OData.5.6.4\lib\portable-net45+wp8+win8+wpa\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Services.Client, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Data.Services.Client.5.6.4\lib\portable-net45+wp8+win8+wpa\Microsoft.Data.Services.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.HockeyApp.Core45, Version=4.1.3.27195, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\HockeySDK.Core.4.1.3\lib\portable-net45+win8+wp8+wpa81+win81+uap10.0\Microsoft.HockeyApp.Core45.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory, Version=3.17.2.31801, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.3.17.2\lib\netstandard1.1\Microsoft.IdentityModel.Clients.ActiveDirectory.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\portable-net45+win8+wp8+wpa81\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.ExternalMaps, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugin.ExternalMaps.4.0.1\lib\netstandard1.0\Plugin.ExternalMaps.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.ExternalMaps.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugin.ExternalMaps.4.0.1\lib\netstandard1.0\Plugin.ExternalMaps.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.LocalNotifications, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugins.Notifier.2.1.0\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10+UAP10\Plugin.LocalNotifications.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.LocalNotifications.Abstractions, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugins.Notifier.2.1.0\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10+UAP10\Plugin.LocalNotifications.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Media, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugin.Media.4.0.1.5\lib\netstandard1.0\Plugin.Media.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.MediaManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Plugin.MediaManager.0.4.5\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Plugin.MediaManager.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.MediaManager.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Plugin.MediaManager.0.4.5\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Plugin.MediaManager.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.MediaManager.Forms, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Plugin.MediaManager.Forms.0.4.5\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Plugin.MediaManager.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Messaging, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugins.Messaging.5.0.0\lib\netstandard1.0\Plugin.Messaging.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Messaging.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugins.Messaging.5.0.0\lib\netstandard1.0\Plugin.Messaging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Permissions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Plugin.Permissions.3.0.0.12\lib\netstandard1.0\Plugin.Permissions.dll</HintPath>
+    </Reference>
+    <Reference Include="PushNotification.Plugin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugin.PushNotification.1.2.4\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10+UAP10\PushNotification.Plugin.dll</HintPath>
+    </Reference>
+    <Reference Include="PushNotification.Plugin.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugin.PushNotification.1.2.4\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10+UAP10\PushNotification.Plugin.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="SkiaSharp, Version=1.59.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SkiaSharp.1.59.1\lib\portable-net45+win8+wpa81+wp8\SkiaSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="SkiaSharp.Views.Forms, Version=1.59.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SkiaSharp.Views.Forms.1.59.1.1\lib\portable-net45+win8+wpa81+wp8\SkiaSharp.Views.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLitePCL, Version=3.8.7.2, Culture=neutral, PublicKeyToken=bddade01e9c850c5, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SQLitePCL.3.8.7.2\lib\portable-net45+sl50+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10\SQLitePCL.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions, Version=1.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net45+win8+wpa81\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net45+win8+wpa81\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\netstandard1.1\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Spatial, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Spatial.5.6.4\lib\portable-net45+wp8+win8+wpa\System.Spatial.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="Toasts.Forms.Plugin.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Toasts.Forms.Plugin.3.3.2\lib\netstandard1.1\Toasts.Forms.Plugin.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xamarin.Forms.2.5.0.121934\lib\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Maps, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xamarin.Forms.Maps.2.5.0.121934\lib\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.Maps.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Platform, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xamarin.Forms.2.5.0.121934\lib\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Xaml, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xamarin.Forms.2.5.0.121934\lib\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.Xaml.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\MenuPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\NonPersistentSelectedItemListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Helpers\CrossPushNotificationListener.txt" />
+    <Content Include="Microcharts\package-installs.txt" />
+    <Content Include="PluginsHelp\ConnectivityReadme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Extended\Carousel\" />
+    <Folder Include="Models\Progress\" />
+    <Folder Include="Notification\BackgroundService\" />
+    <Folder Include="Pages\Test\" />
+    <Folder Include="ViewModels\Test\" />
+    <Folder Include="Views\Base\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\MainPage\MainPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Content\Pending.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Account\BasicInfoPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Profile\MyProfile.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Account\AddressPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Account\PersonalInfoPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Account\UploadPhotoPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Registration\RegisterPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Registration\TermAndConditionsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\ForgotPassword\RequestPasswordPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\ForgotPassword\NewPassword.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Profile\ProfileSetting.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Profile\Settings.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\ChangePassword\ChangePasswordPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Profile\TrackerDetailPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Profile\PictureGalleryPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\TrainingVideo\TrainingVideoPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Testimonial\TestimonialPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Storage\FileExplorerPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Media\AudioPlayerPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Welcome\WelcomePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\UserSettings\UserSettingPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Testimonial\TestimonialDetailPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\MealPlan\MealPlanPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Video\PlaylistPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\News\NewsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Testimonial\TestimonialPhotoPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\MilestonePages\UserMilestonePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\ErrorPages\InternetConnectionPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\OGX\OgxSystemPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\TopBarView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\TopBarAccountView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\TopBarPopupView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\FooterView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Community\CommunityPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\HowItWorks\HowItWorksPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Tracker\TrackerGalleryPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\ErrorPages\ErrorPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Rewards\RewardsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\YouTube\YoutubeTestimonialPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <Import Project="..\..\packages\Xamarin.Forms.2.5.0.121934\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.5.0.121934\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\Xamarin.Forms.2.5.0.121934\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Forms.2.5.0.121934\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+  </Target>
+  <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+</Project>

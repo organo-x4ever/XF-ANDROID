@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<news1:NewsPageXaml xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:news1="clr-namespace:com.organo.xchallenge.Pages.News;assembly=com.organo.xchallenge"
+             xmlns:statics="clr-namespace:com.organo.xchallenge.Statics;assembly=com.organo.xchallenge"
+             xmlns:localization="clr-namespace:com.organo.xchallenge.Localization;assembly=com.organo.xchallenge"
+             xmlns:controls="clr-namespace:com.organo.xchallenge.Controls;assembly=com.organo.xchallenge"
+             x:Class="com.organo.xchallenge.Pages.News.NewsPage">
+  <news1:NewsPageXaml.Content>
+    <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+      <controls:TopBarAccountView></controls:TopBarAccountView>
+      <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="0,-6,0,0">
+        <ListView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" SeparatorVisibility="None" ItemsSource="{Binding NewsModels}" Margin="0" HasUnevenRows="True">
+          <ListView.Header>
+            <StackLayout Margin="15,15,15,0" HorizontalOptions="Center">
+              <Label Text="{localization:Translate LatestNewsCAPS}" Style="{DynamicResource labelStyleXLargeHeader}" />
+            </StackLayout>
+          </ListView.Header>
+          <ListView.ItemTemplate>
+            <DataTemplate>
+              <ViewCell>
+                <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="15,10,15,10" BackgroundColor="{x:Static statics:Palette._MainBackground}">
+                  <Frame Style="{DynamicResource frameStyleCard}">
+                    <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                      <Label Text="{Binding Header}" Style="{DynamicResource labelStyleInfoHighlight}" />
+                      <Label Margin="0,-7,0,0" Text="{Binding PostDate}" HorizontalOptions="StartAndExpand" Style="{DynamicResource labelAccordionStyleHeaderIntern}" />
+                      <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="5,10,5,15">
+                        <Image Source="{Binding NewsImageSource}" VerticalOptions="Start" HorizontalOptions="Center" IsVisible="{Binding IsTop}" />
+                        <Label Text="{Binding Body}" Style="{DynamicResource labelStyleInfoCheck}" />
+                        <Image Source="{Binding NewsImageSource}" VerticalOptions="Start" HorizontalOptions="Center" IsVisible="{Binding IsBottom}" />
+                      </StackLayout>
+                      <Label Text="{Binding PostedBy}" VerticalOptions="End" HorizontalOptions="End" Style="{DynamicResource labelAccordionStyleHeaderIntern}" />
+                    </StackLayout>
+                  </Frame>
+                </StackLayout>
+              </ViewCell>
+            </DataTemplate>
+          </ListView.ItemTemplate>
+          <ListView.Footer>
+            <controls:FooterView />
+          </ListView.Footer>
+        </ListView>
+      </StackLayout>
+    </StackLayout>
+  </news1:NewsPageXaml.Content>
+</news1:NewsPageXaml>

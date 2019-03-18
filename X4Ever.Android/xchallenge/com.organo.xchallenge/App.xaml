@@ -1,0 +1,704 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="com.organo.xchallenge.App"
+             xmlns:statics="clr-namespace:com.organo.xchallenge.Statics"
+             xmlns:converter="clr-namespace:com.organo.xchallenge.Converters">
+    <!--<StackLayout x:Name="stackLayout" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+    </StackLayout>-->
+    <Application.Resources>
+        <ResourceDictionary>
+            <OnPlatform x:Key="PoppinsFontFamily" x:TypeArguments="x:String">
+                <On Platform="iOS" Value="@fonts\Poppins-Regular"></On>
+                <On Platform="Android" Value="@fonts\Poppins-Regular"></On>
+                <On Platform="WinPhone" Value="@fonts\Poppins-Regular"></On>
+            </OnPlatform>
+
+            <!--  font sizes  -->
+            <x:Double x:Key="FontSizeLargest">40</x:Double>
+            <x:Double x:Key="FontSizeXXXLarge">34</x:Double>
+            <x:Double x:Key="FontSizeXXLarge">31</x:Double>
+            <x:Double x:Key="FontSizeXLarge">26</x:Double>
+            <x:Double x:Key="FontSizeLarge">24</x:Double>
+            <x:Double x:Key="FontSizeLargeMedium">22</x:Double>
+            <x:Double x:Key="FontSizeXXMedium">22</x:Double>
+            <x:Double x:Key="FontSizeXMedium">19</x:Double>
+            <x:Double x:Key="FontSizeMedium">18</x:Double>
+            <x:Double x:Key="FontSizeSmall">16</x:Double>
+            <x:Double x:Key="FontSizeXSmall">15</x:Double>
+            <x:Double x:Key="FontSizeXXSmall">14</x:Double>
+            <x:Double x:Key="FontSizeXXXSmall">13</x:Double>
+            <x:Double x:Key="FontSizeXXXXSmall">12</x:Double>
+            <x:Double x:Key="FontSizeXXXXXSmall">11</x:Double>
+
+            <!--<Style TargetType="ContentPage">
+                <Setter Property="BackgroundColor" Value="{x:Static statics:Palette._MainBackground}" />
+            </Style>-->
+
+            <!-- Tab Style :: START -->
+            <Style x:Key="boxViewTabStyle" TargetType="BoxView">
+                <Setter Property="BackgroundColor" Value="{x:Static statics:Palette._FooterTexts}" />
+                <Setter Property="HeightRequest" Value="1" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+            </Style>
+            <Style x:Key="boxViewTabStyleSelected" TargetType="BoxView">
+                <Setter Property="BackgroundColor" Value="{x:Static statics:Palette._MainAccent}" />
+                <Setter Property="HeightRequest" Value="1" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+            </Style>
+
+            <!-- Tab Style :: END -->
+
+            <Style TargetType="ActivityIndicator">
+                <Setter Property="Color" Value="{x:Static statics:Palette._MainAccent}" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+            </Style>
+
+            <Style x:Key="stackMenuBar" TargetType="StackLayout">
+                <Setter Property="Margin" Value="0,0,0,0" />
+                <Setter Property="VerticalOptions" Value="End" />
+                <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+            </Style>
+
+            <Style TargetType="Frame">
+                <Setter Property="CornerRadius" Value="5" />
+                <Setter Property="HasShadow" Value="False" />
+                <Setter Property="OutlineColor" Value="{x:Static statics:Palette._Transparent}" />
+                <Setter Property="BackgroundColor" Value="{x:Static statics:Palette._ButtonBackgroundGray}" />
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="Padding" Value="7" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+            <Style x:Key="frameStyle" TargetType="Frame">
+                <Setter Property="CornerRadius" Value="5" />
+                <Setter Property="HasShadow" Value="False" />
+                <Setter Property="OutlineColor" Value="{x:Static statics:Palette._Transparent}" />
+                <Setter Property="Margin" Value="5,0,5,0" />
+                <Setter Property="Padding" Value="7" />
+                <Setter Property="BackgroundColor" Value="{x:Static statics:Palette._ButtonBackgroundGray}" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+            <Style x:Key="frameStyleRound" TargetType="Frame" BasedOn="{StaticResource frameStyle}">
+                <Setter Property="OutlineColor" Value="{x:Static statics:Palette._Transparent}" />
+                <Setter Property="BackgroundColor" Value="{x:Static statics:Palette._ButtonBackgroundGray}" />
+            </Style>
+            <Style x:Key="frameStyleFull" TargetType="Frame" BasedOn="{StaticResource frameStyle}">
+                <Setter Property="OutlineColor" Value="{x:Static statics:Palette._Transparent}" />
+                <Setter Property="BackgroundColor" Value="{x:Static statics:Palette._ButtonBackgroundGray}" />
+                <Setter Property="VerticalOptions" Value="FillAndExpand" />
+            </Style>
+            <Style x:Key="frameStyleCard" TargetType="Frame" BasedOn="{StaticResource frameStyle}">
+                <Setter Property="Margin" Value="0,5,0,5" />
+                <Setter Property="BackgroundColor" Value="{x:Static statics:Palette._BoxesBackground}" />
+                <Setter Property="VerticalOptions" Value="FillAndExpand" />
+            </Style>
+
+            <Style x:Key="imageStyle" TargetType="Image">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+            </Style>
+            <Style x:Key="imageStyleIcon" TargetType="Image">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+            </Style>
+            <Style x:Key="imageLogo" TargetType="Image" BasedOn="{StaticResource imageStyle}">
+                <Setter Property="WidthRequest" Value="75" />
+                <Setter Property="HeightRequest" Value="60" />
+            </Style>
+            <Style x:Key="imageAccordion196" TargetType="Image" BasedOn="{StaticResource imageStyle}">
+                <Setter Property="WidthRequest" Value="196" />
+                <Setter Property="HeightRequest" Value="68" />
+            </Style>
+            <Style x:Key="imageAccordion178" TargetType="Image" BasedOn="{StaticResource imageStyle}">
+                <Setter Property="WidthRequest" Value="178" />
+                <Setter Property="HeightRequest" Value="68" />
+            </Style>
+            <Style x:Key="imageLogoTransparent" TargetType="Image" BasedOn="{StaticResource imageStyle}">
+                <Setter Property="WidthRequest" Value="36" />
+                <Setter Property="HeightRequest" Value="28" />
+                <Setter Property="Margin" Value="0,0,0,5" />
+                <Setter Property="VerticalOptions" Value="End" />
+            </Style>
+            <Style x:Key="imageLogoMenu" TargetType="Image" BasedOn="{StaticResource imageStyle}">
+                <Setter Property="WidthRequest" Value="20" />
+                <Setter Property="HeightRequest" Value="20" />
+                <Setter Property="Margin" Value="25,0,0,5" />
+                <Setter Property="VerticalOptions" Value="End" />
+            </Style>
+            <Style x:Key="imageLogoChallenge" TargetType="Image" BasedOn="{StaticResource imageStyle}">
+                <Setter Property="WidthRequest" Value="170" />
+                <Setter Property="HeightRequest" Value="27" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+            <Style x:Key="imageGallery" TargetType="Image" BasedOn="{StaticResource imageStyle}">
+                <Setter Property="WidthRequest" Value="70" />
+                <Setter Property="HeightRequest" Value="70" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+            <Style x:Key="imageIcon" TargetType="Image" BasedOn="{StaticResource imageStyle}">
+                <Setter Property="WidthRequest" Value="20" />
+                <Setter Property="HeightRequest" Value="20" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+            <Style x:Key="imageIconCheckbox" TargetType="Image" BasedOn="{StaticResource imageStyle}">
+                <Setter Property="WidthRequest" Value="14" />
+                <Setter Property="HeightRequest" Value="14" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="HorizontalOptions" Value="Start" />
+            </Style>
+            <Style x:Key="imageBadgeProfile" TargetType="Image" BasedOn="{StaticResource imageStyle}">
+                <Setter Property="WidthRequest" Value="25" />
+                <Setter Property="HeightRequest" Value="25" />
+            </Style>
+            <Style x:Key="imageBadgeHintIcon" TargetType="Image" BasedOn="{StaticResource imageStyle}">
+                <Setter Property="WidthRequest" Value="40" />
+                <Setter Property="HeightRequest" Value="40" />
+            </Style>
+            <Style x:Key="imageBadgeHintClose" TargetType="Image" BasedOn="{StaticResource imageStyle}">
+                <Setter Property="WidthRequest" Value="40" />
+                <Setter Property="HeightRequest" Value="40" />
+            </Style>
+            <Style x:Key="imageBadgeMilestone" TargetType="Image" BasedOn="{StaticResource imageStyle}">
+                <Setter Property="WidthRequest" Value="80" />
+                <Setter Property="HeightRequest" Value="80" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+            <Style x:Key="imageTabIcon" TargetType="Image">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="WidthRequest" Value="16" />
+                <Setter Property="HeightRequest" Value="16" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="Margin" Value="0,-4,0,-7" />
+            </Style>
+            <Style x:Key="imageEntryIcon" TargetType="Image" BasedOn="{StaticResource imageStyle}">
+                <Setter Property="WidthRequest" Value="14" />
+                <Setter Property="HeightRequest" Value="14" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="HorizontalOptions" Value="End" />
+            </Style>
+            <Style x:Key="imagePopupClose" TargetType="Image" BasedOn="{StaticResource imageStyle}">
+                <Setter Property="WidthRequest" Value="11" />
+                <Setter Property="HeightRequest" Value="11" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="HorizontalOptions" Value="End" />
+            </Style>
+            <Style x:Key="imageExpandPlus" TargetType="Image" BasedOn="{StaticResource imageStyle}">
+                <Setter Property="WidthRequest" Value="16" />
+                <Setter Property="HeightRequest" Value="16" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="HorizontalOptions" Value="End" />
+            </Style>
+            <Style x:Key="imageGender" TargetType="Image" BasedOn="{StaticResource imageStyle}">
+                <Setter Property="WidthRequest" Value="32" />
+                <Setter Property="HeightRequest" Value="32" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+            <Style x:Key="imageMenuUser" TargetType="Image" BasedOn="{StaticResource imageStyle}">
+                <Setter Property="WidthRequest" Value="40" />
+                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="Margin" Value="0,8,0,0" />
+            </Style>
+            <Style x:Key="imageContentHeader" TargetType="Image" BasedOn="{StaticResource imageStyle}">
+                <Setter Property="WidthRequest" Value="30" />
+                <Setter Property="HeightRequest" Value="30" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+            <Style x:Key="imageIconMenuItem" TargetType="Image" BasedOn="{StaticResource imageStyle}">
+                <Setter Property="WidthRequest" Value="14" />
+                <Setter Property="HeightRequest" Value="14" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+            <Style x:Key="imageIconClose" TargetType="Image" BasedOn="{StaticResource imageStyle}">
+                <Setter Property="WidthRequest" Value="28" />
+                <Setter Property="HeightRequest" Value="28" />
+                <Setter Property="VerticalOptions" Value="End" />
+                <Setter Property="Margin" Value="0,0,25,5" />
+            </Style>
+            <Style x:Key="imageCamera" TargetType="Image" BasedOn="{StaticResource imageStyle}">
+                <Setter Property="WidthRequest" Value="100" />
+                <Setter Property="HeightRequest" Value="65" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+            <Style x:Key="imageTestimonial" TargetType="Image" BasedOn="{StaticResource imageStyle}">
+                <Setter Property="WidthRequest" Value="300" />
+                <Setter Property="HeightRequest" Value="110" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+
+
+            <!--Label Style-->
+
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._FieldTexts}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXSmall}" />
+                <!--<Setter Property="FontFamily" Value="{StaticResource PoppinsFontFamily}" />-->
+            </Style>
+
+            <Style x:Key="labelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._FieldTexts}" />
+                <!--<Setter Property="FontFamily" Value="{StaticResource PoppinsFontFamily}" />-->
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXSmall}" />
+            </Style>
+
+            <Style x:Key="labelTabStyle" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXXXSmall}" />
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._TitleTexts}" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="Margin" Value="0, 0, 0, 3" />
+            </Style>
+
+            <Style x:Key="labelTabStyleSelected" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXXXSmall}" />
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._MainAccent}" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="Margin" Value="0, 0, 0, 3" />
+            </Style>
+
+            <!--NOT FOUND::SETUP-->
+            <Style x:Key="labelTimer" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXXXXSmall}"></Setter>
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._TitleTexts}"></Setter>
+            </Style>
+
+            <Style x:Key="labelStyleXXLarge" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._TitleTexts}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXXLarge}" />
+            </Style>
+
+            <Style x:Key="labelStyleXLarge" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._TitleTexts}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXLarge}" />
+            </Style>
+
+            <Style x:Key="labelStyleLarge" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._TitleTexts}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXLarge}" />
+            </Style>
+
+            <Style x:Key="labelStyleXXXMedium" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._TitleTexts}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
+            </Style>
+
+            <Style x:Key="labelStyleXXMedium" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._TitleTexts}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeLargeMedium}" />
+            </Style>
+
+            <Style x:Key="labelStyleXMedium" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._TitleTexts}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXMedium}" />
+            </Style>
+
+            <Style x:Key="labelStyleMedium" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._TitleTexts}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeMedium}" />
+            </Style>
+
+            <Style x:Key="labelStyleMediumHighlight" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._MainAccent}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeMedium}" />
+            </Style>
+
+            <Style x:Key="labelStyleSmall" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._TitleTexts}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
+            </Style>
+
+            <Style x:Key="labelStyleXSmall" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._TitleTexts}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXSmall}" />
+            </Style>
+
+            <Style x:Key="labelStyleFooter" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._FooterTexts}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXXSmall}" />
+            </Style>
+
+            <Style x:Key="labelStyleInfoHeading" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._FooterTexts}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXSmall}" />
+            </Style>
+
+          <Style x:Key="labelStyleInfoHeadingXXX" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+            <Setter Property="TextColor" Value="{x:Static statics:Palette._FooterTexts}" />
+            <Setter Property="FontSize" Value="{StaticResource FontSizeXXXSmall}" />
+          </Style>
+
+            <Style x:Key="labelStyleInfoHighlight" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._MainAccent}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXSmall}" />
+            </Style>
+
+            <Style x:Key="labelStyleInfoHighlightXXX" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._TitleTexts}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXXSmall}" />
+            </Style>
+
+            <Style x:Key="labelStyleInfoHighlightSmall" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._MainAccent}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
+            </Style>
+
+            <Style x:Key="labelStyleInfoHighlightXSmall" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._MainAccent}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXSmall}" />
+            </Style>
+
+            <Style x:Key="labelStyleSkip" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._White}" />
+                <Setter Property="Opacity" Value="1" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeMedium}" />
+            </Style>
+            
+            <Style x:Key="labelStyleSkipSmall" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._White}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
+            </Style>
+
+            <Style x:Key="labelStyleInfo" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._TitleTexts}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXSmall}" />
+            </Style>
+            <Style x:Key="labelStyleInfoCheck" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._TitleTexts}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXSmall}" />
+                <Setter Property="HorizontalOptions" Value="Start" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+            <Style x:Key="labelStyleInfoCheckHighlight" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._MainAccent}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXSmall}" />
+                <Setter Property="HorizontalOptions" Value="Start" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+
+            <Style x:Key="labelStyleTableViewItem" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._MainAccent}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXSmall}" />
+            </Style>
+
+            <Style x:Key="labelStyleLinkHighlight" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._TitleTexts}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXXXSmall}" />
+            </Style>
+
+            <Style x:Key="labelStyleXLargeHeader" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._MainAccent}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXLarge}" />
+            </Style>
+
+            <Style x:Key="labelStyleXXLargeHeader" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._MainAccent}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXLarge}" />
+            </Style>
+
+            <Style x:Key="labelStyleXXXLargeHeader" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._MainAccent}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXXLarge}" />
+            </Style>
+
+            <Style x:Key="labelStyleLargestHeader" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._MainAccent}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeLargest}" />
+            </Style>
+
+            <Style x:Key="labelStyleLargeMedium" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._MainAccent}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeLargeMedium}" />
+            </Style>
+
+            <Style x:Key="labelStyleSwitchHighlight" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._MainAccent}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeLargeMedium}" />
+            </Style>
+
+            <Style x:Key="labelStyleSwitch" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._FooterTexts}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeLargeMedium}" />
+            </Style>
+
+            <Style x:Key="labelStyleTextTitle" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._MainAccent}" />
+            </Style>
+
+            <Style x:Key="labelStyleTextTitleIntern" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._FooterTexts}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXXSmall}" />
+            </Style>
+
+            <Style x:Key="labelStyleText" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._TitleTexts}" />
+            </Style>
+
+            <Style x:Key="labelStyleTextSmall" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._TitleTexts}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXSmall}" />
+            </Style>
+
+            <Style x:Key="labelAccordionStyle" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._TitleTexts}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+            </Style>
+
+            <Style x:Key="labelAccordionStyleHeader" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._TitleTexts}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXSmall}" />
+            </Style>
+
+            <Style x:Key="labelAccordionStyleHeaderIntern" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._FooterTexts}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXXXSmall}" />
+            </Style>
+            <Style x:Key="labelAccordionStyleItemHeader" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._White}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXSmall}" />
+            </Style>
+            <Style x:Key="labelAccordionStyleItemTitle" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._TitleTexts}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
+            </Style>
+            <Style x:Key="labelAccordionStyleItem" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._TitleTexts}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXXSmall}" />
+            </Style>
+
+
+            <Style x:Key="labelStyleXXMediumHeader" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._FooterTexts}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXMedium}" />
+            </Style>
+
+            <Style x:Key="labelStyleMenuHeader" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._White}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXSmall}" />
+            </Style>
+
+            <Style x:Key="labelStyleMenuItem" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._White}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
+            </Style>
+
+            <Style x:Key="labelStyleDark"  TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._ButtonBackgroundGray}" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
+            </Style>
+            <Style x:Key="labelStyleHighlight"  TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._MainAccent}" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
+            </Style>
+
+            <Style x:Key="labelErrorMessage" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._Error}" />
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
+                <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXSmall}" />
+            </Style>
+
+            <Style x:Key="labelSuccessMessage" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._Success}" />
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
+                <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXSmall}" />
+            </Style>
+            <Style x:Key="labelBusyMessage" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._MainAccent}" />
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXSmall}" />
+            </Style>
+
+            <Style x:Key="labelStyleLinkBlue" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._Blue}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXSmall}" />
+            </Style>
+
+            <Style x:Key="labelStyleLinkHigh" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._MainAccent}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXSmall}" />
+            </Style>
+
+            <Style x:Key="labelStyleLink" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._TitleTexts}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXSmall}" />
+            </Style>
+
+            <Style x:Key="labelStyleAccordionHighlight" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._ButtonBackgroundGray}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXSmall}" />
+            </Style>
+
+            <Style x:Key="labelStyleAccordion" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._TitleTexts}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXSmall}" />
+            </Style>
+
+
+            <!--<Style x:Key="spanStyle" TargetType="Span">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._FieldTexts}" />
+                --><!--<Setter Property="FontFamily" Value="{StaticResource PoppinsFontFamily}" />--><!--
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXSmall}" />
+            </Style>
+
+            <Style x:Key="spanStyleLargeMedium" TargetType="Span" BasedOn="{StaticResource spanStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._MainAccent}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeLargeMedium}" />
+                <Setter Property="FontAttributes" Value="Bold" />
+            </Style>
+
+            <Style x:Key="spanStyleInfoHighlightSmall" TargetType="Span" BasedOn="{StaticResource spanStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._MainAccent}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
+            </Style>-->
+
+
+            <Style TargetType="Entry">
+                <Setter Property="BackgroundColor" Value="{x:Static statics:Palette._Transparent}" />
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._FieldTexts}" />
+                <Setter Property="PlaceholderColor" Value="{x:Static statics:Palette._FooterTexts}" />
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
+                <!--<Setter Property="FontFamily" Value="{StaticResource PoppinsFontFamily}" />-->
+                <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
+            </Style>
+
+            <Style x:Key="entryStyle" TargetType="Entry">
+                <Setter Property="BackgroundColor" Value="{x:Static statics:Palette._Transparent}" />
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._FieldTexts}" />
+                <Setter Property="PlaceholderColor" Value="{x:Static statics:Palette._FooterTexts}" />
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
+                <!--<Setter Property="FontFamily" Value="{StaticResource PoppinsFontFamily}" />-->
+                <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
+            </Style>
+
+            <Style x:Key="editorStyle" TargetType="Editor">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._FieldTexts}" />
+                <!--<Setter Property="FontFamily" Value="{StaticResource PoppinsFontFamily}" />-->
+                <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
+                <Setter Property="HeightRequest" Value="50" />
+                <Setter Property="Margin" Value="0,0,0,-4" />
+            </Style>
+
+            <Style TargetType="Picker">
+                <Setter Property="BackgroundColor" Value="{x:Static statics:Palette._Transparent}" />
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._FieldTexts}" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+            </Style>
+            <!--<Style x:Key="pickerStyle" TargetType="Picker">
+                --><!--
+                BackgroundColor
+                TextColor
+                HeightRequest
+                HorizontalOptions
+                Margin
+                VerticalOptions
+                WidthRequest
+                --><!--
+            </Style>-->
+
+            <Style TargetType="Button">
+                <Setter Property="BorderRadius" Value="20" />
+                <Setter Property="BorderWidth" Value="0" />
+                <Setter Property="BorderColor" Value="{x:Static statics:Palette._ButtonBorder}" />
+                <!--<Setter Property="FontFamily" Value="{StaticResource PoppinsFontFamily}" />-->
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXSmall}" />
+                <Setter Property="BackgroundColor" Value="{x:Static statics:Palette._ButtonBackgroundGray}" />
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._TitleTexts}" />
+            </Style>
+
+            <Style x:Key="buttonStyle" TargetType="Button">
+                <Setter Property="BorderRadius" Value="20" />
+                <Setter Property="BorderWidth" Value="0" />
+                <Setter Property="BorderColor" Value="{x:Static statics:Palette._ButtonBorder}" />
+                <!--<Setter Property="FontFamily" Value="{StaticResource PoppinsFontFamily}" />-->
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXSmall}" />
+                <Setter Property="BackgroundColor" Value="{x:Static statics:Palette._ButtonBackground}" />
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._MainBackground}" />
+            </Style>
+
+            <Style x:Key="buttonStyleGray" TargetType="Button" BasedOn="{StaticResource buttonStyle}">
+                <Setter Property="BorderColor" Value="{x:Static statics:Palette._ButtonBackgroundGray}" />
+                <Setter Property="BackgroundColor" Value="{x:Static statics:Palette._ButtonBackgroundGray}" />
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._FieldTexts}" />
+            </Style>
+
+            <Style x:Key="buttonStyleTransparent" TargetType="Button" BasedOn="{StaticResource buttonStyle}">
+                <Setter Property="BorderColor" Value="{x:Static statics:Palette._ButtonTransparent}" />
+                <Setter Property="BackgroundColor" Value="{x:Static statics:Palette._ButtonTransparent}" />
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._White}" />
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                <Setter Property="VerticalOptions" Value="EndAndExpand" />
+                <Setter Property="Opacity" Value="1" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXSmall}" />
+            </Style>
+
+            <Style x:Key="buttonStyleTransparentGray" TargetType="Button" BasedOn="{StaticResource buttonStyle}">
+                <Setter Property="BackgroundColor" Value="{x:Static statics:Palette._ButtonTransparentGray}" />
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._White}" />
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                <Setter Property="VerticalOptions" Value="EndAndExpand" />
+                <Setter Property="Opacity" Value="1" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXSmall}" />
+            </Style>
+
+            <Style x:Key="buttonAccordion" TargetType="Button" BasedOn="{StaticResource buttonStyle}">
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXXSmall}" />
+                <Setter Property="BorderRadius" Value="10" />
+                <Setter Property="BorderWidth" Value="2" />
+                <Setter Property="HeightRequest" Value="45" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="BackgroundColor" Value="{x:Static statics:Palette._TitleTexts}" />
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._Black}" />
+            </Style>
+
+            <Style x:Key="buttonAccordionHighlight" TargetType="Button" BasedOn="{StaticResource buttonStyle}">
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXXSmall}" />
+                <Setter Property="BorderRadius" Value="10" />
+                <Setter Property="BorderWidth" Value="2" />
+                <Setter Property="HeightRequest" Value="45" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="BackgroundColor" Value="{x:Static statics:Palette._MainAccent}" />
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._Black}" />
+            </Style>
+
+            <Style x:Key="buttonAccordionStyle" TargetType="Button" BasedOn="{StaticResource buttonStyle}">
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXXSmall}" />
+                <Setter Property="BorderWidth" Value="2" />
+                <Setter Property="HeightRequest" Value="35" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="BackgroundColor" Value="{x:Static statics:Palette._TitleTexts}" />
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._Black}" />
+            </Style>
+            <Style x:Key="buttonAccordionStyleSelected" TargetType="Button" BasedOn="{StaticResource buttonStyle}">
+                <Setter Property="FontSize" Value="{StaticResource FontSizeXXXSmall}" />
+                <Setter Property="BorderWidth" Value="2" />
+                <Setter Property="HeightRequest" Value="35" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="BackgroundColor" Value="{x:Static statics:Palette._MainAccent}" />
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._Black}" />
+            </Style>
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

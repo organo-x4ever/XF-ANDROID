@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<page:PendingXaml
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="com.organo.xchallenge.Pages.Content.Pending"
+    xmlns:page="clr-namespace:com.organo.xchallenge.Pages.Content"
+    xmlns:statics="clr-namespace:com.organo.xchallenge.Statics"
+    xmlns:translate="clr-namespace:com.organo.xchallenge.Localization"
+    xmlns:controls="clr-namespace:com.organo.xchallenge.Controls;assembly=com.organo.xchallenge">
+  <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+    <controls:TopBarAccountView></controls:TopBarAccountView>
+    <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+      <Label Text="{translate:Translate ContentComingShortly}" />
+    </StackLayout>
+      <controls:FooterView />
+  </StackLayout>
+</page:PendingXaml>

@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<page:RegisterPageXaml
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="com.organo.x4ever.Pages.Registration.RegisterPage"
+    xmlns:page="clr-namespace:com.organo.x4ever.Pages.Registration"
+    xmlns:controls="clr-namespace:com.organo.x4ever.Controls"
+    xmlns:statics="clr-namespace:com.organo.x4ever.Statics"
+    xmlns:translate="clr-namespace:com.organo.x4ever.Localization">
+  <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+    <controls:TopBarView></controls:TopBarView>
+    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,-6,0,0">
+      <StackLayout Margin="0,20,0,0">
+        <Label Text="{translate:Translate WelcomeCaps}" Style="{DynamicResource labelStyleXXMedium}" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+        <Label Text="{translate:Translate RegistrationCaps}" Style="{DynamicResource labelStyleXLargeHeader}" HorizontalOptions="Center" HorizontalTextAlignment="Center" Margin="0,-10,0,0" />
+      </StackLayout>
+      <StackLayout Margin="15,0,15,0">
+        <StackLayout Orientation="Vertical" VerticalOptions="Start" HorizontalOptions="CenterAndExpand">
+          <ActivityIndicator x:Name="activityIndicator" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" HorizontalOptions="Center" />
+          <Label IsVisible="{Binding IsBusy}" Text="{Binding BusyMessage}" Style="{DynamicResource labelBusyMessage}" />
+          <Label IsVisible="{Binding IsError}" Text="{Binding ErrorMessage}" Style="{DynamicResource labelErrorMessage}" />
+          <Label IsVisible="{Binding IsMessage}" Text="{Binding MessageText}" Style="{DynamicResource labelSuccessMessage}" />
+        </StackLayout>
+        <Grid IsVisible="{Binding IsEditable}">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+          </Grid.RowDefinitions>
+
+          <Picker Grid.Row="0" Grid.ColumnSpan="2" x:Name="pickerApplication" ItemsSource="{Binding ApplicationList}" Title="{translate:Translate SelectContinent}" SelectedItem="{Binding SelectedApplication, Mode=TwoWay}" Style="{DynamicResource pickerStyle}" />
+          <Entry Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding EmailAddress,Mode=TwoWay}" Placeholder="{translate:Translate EmailAddress}" IsPassword="False" Keyboard="Email" Style="{DynamicResource entryStyle}" Completed="Entry_Completed" x:Name="entryEmail" />
+          <Entry Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding UserPassword,Mode=TwoWay}" Placeholder="{translate:Translate Password}" IsPassword="True" Style="{DynamicResource entryStyle}" Completed="Entry_Completed" />
+          <Entry Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding UserConfirmPassword,Mode=TwoWay}" Placeholder="{translate:Translate ConfirmPassword}" IsPassword="True" Style="{DynamicResource entryStyle}" Completed="Entry_Completed" />
+          <Grid Grid.Row="4" Grid.ColumnSpan="2" Margin="0,15,0,8">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Image Grid.Row="0" Grid.Column="0" Source="{Binding CheckboxImageSource}" Margin="5,0,6,0" Style="{DynamicResource imageIconCheckbox}" HeightRequest="{Binding CheckboxImageHeight}" WidthRequest="{Binding CheckboxImageWidth}">
+              <Image.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding TermAndConditionsCheckCommand}" />
+              </Image.GestureRecognizers>
+            </Image>
+            <Label Grid.Row="0" Grid.Column="1" Text="{translate:Translate AcceptTermAndConditionsPart1}" Style="{DynamicResource labelStyleInfoCheck}" Margin="-7,0,0,0">
+              <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding TermAndConditionsCheckCommand}" />
+              </Label.GestureRecognizers>
+            </Label>
+            <Label Grid.Row="0" Grid.Column="2" Text="{translate:Translate TermAndConditions}" x:Name="linkTermAndConditions" Style="{DynamicResource labelStyleInfoCheckHighlight}" Margin="-3,0,0,0" />
+          </Grid>
+          <Button Grid.Row="5" Grid.ColumnSpan="2" x:Name="buttonSubmit" Text="{translate:Translate Submit}" Style="{DynamicResource buttonStyle}"></Button>
+          <Label Grid.Row="6" Grid.ColumnSpan="2" Text="{Binding LoginText, StringFormat='{0}?'}" x:Name="linkHaveAnAccount" Style="{DynamicResource labelStyleLink}" HorizontalOptions="End" Margin="0,-3,5,0" />
+        </Grid>
+      </StackLayout>
+    </StackLayout>
+    <controls:FooterView></controls:FooterView>
+  </StackLayout>
+</page:RegisterPageXaml>

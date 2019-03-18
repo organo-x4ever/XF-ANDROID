@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<page:UserSettingPageXaml
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="com.organo.xchallenge.Pages.UserSettings.UserSettingPage"
+    xmlns:page="clr-namespace:com.organo.xchallenge.Pages.UserSettings"
+    xmlns:controls="clr-namespace:com.organo.xchallenge.Controls;assembly=com.organo.xchallenge"
+    xmlns:localization="clr-namespace:com.organo.xchallenge.Localization;assembly=com.organo.xchallenge">
+  <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+    <Grid VerticalOptions="FillAndExpand">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
+      <StackLayout Orientation="Vertical" Grid.Row="0" Margin="0">
+        <Label Text="{localization:Translate UserSettings}" Style="{DynamicResource labelStyleXLargeHeader}" HorizontalOptions="Center" HorizontalTextAlignment="Center" Margin="0" />
+      </StackLayout>
+      <StackLayout Grid.Row="1" Orientation="Vertical" VerticalOptions="Start" HorizontalOptions="CenterAndExpand">
+        <TableView Intent="Settings" VerticalOptions="FillAndExpand" Margin="0">
+          <TableRoot>
+            <TableSection Title="{localization:Translate Settings}">
+              <ViewCell>
+                <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                  <Label Text="{Binding SettingLanguageText}" HorizontalOptions="StartAndExpand" Style="{DynamicResource labelStyleLink}" />
+                  <controls:LanguageOption x:Name="languageOption" HorizontalOptions="EndAndExpand"></controls:LanguageOption>
+                </StackLayout>
+              </ViewCell>
+              <ViewCell>
+                <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                  <Label Text="{Binding SettingWeightVolumeText}" HorizontalOptions="StartAndExpand" Style="{DynamicResource labelStyleLink}" />
+                  <Label Text="{Binding WeightVolumeSelected}" HorizontalOptions="EndAndExpand" Style="{DynamicResource labelStyleTableViewItem}">
+                    <Label.GestureRecognizers>
+                      <TapGestureRecognizer Command="{Binding VolumeSelectedCommand}" NumberOfTapsRequired="1" />
+                    </Label.GestureRecognizers>
+                  </Label>
+                  <Picker x:Name="PickerWeightVolume" IsVisible="False"></Picker>
+                </StackLayout>
+              </ViewCell>
+            </TableSection>
+          </TableRoot>
+        </TableView>
+      </StackLayout>
+    </Grid>
+    <controls:FooterView />
+  </StackLayout>
+</page:UserSettingPageXaml>

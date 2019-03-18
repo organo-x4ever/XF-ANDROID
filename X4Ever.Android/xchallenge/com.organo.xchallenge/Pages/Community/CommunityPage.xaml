@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<community:CommunityPageXaml xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:community="clr-namespace:com.organo.xchallenge.Pages.Community;assembly=com.organo.xchallenge"
+             xmlns:controls="clr-namespace:com.organo.xchallenge.Controls;assembly=com.organo.xchallenge"
+             xmlns:statics="clr-namespace:com.organo.xchallenge.Statics;assembly=com.organo.xchallenge"
+             x:Class="com.organo.xchallenge.Pages.Community.CommunityPage">
+    <community:CommunityPageXaml.Content>
+        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="0,-6,0,0">
+            <controls:TopBarAccountView></controls:TopBarAccountView>
+            <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="5,0,5,0" Margin="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Image Grid.RowSpan="4" Aspect="Fill" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Source="{Binding PageBackgroundImage}" Margin="0,0,0,5" />
+                <StackLayout Grid.Row="0" Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <StackLayout Margin="0" HorizontalOptions="FillAndExpand" BackgroundColor="{x:Static statics:Palette._Transparent}" />
+                    <StackLayout Margin="0" HorizontalOptions="FillAndExpand" BackgroundColor="{x:Static statics:Palette._Transparent}" />
+                </StackLayout>
+                <StackLayout Grid.Row="1" Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <StackLayout Margin="0" HorizontalOptions="FillAndExpand" BackgroundColor="{x:Static statics:Palette._Transparent}" />
+                    <StackLayout Margin="0" HorizontalOptions="FillAndExpand" BackgroundColor="{x:Static statics:Palette._Transparent}" />
+                </StackLayout>
+                <StackLayout Grid.Row="2" Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <StackLayout Margin="0" HorizontalOptions="FillAndExpand" BackgroundColor="{x:Static statics:Palette._Transparent}">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding FacebookCommand}"></TapGestureRecognizer>
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+                    <StackLayout Margin="0" HorizontalOptions="FillAndExpand" BackgroundColor="{x:Static statics:Palette._Transparent}" />
+                </StackLayout>
+                <StackLayout Grid.Row="3" Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <StackLayout Margin="0" HorizontalOptions="FillAndExpand" BackgroundColor="{x:Static statics:Palette._Transparent}" />
+                    <StackLayout Margin="0" HorizontalOptions="FillAndExpand" BackgroundColor="{x:Static statics:Palette._Transparent}">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding InstagramCommand}"></TapGestureRecognizer>
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+    </community:CommunityPageXaml.Content>
+</community:CommunityPageXaml>

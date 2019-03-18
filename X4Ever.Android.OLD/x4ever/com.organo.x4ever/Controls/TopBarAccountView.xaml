@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:statics="clr-namespace:com.organo.x4ever.Statics;assembly=com.organo.x4ever"
+             xmlns:extensions="clr-namespace:com.organo.x4ever.Extensions;assembly=com.organo.x4ever"
+             x:Class="com.organo.x4ever.Controls.TopBarAccountView">
+    <Grid BackgroundColor="{x:Static statics:Palette._MainAccent}" HorizontalOptions="FillAndExpand" VerticalOptions="End">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="35" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="35" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35" />
+        </Grid.RowDefinitions>
+        <StackLayout Grid.Column="0" Style="{DynamicResource stackMenuBar}" VerticalOptions="End" Padding="0,10,0,5">
+            <Image Source="{extensions:ImageResource TOP_BAR_MENU}" Style="{DynamicResource imageLogoMenu}" />
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding ShowSideMenuCommand}" />
+            </StackLayout.GestureRecognizers>
+        </StackLayout>
+        <StackLayout Grid.Column="1" HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,5">
+            <Image Source="{extensions:ImageResource TOP_BAR_LOGO}" Style="{DynamicResource imageLogoTransparent}">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding DeveloperCommand}" />
+                </Image.GestureRecognizers>
+            </Image>
+        </StackLayout>
+    </Grid>
+</ContentView>

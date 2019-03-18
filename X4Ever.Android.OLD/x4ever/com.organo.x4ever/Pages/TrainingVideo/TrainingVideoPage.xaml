@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<page:TrainingVideoPageXaml
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="com.organo.x4ever.Pages.TrainingVideo.TrainingVideoPage"
+    xmlns:page="clr-namespace:com.organo.x4ever.Pages.TrainingVideo"
+    xmlns:statics="clr-namespace:com.organo.x4ever.Statics"
+    xmlns:translate="clr-namespace:com.organo.x4ever.Localization"
+    xmlns:forms="clr-namespace:Plugin.MediaManager.Forms;assembly=Plugin.MediaManager.Forms"
+    xmlns:controls="clr-namespace:com.organo.x4ever.Controls;assembly=com.organo.x4ever">
+  <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+      <controls:TopBarAccountView></controls:TopBarAccountView>
+    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" Padding="2,-4,2,0" Margin="15,0,15,0">
+      <forms:VideoView AspectMode="AspectFit" HeightRequest="160" HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand"></forms:VideoView>
+      <StackLayout HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" Padding="0" Margin="0,-5,0,0">
+        <Label Text="{Binding CurrentMedia.MediaTitle}" Style="{DynamicResource labelStyleTextTitle}" LineBreakMode="TailTruncation"></Label>
+      </StackLayout>
+      <StackLayout HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" Padding="0" Margin="0,-8,0,0">
+        <Label Text="{Binding CurrentMedia.CategoryTitle}" Style="{DynamicResource labelStyleTextTitleIntern}" VerticalOptions="End"></Label>
+      </StackLayout>
+      <StackLayout HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" Padding="0" Margin="0,-5,0,0">
+        <Label Text="{Binding CurrentMedia.MediaDescription}" LineBreakMode="WordWrap" Style="{DynamicResource labelStyleInfoCheck}"></Label>
+      </StackLayout>
+      <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand" Margin="0">
+        <Button x:Name="ButtonPrevious" Text="{Binding ButtonPrevious}" Style="{DynamicResource buttonStyleGray}" Margin="-3,0,0,0"></Button>
+        <Button x:Name="ButtonPlayStop" Text="{Binding ButtonPlayStop}" Style="{DynamicResource buttonStyle}" Margin="-10,0,0,0"></Button>
+        <Button x:Name="ButtonNext" Text="{Binding ButtonNext}" Style="{DynamicResource buttonStyleGray}" Margin="-10,0,0,0"></Button>
+      </StackLayout>
+    </StackLayout>
+      <controls:FooterView />
+  </StackLayout>
+</page:TrainingVideoPageXaml>

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<test:MenuTopBarTestPageXaml xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:test="clr-namespace:com.organo.xchallenge.Pages.Test;assembly=com.organo.xchallenge"
+             xmlns:controls="clr-namespace:com.organo.xchallenge.Controls;assembly=com.organo.xchallenge"
+             x:Class="com.organo.xchallenge.Pages.Test.MenuTopBarTestPage"
+                             xmlns:statics="clr-namespace:com.organo.xchallenge.Statics"
+                             xmlns:localization="clr-namespace:com.organo.xchallenge.Localization;assembly=com.organo.xchallenge">
+    <controls:TopBarWithMenu x:Name="topBarWithMenu" 
+                             BarColor="{x:Static statics:Palette._MainAccent}" 
+                             BarHeight="50" 
+                             IsMenuVisible="True" 
+                             LogoImageMargin="0,5,0,5" 
+                             LogoImageSource="{localization:Translate logo_transparent}"
+                             LogoImageStyle="{DynamicResource imageLogoTransparent}"
+                             MenuImageMargin="20,5,0,5"
+                             MenuImageSource="{localization:Translate icon_menu}"
+                             MenuImageStyle="{DynamicResource imageLogoMenu}">
+
+    </controls:TopBarWithMenu>
+</test:MenuTopBarTestPageXaml>

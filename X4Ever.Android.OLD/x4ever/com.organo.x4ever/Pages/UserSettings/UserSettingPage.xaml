@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<page:UserSettingPageXaml
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="com.organo.x4ever.Pages.UserSettings.UserSettingPage"
+    xmlns:page="clr-namespace:com.organo.x4ever.Pages.UserSettings"
+    xmlns:controls="clr-namespace:com.organo.x4ever.Controls;assembly=com.organo.x4ever"
+    xmlns:localization="clr-namespace:com.organo.x4ever.Localization;assembly=com.organo.x4ever">
+    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <TableView Intent="Settings" VerticalOptions="FillAndExpand" Margin="0">
+            <TableRoot>
+                <TableSection Title="{localization:Translate Settings}">
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                            <Label Text="{Binding SettingLanguageText}" HorizontalOptions="StartAndExpand" Style="{DynamicResource labelStyleLink}" />
+                            <controls:LanguageOption x:Name="languageOption" HorizontalOptions="EndAndExpand"></controls:LanguageOption>
+                        </StackLayout>
+                    </ViewCell>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                            <Label Text="{Binding SettingWeightVolumeText}" HorizontalOptions="StartAndExpand" Style="{DynamicResource labelStyleLink}" />
+                            <Label Text="{Binding WeightVolumeSelected}" HorizontalOptions="EndAndExpand" Style="{DynamicResource labelStyleTableViewItem}">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding VolumeSelectedCommand}" NumberOfTapsRequired="1" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Picker x:Name="PickerWeightVolume" IsVisible="False"></Picker>
+                        </StackLayout>
+                    </ViewCell>
+                </TableSection>
+            </TableRoot>
+        </TableView>
+        <controls:FooterView />
+    </StackLayout>
+</page:UserSettingPageXaml>

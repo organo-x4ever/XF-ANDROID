@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<errorPages:InternetConnectionXamlPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:errorPages="clr-namespace:com.organo.x4ever.Pages.ErrorPages;assembly=com.organo.x4ever"
+             xmlns:extensions="clr-namespace:com.organo.x4ever.Extensions;assembly=com.organo.x4ever"
+             xmlns:statics="clr-namespace:com.organo.x4ever.Statics;assembly=com.organo.x4ever"
+             xmlns:localization="clr-namespace:com.organo.x4ever.Localization;assembly=com.organo.x4ever"
+             xmlns:controls="clr-namespace:com.organo.x4ever.Controls;assembly=com.organo.x4ever"
+             x:Class="com.organo.x4ever.Pages.ErrorPages.InternetConnectionPage">
+    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <controls:TopBarView></controls:TopBarView>
+        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,-6,0,0">
+            <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                <Label Text="{localization:Translate NoInternetConnectionCAPS}"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand"
+                   Style="{DynamicResource labelStyleXXXMedium}">
+                </Label>
+                <Label Text="{localization:Translate NoInternetConnection}"
+                       VerticalOptions="CenterAndExpand" 
+                       HorizontalOptions="CenterAndExpand"
+                       Style="{DynamicResource labelStyleMedium}">
+                </Label>
+
+                <Label Text="{localization:Translate GoBackToLogin}" 
+                       IsVisible="{Binding IsVisible}"
+                   VerticalOptions="Start"
+                   HorizontalOptions="Center" 
+                   Margin="0,20,0,0" 
+                   Style="{DynamicResource labelStyleInfoHighlightSmall}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding LoginCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </StackLayout>
+        </StackLayout>
+        <controls:FooterView />
+    </StackLayout>
+</errorPages:InternetConnectionXamlPage>

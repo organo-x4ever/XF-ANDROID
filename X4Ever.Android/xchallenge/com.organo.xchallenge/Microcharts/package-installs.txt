@@ -1,0 +1,287 @@
+﻿Each package is licensed to you by its owner. NuGet is not responsible for, nor does it grant any licenses to, third-party packages. Some packages may include dependencies which are governed by additional licenses. Follow the package source (feed) URL to determine any dependencies.
+
+Package Manager Console Host Version 4.4.0.4475
+
+Type 'get-help NuGet' to see all available NuGet commands.
+
+PM> Install-Package Microsoft.Net.Http -version 2.2.29
+
+Attempting to gather dependency information for package 'Microsoft.Net.Http.2.2.29' with respect to project 'a.xchallenge\com.organo.xchallenge.Android', targeting 'MonoAndroid,Version=v8.0'
+Gathering dependency information took 950.13 ms
+Attempting to resolve dependencies for package 'Microsoft.Net.Http.2.2.29' with DependencyBehavior 'Lowest'
+Resolving dependency information took 0 ms
+Resolving actions to install package 'Microsoft.Net.Http.2.2.29'
+Resolved actions to install package 'Microsoft.Net.Http.2.2.29'
+Found package 'Microsoft.Net.Http 2.2.29' in 'C:\Xamarin Mobile\XChallenge\packages'.
+Package 'Microsoft.Net.Http.2.2.29' already exists in folder 'C:\Xamarin Mobile\XChallenge\packages'
+Added package 'Microsoft.Net.Http.2.2.29' to 'packages.config'
+Successfully installed 'Microsoft.Net.Http 2.2.29' to com.organo.xchallenge.Android
+Executing nuget actions took 7.85 sec
+Time Elapsed: 00:00:09.0118866
+PM> uninstall-package Microcharts -version 0.7.1
+Uninstall-Package : Package 'Microcharts' to be uninstalled could not be found in project 'com.organo.xchallenge.Android'
+At line:1 char:18
++ uninstall-package <<<<  Microcharts -version 0.7.1
+    + CategoryInfo          : NotSpecified: (:) [Uninstall-Package], Exception
+    + FullyQualifiedErrorId : NuGetCmdletUnhandledException,NuGet.PackageManagement.PowerShellCmdlets.UninstallPackageCommand
+
+Time Elapsed: 00:00:02.3531680
+PM> uninstall-package Microcharts.Forms -version 0.7.1
+
+Attempting to gather dependency information for package 'Microcharts.Forms.0.7.1' with respect to project 'a.xchallenge\com.organo.xchallenge.Android', targeting 'MonoAndroid,Version=v8.0'
+Resolving actions to uninstall package 'Microcharts.Forms.0.7.1'
+Resolved actions to uninstall package 'Microcharts.Forms.0.7.1'
+Removed package 'Microcharts.Forms.0.7.1' from 'packages.config'
+Successfully uninstalled 'Microcharts.Forms.0.7.1' from com.organo.xchallenge.Android
+Removing package 'Microcharts.Forms.0.7.1' from folder 'C:\Xamarin Mobile\XChallenge\packages'
+Removed package 'Microcharts.Forms.0.7.1' from folder 'C:\Xamarin Mobile\XChallenge\packages'
+Executing nuget actions took 1.65 min
+Time Elapsed: 00:01:39.0991198
+PM> Uninstall-Package SkiaSharp -version 1.59.1
+
+Attempting to gather dependency information for package 'SkiaSharp.1.59.1' with respect to project 'a.xchallenge\com.organo.xchallenge.Android', targeting 'MonoAndroid,Version=v8.0'
+Resolving actions to uninstall package 'SkiaSharp.1.59.1'
+Uninstall-Package : Unable to uninstall 'SkiaSharp.1.59.1' because 'SkiaSharp.Views.1.59.1.1, SkiaSharp.Views.Forms.1.59.1.1' depend on it.
+At line:1 char:18
++ Uninstall-Package <<<<  SkiaSharp -version 1.59.1
+    + CategoryInfo          : NotSpecified: (:) [Uninstall-Package], Exception
+    + FullyQualifiedErrorId : NuGetCmdletUnhandledException,NuGet.PackageManagement.PowerShellCmdlets.UninstallPackageCommand
+
+Time Elapsed: 00:00:00.1335338
+PM> Uninstall-Package SkiaSharp.Views -version 1.59.1.1
+
+Attempting to gather dependency information for package 'SkiaSharp.Views.1.59.1.1' with respect to project 'a.xchallenge\com.organo.xchallenge.Android', targeting 'MonoAndroid,Version=v8.0'
+Resolving actions to uninstall package 'SkiaSharp.Views.1.59.1.1'
+Uninstall-Package : Unable to uninstall 'SkiaSharp.Views.1.59.1.1' because 'SkiaSharp.Views.Forms.1.59.1.1' depends on it.
+At line:1 char:18
++ Uninstall-Package <<<<  SkiaSharp.Views -version 1.59.1.1
+    + CategoryInfo          : NotSpecified: (:) [Uninstall-Package], Exception
+    + FullyQualifiedErrorId : NuGetCmdletUnhandledException,NuGet.PackageManagement.PowerShellCmdlets.UninstallPackageCommand
+
+Time Elapsed: 00:00:00.1187573
+PM> Uninstall-Package SkiaSharp.Views.Forms -version 1.59.1.1
+
+Attempting to gather dependency information for package 'SkiaSharp.Views.Forms.1.59.1.1' with respect to project 'a.xchallenge\com.organo.xchallenge.Android', targeting 'MonoAndroid,Version=v8.0'
+Resolving actions to uninstall package 'SkiaSharp.Views.Forms.1.59.1.1'
+Resolved actions to uninstall package 'SkiaSharp.Views.Forms.1.59.1.1'
+Removed package 'SkiaSharp.Views.Forms.1.59.1.1' from 'packages.config'
+Successfully uninstalled 'SkiaSharp.Views.Forms.1.59.1.1' from com.organo.xchallenge.Android
+Removing package 'SkiaSharp.Views.Forms.1.59.1.1' from folder 'C:\Xamarin Mobile\XChallenge\packages'
+Removed package 'SkiaSharp.Views.Forms.1.59.1.1' from folder 'C:\Xamarin Mobile\XChallenge\packages'
+Executing nuget actions took 28.03 sec
+Time Elapsed: 00:00:28.1328287
+PM> Uninstall-Package SkiaSharp.Views -version 1.59.1.1
+
+Attempting to gather dependency information for package 'SkiaSharp.Views.1.59.1.1' with respect to project 'a.xchallenge\com.organo.xchallenge.Android', targeting 'MonoAndroid,Version=v8.0'
+Resolving actions to uninstall package 'SkiaSharp.Views.1.59.1.1'
+Resolved actions to uninstall package 'SkiaSharp.Views.1.59.1.1'
+Removed package 'SkiaSharp.Views.1.59.1.1' from 'packages.config'
+Successfully uninstalled 'SkiaSharp.Views.1.59.1.1' from com.organo.xchallenge.Android
+Removing package 'SkiaSharp.Views.1.59.1.1' from folder 'C:\Xamarin Mobile\XChallenge\packages'
+Removed package 'SkiaSharp.Views.1.59.1.1' from folder 'C:\Xamarin Mobile\XChallenge\packages'
+Executing nuget actions took 24.89 sec
+Time Elapsed: 00:00:24.9978894
+PM> Uninstall-Package SkiaSharp -version 1.59.1
+
+Attempting to gather dependency information for package 'SkiaSharp.1.59.1' with respect to project 'a.xchallenge\com.organo.xchallenge.Android', targeting 'MonoAndroid,Version=v8.0'
+Resolving actions to uninstall package 'SkiaSharp.1.59.1'
+Resolved actions to uninstall package 'SkiaSharp.1.59.1'
+Removed package 'SkiaSharp.1.59.1' from 'packages.config'
+Successfully uninstalled 'SkiaSharp.1.59.1' from com.organo.xchallenge.Android
+Removing package 'SkiaSharp.1.59.1' from folder 'C:\Xamarin Mobile\XChallenge\packages'
+Removed package 'SkiaSharp.1.59.1' from folder 'C:\Xamarin Mobile\XChallenge\packages'
+Executing nuget actions took 53.1 sec
+Time Elapsed: 00:00:53.2065504
+PM> uninstall-package Microcharts.Forms -version 0.7.1
+Uninstall-Package : Package 'Microcharts.Forms' to be uninstalled could not be found in project 'com.organo.xchallenge.Android'
+At line:1 char:18
++ uninstall-package <<<<  Microcharts.Forms -version 0.7.1
+    + CategoryInfo          : NotSpecified: (:) [Uninstall-Package], Exception
+    + FullyQualifiedErrorId : NuGetCmdletUnhandledException,NuGet.PackageManagement.PowerShellCmdlets.UninstallPackageCommand
+
+Time Elapsed: 00:00:00.0374644
+PM> uninstall-package System.ValueTuple -version 4.4.0
+
+Attempting to gather dependency information for package 'System.ValueTuple.4.4.0' with respect to project 'a.xchallenge\com.organo.xchallenge.Android', targeting 'MonoAndroid,Version=v8.0'
+Resolving actions to uninstall package 'System.ValueTuple.4.4.0'
+Resolved actions to uninstall package 'System.ValueTuple.4.4.0'
+Removed package 'System.ValueTuple.4.4.0' from 'packages.config'
+Successfully uninstalled 'System.ValueTuple.4.4.0' from com.organo.xchallenge.Android
+Removing package 'System.ValueTuple.4.4.0' from folder 'C:\Xamarin Mobile\XChallenge\packages'
+Removed package 'System.ValueTuple.4.4.0' from folder 'C:\Xamarin Mobile\XChallenge\packages'
+Executing nuget actions took 29.19 sec
+Time Elapsed: 00:00:29.2926164
+PM> uninstall-package Microcharts.Forms -version 0.7.1
+Uninstall-Package : Package 'Microcharts.Forms' to be uninstalled could not be found in project 'com.organo.xchallenge'
+At line:1 char:18
++ uninstall-package <<<<  Microcharts.Forms -version 0.7.1
+    + CategoryInfo          : NotSpecified: (:) [Uninstall-Package], Exception
+    + FullyQualifiedErrorId : NuGetCmdletUnhandledException,NuGet.PackageManagement.PowerShellCmdlets.UninstallPackageCommand
+
+Time Elapsed: 00:00:00.0401671
+PM> Uninstall-Package SkiaSharp.Views.Forms -version 1.59.1.1
+Uninstall-Package : Package 'SkiaSharp.Views.Forms' to be uninstalled could not be found in project 'com.organo.xchallenge'
+At line:1 char:18
++ Uninstall-Package <<<<  SkiaSharp.Views.Forms -version 1.59.1.1
+    + CategoryInfo          : NotSpecified: (:) [Uninstall-Package], Exception
+    + FullyQualifiedErrorId : NuGetCmdletUnhandledException,NuGet.PackageManagement.PowerShellCmdlets.UninstallPackageCommand
+
+Time Elapsed: 00:00:00.0453078
+PM> Uninstall-Package SkiaSharp.Views -version 1.59.1.1
+Uninstall-Package : Package 'SkiaSharp.Views' to be uninstalled could not be found in project 'com.organo.xchallenge'
+At line:1 char:18
++ Uninstall-Package <<<<  SkiaSharp.Views -version 1.59.1.1
+    + CategoryInfo          : NotSpecified: (:) [Uninstall-Package], Exception
+    + FullyQualifiedErrorId : NuGetCmdletUnhandledException,NuGet.PackageManagement.PowerShellCmdlets.UninstallPackageCommand
+
+Time Elapsed: 00:00:00.0515174
+PM> Uninstall-Package SkiaSharp -version 1.59.1
+Uninstall-Package : Package 'SkiaSharp' to be uninstalled could not be found in project 'com.organo.xchallenge'
+At line:1 char:18
++ Uninstall-Package <<<<  SkiaSharp -version 1.59.1
+    + CategoryInfo          : NotSpecified: (:) [Uninstall-Package], Exception
+    + FullyQualifiedErrorId : NuGetCmdletUnhandledException,NuGet.PackageManagement.PowerShellCmdlets.UninstallPackageCommand
+
+Time Elapsed: 00:00:00.0505964
+PM> uninstall-package Microcharts.Forms -version 0.7.1
+Uninstall-Package : Package 'Microcharts.Forms' to be uninstalled could not be found in project 'com.organo.xchallenge'
+At line:1 char:18
++ uninstall-package <<<<  Microcharts.Forms -version 0.7.1
+    + CategoryInfo          : NotSpecified: (:) [Uninstall-Package], Exception
+    + FullyQualifiedErrorId : NuGetCmdletUnhandledException,NuGet.PackageManagement.PowerShellCmdlets.UninstallPackageCommand
+
+Time Elapsed: 00:00:00.0467207
+PM> uninstall-package System.ValueTuple -version 4.4.0
+Uninstall-Package : Package 'System.ValueTuple' to be uninstalled could not be found in project 'com.organo.xchallenge'
+At line:1 char:18
++ uninstall-package <<<<  System.ValueTuple -version 4.4.0
+    + CategoryInfo          : NotSpecified: (:) [Uninstall-Package], Exception
+    + FullyQualifiedErrorId : NuGetCmdletUnhandledException,NuGet.PackageManagement.PowerShellCmdlets.UninstallPackageCommand
+
+Time Elapsed: 00:00:00.0429984
+PM> Install-Package Microcharts -Version 0.8.1-pre
+
+Attempting to gather dependency information for package 'Microcharts.0.8.1-pre' with respect to project 'a.xchallenge\com.organo.xchallenge', targeting '.NETPortable,Version=v4.5,Profile=Profile111'
+Gathering dependency information took 1.34 sec
+Attempting to resolve dependencies for package 'Microcharts.0.8.1-pre' with DependencyBehavior 'Lowest'
+Resolving dependency information took 0 ms
+Resolving actions to install package 'Microcharts.0.8.1-pre'
+Resolved actions to install package 'Microcharts.0.8.1-pre'
+Retrieving package 'Microcharts 0.8.1-pre' from 'nuget.org'.
+Retrieving package 'SkiaSharp 1.59.1' from 'nuget.org'.
+Retrieving package 'System.ValueTuple 4.4.0' from 'nuget.org'.
+  GET https://www.nuget.org/api/v2/package/Microcharts/0.8.1-pre
+Adding package 'SkiaSharp.1.59.1' to folder 'C:\Xamarin Mobile\XChallenge\packages'
+  OK https://www.nuget.org/api/v2/package/Microcharts/0.8.1-pre 504ms
+Installing Microcharts 0.8.1-pre.
+Added package 'SkiaSharp.1.59.1' to folder 'C:\Xamarin Mobile\XChallenge\packages'
+Added package 'SkiaSharp.1.59.1' to 'packages.config'
+Successfully installed 'SkiaSharp 1.59.1' to com.organo.xchallenge
+Adding package 'System.ValueTuple.4.4.0' to folder 'C:\Xamarin Mobile\XChallenge\packages'
+Added package 'System.ValueTuple.4.4.0' to folder 'C:\Xamarin Mobile\XChallenge\packages'
+Added package 'System.ValueTuple.4.4.0' to 'packages.config'
+Successfully installed 'System.ValueTuple 4.4.0' to com.organo.xchallenge
+Adding package 'Microcharts.0.8.1-pre' to folder 'C:\Xamarin Mobile\XChallenge\packages'
+Added package 'Microcharts.0.8.1-pre' to folder 'C:\Xamarin Mobile\XChallenge\packages'
+Added package 'Microcharts.0.8.1-pre' to 'packages.config'
+Successfully installed 'Microcharts 0.8.1-pre' to com.organo.xchallenge
+Executing nuget actions took 23.14 sec
+Time Elapsed: 00:00:24.5847248
+PM> Uninstall-Package Microcharts -Version 0.8.1-pre
+
+Attempting to gather dependency information for package 'Microcharts.0.8.1-pre' with respect to project 'a.xchallenge\com.organo.xchallenge', targeting '.NETPortable,Version=v4.5,Profile=Profile111'
+Resolving actions to uninstall package 'Microcharts.0.8.1-pre'
+Resolved actions to uninstall package 'Microcharts.0.8.1-pre'
+Removed package 'Microcharts.0.8.1-pre' from 'packages.config'
+Successfully uninstalled 'Microcharts.0.8.1-pre' from com.organo.xchallenge
+Removing package 'Microcharts.0.8.1-pre' from folder 'C:\Xamarin Mobile\XChallenge\packages'
+Removed package 'Microcharts.0.8.1-pre' from folder 'C:\Xamarin Mobile\XChallenge\packages'
+Executing nuget actions took 4.31 sec
+Time Elapsed: 00:00:04.4661737
+PM> Install-Package Microcharts -Version 0.8.3-pre
+
+Attempting to gather dependency information for package 'Microcharts.0.8.3-pre' with respect to project 'a.xchallenge\com.organo.xchallenge', targeting '.NETPortable,Version=v4.5,Profile=Profile111'
+Gathering dependency information took 666.02 ms
+Attempting to resolve dependencies for package 'Microcharts.0.8.3-pre' with DependencyBehavior 'Lowest'
+Resolving dependency information took 0 ms
+Resolving actions to install package 'Microcharts.0.8.3-pre'
+Resolved actions to install package 'Microcharts.0.8.3-pre'
+Retrieving package 'Microcharts 0.8.3-pre' from 'nuget.org'.
+  GET https://www.nuget.org/api/v2/package/Microcharts/0.8.3-pre
+  OK https://www.nuget.org/api/v2/package/Microcharts/0.8.3-pre 411ms
+Installing Microcharts 0.8.3-pre.
+Adding package 'Microcharts.0.8.3-pre' to folder 'C:\Xamarin Mobile\XChallenge\packages'
+Added package 'Microcharts.0.8.3-pre' to folder 'C:\Xamarin Mobile\XChallenge\packages'
+Added package 'Microcharts.0.8.3-pre' to 'packages.config'
+Successfully installed 'Microcharts 0.8.3-pre' to com.organo.xchallenge
+Executing nuget actions took 2.31 sec
+Time Elapsed: 00:00:05.9417704
+PM> Install-Package Microcharts -Version 0.8.3-pre
+
+Attempting to gather dependency information for package 'Microcharts.0.8.3-pre' with respect to project 'a.xchallenge\com.organo.xchallenge.Android', targeting 'MonoAndroid,Version=v8.0'
+Gathering dependency information took 616.44 ms
+Attempting to resolve dependencies for package 'Microcharts.0.8.3-pre' with DependencyBehavior 'Lowest'
+Resolving dependency information took 0 ms
+Resolving actions to install package 'Microcharts.0.8.3-pre'
+Resolved actions to install package 'Microcharts.0.8.3-pre'
+Found package 'Microcharts 0.8.3-pre' in 'C:\Xamarin Mobile\XChallenge\packages'.
+Found package 'SkiaSharp 1.59.1' in 'C:\Xamarin Mobile\XChallenge\packages'.
+Retrieving package 'SkiaSharp.Views 1.59.1.1' from 'nuget.org'.
+Package 'SkiaSharp.1.59.1' already exists in folder 'C:\Xamarin Mobile\XChallenge\packages'
+Added package 'SkiaSharp.1.59.1' to 'packages.config'
+Successfully installed 'SkiaSharp 1.59.1' to com.organo.xchallenge.Android
+Adding package 'SkiaSharp.Views.1.59.1.1' to folder 'C:\Xamarin Mobile\XChallenge\packages'
+Added package 'SkiaSharp.Views.1.59.1.1' to folder 'C:\Xamarin Mobile\XChallenge\packages'
+Added package 'SkiaSharp.Views.1.59.1.1' to 'packages.config'
+Successfully installed 'SkiaSharp.Views 1.59.1.1' to com.organo.xchallenge.Android
+Package 'Microcharts.0.8.3-pre' already exists in folder 'C:\Xamarin Mobile\XChallenge\packages'
+Added package 'Microcharts.0.8.3-pre' to 'packages.config'
+Successfully installed 'Microcharts 0.8.3-pre' to com.organo.xchallenge.Android
+Executing nuget actions took 13.76 sec
+Time Elapsed: 00:00:14.4554186
+PM> Install-Package Microcharts.Forms -Version 0.8.3-pre
+
+Attempting to gather dependency information for package 'Microcharts.Forms.0.8.3-pre' with respect to project 'a.xchallenge\com.organo.xchallenge.Android', targeting 'MonoAndroid,Version=v8.0'
+Gathering dependency information took 2.55 sec
+Attempting to resolve dependencies for package 'Microcharts.Forms.0.8.3-pre' with DependencyBehavior 'Lowest'
+Resolving dependency information took 0 ms
+Resolving actions to install package 'Microcharts.Forms.0.8.3-pre'
+Resolved actions to install package 'Microcharts.Forms.0.8.3-pre'
+Retrieving package 'Microcharts.Forms 0.8.3-pre' from 'nuget.org'.
+Retrieving package 'SkiaSharp.Views.Forms 1.59.1.1' from 'nuget.org'.
+Found package 'System.ValueTuple 4.4.0' in 'C:\Xamarin Mobile\XChallenge\packages'.
+  GET https://www.nuget.org/api/v2/package/Microcharts.Forms/0.8.3-pre
+Package 'System.ValueTuple.4.4.0' already exists in folder 'C:\Xamarin Mobile\XChallenge\packages'
+Added package 'System.ValueTuple.4.4.0' to 'packages.config'
+Successfully installed 'System.ValueTuple 4.4.0' to com.organo.xchallenge.Android
+Adding package 'SkiaSharp.Views.Forms.1.59.1.1' to folder 'C:\Xamarin Mobile\XChallenge\packages'
+  OK https://www.nuget.org/api/v2/package/Microcharts.Forms/0.8.3-pre 498ms
+Installing Microcharts.Forms 0.8.3-pre.
+Added package 'SkiaSharp.Views.Forms.1.59.1.1' to folder 'C:\Xamarin Mobile\XChallenge\packages'
+Added package 'SkiaSharp.Views.Forms.1.59.1.1' to 'packages.config'
+Successfully installed 'SkiaSharp.Views.Forms 1.59.1.1' to com.organo.xchallenge.Android
+Adding package 'Microcharts.Forms.0.8.3-pre' to folder 'C:\Xamarin Mobile\XChallenge\packages'
+Added package 'Microcharts.Forms.0.8.3-pre' to folder 'C:\Xamarin Mobile\XChallenge\packages'
+Added package 'Microcharts.Forms.0.8.3-pre' to 'packages.config'
+Successfully installed 'Microcharts.Forms 0.8.3-pre' to com.organo.xchallenge.Android
+Executing nuget actions took 42.5 sec
+Time Elapsed: 00:00:45.1300478
+PM> Install-Package Microcharts.Forms -Version 0.8.3-pre
+
+Attempting to gather dependency information for package 'Microcharts.Forms.0.8.3-pre' with respect to project 'a.xchallenge\com.organo.xchallenge', targeting '.NETPortable,Version=v4.5,Profile=Profile111'
+Gathering dependency information took 2.02 sec
+Attempting to resolve dependencies for package 'Microcharts.Forms.0.8.3-pre' with DependencyBehavior 'Lowest'
+Resolving dependency information took 0 ms
+Resolving actions to install package 'Microcharts.Forms.0.8.3-pre'
+Resolved actions to install package 'Microcharts.Forms.0.8.3-pre'
+Found package 'Microcharts.Forms 0.8.3-pre' in 'C:\Xamarin Mobile\XChallenge\packages'.
+Found package 'SkiaSharp.Views.Forms 1.59.1.1' in 'C:\Xamarin Mobile\XChallenge\packages'.
+Package 'SkiaSharp.Views.Forms.1.59.1.1' already exists in folder 'C:\Xamarin Mobile\XChallenge\packages'
+Added package 'SkiaSharp.Views.Forms.1.59.1.1' to 'packages.config'
+Successfully installed 'SkiaSharp.Views.Forms 1.59.1.1' to com.organo.xchallenge
+Package 'Microcharts.Forms.0.8.3-pre' already exists in folder 'C:\Xamarin Mobile\XChallenge\packages'
+Added package 'Microcharts.Forms.0.8.3-pre' to 'packages.config'
+Successfully installed 'Microcharts.Forms 0.8.3-pre' to com.organo.xchallenge
+Executing nuget actions took 2.67 sec
+Time Elapsed: 00:00:04.7647404
+PM> 

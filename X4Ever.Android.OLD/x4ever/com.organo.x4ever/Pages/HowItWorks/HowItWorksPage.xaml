@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<page:HowItWorksXamlPage
+    xmlns:page="clr-namespace:com.organo.x4ever.Pages.HowItWorks" xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:com.organo.x4ever.Controls;assembly=com.organo.x4ever"
+             xmlns:statics="clr-namespace:com.organo.x4ever.Statics;assembly=com.organo.x4ever"
+             xmlns:localization="clr-namespace:com.organo.x4ever.Localization;assembly=com.organo.x4ever"
+             x:Class="com.organo.x4ever.Pages.HowItWorks.HowItWorksPage">
+    <page:HowItWorksXamlPage.Content>
+        <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <controls:TopBarAccountView></controls:TopBarAccountView>
+            <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="0" Margin="0,-6,0,0">
+                <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="0,20,0,0">
+                    <Label Margin="0,10,0,0" Text="{localization:Translate HowItWorksCAPS}" Style="{DynamicResource labelStyleXLargeHeader}" HorizontalOptions="Center" />
+                    <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" Margin="0,20,0,0">
+                        <Label Text="{localization:Translate SignUpCAPS}" Style="{DynamicResource labelStyleLargeMedium}" HorizontalOptions="Center" />
+                        <Image Source="{Binding SignUpSource}" HorizontalOptions="Center" VerticalOptions="Start" HeightRequest="{Binding ImageHeight_SignUp}" WidthRequest="{Binding ImageWidth_SignUp}" />
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" Margin="0,30,0,0">
+                        <Label Text="{localization:Translate ProductsCAPS}" Style="{DynamicResource labelStyleLargeMedium}" HorizontalOptions="Center" />
+                        <Image Source="{Binding ProductsSource}" HorizontalOptions="Center" VerticalOptions="Start" HeightRequest="{Binding ImageHeight_Products}" WidthRequest="{Binding ImageWidth_Products}" />
+                        <Label Text="{localization:Translate page_product_text}" Style="{DynamicResource labelStyleInfoHighlightSmall}" TextColor="{x:Static statics:Palette._TitleTexts}" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" Margin="0,30,0,0">
+                        <Label Text="{localization:Translate LoseWeightCAPS}" Style="{DynamicResource labelStyleLargeMedium}" HorizontalOptions="Center" />
+                        <Image Source="{Binding LoseWeightSource}" HorizontalOptions="Center" VerticalOptions="Start" HeightRequest="{Binding ImageHeight_LoseWeight}" WidthRequest="{Binding ImageWidth_LoseWeight}" />
+                        <Label Text="{localization:Translate page_lose_weight_text}" Style="{DynamicResource labelStyleInfoHighlightSmall}" TextColor="{x:Static statics:Palette._TitleTexts}" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" Margin="0,30,0,20">
+                        <Label Text="{localization:Translate EarnRewardsCAPS}" Style="{DynamicResource labelStyleLargeMedium}" HorizontalOptions="Center" />
+                        <Image Source="{Binding EarnRewardsSource}" HorizontalOptions="Center" VerticalOptions="Start" HeightRequest="{Binding ImageHeight_EarnRewards}" WidthRequest="{Binding ImageWidth_EarnRewards}" />
+                        <Label Text="{localization:Translate page_earn_reward_text}" Style="{DynamicResource labelStyleInfoHighlightSmall}" TextColor="{x:Static statics:Palette._TitleTexts}" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+                    </StackLayout>
+                    <controls:FooterView />
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+    </page:HowItWorksXamlPage.Content>
+</page:HowItWorksXamlPage>

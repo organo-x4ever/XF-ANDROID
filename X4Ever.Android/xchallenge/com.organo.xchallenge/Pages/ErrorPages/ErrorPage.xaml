@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<errorPages:ErrorPageXaml xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:errorPages="clr-namespace:com.organo.xchallenge.Pages.ErrorPages;assembly=com.organo.xchallenge"
+             xmlns:controls="clr-namespace:com.organo.xchallenge.Controls;assembly=com.organo.xchallenge"
+             x:Class="com.organo.xchallenge.Pages.ErrorPages.ErrorPage">
+    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <controls:TopBarView></controls:TopBarView>
+        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,-6,0,0">
+            <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                <Label Text="{Binding ErrorText}"
+                       VerticalOptions="CenterAndExpand" 
+                       HorizontalOptions="CenterAndExpand"
+                       Style="{DynamicResource labelStyleMedium}">
+                </Label>
+            </StackLayout>
+        </StackLayout>
+        <controls:FooterView />
+    </StackLayout>
+</errorPages:ErrorPageXaml>

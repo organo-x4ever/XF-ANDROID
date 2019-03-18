@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ogx:OgxSystemXaml xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ogx="clr-namespace:com.organo.x4ever.Pages.OGX;assembly=com.organo.x4ever"
+             xmlns:statics="clr-namespace:com.organo.x4ever.Statics;assembly=com.organo.x4ever"
+             xmlns:localization="clr-namespace:com.organo.x4ever.Localization;assembly=com.organo.x4ever"
+             xmlns:controls="clr-namespace:com.organo.x4ever.Controls;assembly=com.organo.x4ever"
+             x:Class="com.organo.x4ever.Pages.OGX.OgxSystemPage">
+  <ogx:OgxSystemXaml.Content>
+    <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+      <controls:TopBarAccountView></controls:TopBarAccountView>
+      <StackLayout x:Name="stackLayoutContent" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,-6,0,0" Padding="0"></StackLayout>
+    </StackLayout>
+  </ogx:OgxSystemXaml.Content>
+</ogx:OgxSystemXaml>

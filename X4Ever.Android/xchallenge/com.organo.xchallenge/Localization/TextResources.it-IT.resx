@@ -1,0 +1,1827 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutYourJourney" xml:space="preserve">
+    <value>Informazioni sul tuo viaggio</value>
+  </data>
+  <data name="AcceptTermAndConditions" xml:space="preserve">
+    <value>Il sottoscritto accetta i Termini e le condizioni per l'utilizzo dell'applicazione.</value>
+  </data>
+  <data name="AcceptTermAndConditions1" xml:space="preserve">
+    <value>Il sottoscritto accetta {0} per l'utilizzo dell'applicazione.</value>
+  </data>
+  <data name="AcceptTermAndConditionsPart1" xml:space="preserve">
+    <value>Il sottoscritto accetta ____________</value>
+  </data>
+  <data name="AcceptTermAndConditionsPart2" xml:space="preserve">
+    <value>per l'utilizzo dell'applicazione.</value>
+  </data>
+  <data name="AccountStatusInactive" xml:space="preserve">
+    <value>Si prega di contattare l'amministratore o la persona responsabile poiché questo account è stato disattivato.</value>
+  </data>
+  <data name="AccountStatusNote" xml:space="preserve">
+    <value>Un link di conferma è stato inviato all'indirizzo e-mail fornito. Si prega di confermare il proprio indirizzo e-mail al primo accesso.</value>
+  </data>
+  <data name="ActionNotCompleted" xml:space="preserve">
+    <value>Non è stato possibile completare l'azione.</value>
+  </data>
+  <data name="ActivePlan" xml:space="preserve">
+    <value>ATTIVO</value>
+  </data>
+  <data name="AddAccount" xml:space="preserve">
+    <value>Aggiungi account.</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Indirizzo</value>
+  </data>
+  <data name="AddressCaps" xml:space="preserve">
+    <value>INDIRIZZO</value>
+  </data>
+  <data name="After" xml:space="preserve">
+    <value>Dopo</value>
+  </data>
+  <data name="Age" xml:space="preserve">
+    <value>Età</value>
+  </data>
+  <data name="Alert" xml:space="preserve">
+    <value>Avviso</value>
+  </data>
+  <data name="AppVersion" xml:space="preserve">
+    <value>Version {0}</value>
+  </data>
+  <data name="Authentication" xml:space="preserve">
+    <value>Autenticazione</value>
+  </data>
+  <data name="AuthenticationCode" xml:space="preserve">
+    <value>Codice di autenticazione</value>
+  </data>
+  <data name="AuthorizationCode" xml:space="preserve">
+    <value>Codice di autorizzazione</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Indietro</value>
+  </data>
+  <data name="BackButtonPressExistConfirmation" xml:space="preserve">
+    <value>Vuoi davvero uscire dall'app?</value>
+  </data>
+  <data name="BadgeHintSubTitle" xml:space="preserve">
+    <value>Riceverai una spilla quando:</value>
+  </data>
+  <data name="BadgesCAPS" xml:space="preserve">
+    <value>SPILLE</value>
+  </data>
+  <data name="Badge_Bronze" xml:space="preserve">
+    <value>badge_bronze.png</value>
+  </data>
+  <data name="Badge_Bronze_106" xml:space="preserve">
+    <value>badge_bronze_106.png</value>
+  </data>
+  <data name="Badge_Bronze_Hint" xml:space="preserve">
+    <value>Hai ottenuto il 25% del tuo obiettivo</value>
+  </data>
+  <data name="Badge_Gold" xml:space="preserve">
+    <value>badge_gold.png</value>
+  </data>
+  <data name="Badge_Gold_106" xml:space="preserve">
+    <value>badge_gold_106.png</value>
+  </data>
+  <data name="Badge_Gold_Hint" xml:space="preserve">
+    <value>Hai ottenuto il tuo obiettivo</value>
+  </data>
+  <data name="Badge_Null" xml:space="preserve">
+    <value>badge_null.png</value>
+  </data>
+  <data name="Badge_Silver" xml:space="preserve">
+    <value>badge_silver.png</value>
+  </data>
+  <data name="Badge_Silver_106" xml:space="preserve">
+    <value>badge_silver_106.png</value>
+  </data>
+  <data name="Badge_Silver_Hint" xml:space="preserve">
+    <value>Hai ottenuto il 50% del tuo obiettivo</value>
+  </data>
+  <data name="BasicInfoNote" xml:space="preserve">
+    <value>Iniziamo con le informazioni di base?</value>
+  </data>
+  <data name="Before" xml:space="preserve">
+    <value>Prima:</value>
+  </data>
+  <data name="ButtonText_SignIn" xml:space="preserve">
+    <value>Accedi</value>
+  </data>
+  <data name="ButtonText_SignUp" xml:space="preserve">
+    <value>Registrati</value>
+  </data>
+  <data name="button_Login" xml:space="preserve">
+    <value>Accesso</value>
+  </data>
+  <data name="button_Register" xml:space="preserve">
+    <value>Registrati</value>
+  </data>
+  <data name="BuyOGXFENIXCreamyVanilla" xml:space="preserve">
+    <value>ACQUISTA OGX FENIX Creamy Vanilla</value>
+  </data>
+  <data name="BuyOGXFENIXRichChocolate" xml:space="preserve">
+    <value>ACQUISTA OGX FENIX Rich Chocolate</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Cambia</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Cambia password</value>
+  </data>
+  <data name="ChangeProfilePhoto" xml:space="preserve">
+    <value>Foto profilo</value>
+  </data>
+  <data name="ChangeSmall" xml:space="preserve">
+    <value>cambia</value>
+  </data>
+  <data name="ChooseLanguage" xml:space="preserve">
+    <value>Scegli la lingua.</value>
+  </data>
+  <data name="ChooseOption" xml:space="preserve">
+    <value>Scegli una opzione</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>Città</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Chiudi</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Conferma</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Conferma</value>
+  </data>
+  <data name="ConfirmNewPassword" xml:space="preserve">
+    <value>Conferma la nuova password.</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Conferma la password.</value>
+  </data>
+  <data name="ConfirmUserSwitch" xml:space="preserve">
+    <value>Desideri impostare {0} come utente predefinito?</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Contatto</value>
+  </data>
+  <data name="ContentComingShortly" xml:space="preserve">
+    <value>Contenuto disponibile a breve</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Continua</value>
+  </data>
+  <data name="ContinueToAccount" xml:space="preserve">
+    <value>Continua all' account.</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Nazione</value>
+  </data>
+  <data name="Country_Canada_States" xml:space="preserve">
+    <value>Alberta,British Columbia,Manitoba,New Brunswick,Newfoundland and Labrador,Northwest Territories,Nova Scotia,Nunavut,Ontario,Prince Edward Island,Quebec,Saskatchewan,Yukon</value>
+  </data>
+  <data name="Country_List" xml:space="preserve">
+    <value>Canada,Puerto Rico,United States</value>
+  </data>
+  <data name="Country_PuertoRico_States" xml:space="preserve">
+    <value>Puerto Rico</value>
+  </data>
+  <data name="Country_UnitedStates_States" xml:space="preserve">
+    <value>Alabama,Alaska,Arizona,Arkansas,California,Colorado,Connecticut,Delaware,Florida,Georgia,Hawaii,Idaho,Illinois,Indiana,Iowa,Kansas,Kentucky,Louisiana,Maine,Maryland,Massachusetts,Michigan,Minnesota,Mississippi,Missouri,Montana,Nebraska,Nevada,New Hampshire,New Jersey,New Mexico,New York,North Carolina,North Dakota,Ohio,Oklahoma,Oregon,Pennsylvania,Rhode Island,South Carolina,South Dakota,Tennessee,Texas,Utah,Vermont,Virginia,Washington,West Virginia,Wisconsin,Wyoming</value>
+  </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>Crea un account.</value>
+  </data>
+  <data name="Current" xml:space="preserve">
+    <value>Attuale:</value>
+  </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>Password attuale</value>
+  </data>
+  <data name="CurrentTShirtSize" xml:space="preserve">
+    <value>Taglia attuale della t-shirt</value>
+  </data>
+  <data name="CurrentWeight" xml:space="preserve">
+    <value>Peso attuale</value>
+  </data>
+  <data name="CurrentWeightLBS" xml:space="preserve">
+    <value>Peso attuale (kg)</value>
+  </data>
+  <data name="DataBeingProcessedPleaseWait" xml:space="preserve">
+    <value>I dati sono in elaborazione... Si prega di attendere.</value>
+  </data>
+  <data name="DateDisplayFormat" xml:space="preserve">
+    <value>{0:dddd, MMMM d, yyyy}</value>
+  </data>
+  <data name="DateOfBirth" xml:space="preserve">
+    <value>Data di nascita</value>
+  </data>
+  <data name="DatetimeDisplayFormat" xml:space="preserve">
+    <value>{0:dddd, MMMM d, yyyy}</value>
+  </data>
+  <data name="DatetimeDisplayFormatMonthDay" xml:space="preserve">
+    <value>{0:m}</value>
+  </data>
+  <data name="DayCAPS" xml:space="preserve">
+    <value>GIORNO</value>
+  </data>
+  <data name="DesiredUsername" xml:space="preserve">
+    <value>Nome utente desiderato</value>
+  </data>
+  <data name="DesiredWeightToLoose" xml:space="preserve">
+    <value>Peso che si desidera perdere (min 5 kg)</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Dettagli</value>
+  </data>
+  <data name="Dismiss" xml:space="preserve">
+    <value>Ignora</value>
+  </data>
+  <data name="EarnRewardsCAPS" xml:space="preserve">
+    <value>GUADAGNI PREMI</value>
+  </data>
+  <data name="EditProfile" xml:space="preserve">
+    <value>Modifica profilo</value>
+  </data>
+  <data name="ElitePlan" xml:space="preserve">
+    <value>ELITE</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="EmailAddress" xml:space="preserve">
+    <value>Indirizzo e-mail</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Esci</value>
+  </data>
+  <data name="Exit_and_Discard" xml:space="preserve">
+    <value>Esci ed elimina</value>
+  </data>
+  <data name="Failed" xml:space="preserve">
+    <value>Non riuscito / Tentativo fallito</value>
+  </data>
+  <data name="Female" xml:space="preserve">
+    <value>Donna</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="FontSize" xml:space="preserve">
+    <value>Dimensione della lettera</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Hai dimenticato la password?</value>
+  </data>
+  <data name="ForgotPasswordCaps" xml:space="preserve">
+    <value>HAI DIMENTICATO LA PASSWORD?</value>
+  </data>
+  <data name="ForgotPasswordMessage" xml:space="preserve">
+    <value>Hai dimenticato la password? Non ti preoccupare, ti aiutiamo noi. Si prega di compilare le credenziali qui sotto.</value>
+  </data>
+  <data name="ForgotPasswordRecover" xml:space="preserve">
+    <value>Recupera la password dimenticata.</value>
+  </data>
+  <data name="ForgotPasswordRequestMessage" xml:space="preserve">
+    <value>Si prega di controllare la propria casella di posta elettronica a cui abbiamo inviato un codice da inserire nel riquadro del codice di autorizzazione.</value>
+  </data>
+  <data name="ForgotPasswordSymbol" xml:space="preserve">
+    <value>HAI DIMENTICATO LA PASSWORD?</value>
+  </data>
+  <data name="Front" xml:space="preserve">
+    <value>Davanti</value>
+  </data>
+  <data name="FrontPhoto" xml:space="preserve">
+    <value>Foto frontale</value>
+  </data>
+  <data name="FullMealsCAPS" xml:space="preserve">
+    <value>PIATI INTERI</value>
+  </data>
+  <data name="Gallery" xml:space="preserve">
+    <value>Galleria</value>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>Sesso</value>
+  </data>
+  <data name="Get_Directions" xml:space="preserve">
+    <value>Ottieni indicazioni.</value>
+  </data>
+  <data name="GoalAchieved" xml:space="preserve">
+    <value>Obiettivo raggiunto</value>
+  </data>
+  <data name="GoalYouHaveAchievedSoFar" xml:space="preserve">
+    <value>L'obiettivo raggiunto sino ad ora</value>
+  </data>
+  <data name="GoBackToLogin" xml:space="preserve">
+    <value>Ritorna all'accesso.</value>
+  </data>
+  <data name="GotPassword" xml:space="preserve">
+    <value>Hai la password?</value>
+  </data>
+  <data name="GreetingUser" xml:space="preserve">
+    <value>Ciao {0}</value>
+  </data>
+  <data name="HaveAnAccount" xml:space="preserve">
+    <value>Hai un account?</value>
+  </data>
+  <data name="HaveYouEverPurchasedOGXProduct" xml:space="preserve">
+    <value>Hai già acquistato prodotti OGX in precedenza?</value>
+  </data>
+  <data name="HeaderNote" xml:space="preserve">
+    <value>Si prega di compilare le credenziali qui sotto.</value>
+  </data>
+  <data name="Header_Exercise" xml:space="preserve">
+    <value>ESERCIZI</value>
+  </data>
+  <data name="Header_SetsAndRepeats" xml:space="preserve">
+    <value>SET E RIPETIZIONI</value>
+  </data>
+  <data name="HeadingAboutYourJourney" xml:space="preserve">
+    <value>Informazioni sul tuo viaggio:</value>
+  </data>
+  <data name="HeadingCurrentWeight" xml:space="preserve">
+    <value>Peso attuale:</value>
+  </data>
+  <data name="HeadingDateStarted" xml:space="preserve">
+    <value>Data di inizio:</value>
+  </data>
+  <data name="HeadingEntryDate" xml:space="preserve">
+    <value>Data di inserimento: / Data di registrazione:</value>
+  </data>
+  <data name="HeadingRevision" xml:space="preserve">
+    <value>Revisione:</value>
+  </data>
+  <data name="HeadingTargetDuration" xml:space="preserve">
+    <value>Durata del traguardo: / Tempo per il raggiungimento dell'obiettivo:</value>
+  </data>
+  <data name="HeadingTShirtSize" xml:space="preserve">
+    <value>Taglia della maglia:</value>
+  </data>
+  <data name="HeadingWeightGoal" xml:space="preserve">
+    <value>Obiettivo di peso: / Obiettivo di peso (kg) da raggiungere:</value>
+  </data>
+  <data name="HeadingWeightLossGoal" xml:space="preserve">
+    <value>Obiettivo di perdita di peso: / Obiettivo di peso (kg) da perdere:</value>
+  </data>
+  <data name="HeadingWeightStarted" xml:space="preserve">
+    <value>Peso iniziale:</value>
+  </data>
+  <data name="HealthyPlan" xml:space="preserve">
+    <value>SALUTARE</value>
+  </data>
+  <data name="Hello" xml:space="preserve">
+    <value>Ciao!</value>
+  </data>
+  <data name="HelloAndWelcome" xml:space="preserve">
+    <value>Ciao e benvenuto/a!</value>
+  </data>
+  <data name="Hi" xml:space="preserve">
+    <value>Quanto peso (kg) desideri perdere?</value>
+  </data>
+  <data name="HowItWorksCAPS" xml:space="preserve">
+    <value>COME FUNZIONA</value>
+  </data>
+  <data name="HowMuchWeightWantToLose" xml:space="preserve">
+    <value>Per poter partecipare a questo programma deve essere un minimo di 5 kg.</value>
+  </data>
+  <data name="HowMuchWeightWantToLoseNote" xml:space="preserve">
+    <value>L'IMMAGINE DEVE ESSERE A FIGURA INTERA</value>
+  </data>
+  <data name="icon_account" xml:space="preserve">
+    <value>icon_account.png</value>
+  </data>
+  <data name="icon_background_blur" xml:space="preserve">
+    <value>icon_background_blur.png</value>
+  </data>
+  <data name="icon_BadgeCloseCircle" xml:space="preserve">
+    <value>icon_badge_close_circle.png</value>
+  </data>
+  <data name="icon_brochure" xml:space="preserve">
+    <value>icon_brochure.png</value>
+  </data>
+  <data name="icon_camera" xml:space="preserve">
+    <value>icon_camera.png</value>
+  </data>
+  <data name="icon_cart" xml:space="preserve">
+    <value>icon_cart.png</value>
+  </data>
+  <data name="icon_checked" xml:space="preserve">
+    <value>icon_checked.png</value>
+  </data>
+  <data name="icon_close" xml:space="preserve">
+    <value>close.png</value>
+  </data>
+  <data name="icon_community" xml:space="preserve">
+    <value>icon_community.png</value>
+  </data>
+  <data name="icon_edit_profile" xml:space="preserve">
+    <value>user_edit.png</value>
+  </data>
+  <data name="icon_edit_profile_color" xml:space="preserve">
+    <value>user_edit_color.png</value>
+  </data>
+  <data name="icon_email" xml:space="preserve">
+    <value>icon_email.png</value>
+  </data>
+  <data name="icon_female" xml:space="preserve">
+    <value>icon_female.png</value>
+  </data>
+  <data name="icon_female_color" xml:space="preserve">
+    <value>icon_female_color.png</value>
+  </data>
+  <data name="icon_full_meals" xml:space="preserve">
+    <value>icon_full_meals.png</value>
+  </data>
+  <data name="icon_full_meals_gray" xml:space="preserve">
+    <value>icon_full_meals_gray.png</value>
+  </data>
+  <data name="icon_howitworks" xml:space="preserve">
+    <value>icon_howitworks.png</value>
+  </data>
+  <data name="icon_lock" xml:space="preserve">
+    <value>icon_lock.png</value>
+  </data>
+  <data name="icon_male" xml:space="preserve">
+    <value>icon_male.png</value>
+  </data>
+  <data name="icon_male_color" xml:space="preserve">
+    <value>icon_male_color.png</value>
+  </data>
+  <data name="icon_meal_active" xml:space="preserve">
+    <value>icon_meal_active.png</value>
+  </data>
+  <data name="icon_meal_active_dark" xml:space="preserve">
+    <value>icon_meal_active_dark.png</value>
+  </data>
+  <data name="icon_meal_elite" xml:space="preserve">
+    <value>icon_meal_elite.png</value>
+  </data>
+  <data name="icon_meal_elite_dark" xml:space="preserve">
+    <value>icon_meal_elite_dark.png</value>
+  </data>
+  <data name="icon_meal_healthy" xml:space="preserve">
+    <value>icon_meal_healthy.png</value>
+  </data>
+  <data name="icon_meal_healthy_dark" xml:space="preserve">
+    <value>icon_meal_healthy_dark.png</value>
+  </data>
+  <data name="icon_media" xml:space="preserve">
+    <value>icon_media.png</value>
+  </data>
+  <data name="icon_media_next" xml:space="preserve">
+    <value>next.png</value>
+  </data>
+  <data name="icon_media_pause" xml:space="preserve">
+    <value>pause.png</value>
+  </data>
+  <data name="icon_media_play" xml:space="preserve">
+    <value>play.png</value>
+  </data>
+  <data name="icon_media_previous" xml:space="preserve">
+    <value>previous.png</value>
+  </data>
+  <data name="icon_media_stop" xml:space="preserve">
+    <value>stop.png</value>
+  </data>
+  <data name="icon_menu" xml:space="preserve">
+    <value>menu.png</value>
+  </data>
+  <data name="icon_password" xml:space="preserve">
+    <value>password.png</value>
+  </data>
+  <data name="icon_password_color" xml:space="preserve">
+    <value>password_color.png</value>
+  </data>
+  <data name="icon_play" xml:space="preserve">
+    <value>icon_play.png</value>
+  </data>
+  <data name="icon_play_gray" xml:space="preserve">
+    <value>icon_play_gray.png</value>
+  </data>
+  <data name="icon_plus" xml:space="preserve">
+    <value>icon_plus.png</value>
+  </data>
+  <data name="icon_plus_gray" xml:space="preserve">
+    <value>icon_plus_gray.png</value>
+  </data>
+  <data name="icon_pro_meals" xml:space="preserve">
+    <value>icon_pro_meals.png</value>
+  </data>
+  <data name="icon_pro_meals_gray" xml:space="preserve">
+    <value>icon_pro_meals_gray.png</value>
+  </data>
+  <data name="icon_rewards" xml:space="preserve">
+    <value>icon_rewards.png</value>
+  </data>
+  <data name="icon_settings" xml:space="preserve">
+    <value>icon_settings.png</value>
+  </data>
+  <data name="icon_shakes" xml:space="preserve">
+    <value>icon_shakes.png</value>
+  </data>
+  <data name="icon_shakes_gray" xml:space="preserve">
+    <value>icon_shakes_gray.png</value>
+  </data>
+  <data name="icon_success" xml:space="preserve">
+    <value>icon_success.png</value>
+  </data>
+  <data name="icon_unchecked" xml:space="preserve">
+    <value>icon_unchecked.png</value>
+  </data>
+  <data name="icon_user" xml:space="preserve">
+    <value>icon_user.png</value>
+  </data>
+  <data name="icon_user_settings" xml:space="preserve">
+    <value>user_settings.png</value>
+  </data>
+  <data name="icon_user_settings_color" xml:space="preserve">
+    <value>user_settings_color.png</value>
+  </data>
+  <data name="ImageHasToBeFullBody" xml:space="preserve">
+    <value>L'IMMAGINE DEVE ESSERE DI CORPO INTERO</value>
+  </data>
+  <data name="ImageNotAvailable" xml:space="preserve">
+    <value>not_available.png</value>
+  </data>
+  <data name="ImageUpload" xml:space="preserve">
+    <value>upload.png</value>
+  </data>
+  <data name="image_BadgeHintBackground" xml:space="preserve">
+    <value>badge_hint_background.png</value>
+  </data>
+  <data name="image_breakfast" xml:space="preserve">
+    <value>breakfast.jpg</value>
+  </data>
+  <data name="image_community_background" xml:space="preserve">
+    <value>_community_IT.jpg</value>
+  </data>
+  <data name="image_dinner" xml:space="preserve">
+    <value>dinner.jpg</value>
+  </data>
+  <data name="image_lunch" xml:space="preserve">
+    <value>lunch.jpg</value>
+  </data>
+  <data name="image_pro_meal" xml:space="preserve">
+    <value>pro_meal.jpg</value>
+  </data>
+  <data name="image_shakes" xml:space="preserve">
+    <value>shakes.jpg</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Informazioni</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Lingua</value>
+  </data>
+  <data name="Languages" xml:space="preserve">
+    <value>Lingue</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Cognome</value>
+  </data>
+  <data name="LatestNewsCAPS" xml:space="preserve">
+    <value>NOVITA</value>
+  </data>
+  <data name="LBS_Capital" xml:space="preserve">
+    <value>LBS</value>
+  </data>
+  <data name="LBS_Small" xml:space="preserve">
+    <value>lbs</value>
+  </data>
+  <data name="Leave_Application" xml:space="preserve">
+    <value>Lascia il modulo di richiesta? / Vuoi lasciare il modulo di richiesta?</value>
+  </data>
+  <data name="LinkTermsAndConditionsExternal" xml:space="preserve">
+    <value>http://192.168.60.225:8303/xchallenge/en-US/termsandconditions.html</value>
+  </data>
+  <data name="LoggedInAccounts" xml:space="preserve">
+    <value>Account con accesso effettuato</value>
+  </data>
+  <data name="LoggedInLoadingAccount" xml:space="preserve">
+    <value>Hai effettuato l'accesso... caricamento dell'account.</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Accesso</value>
+  </data>
+  <data name="LoginAgain" xml:space="preserve">
+    <value>Per favore, inserisci i tuoi dati per iniziare</value>
+  </data>
+  <data name="logo" xml:space="preserve">
+    <value>logo.png</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Esci</value>
+  </data>
+  <data name="logo_challenge" xml:space="preserve">
+    <value>logo_challenge.png</value>
+  </data>
+  <data name="logo_page" xml:space="preserve">
+    <value>logo_page.png</value>
+  </data>
+  <data name="logo_transparent" xml:space="preserve">
+    <value>logo_transparent.png</value>
+  </data>
+  <data name="LoseWeightCAPS" xml:space="preserve">
+    <value>PERDERE PESO</value>
+  </data>
+  <data name="LostFormat1" xml:space="preserve">
+    <value>Perso</value>
+  </data>
+  <data name="MainTabs_Change_Password" xml:space="preserve">
+    <value>Cambia password</value>
+  </data>
+  <data name="MainTabs_Change_Password_Icon" xml:space="preserve">
+    <value>password_dark.png</value>
+  </data>
+  <data name="MainTabs_Community" xml:space="preserve">
+    <value>COMUNITÀ</value>
+  </data>
+  <data name="MainTabs_Community_Icon" xml:space="preserve">
+    <value>icon_community.png</value>
+  </data>
+  <data name="MainTabs_HowItWorks" xml:space="preserve">
+    <value>COME FUNZIONA</value>
+  </data>
+  <data name="MainTabs_HowItWorks_Icon" xml:space="preserve">
+    <value>icon_howitworks.png</value>
+  </data>
+  <data name="MainTabs_LatestNews" xml:space="preserve">
+    <value>ULTIME NOVITÀ</value>
+  </data>
+  <data name="MainTabs_LatestNews_Icon" xml:space="preserve">
+    <value>icon_news.png</value>
+  </data>
+  <data name="MainTabs_Logout" xml:space="preserve">
+    <value>Esci</value>
+  </data>
+  <data name="MainTabs_Logout_Icon" xml:space="preserve">
+    <value>logout_dark.png</value>
+  </data>
+  <data name="MainTabs_Meal_Options" xml:space="preserve">
+    <value>OPZIONI PASTI</value>
+  </data>
+  <data name="MainTabs_Meal_Options_Icon" xml:space="preserve">
+    <value>icon_meal.png</value>
+  </data>
+  <data name="MainTabs_MyMusic" xml:space="preserve">
+    <value>LA MIA MUSICA</value>
+  </data>
+  <data name="MainTabs_MyMusic_Icon" xml:space="preserve">
+    <value>icon_music.png</value>
+  </data>
+  <data name="MainTabs_MyProfile" xml:space="preserve">
+    <value>IL MIO PROFILO</value>
+  </data>
+  <data name="MainTabs_MyProfile_Icon" xml:space="preserve">
+    <value>icon_account.png</value>
+  </data>
+  <data name="MainTabs_OGX_System" xml:space="preserve">
+    <value>SISTEMA OGX</value>
+  </data>
+  <data name="MainTabs_OGX_System_Icon" xml:space="preserve">
+    <value>icon_ogx.png</value>
+  </data>
+  <data name="MainTabs_Rewards" xml:space="preserve">
+    <value>PREMI</value>
+  </data>
+  <data name="MainTabs_Rewards_Icon" xml:space="preserve">
+    <value>icon_rewards.png</value>
+  </data>
+  <data name="MainTabs_Settings" xml:space="preserve">
+    <value>IMPOSTAZIONI</value>
+  </data>
+  <data name="MainTabs_Settings_Icon" xml:space="preserve">
+    <value>icon_settings.png</value>
+  </data>
+  <data name="MainTabs_Testimonials" xml:space="preserve">
+    <value>TESTIMONIAL</value>
+  </data>
+  <data name="MainTabs_Testimonials_Icon" xml:space="preserve">
+    <value>icon_testimonials.png</value>
+  </data>
+  <data name="MainTabs_WorkoutVideos" xml:space="preserve">
+    <value>VIDEO DI ESERCIZI</value>
+  </data>
+  <data name="MainTabs_WorkoutVideos_Icon" xml:space="preserve">
+    <value>icon_media.png</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>Uomo</value>
+  </data>
+  <data name="Mask_Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Mask_Username" xml:space="preserve">
+    <value>Nome utente</value>
+  </data>
+  <data name="MealPlanPDFUri" xml:space="preserve">
+    <value>7Day-Meal-Plan.pdf</value>
+  </data>
+  <data name="MealPlans" xml:space="preserve">
+    <value>Piani di Alimentazione</value>
+  </data>
+  <data name="MealPlansCAPS" xml:space="preserve">
+    <value>PIANI DI ALIMENTAZIONE</value>
+  </data>
+  <data name="MealPreparationGuide" xml:space="preserve">
+    <value>Guida per la preparazione del cibo</value>
+  </data>
+  <data name="MemberLogin" xml:space="preserve">
+    <value>Login utente</value>
+  </data>
+  <data name="MemberLoginImage" xml:space="preserve">
+    <value>user_icon.png</value>
+  </data>
+  <data name="MemberLoginNote" xml:space="preserve">
+    <value>Si prega di compilare le credenziali qui sotto per accedere all'account.</value>
+  </data>
+  <data name="Menu" xml:space="preserve">
+    <value>Menu</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Messaggio</value>
+  </data>
+  <data name="MessageAccountDeletionConfirm" xml:space="preserve">
+    <value>Desideri veramente eliminare il tuo account?</value>
+  </data>
+  <data name="MessageAccountDeletionFailed" xml:space="preserve">
+    <value>L'eliminazione dell'account non è riuscita.</value>
+  </data>
+  <data name="MessageAccountDeletionSuccessful" xml:space="preserve">
+    <value>Il tuo account non è stato eliminato.</value>
+  </data>
+  <data name="MessageAccountNotDeleted" xml:space="preserve">
+    <value>Azione non valida! Non è stato possibile eliminare il tuo account.</value>
+  </data>
+  <data name="MessageAccountUpdatedSuccessful" xml:space="preserve">
+    <value>L'aggiornamento del tuo account è riuscito con successo.</value>
+  </data>
+  <data name="MessageAgreeWithTermAndConditions" xml:space="preserve">
+    <value>Sei d'accordo con i Termini e le condizioni?</value>
+  </data>
+  <data name="MessageAllInputRequired" xml:space="preserve">
+    <value>Tutti gli input sono obbligatori</value>
+  </data>
+  <data name="MessageArmsRequired" xml:space="preserve">
+    <value>Le misure delle braccia sono obbligatorie.</value>
+  </data>
+  <data name="MessageAuthorizationCodeSent" xml:space="preserve">
+    <value>Il codice di autorizzazione è stato inviato al tuo indirizzo di posta elettronica.</value>
+  </data>
+  <data name="MessageBodyMeasurementNoChangeFound" xml:space="preserve">
+    <value>Non sono state trovate delle modifiche nelle misure del corpo.</value>
+  </data>
+  <data name="MessageChestRequired" xml:space="preserve">
+    <value>La misura del torso è obbligatoria.</value>
+  </data>
+  <data name="MessageCountryRequired" xml:space="preserve">
+    <value>La nazione è obbligatoria.</value>
+  </data>
+  <data name="MessageCurrentWeightSubmissionSuccessful" xml:space="preserve">
+    <value>Il peso attuale è stato salvato.</value>
+  </data>
+  <data name="MessageDateOfBirthPast" xml:space="preserve">
+    <value>La data selezionata deve essere nel passato.</value>
+  </data>
+  <data name="MessageDateOfBirthRequired" xml:space="preserve">
+    <value>La data di nascita è richiesta.</value>
+  </data>
+  <data name="MessageEmailExists" xml:space="preserve">
+    <value>Si prega di inserire un indirizzo e-mail diverso. Questa e-mail esiste già.</value>
+  </data>
+  <data name="MessageEmailInvalid" xml:space="preserve">
+    <value>Il tuo indirizzo e-mail non è valido.</value>
+  </data>
+  <data name="MessageEmailNoSpace" xml:space="preserve">
+    <value>L'indirizzo e-mail non deve contenere spazi.</value>
+  </data>
+  <data name="MessageEmailNotConfirmed" xml:space="preserve">
+    <value>La tua e-mail non è stata ancora confermata.</value>
+  </data>
+  <data name="MessageEmailVerificationPending" xml:space="preserve">
+    <value>Prima è necessario confermare l'indirizzo e-mail, ti abbiamo inviato un link di conferma alla tua casella di posta elettronica. Si prega di confermare il proprio indirizzo e-mail per utilizzare il proprio account.</value>
+  </data>
+  <data name="MessageErrorOccurred" xml:space="preserve">
+    <value>Si è verificato un errore. Riprova più tardi.</value>
+  </data>
+  <data name="MessageFileUploadFailed" xml:space="preserve">
+    <value>Il caricamento del file non è riuscito, non è stato possibile salvare il file.</value>
+  </data>
+  <data name="MessageFileUploadFailedWantToContinue" xml:space="preserve">
+    <value>Il caricamento del file non è riuscito, desideri continuare il salvataggio dei dati?</value>
+  </data>
+  <data name="MessageFirstNameRequired" xml:space="preserve">
+    <value>Il nome è obbligatorio.</value>
+  </data>
+  <data name="MessageForgotPasswordRequestFailed" xml:space="preserve">
+    <value>L'operazione di recupero password non è riuscita.</value>
+  </data>
+  <data name="MessageGoalAchievedWishes" xml:space="preserve">
+    <value>Congratulazioni! Hai raggiunto il tuo risultato.</value>
+  </data>
+  <data name="MessageHeightRequired" xml:space="preserve">
+    <value>L'altezza è obbligatoria.</value>
+  </data>
+  <data name="MessageHipsRequired" xml:space="preserve">
+    <value>La misura della vita è obbligatoria.</value>
+  </data>
+  <data name="MessageInputRequired" xml:space="preserve">
+    <value>Gli input sono obbligatori.</value>
+  </data>
+  <data name="MessageInvalidEmail" xml:space="preserve">
+    <value>Indirizzo e-mail non valido</value>
+  </data>
+  <data name="MessageInvalidObject" xml:space="preserve">
+    <value>Si prega di revisionare poiché l'oggetto inviato non è valido.</value>
+  </data>
+  <data name="MessageInvalidProvidedInformation" xml:space="preserve">
+    <value>Si prega di revisionare, le informazioni fornite non sono valide.</value>
+  </data>
+  <data name="MessageInvalidUserIDORPassword" xml:space="preserve">
+    <value>Si prega di revisionare, il nome utente e/o la password non sono validi.</value>
+  </data>
+  <data name="MessageInvalidUsernameAndPassword" xml:space="preserve">
+    <value>Il nome utente e/o la password non sono validi.</value>
+  </data>
+  <data name="MessageLastNameRequired" xml:space="preserve">
+    <value>Il cognome è obbligatorio.</value>
+  </data>
+  <data name="MessageMetaDeletionFailed" xml:space="preserve">
+    <value>L'eliminazione dell'user meta non è riuscita.</value>
+  </data>
+  <data name="MessageMetaDeletionSuccessful" xml:space="preserve">
+    <value>User meta è stato rimosso con successo.</value>
+  </data>
+  <data name="MessageMetaSaveFailed" xml:space="preserve">
+    <value>Il salvataggio dell'user meta non è riuscito.</value>
+  </data>
+  <data name="MessageMetaSaveSuccessful" xml:space="preserve">
+    <value>Il salvataggio di user meta è riuscito con successo.</value>
+  </data>
+  <data name="MessageMilestoneSubmissionFailed" xml:space="preserve">
+    <value>Non è stato possibile salvare alcune delle informazioni.</value>
+  </data>
+  <data name="MessageMilestoneSubmissionSuccessful" xml:space="preserve">
+    <value>Ottimo! L'invio del tuo risultato è riuscito con successo</value>
+  </data>
+  <data name="MessageMustAgree" xml:space="preserve">
+    <value>Per continuare è necessario accettare i termini e le condizioni.</value>
+  </data>
+  <data name="MessageNeckRequired" xml:space="preserve">
+    <value>La misura del collo è obbligatoria.</value>
+  </data>
+  <data name="MessageNoBackPhoto" xml:space="preserve">
+    <value>Non c'è nessuna foto posteriore da mostrare</value>
+  </data>
+  <data name="MessageNoFrontPhoto" xml:space="preserve">
+    <value>Non c'è nessuna foto anteriore da mostrare</value>
+  </data>
+  <data name="MessageNone" xml:space="preserve">
+    <value>Niente</value>
+  </data>
+  <data name="MessageNoProfilePhoto" xml:space="preserve">
+    <value>Non c'è nessuna foto profilo da mostrare</value>
+  </data>
+  <data name="MessageNoSidePhoto" xml:space="preserve">
+    <value>Non c'è nessuna foto di profilo da mostrare</value>
+  </data>
+  <data name="MessageNoWorkoutVideoFound" xml:space="preserve">
+    <value>Non sono stati trovati video di esercizi da {0}</value>
+  </data>
+  <data name="MessageObjectNotSaved" xml:space="preserve">
+    <value>Non è stato possibile salvare l'oggetto. Si è verificato un errore.</value>
+  </data>
+  <data name="MessageOrderNumberRequired" xml:space="preserve">
+    <value>Il numero di ordine è obbligatorio.</value>
+  </data>
+  <data name="MessageParameterRequired" xml:space="preserve">
+    <value>Si prega di revisionare poiché i(l) parametro(i) inviato(i) non è(sono) valido(i).</value>
+  </data>
+  <data name="MessagePasswordAndConfirmPasswordNotMatch" xml:space="preserve">
+    <value>I campi Nuova password e Conferma password non corrispondono.</value>
+  </data>
+  <data name="MessagePasswordChanged" xml:space="preserve">
+    <value>La password è stata cambiata.</value>
+  </data>
+  <data name="MessagePasswordConfirmRequired" xml:space="preserve">
+    <value>Il campo Conferma password è obbligatorio.</value>
+  </data>
+  <data name="MessagePasswordExistsInHistory" xml:space="preserve">
+    <value>Non puoi utilizzare una password che è già stata utilizzata in passato. Scegli una password differente.</value>
+  </data>
+  <data name="MessagePasswordLength" xml:space="preserve">
+    <value>La password deve essere compresa tra 5 e 100.</value>
+  </data>
+  <data name="MessagePasswordMinLength" xml:space="preserve">
+    <value>La nuova password deve essere lunga almeno 4 caratteri</value>
+  </data>
+  <data name="MessagePasswordNoSpace" xml:space="preserve">
+    <value>La password non deve contenere spazi.</value>
+  </data>
+  <data name="MessagePasswordRequestFailed" xml:space="preserve">
+    <value>Azione non valida! L'operazione di recupero password non è riuscita.</value>
+  </data>
+  <data name="MessagePasswordRequired" xml:space="preserve">
+    <value>La password è obbligatoria.</value>
+  </data>
+  <data name="MessagePasswordUpdateFailed" xml:space="preserve">
+    <value>L'operazione di aggiornamento della password non è riuscita.</value>
+  </data>
+  <data name="MessagePermissionCameraRequired" xml:space="preserve">
+    <value>Si prega di accettare il permesso di accesso alla camera</value>
+  </data>
+  <data name="MessagePermissionReadStorageRequired" xml:space="preserve">
+    <value>C'è bisogno di permesso di lettura</value>
+  </data>
+  <data name="MessagePermissionWriteStorageRequired" xml:space="preserve">
+    <value>C'è bisogno di permesso di scrittura</value>
+  </data>
+  <data name="MessagePhoneNumberRequired" xml:space="preserve">
+    <value>Il numero di telefono è richiesto.</value>
+  </data>
+  <data name="MessagePostalCodeRequired" xml:space="preserve">
+    <value>Il codice di avviamento postale è obbligatorio.</value>
+  </data>
+  <data name="MessagePressBackAgainToExit" xml:space="preserve">
+    <value>Premi ancora una volta per uscire!</value>
+  </data>
+  <data name="MessagePressBackTwiceToExit" xml:space="preserve">
+    <value>Premi due volte il pulsante indietro velocemente per uscire!</value>
+  </data>
+  <data name="MessagePressBackTwiceToExitTitle" xml:space="preserve">
+    <value>Premere il pulsante indietro due volte</value>
+  </data>
+  <data name="MessageRegistrationSuccessful" xml:space="preserve">
+    <value>L'utente è stato registrato con successo.</value>
+  </data>
+  <data name="MessageShippingAddressRequired" xml:space="preserve">
+    <value>L'indirizzo per la consegna è obbligatorio.</value>
+  </data>
+  <data name="MessageSomeRecordsCouldNotDelete" xml:space="preserve">
+    <value>Non è stato possibile eliminare alcuni dati.</value>
+  </data>
+  <data name="MessageSomeRecordsCouldNotSave" xml:space="preserve">
+    <value>Non è stato possibile salvare alcuni dati.</value>
+  </data>
+  <data name="MessageSomethingWentWrong" xml:space="preserve">
+    <value>Si è verificato un errore. Riprova più tardi.</value>
+  </data>
+  <data name="MessageStateRequired" xml:space="preserve">
+    <value>Lo stato è obbligatorio.</value>
+  </data>
+  <data name="MessageStreetRequired" xml:space="preserve">
+    <value>Via e numero civico sono obbligatori.</value>
+  </data>
+  <data name="MessageTapHereToExit" xml:space="preserve">
+    <value>Tocca qui per uscire!</value>
+  </data>
+  <data name="MessageThighsRequired" xml:space="preserve">
+    <value>Le cosce sono obbligatorie.</value>
+  </data>
+  <data name="MessageTokenExpired" xml:space="preserve">
+    <value>Il gettone utente è scaduto.</value>
+  </data>
+  <data name="MessageTrackerDeletionFailed" xml:space="preserve">
+    <value>L'eliminazione del tracciamento utente non è riuscita.</value>
+  </data>
+  <data name="MessageTrackerDeletionSuccessful" xml:space="preserve">
+    <value>Il tracciamento utente è stato rimosso con successo.</value>
+  </data>
+  <data name="MessageTrackerSaveFailed" xml:space="preserve">
+    <value>Il salvataggio del tracciamento utente non è riuscito.</value>
+  </data>
+  <data name="MessageTrackerSaveSuccessful" xml:space="preserve">
+    <value>Il salvataggio del tracciamento utente è riuscito con successo.</value>
+  </data>
+  <data name="MessageTShirtShizeMustSelect" xml:space="preserve">
+    <value>È necessario selezionare la taglia della maglietta.</value>
+  </data>
+  <data name="MessageUpdateFailed" xml:space="preserve">
+    <value>L'aggiornamento non è riuscito.</value>
+  </data>
+  <data name="MessageUserAlreadyLoggedIn" xml:space="preserve">
+    <value>L'utente '{0}' ha già effettuato l'accesso.</value>
+  </data>
+  <data name="MessageUserDetailSaveSuccessful" xml:space="preserve">
+    <value>Il salvataggio dei dettagli dell'utente è riuscito con successo.</value>
+  </data>
+  <data name="MessageUserEmailRequired" xml:space="preserve">
+    <value>L'indirizzo e-mail e' la richiesta.</value>
+  </data>
+  <data name="MessageUsernameExists" xml:space="preserve">
+    <value>Si prega di inserire un nome utente differente; questo nome utente è già in uso.</value>
+  </data>
+  <data name="MessageUsernameLength" xml:space="preserve">
+    <value>Il nome utente deve essere compreso tra 5 e 100.</value>
+  </data>
+  <data name="MessageUsernameNoSpace" xml:space="preserve">
+    <value>Il nome utente non deve contenere spazi.</value>
+  </data>
+  <data name="MessageUsernameRequired" xml:space="preserve">
+    <value>Il nome utente è obbligatorio.</value>
+  </data>
+  <data name="MessageUserTypeMustSelect" xml:space="preserve">
+    <value>È necessario selezionare il tipo di utente.</value>
+  </data>
+  <data name="MessageWaistRequired" xml:space="preserve">
+    <value>Il girovita è obbligatorio.</value>
+  </data>
+  <data name="MessageWeightLossGoalRequired" xml:space="preserve">
+    <value>L'obiettivo di perdita di peso è richiesto.</value>
+  </data>
+  <data name="MessageWeightRequired" xml:space="preserve">
+    <value>Il peso è obbligatorio.</value>
+  </data>
+  <data name="Message_LoginCredentialsRequired" xml:space="preserve">
+    <value>Sia il nome utente che la password sono obbligatori.</value>
+  </data>
+  <data name="Message_LoginFailed" xml:space="preserve">
+    <value>Il nome utente e/o la password non sono validi.</value>
+  </data>
+  <data name="Message_PasswordChanged" xml:space="preserve">
+    <value>La password è stata cambiata.</value>
+  </data>
+  <data name="Milestone" xml:space="preserve">
+    <value>Tappa</value>
+  </data>
+  <data name="MilestoneIDExists" xml:space="preserve">
+    <value>Pietra miliare esiste già</value>
+  </data>
+  <data name="MilestoneIDRequired" xml:space="preserve">
+    <value>È richiesto un ID cardine</value>
+  </data>
+  <data name="MilestonePercentageIDExists" xml:space="preserve">
+    <value>La percentuale di pietra miliare esiste già</value>
+  </data>
+  <data name="MilestonePercentageIDRequired" xml:space="preserve">
+    <value>È richiesto l'ID percentuale milestone</value>
+  </data>
+  <data name="NetworkConnection_Alert_Confirm" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="NetworkConnection_Alert_Message" xml:space="preserve">
+    <value>Questa azione richiede l'accesso ai dati in remoto ma sembra che tu al momento non sia connesso a nessuna rete. Verifica la tua connessione e prova di nuovo.</value>
+  </data>
+  <data name="NetworkConnection_Alert_Title" xml:space="preserve">
+    <value>Non connesso</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Nuova password</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Successivo</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="NoFileExists" xml:space="preserve">
+    <value>Nessun file .mp3 trovato per giocare</value>
+  </data>
+  <data name="NoFileOrPermission" xml:space="preserve">
+    <value>Nessun file o permesso</value>
+  </data>
+  <data name="NoInternetConnection" xml:space="preserve">
+    <value>Il tuo dispositivo non è connesso a Internet</value>
+  </data>
+  <data name="NoInternetConnectionCAPS" xml:space="preserve">
+    <value>NON C'E CONNESSIONE D'INTERNET</value>
+  </data>
+  <data name="NoNotAtAll" xml:space="preserve">
+    <value>No, per nulla</value>
+  </data>
+  <data name="NoPhoto" xml:space="preserve">
+    <value>Nessuna foto</value>
+  </data>
+  <data name="NoPickPhotoAvailable" xml:space="preserve">
+    <value>:) nessuna foto disponibile</value>
+  </data>
+  <data name="NoRecordToProcess" xml:space="preserve">
+    <value>Non ci sono dati da elaborare.</value>
+  </data>
+  <data name="NoteTapOn" xml:space="preserve">
+    <value>Clicca su</value>
+  </data>
+  <data name="NoteToWatchTheVideos" xml:space="preserve">
+    <value>Per vedere i video</value>
+  </data>
+  <data name="NoteWorkoutVideoClickToPlay" xml:space="preserve">
+    <value>Fai clic su Riproduci per visualizzare il video</value>
+  </data>
+  <data name="Notification" xml:space="preserve">
+    <value>Notifica</value>
+  </data>
+  <data name="NOTIFICATION_BODY_SubmitWeight" xml:space="preserve">
+    <value>Ogni 7 giorni dovrai inviare il tuo peso e le tue foto per poter visualizzare i progressi</value>
+  </data>
+  <data name="NOTIFICATION_TITLE_SubmitWeight" xml:space="preserve">
+    <value>È ora di inserire il tuo peso</value>
+  </data>
+  <data name="OGX_Content_FilePath" xml:space="preserve">
+    <value>_OGX_FILE__ITA</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="Option_RememberMe" xml:space="preserve">
+    <value>Ricordami</value>
+  </data>
+  <data name="or" xml:space="preserve">
+    <value>oppure</value>
+  </data>
+  <data name="PageFooterText" xml:space="preserve">
+    <value>Progettato e sviluppato da ORGANO</value>
+  </data>
+  <data name="PageTitle_Login" xml:space="preserve">
+    <value>Autenticazione utente</value>
+  </data>
+  <data name="page_earn_reward_image" xml:space="preserve">
+    <value>image_earn_rewards.png</value>
+  </data>
+  <data name="page_earn_reward_text" xml:space="preserve">
+    <value>Trattamenti di Spa, biglietti EXPO, articoli dell'X Challenge e tante altre cose che possano essere sue.</value>
+  </data>
+  <data name="page_lose_weight_image" xml:space="preserve">
+    <value>image_lose_weight.png</value>
+  </data>
+  <data name="page_lose_weight_text" xml:space="preserve">
+    <value>Sostituisci due pasti al giorno con FENIX e scelga una opzione salutare come terzo pasto. Goda dei Pro Meals (colazioni salutari) fra pasti.</value>
+  </data>
+  <data name="page_product_image" xml:space="preserve">
+    <value>image_buy_product.png</value>
+  </data>
+  <data name="page_product_text" xml:space="preserve">
+    <value>Vada a shopog.com</value>
+  </data>
+  <data name="page_rewards_each_quarter_option_1" xml:space="preserve">
+    <value>Un fine settimana per 2 en un hotel 5 stelle, con trattamento di Spa incluso.</value>
+  </data>
+  <data name="page_rewards_each_quarter_option_2" xml:space="preserve">
+    <value>Riconoscimento sulle rete sociali di ORGANO™: Instagram, Facebook e xchallenge</value>
+  </data>
+  <data name="page_rewards_each_quarter_option_3" xml:space="preserve">
+    <value>Riconoscimento speciale sul palco in eventi ORGANO™</value>
+  </data>
+  <data name="page_rewards_each_quarter_text" xml:space="preserve">
+    <value>ORGANO™ premierà a 2 persone per la sua perdita di peso (50%) e per le sue testimonianze (50%). Ogni trimestre</value>
+  </data>
+  <data name="page_rewards_each_quarter_text_highlight" xml:space="preserve">
+    <value>Ogni trimestre,</value>
+  </data>
+  <data name="page_rewards_lastly_option_1" xml:space="preserve">
+    <value>Un viaggio per 2 ad un destino esotico (incluso anche $500 in contanti)</value>
+  </data>
+  <data name="page_rewards_lastly_option_2" xml:space="preserve">
+    <value>Riconoscimento speciale sul palco in EXPO</value>
+  </data>
+  <data name="page_rewards_lastly_text" xml:space="preserve">
+    <value>ci saranno premi annuali, per i partecipanti che hanno avuto una performance eccezionale a traverso la Sfida FENIX. Il vincitore ottendrà:</value>
+  </data>
+  <data name="page_rewards_lastly_text_highlight" xml:space="preserve">
+    <value>Finalmente,</value>
+  </data>
+  <data name="page_rewards_maintain_option_1" xml:space="preserve">
+    <value>Buono di $200 per ogni 12 mesi che sia xchallenge</value>
+  </data>
+  <data name="page_rewards_maintain_option_2" xml:space="preserve">
+    <value>Braccialetto xchallenge</value>
+  </data>
+  <data name="page_rewards_maintain_option_3" xml:space="preserve">
+    <value>Maglietta xchallenge</value>
+  </data>
+  <data name="page_rewards_maintain_text_highlight" xml:space="preserve">
+    <value>Mentre fa il suo stile di vita xchallenge</value>
+  </data>
+  <data name="page_rewards_maintain_text_part_1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="page_rewards_maintain_text_part_2" xml:space="preserve">
+    <value>e sente il suo FENIX, riceverà</value>
+  </data>
+  <data name="page_sign_up_image" xml:space="preserve">
+    <value>image_sign_up.png</value>
+  </data>
+  <data name="page_tshirts_bundle_100lb_option" xml:space="preserve">
+    <value>100 libbre - maglietta "I Lost 100" e la giacca OGX</value>
+  </data>
+  <data name="page_tshirts_bundle_25lb_option" xml:space="preserve">
+    <value>25 libbre - maglietta "I Lost 25" e berretto OGX</value>
+  </data>
+  <data name="page_tshirts_bundle_50lb_option" xml:space="preserve">
+    <value>50 libbre - maglietta "I Lost 50" e borsa per la palestra</value>
+  </data>
+  <data name="page_tshirts_bundle_image" xml:space="preserve">
+    <value>image_tshirts_bundle.png</value>
+  </data>
+  <data name="page_tshirts_bundle_text" xml:space="preserve">
+    <value>Per coloro che hanno perso 10, 25, 50 e 100 libbre, saranno premiati con:</value>
+  </data>
+  <data name="page_tshirt_lose_10_image" xml:space="preserve">
+    <value>image_tshirt_lost_10.png</value>
+  </data>
+  <data name="page_tshirt_lose_10_text" xml:space="preserve">
+    <value>Maglietta "I Lost 10" quando abbia perso 10 libbre</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Pause" xml:space="preserve">
+    <value>Pausa</value>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>Lavora su questo pannello</value>
+  </data>
+  <data name="PersonalInfo" xml:space="preserve">
+    <value>DATI PERSONALI</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Telefono</value>
+  </data>
+  <data name="PhotoUpload" xml:space="preserve">
+    <value>CARICAMENTO FOTO</value>
+  </data>
+  <data name="PhotoUploadInstructions" xml:space="preserve">
+    <value>Indossa degli abiti che mostrino la forma del tuo corpo. Gli abiti larghi rendono più difficile visualizzare la perdita di peso. Se riesci indossa gli stessi abiti per le foto "prima" e "dopo". Si raccomanda di usare uno sfondo bianco.</value>
+  </data>
+  <data name="PickFromGallery" xml:space="preserve">
+    <value>Scegli dalla galleria</value>
+  </data>
+  <data name="Placeholder_Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Placeholder_Username" xml:space="preserve">
+    <value>Nome utente</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>Riproduci</value>
+  </data>
+  <data name="Playing" xml:space="preserve">
+    <value>In riproduzione...</value>
+  </data>
+  <data name="Playlist" xml:space="preserve">
+    <value>Playlist</value>
+  </data>
+  <data name="PleaseReviewAllInputsAreMandatory" xml:space="preserve">
+    <value>Si prega di revisionare! Tutti gli input sono obbligatori.</value>
+  </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>Si prega di attendere...</value>
+  </data>
+  <data name="PostalCode" xml:space="preserve">
+    <value>CAP</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Precedente</value>
+  </data>
+  <data name="ProcessingDataPleaseWait" xml:space="preserve">
+    <value>Elaborazione dati... Si prega di attendere.</value>
+  </data>
+  <data name="ProcessingPleaseWait" xml:space="preserve">
+    <value>Elaborazione... Si prega di attendere.</value>
+  </data>
+  <data name="Products" xml:space="preserve">
+    <value>Prodotti</value>
+  </data>
+  <data name="ProductsCAPS" xml:space="preserve">
+    <value>PRODOTTI</value>
+  </data>
+  <data name="Products_CategoryList_LoadingLabel" xml:space="preserve">
+    <value>Caricamento categorie prodotti...</value>
+  </data>
+  <data name="Products_ProductList_LoadingLabel" xml:space="preserve">
+    <value>Caricamento prodotti...</value>
+  </data>
+  <data name="ProMealsCAPS" xml:space="preserve">
+    <value>PRO MEALS</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Leggi di più</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Registrati</value>
+  </data>
+  <data name="Registration" xml:space="preserve">
+    <value>Registrazione</value>
+  </data>
+  <data name="RegistrationCaps" xml:space="preserve">
+    <value>REGISTRAZIONE</value>
+  </data>
+  <data name="Remaining" xml:space="preserve">
+    <value>Rimanente</value>
+  </data>
+  <data name="RequestCaps" xml:space="preserve">
+    <value>RICHIESTA</value>
+  </data>
+  <data name="RequestPassword" xml:space="preserve">
+    <value>Richiedi password</value>
+  </data>
+  <data name="Required_AllInputs" xml:space="preserve">
+    <value>Tutti gli input sono obbligatori.</value>
+  </data>
+  <data name="Required_AreMandatory" xml:space="preserve">
+    <value>{0} sono obbligatori.</value>
+  </data>
+  <data name="Required_ConfirmNewPassword" xml:space="preserve">
+    <value>Il campo Conferma nuova password è obbligatorio.</value>
+  </data>
+  <data name="Required_CurrentPassword" xml:space="preserve">
+    <value>Il campo Password attuale è obbligatorio.</value>
+  </data>
+  <data name="Required_IsMandatory" xml:space="preserve">
+    <value>{0} è obbligatorio.</value>
+  </data>
+  <data name="Required_MustBeSelected" xml:space="preserve">
+    <value>{0} deve essere selezionato.</value>
+  </data>
+  <data name="Required_NewPassword" xml:space="preserve">
+    <value>Il campo Nuova password è obbligatorio.</value>
+  </data>
+  <data name="Residence" xml:space="preserve">
+    <value>RESIDENZA</value>
+  </data>
+  <data name="Review" xml:space="preserve">
+    <value>Rivedi</value>
+  </data>
+  <data name="Revision" xml:space="preserve">
+    <value>Revisione:</value>
+  </data>
+  <data name="RevisionShort" xml:space="preserve">
+    <value>Registro</value>
+  </data>
+  <data name="RewardsCAPS" xml:space="preserve">
+    <value>PREMI</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Salva</value>
+  </data>
+  <data name="SecretCode" xml:space="preserve">
+    <value>Codice segreto</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Seleziona</value>
+  </data>
+  <data name="SelectCountry" xml:space="preserve">
+    <value>Seleziona una nazione.</value>
+  </data>
+  <data name="SelectLanguage" xml:space="preserve">
+    <value>Seleziona una lingua.</value>
+  </data>
+  <data name="SelectPhoto" xml:space="preserve">
+    <value>Seleziona una foto.</value>
+  </data>
+  <data name="SelectProvince" xml:space="preserve">
+    <value>Seleziona una provincia.</value>
+  </data>
+  <data name="SelectTShirtSize" xml:space="preserve">
+    <value>Seleziona la taglia della maglia</value>
+  </data>
+  <data name="SelectWeightVolumeType" xml:space="preserve">
+    <value>Seleziona il tipo di vol. di peso.</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Impostazioni</value>
+  </data>
+  <data name="Sex" xml:space="preserve">
+    <value>Sesso</value>
+  </data>
+  <data name="ShakesCAPS" xml:space="preserve">
+    <value>FRULLATI</value>
+  </data>
+  <data name="Side" xml:space="preserve">
+    <value>Lato</value>
+  </data>
+  <data name="SidePhoto" xml:space="preserve">
+    <value>Foto di profilo</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Accedi</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>Registrati</value>
+  </data>
+  <data name="SignUpCAPS" xml:space="preserve">
+    <value>REGISTRAZIONE</value>
+  </data>
+  <data name="Skip" xml:space="preserve">
+    <value>Salta video</value>
+  </data>
+  <data name="SomethingWentWrong" xml:space="preserve">
+    <value>Si è verificato un errore.</value>
+  </data>
+  <data name="SomethingWentWrongArgs" xml:space="preserve">
+    <value>Si è verificato un errore. {0}</value>
+  </data>
+  <data name="Splash_PasswordTitleLabel" xml:space="preserve">
+    <value>Password:</value>
+  </data>
+  <data name="Splash_SignIn" xml:space="preserve">
+    <value>ACCEDI</value>
+  </data>
+  <data name="Splash_SignUp" xml:space="preserve">
+    <value>REGISTRATI</value>
+  </data>
+  <data name="Splash_SkipSignIn" xml:space="preserve">
+    <value>SALTA ACCESSO (demo)</value>
+  </data>
+  <data name="Splash_Title" xml:space="preserve">
+    <value>Xamarin CRM</value>
+  </data>
+  <data name="Splash_UsernameTitleLabel" xml:space="preserve">
+    <value>Nome utente:</value>
+  </data>
+  <data name="StartsHere" xml:space="preserve">
+    <value>INIZIA QUI</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>Stato/Provincia/Regione</value>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="String" xml:space="preserve">
+    <value>&lt;Image Source="{translate:Translate logo}" /&gt;</value>
+  </data>
+  <data name="SubmissionProblem" xml:space="preserve">
+    <value>Si è verificato un problema durante la sua richiesta</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Invia</value>
+  </data>
+  <data name="SubmitYourCurrentWeightLBS" xml:space="preserve">
+    <value>Inserisci il tuo peso attuale. (kg)</value>
+  </data>
+  <data name="SubmitYourWeightCAPS" xml:space="preserve">
+    <value>INSERISCI IL TUO PESO.</value>
+  </data>
+  <data name="SubmitYourWeightMessage" xml:space="preserve">
+    <value>È ora di inserire il tuo peso per tenere traccia dei tuoi progressi.</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Successo</value>
+  </data>
+  <data name="SwitchAccount" xml:space="preserve">
+    <value>Cambia account</value>
+  </data>
+  <data name="TakeFromCamera" xml:space="preserve">
+    <value>Scegli dalla camera</value>
+  </data>
+  <data name="TapOnPhotoToWatchVideo" xml:space="preserve">
+    <value>Tocca la foto per guardare il video</value>
+  </data>
+  <data name="TargetDate" xml:space="preserve">
+    <value>Data del traguardo:</value>
+  </data>
+  <data name="TellUsAboutYourJourney" xml:space="preserve">
+    <value>Raccontaci del tuo viaggio.</value>
+  </data>
+  <data name="TermAndConditions" xml:space="preserve">
+    <value>Termini e condizioni</value>
+  </data>
+  <data name="TermAndConditionsHeader" xml:space="preserve">
+    <value>TERMINI E CONDIZIONI PER LA PARTECIPAZIONE</value>
+  </data>
+  <data name="TermAndConditionsText" xml:space="preserve">
+    <value>TRA LE SEGUENTI PARTI: ORGANO GOLD ENTERPRISES, INC., una società per azioni della British Columbia (Reg. No. BC0824234), con sede legale presso: 12148 Horseshoe Way, Richmond, B.C. Canada V7A 4V5, (“Organo Gold” oppure la “Azienda”); E, “l'Individuo” identificato e che debitamente accetta il contratto sottostante (il suddetto individuo deve essere maggiorenne secondo la giurisdizione in cui risiede e disporre legalmente del diritto ad accettare questo Contratto). CONSIDERATO CHE, Organo Gold desidera lanciare una sfida per la perdita di peso (la "xchallenge Challenge") e l'Individuo desidera partecipare alla suddetta sfida. PERTANTO, l'Individuo e Organo Gold (collettivamente le "Parti") con il presente hanno convenuto quanto segue. 1.0 PARTECIPAZIONE 1.1 L'Azienda invita ("Offerta") l'Individuo a partecipare alla sfida xchallenge Challenge, che come inteso si compone di due fasi: la FENIX Challenge e la xchallenge phase, durante le quali l'individuo dovrà utilizzare OGX FENIX (il frullato per la gestione del peso di marca Organo, il "Prodotto") secondo le linee guida allegate nel programma "A", e mantenere uno stile di vita salutare, per ottenere in cambio l'opportunità di qualificarsi per i "Premi" elencati nel programma "B". 1.2 I termini di questo Contratto continueranno ad essere in vigore ed efficaci fino al 31 dicembre 2018, il cui termine è rinnovabile prima della scadenza iniziale; tuttavia, ciascuna delle Parti ha la libertà di terminare questo Impegno in qualsiasi momento, a propria discrezione e con un Preavviso di dieci (10) giorni. L'abbandono della xchallenge Challenge può essere considerato Risoluzione volontaria. 1.3 Organo Gold si riserva il diritto di cancellare o modificare i Termini e le condizioni a sua unica discrezione e in qualsiasi momento, con Avviso all'Individuo, posto che l'Individuo non si sia già qualificato per uno dei Premi. 2.0 CRITERI DI AMMISSIBILITÀ 2.1 Per potersi qualificare alla partecipazione alla FENIX challenge (prima fase) l'Individuo deve: a) creare un profilo presso xchallenge.club fornendo dati personali, inclusi e non limitati a: informazioni di contatto e obiettivo di perdita di peso, L'OBIETTIVO IN QUESTIONE DEVE ESSERE UNA PERDITA DI ALMENO 1O LIBBRE; b) caricare una "Foto prima"[1] di sé stesso prima di iniziare la sfida; c) utilizzare i prodotti OGX FENIX durante la partecipazione alla sfida xchallenge Challenge. 2.2 Per potersi qualificare alla partecipazione alla sfida xchallenge (seconda fase), all'Individuo è richiesto di: a) completare la sfida FENIX Challenge; b) acquistare almeno un prodotto al mese in Abbonamento da OG. 2.3 A scopo di ulteriore chiarimento, l'Individuo verrà notificato se si sarà qualificato con successo alla partecipazione della Sfida dopo la verifica delle informazioni sul profilo da parte della compagnia, solo dopo la verifica l'individuo può qualificarsi per i premi. 2.4 La compagnia si riserva il diritto di squalificare l'individuo dalla partecipazione e/o qualifica per il Premio se le informazioni fornite dall'Individuo sono false, incomplete o errate. 2.5 Ogni individuo verrà notificato del completamento avvenuto con successo della FENIX Challenge tramite email entro e non oltre 10 giorni dal completamento dei requisiti della fase. 2.6 A scopo di ulteriore chiarimento, l'Individuo completa la Prima fase una volta raggiunto l'obiettivo di perdita di peso indicato nel suo profilo presso xchallenge.club. 3.0 CONSIDERAZIONE FORMALE 3.1 In cambio della partecipazione da parte dell'Individuo, l'Azienda: 1. garantisce il diritto dell'Individuo a partecipare al Programma (per potenzialmente perdere peso, per mantenere il peso ideale e uno stile di vita salutare, per migliorare il proprio benessere), e 2. dare l'opportunità all'Individuo di qualificarsi per i Premi elencati nel Programma "B". 3.2 la presente considerazione si considera concessa e deve essere trattata come buona e valida ai fini della legge, così da obbligare le Parti a rispettare i rispettivi obblighi secondo quanto contemplato nella presente. 4.0 CONDIZIONI DI QUALIFICA PER I PREMI 4.1 Per qualificarsi per i Premi della FENIX challenge, elencati nel Programma "B", l'individuo deve: 1 utilizzare OGX FENIX secondo le linee guida stilate nel programma "A"; 2 specificare quanto peso ha perso e compilare settimanalmente un testimonial sui progressi della Sfida; 3 perdere almeno 10 libbre, e 4 ogni volta che vengono perse 10, 25, 50 e/o 100 libbre OPPURE quando si raggiunge l'obiettivo di peso applicabile: a) aggiornare le proprie misure presso xchallenge.club, b) caricare una "foto dopo", e c) compilare un testimonial sulla propria motivazione a perdere peso e/o cosa è piaciuto di più su OGX FENIX e xchallenge Challenge e/o il tuo obiettivo finale per la tua salute. 4.2 Per qualificarsi per i Premi della fase xchallenge e per ricevere la possibilità di essere selezionati per TOP3 e xchallenge Champion Awards della fase xchallenge in accordo con il paragrafo 4.4 qui di seguito, l'Individuo deve 1 utilizzare OGX FENIX in accordo con le linee guida stilate nel programma "A", 2 condividere un testimonial su come mantenere un peso corporeo salutare con OGX FENIX e caricare mensilmente un aggiornamento della propria foto e delle misure del proprio corpo. 4.3 Quarterly TOP 2, Annual X Champion presso il FENIX Stage, e Annual xchallenge Stage verranno scelti dal comitato di selezione, il quale consta di tre dirigenti di Organo Gold, sulla base dei seguenti criteri per la valutazione di ogni partecipante su una scala di 40 punti: 1 perdita di peso (20 punti) 2 motivazione trasmessa dalla storia (20 punti) 4.4 A scopo di ulteriore chiarimento, 1 i criteri della perdita di peso tengono in considerazione il numero di libbre perse durante la partecipazione alla Sfida, 2 i criteri per la motivazione trasmessa dalla storia saranno utilizzati per giudicare il testimonial e le immagini dell'individuo in base ai contenuti, i cui criteri consistono in: a) fattori di supporto provati che verranno utilizzati per valutare il carattere motivazionale delle immagini (10 punti) e b) fattori di esperienze di cambio vita che elogiano l'impegno per raggiungere il proprio obiettivo di perdita di peso e di mantenimento del peso (10 punti). 5.0 RICONOSCIMENTI 5.1 L'Individuo con la presente riconosce che le disposizioni dei Servizi possono essere soggette alla responsabilità personale, al pregiudizio legale e altri danni economici e fisici dell'individuo stesso, per virtù delle proprie azioni, omissioni, imprevisti o omissioni di altri, e/o qualsiasi altra occorrenza casuale (collettivamente i "Rischi"); pertanto, in cambio della Considerazione concessa, l'Individuo è d'accordo ad assumersi tutte le responsabilità dei Rischi sopra identificati e delineati con maggior dettaglio nella sezione 5 sottostante. 5.2 In cambio della Considerazione concessa dall'Azienda, l'Individuo con la presente libera e scarica in modo completo e definitivo Organo Gold da qualsiasi responsabilità di qualsiasi tipo o natura, sia essa legale, contrattuale o extracontrattuale (incluso tutte le procedure, domande, cause e/o simili accuse relative a 1. perdita, 2. danni patrimoniali, 3. danni a proprietà, 4. danni personali, 5. morte e/o 6. altre sofferenze), che risulti o sia risultato o in qualche modo collegata all'utilizzo dei Servizi da parte dell'Individuo, che derivano parzialmente o completamente da un'azione o un'omissione di Organo Gold, o l'azione e l'omissione di una qualsiasi terza parte. 5.3 Partecipando alla Promozione, l'Individuo riconosce che con la presente trasferisce in modo incondizionato a OGI qualsiasi diritto, titolo e interesse dell'Individuo e autorizza ad utilizzare qualsiasi materiale fotografico e letterario di cui è autore e la propria immagine, le proprie sembianze e il suono della propria voce in qualsiasi dei seguenti: immagini, registrazioni audio o video, descrizione o riproduzione della partecipazione dell'Individuo alla Sfida; sia che tali siano create, modificate, acquisite o archiviate da OGI, dall'Individuo o da una terza parte. 5.4 Accettando questa Offerta, l'Individuo espressamente rinuncia a qualsiasi diritto di compiere un'azione legale contro Organo Gold per lesioni, perdite o danni incorsi a causa dell'avvenimento di uno dei Rischi menzionati, ragionevolmente prevedibile o meno; l'Individuo con la presente dichiara di esporsi volontariamente ai suddetti Rischi, in virtù della fornitura dei Servizi. 5.5 L'Individuo riconosce di essere l'unico responsabile di sé stesso riguardo alla conoscenza dei Rischi (sia prevedibili che non prevedibili) che si assume dalla fornitura dei Servizi; e se necessario consulterà un avvocato o un medico necessari a soddisfare la sua comprensione della natura del consenso dato secondo il presente Contratto, e riconosce che NON ACCETTERÀ questo Contratto se ha dubbi riguardo al significato di assunzione di responsabilità riguardo a ciò che i Rischi comportano. 6.0 OBBLIGO DI INDENNIZZO E DI MANLEVA 6.1 Inoltre, in cambio della Considerazione concessa dall'Azienda, l'Individuo con la presente si impegna a indennizzare completamente Organo Gold e di manlevare Organo Gold da QUALSIASI E da tutte le lesioni, le perdite o altri danni (sia finanziari sia di altra natura), associati all'assunzione volontaria dell'Individuo delle responsabilità associate ai suddetti Rischi; con "Indennizzo" si intende l'inclusione del rimborso per ogni costo, spesa o tariffa, associate all'esecuzione delle disposizioni di questo Contratto, sia legali, contrattuali ed extracontrattuali. A scopo di chiarimento, questa indennità viene considerata un diritto automatico alla richiesta di un risarcimento danni di qualsiasi somma o altro importo quantificabile ascritto a Organo Gold ai sensi di legge o in via equitativa in quanto risultato di una Azione in applicazione del presente Contratto, indipendentemente dall'ottenimento di una Sentenza, e indipendentemente da ogni conclusione giuridica riguardante la validità dell'assunzione volontaria dell'Individuo delle suddette responsabilità associate ai Rischi descritti in questo Contratto, o come conseguenza della validità legale di questo Contratto di per sé. 7.0 AMMINISTRAZIONE 7.1 Infine, avvallando il presente Contratto, l'individuo riconosce che il presente Contratto si basa sulla premessa della mutua rappresentazione rispetto a qualifiche, reputazione e buona fede delle Parti; e per tanto, questo contratto contiene l'interezza dei termini e delle condizioni di questo Impegno sostituendo qualsiasi accordo precedente, verbale o per iscritto. 7.2 La mancanza di qualunque Parte a insistere sul rigoroso adempimento di una qualsiasi dei presenti Termini e condizioni non sarà considerato una rinuncia a qualsiasi diritto o rimedio che una qualsiasi delle Parti ha contratto secondo i termini del presente Contratto, e non sarà considerata come garanzia implicita del permesso o del condono di qualsiasi successivo mancato adempimento dei Termini e delle condizioni. 7.3 Il presente Contratto è disciplinato dalle leggi valide e applicabili nella Provincia della British Columbia, in Canada, senza fare riferimento a taluna delle altre disposizioni riguardanti il conflitto tra leggi, come se il Contratto venisse completamente eseguito all'interno della Provincia della British Columbia; le parti acconsentono a certificare un trasferimento delle rispettive autorità della sede processuale di primo grado contemplate dalla legge applicabile nella Provincia della British Columbia. 7.4 Se una qualsiasi parte del presente Contratto fosse ritenuta non valida o non applicabile, parzialmente o nella sua totalità, tale invalidità o non applicabilità sarà limitata solamente a tale disposizione (o parte di essa) e la rimanente parte e tutti gli altri Termini e condizioni rimarranno validi ed effettivi; in modo simile, se una disposizione del presente Contratto è troppo vaga per essere applicabile, tale disposizione dovrà essere interpretata solo fino al punto di renderla valida e applicabile secondo la legge. 7.5 Il presente Contratto sarà valido a partire dalla data qui sotto indicata, che sarà interpretata come la data in cui l'Individuo accetta "formalmente" l'Offerta e in cui ha letto i Termini e le condizioni, accettando di esserne vincolato.</value>
+  </data>
+  <data name="TestimonialsCAPS" xml:space="preserve">
+    <value>TESTIMONIAL</value>
+  </data>
+  <data name="ThisWeek" xml:space="preserve">
+    <value>Questa settimana</value>
+  </data>
+  <data name="to" xml:space="preserve">
+    <value>a</value>
+  </data>
+  <data name="ToLooseFormat1" xml:space="preserve">
+    <value>Perdere ({0})</value>
+  </data>
+  <data name="TShirtSize" xml:space="preserve">
+    <value>Taglia della maglia</value>
+  </data>
+  <data name="TShirtSizes" xml:space="preserve">
+    <value>Small,Medium,Large,X-Large,XX-Large</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Aggiorna</value>
+  </data>
+  <data name="UploadYourPhoto" xml:space="preserve">
+    <value>Carica una tua foto</value>
+  </data>
+  <data name="UploadYourPhotos" xml:space="preserve">
+    <value>Carica le tue foto</value>
+  </data>
+  <data name="UserMenu" xml:space="preserve">
+    <value>menu.png</value>
+  </data>
+  <data name="UserMenuBlack" xml:space="preserve">
+    <value>menu_black.png</value>
+  </data>
+  <data name="UserMenuSetting" xml:space="preserve">
+    <value>edit_fill_white.png</value>
+  </data>
+  <data name="UserMenuSettingBlack" xml:space="preserve">
+    <value>edit.png</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Nome utente</value>
+  </data>
+  <data name="UserSettings" xml:space="preserve">
+    <value>Impostazioni utente</value>
+  </data>
+  <data name="UserSignIn" xml:space="preserve">
+    <value>user_fwd.png</value>
+  </data>
+  <data name="UserSignInBlack" xml:space="preserve">
+    <value>user_fwd_black.png</value>
+  </data>
+  <data name="UserSignUp" xml:space="preserve">
+    <value>user_plus.png</value>
+  </data>
+  <data name="UserSignUpBlack" xml:space="preserve">
+    <value>user_plus_black.png</value>
+  </data>
+  <data name="ValidatingCredentials" xml:space="preserve">
+    <value>Convalida credenziali...</value>
+  </data>
+  <data name="Validation_IsInvalid" xml:space="preserve">
+    <value>{0} non è valido.</value>
+  </data>
+  <data name="Validation_Length" xml:space="preserve">
+    <value>{0} deve essere compreso tra {1} e {2}.</value>
+  </data>
+  <data name="Validation_LengthMustBeLessThan" xml:space="preserve">
+    <value>La lunghezza di {0} deve essere inferiore a quella di {1}.</value>
+  </data>
+  <data name="Validation_LengthMustBeMoreThan" xml:space="preserve">
+    <value>La lunghezza di {0} deve essere maggiore di quella di {1}.</value>
+  </data>
+  <data name="Validation_MustBeLessThan" xml:space="preserve">
+    <value>{0} deve essere inferiore a {1}.</value>
+  </data>
+  <data name="Validation_MustBeMoreThan" xml:space="preserve">
+    <value>{0} deve essere maggiore di {1}.</value>
+  </data>
+  <data name="VideoPlaylist" xml:space="preserve">
+    <value>Playlist dei video</value>
+  </data>
+  <data name="WeekCAPS" xml:space="preserve">
+    <value>SETTIMANA</value>
+  </data>
+  <data name="Weight" xml:space="preserve">
+    <value>Peso</value>
+  </data>
+  <data name="WeightLB" xml:space="preserve">
+    <value>Peso (lb)</value>
+  </data>
+  <data name="WeightLossGoal" xml:space="preserve">
+    <value>Obiettivo di perdita di peso</value>
+  </data>
+  <data name="WeightLossGoalMinKG" xml:space="preserve">
+    <value>Obiettivo di perdita di peso (min 5{0})</value>
+  </data>
+  <data name="WeightLossGoalMinLB" xml:space="preserve">
+    <value>Obiettivo di perdita di peso (min 10{0})</value>
+  </data>
+  <data name="WeightLossGraph" xml:space="preserve">
+    <value>Grafico della perdita di peso</value>
+  </data>
+  <data name="WeightVolume" xml:space="preserve">
+    <value>Volume del peso</value>
+  </data>
+  <data name="WeightVolumeType" xml:space="preserve">
+    <value>Tipo di volume del peso</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Benvenuto(a)</value>
+  </data>
+  <data name="WelcomeCaps" xml:space="preserve">
+    <value>BENVENUTO/A</value>
+  </data>
+  <data name="WelcomeTo" xml:space="preserve">
+    <value>Benvenuto/a</value>
+  </data>
+  <data name="WhyAreYouJoining" xml:space="preserve">
+    <value>Perché partecipi alla sfida?</value>
+  </data>
+  <data name="WorkoutPlans" xml:space="preserve">
+    <value>PIANI DI ESERCIZIO</value>
+  </data>
+  <data name="XChallenge" xml:space="preserve">
+    <value>xchallenge</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Sì</value>
+  </data>
+  <data name="YesSure" xml:space="preserve">
+    <value>Sì, sicuro</value>
+  </data>
+  <data name="YouJoinedTheProgramOn" xml:space="preserve">
+    <value>Ti sei iscritto al programma il:</value>
+  </data>
+  <data name="YourAge" xml:space="preserve">
+    <value>La tua età</value>
+  </data>
+  <data name="YourAgeYears" xml:space="preserve">
+    <value>La tua età (anni)</value>
+  </data>
+  <data name="YourBasic" xml:space="preserve">
+    <value>LE TUE BASI</value>
+  </data>
+  <data name="YourCurrentTShirtSize" xml:space="preserve">
+    <value>Taglia attuale della tua maglia</value>
+  </data>
+  <data name="YourCurrentWeight" xml:space="preserve">
+    <value>Il tuo peso attuale</value>
+  </data>
+  <data name="YourCurrentWeightFormat1" xml:space="preserve">
+    <value>Inserisci il tuo peso attuale ({0})</value>
+  </data>
+  <data name="YourFenix" xml:space="preserve">
+    <value>LA TUA FENIX</value>
+  </data>
+  <data name="YourGoal" xml:space="preserve">
+    <value>Il tuo obiettivo</value>
+  </data>
+  <data name="YourPhotos" xml:space="preserve">
+    <value>Le tue foto:</value>
+  </data>
+  <data name="WeightLossGoalWithValue" xml:space="preserve">
+    <value>Obiettivo di perdita di peso ({0})</value>
+  </data>
+  <data name="icon_eye_hide" xml:space="preserve">
+    <value>eye_hide.png</value>
+  </data>
+  <data name="icon_eye_show" xml:space="preserve">
+    <value>eye_show.png</value>
+  </data>
+  <data name="GotError" xml:space="preserve">
+    <value>ERRORE GOT! Ci stiamo lavorando.</value>
+  </data>
+  <data name="LastWeightFormat" xml:space="preserve">
+    <value>Il tuo peso per l'ultima volta ({0}) : </value>
+  </data>
+  <data name="StartWeightFormat" xml:space="preserve">
+    <value>Il tuo peso iniziale ({0}) : </value>
+  </data>
+  <data name="WeightLossGoalFormat" xml:space="preserve">
+    <value>Obiettivo di perdita di peso ({0}) : </value>
+  </data>
+  <data name="WeightLossGoalMinFormat2" xml:space="preserve">
+    <value>Obiettivo di perdita di peso (min {0}{1})</value>
+  </data>
+  <data name="Continent" xml:space="preserve">
+    <value>Continente</value>
+  </data>
+  <data name="ContinentCAPS" xml:space="preserve">
+    <value>CONTINENTE</value>
+  </data>
+  <data name="SelectContinent" xml:space="preserve">
+    <value>Seleziona il tuo continente</value>
+  </data>
+  <data name="UpdateMessageArgs" xml:space="preserve">
+    <value>È disponibile una nuova versione di {0}. Si prega di aggiornare alla versione {1} ora.</value>
+  </data>
+  <data name="UpdateTitle" xml:space="preserve">
+    <value>Aggiornamento disponibile</value>
+  </data>
+  <data name="Later" xml:space="preserve">
+    <value>Dopo</value>
+  </data>
+  <data name="EmailIDNotFound" xml:space="preserve">
+    <value>ID e-mail non trovato</value>
+  </data>
+  <data name="YouLost" xml:space="preserve">
+    <value>Hai perso {0}</value>
+  </data>
+  <data name="YourWeight" xml:space="preserve">
+    <value>Il tuo peso {0}</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>modificare</value>
+  </data>
+  <data name="Latest" xml:space="preserve">
+    <value>Più recente</value>
+  </data>
+  <data name="Tracker" xml:space="preserve">
+    <value>Tracker</value>
+  </data>
+</root>

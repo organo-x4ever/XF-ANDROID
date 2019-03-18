@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<media:AudioPlayerPageXaml xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:media="clr-namespace:com.organo.xchallenge.Pages.Media;assembly=com.organo.xchallenge"
+             xmlns:statics="clr-namespace:com.organo.xchallenge.Statics;assembly=com.organo.xchallenge"
+             xmlns:localization="clr-namespace:com.organo.xchallenge.Localization;assembly=com.organo.xchallenge"
+             xmlns:controls="clr-namespace:com.organo.xchallenge.Controls;assembly=com.organo.xchallenge"
+             xmlns:converters="clr-namespace:com.organo.xchallenge.Converters;assembly=com.organo.xchallenge"
+             x:Class="com.organo.xchallenge.Pages.Media.AudioPlayerPage">
+  <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+    <controls:TopBarAccountView></controls:TopBarAccountView>
+    <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="25,15,25,0">
+      <StackLayout Orientation="Vertical" VerticalOptions="Start" HorizontalOptions="FillAndExpand" IsVisible="{Binding IsMediaExists}">
+        <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" Text="{Binding CurrentTimer}" Style="{DynamicResource labelStyleXXXLargeHeader}" />
+        <Grid VerticalOptions="Start" HorizontalOptions="FillAndExpand" Margin="0,15,0,5">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+          </Grid.ColumnDefinitions>
+          <Label Grid.Row="0" Grid.Column="0" HorizontalOptions="StartAndExpand" Text="{Binding MediaTitle}" Style="{DynamicResource labelTimer}" FontAttributes="Bold" LineBreakMode="TailTruncation" />
+          <Label Grid.Row="0" Grid.Column="1" HorizontalOptions="End" Text="{Binding TotalTimer}" Style="{DynamicResource labelTimer}" />
+        </Grid>
+        <Slider Minimum="0" Maximum="100" Value="{Binding CurrentPosition, Mode=OneWay}" HorizontalOptions="FillAndExpand" />
+        <Grid HorizontalOptions="FillAndExpand">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+          </Grid.ColumnDefinitions>
+          <Image Grid.Column="2" Source="{Binding PreviousButton}" Style="{DynamicResource imageIcon}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0,3,0">
+            <Image.GestureRecognizers>
+              <TapGestureRecognizer Command="{Binding PreviousCommand}" />
+            </Image.GestureRecognizers>
+          </Image>
+          <Image Grid.Column="3" Source="{Binding PlayPauseButton}" Style="{DynamicResource imageIcon}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0,3,0">
+            <Image.GestureRecognizers>
+              <TapGestureRecognizer Command="{Binding PlayCommand}" />
+            </Image.GestureRecognizers>
+          </Image>
+          <Image Grid.Column="4" Source="{Binding StopButton}" Style="{DynamicResource imageIcon}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0,3,0">
+            <Image.GestureRecognizers>
+              <TapGestureRecognizer Command="{Binding StopCommand}" />
+            </Image.GestureRecognizers>
+          </Image>
+          <Image Grid.Column="5" Source="{Binding NextButton}" Style="{DynamicResource imageIcon}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0,3,0">
+            <Image.GestureRecognizers>
+              <TapGestureRecognizer Command="{Binding NextCommand}" />
+            </Image.GestureRecognizers>
+          </Image>
+        </Grid>
+      </StackLayout>
+      <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="0,15,0,0" IsEnabled="{Binding IsEditable}">
+        <Label Text="{localization:Translate Playlist}" Style="{DynamicResource labelStyleLargeMedium}" HorizontalOptions="Start">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding DeveloperViewCommand}" />
+            </Label.GestureRecognizers>
+        </Label>
+        <BoxView BackgroundColor="{x:Static statics:Palette._White}" HeightRequest="1" Margin="0,-6,0,0" HorizontalOptions="FillAndExpand" />
+      </StackLayout>
+      <StackLayout Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" IsVisible="{Binding IsError}">
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+        <Label IsVisible="{Binding IsBusy}" Text="{Binding BusyMessage}" Style="{DynamicResource labelBusyMessage}" />
+        <Label IsVisible="{Binding IsError}" Text="{Binding ErrorMessage}" Style="{DynamicResource labelErrorMessage}" />
+        <Label IsVisible="{Binding IsMessage}" Text="{Binding MessageText}" Style="{DynamicResource labelSuccessMessage}" />
+      </StackLayout>
+      <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" IsEnabled="{Binding IsEditable}" BackgroundColor="{x:Static statics:Palette._Transparent}">
+        <ListView HasUnevenRows="True" SeparatorVisibility="None" ItemsSource="{Binding MediaFiles}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" ItemSelected="ListView_OnItemSelected" BackgroundColor="{x:Static statics:Palette._Transparent}">
+          <ListView.ItemTemplate>
+            <DataTemplate>
+              <ViewCell>
+                <Label HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Start"
+                       Text="{Binding Url, Converter={StaticResource SplitConverter}, ConverterParameter=9, StringFormat='{0}'}" Style="{DynamicResource labelStyleMediumSmall}" LineBreakMode="TailTruncation" Margin="0,4,0,4" />
+              </ViewCell>
+            </DataTemplate>
+          </ListView.ItemTemplate>
+        </ListView>
+      </StackLayout>
+      <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" IsVisible="{Binding IsDeveloper}">
+        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+          <ContentView HorizontalOptions="Fill" VerticalOptions="FillAndExpand" Content="{Binding MessageContent}"></ContentView>
+        </StackLayout>
+      </ScrollView>
+    </StackLayout>
+    <controls:FooterView />
+  </StackLayout>
+  <media:AudioPlayerPage.Resources>
+    <ResourceDictionary>
+      <converters:SplitStringConverter x:Key="SplitConverter" />
+    </ResourceDictionary>
+  </media:AudioPlayerPage.Resources>
+</media:AudioPlayerPageXaml>

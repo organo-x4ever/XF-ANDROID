@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mealPlan:MealPlanPageXaml xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mealPlan="clr-namespace:com.organo.xchallenge.Pages.MealPlan;assembly=com.organo.xchallenge"
+             xmlns:localization="clr-namespace:com.organo.xchallenge.Localization;assembly=com.organo.xchallenge"
+             xmlns:statics="clr-namespace:com.organo.xchallenge.Statics;assembly=com.organo.xchallenge"
+             xmlns:controls="clr-namespace:com.organo.xchallenge.Controls;assembly=com.organo.xchallenge"
+             x:Class="com.organo.xchallenge.Pages.MealPlan.MealPlanPage">
+  <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+    <controls:TopBarAccountView></controls:TopBarAccountView>
+    <StackLayout Orientation="Vertical" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" Margin="15,-6,15,0">
+      <Label Margin="0,10,0,0" Text="{localization:Translate MealPlansCAPS}" Style="{DynamicResource labelStyleXLargeHeader}" HorizontalOptions="Center" />
+      <StackLayout VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" Margin="0,5,0,0">
+        <Grid VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
+          <Image Grid.Row="0" Grid.Column="0" HorizontalOptions="CenterAndExpand" Source="{Binding FullMealsImageSource}" Style="{DynamicResource imageContentHeader}" HeightRequest="{Binding MealPlanImageHeight}"  WidthRequest="{Binding MealPlanImageWidth}">
+            <Image.GestureRecognizers>
+              <TapGestureRecognizer  Command="{Binding FullMealsCommand}" />
+            </Image.GestureRecognizers>
+          </Image>
+          <Label Grid.Row="1" Grid.Column="0" HorizontalOptions="CenterAndExpand" Style="{Binding FullMealsStyle}" Text="{localization:Translate FullMealsCAPS}">
+            <Label.GestureRecognizers>
+              <TapGestureRecognizer  Command="{Binding FullMealsCommand}" />
+            </Label.GestureRecognizers>
+          </Label>
+          <Image Grid.Row="0" Grid.Column="1" HorizontalOptions="CenterAndExpand" Source="{Binding ShakesImageSource}" Style="{DynamicResource imageContentHeader}" HeightRequest="{Binding MealPlanImageHeight}"  WidthRequest="{Binding MealPlanImageWidth}">
+            <Image.GestureRecognizers>
+              <TapGestureRecognizer  Command="{Binding ShakesCommand}" />
+            </Image.GestureRecognizers>
+          </Image>
+          <Label Grid.Row="1" Grid.Column="1" HorizontalOptions="CenterAndExpand" VerticalOptions="Start" Style="{Binding ShakesStyle}" Text="{localization:Translate ShakesCAPS}">
+            <Label.GestureRecognizers>
+              <TapGestureRecognizer  Command="{Binding ShakesCommand}" />
+            </Label.GestureRecognizers>
+          </Label>
+          <Image Grid.Row="0" Grid.Column="2" HorizontalOptions="CenterAndExpand" Source="{Binding ProMealsImageSource}" Style="{DynamicResource imageContentHeader}" HeightRequest="{Binding MealPlanImageHeight}"  WidthRequest="{Binding MealPlanImageWidth}">
+            <Image.GestureRecognizers>
+              <TapGestureRecognizer  Command="{Binding ProMealsCommand}" />
+            </Image.GestureRecognizers>
+          </Image>
+          <Label Grid.Row="1" Grid.Column="2" HorizontalOptions="CenterAndExpand" VerticalOptions="Start" Style="{Binding ProMealsStyle}" Text="{localization:Translate ProMealsCAPS}">
+            <Label.GestureRecognizers>
+              <TapGestureRecognizer  Command="{Binding ProMealsCommand}" />
+            </Label.GestureRecognizers>
+          </Label>
+        </Grid>
+      </StackLayout>
+      <StackLayout VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" IsVisible="{Binding MealHeaderImageExists}" Margin="5,0,5,0">
+        <Image VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand" Aspect="AspectFill" Source="{Binding MealHeaderImageSource}" HeightRequest="{Binding MealPlanHeaderHeight}"  WidthRequest="{Binding MealPlanHeaderWidth}" />
+      </StackLayout>
+      <StackLayout VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand">
+        <ScrollView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+          <controls:AccordionMultiView x:Name="AccordionMain" VerticalOptions="StartAndExpand" />
+        </ScrollView>
+      </StackLayout>
+    </StackLayout>
+    <controls:FooterView></controls:FooterView>
+  </StackLayout>
+</mealPlan:MealPlanPageXaml>

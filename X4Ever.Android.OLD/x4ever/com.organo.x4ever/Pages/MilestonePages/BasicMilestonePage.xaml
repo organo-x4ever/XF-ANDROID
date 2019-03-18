@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<page:BasicMilestonePageXaml
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="com.organo.xchallenge.Pages.MilestonePages.BasicMilestonePage"
+    xmlns:page="clr-namespace:com.organo.xchallenge.Pages.MilestonePages">
+    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="4,0,4,0">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Text="{Binding YourCurrentWeightText}" Style="{DynamicResource labelStyleInfoHeading}" />
+            <Label Grid.Row="0" Grid.Column="1" Text="{Binding CurrentWeightValue, Mode=TwoWay}" Style="{DynamicResource labelStyleInfoHighlight}" HorizontalOptions="End" />
+            <Slider Grid.Row="1" Grid.ColumnSpan="2" x:Name="sliderCurrentWeight" Minimum="{Binding CurrentWeightMinimumValue}" Maximum="{Binding CurrentWeightMaximumValue}" IsEnabled="{Binding CurrentWeightEnabled}" />
+        </Grid>
+    </StackLayout>
+</page:BasicMilestonePageXaml>
