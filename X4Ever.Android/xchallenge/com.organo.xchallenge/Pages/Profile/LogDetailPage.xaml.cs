@@ -21,12 +21,17 @@ namespace com.organo.xchallenge.Pages.Profile
             App.Configuration.InitialAsync(this);
             NavigationPage.SetHasNavigationBar(this, false);
             _model = model;
+            Init();
+        }
+
+        private void Init()
+        {
             _model.Navigation = App.CurrentApp.MainPage.Navigation;
             _model.SliderTrackerWeight = sliderTrackerWeight;
             BindingContext = _model;
             ListViewTrackers.ItemSelected += async (sender, e) =>
             {
-                if (model.UserDetail.IsDownloadAllowed)
+                if (_model.UserDetail.IsDownloadAllowed)
                 {
                     if (ListViewTrackers.SelectedItem == null)
                         return;

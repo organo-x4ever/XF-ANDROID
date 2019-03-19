@@ -40,6 +40,7 @@ namespace com.organo.xchallenge.Pages.Account
         {
             try
             {
+				await _model.GetCountryList();
                 if (_user.UserMetas != null && _user.UserMetas.Count > 0)
                 {
                     _model.CountryName = await _user.UserMetas.ToList().Get(MetaEnum.country);
@@ -51,11 +52,12 @@ namespace com.organo.xchallenge.Pages.Account
                     _model.StateName = await _user.UserMetas.ToList().Get(MetaEnum.state);
                 }
 
-                pickerCountry.ItemsSource = await _model.GetCountryList();
+                pickerCountry.ItemsSource = _model.CountryList;
                 entryCountry.Focused += (sender, e) =>
                 {
                     entryCountry.Unfocus();
                     pickerCountry.Focus();
+			
                     pickerCountry.SelectedIndexChanged += (sender1, e1) =>
                     {
                         var countrySelected = pickerCountry.SelectedItem;
@@ -66,7 +68,7 @@ namespace com.organo.xchallenge.Pages.Account
                             entryAddress.Focus();
                         }
                     };
-                };
+				};
                 StateSetup();
                 buttonNext.Clicked += async (sender, e) => { await NextStepAsync(); };
             }

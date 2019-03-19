@@ -6,6 +6,7 @@ using System.Net;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using com.organo.xchallenge.Droid;
+using com.organo.xchallenge.Handler;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(FileDownloadService))]
@@ -15,7 +16,6 @@ namespace com.organo.xchallenge.Droid
     public class FileDownloadService : IFileDownloadService
     {
         private WebClient _client;
-        private bool retryLoading = false;
 
         public FileDownloadService()
         {
@@ -29,13 +29,9 @@ namespace com.organo.xchallenge.Droid
                 _client.DownloadFileAsync(fileUri, await GetFileAsync(fileName));
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                if (!retryLoading)
-                {
-                    retryLoading = true;
-                    return await DownloadFileAsync(fileUri, fileName);
-                }
+                new ExceptionHandler(typeof(FileDownloadService).FullName, ex);
             }
 
             return false;
@@ -45,16 +41,12 @@ namespace com.organo.xchallenge.Droid
         {
             try
             {
-                _client.DownloadFile(fileUri,  await GetFileAsync(fileName));
+                _client.DownloadFile(fileUri, await GetFileAsync(fileName));
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                if (!retryLoading)
-                {
-                    retryLoading = true;
-                    return await DownloadFileAsync(fileUri, fileName);
-                }
+                new ExceptionHandler(typeof(FileDownloadService).FullName, ex);
             }
 
             return false;
@@ -86,13 +78,9 @@ namespace com.organo.xchallenge.Droid
                     removed = true;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                if (!retryLoading)
-                {
-                    retryLoading = true;
-                    return await RemoveFileAsync(fileName);
-                }
+                new ExceptionHandler(typeof(FileDownloadService).FullName, ex);
             }
 
             return removed;

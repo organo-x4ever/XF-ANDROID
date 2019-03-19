@@ -7,6 +7,7 @@ namespace com.organo.xchallenge.Models
         public AppConfig()
         {
             BaseUrl = string.Empty;
+			BaseUrl_Development = string.Empty;
             AuthenticationUrl = string.Empty;
             ApplicationRequestHeader = string.Empty;
             ApplicationVersion = string.Empty;

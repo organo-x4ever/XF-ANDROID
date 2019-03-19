@@ -58,8 +58,6 @@ namespace com.organo.xchallenge.Globals
         private async void InitialTasks()
         {
             AppConfig = await _configFetcher.GetAsync();
-            GetImageSizes(AppConfig);
-            AppConfig.ApplicationVersion = DependencyService.Get<IAppVersionProvider>().Version;
             await GetConnectionInfoAsync();
             await InitAsync();
             SetBarColor();

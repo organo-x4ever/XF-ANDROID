@@ -1,12 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <profile:LogDetailPageXaml 
     xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:profile="clr-namespace:com.organo.xchallenge.Pages.Profile;assembly=com.organo.xchallenge"
-             x:Class="com.organo.xchallenge.Pages.Profile.LogDetailPage"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:profile="clr-namespace:com.organo.xchallenge.Pages.Profile;assembly=com.organo.xchallenge"
+    x:Class="com.organo.xchallenge.Pages.Profile.LogDetailPage"
     xmlns:statics="clr-namespace:com.organo.xchallenge.Statics"
-    xmlns:app="clr-namespace:com.organo.xchallenge"
-    xmlns:translate="clr-namespace:com.organo.xchallenge.Localization"
     xmlns:controls="clr-namespace:com.organo.xchallenge.Controls;assembly=com.organo.xchallenge">
     <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
       <controls:TopBarPopupView></controls:TopBarPopupView>

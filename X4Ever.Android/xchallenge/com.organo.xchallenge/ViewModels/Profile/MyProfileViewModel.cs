@@ -49,7 +49,6 @@ namespace com.organo.xchallenge.ViewModels.Profile
                 UserBadgeImageHeight = _imageSizeBadge.Height;
                 UserBadgeImageWidth = _imageSizeBadge.Width;
             }
-
             BadgeAchievedImage = ImageResizer.ResizeImage(TextResources.Badge_Null, _imageSizeBadge);
             MilestoneRequired = false;
             ShowTrackerDetail = false;
@@ -120,58 +119,6 @@ namespace com.organo.xchallenge.ViewModels.Profile
             action?.Invoke();
         }
 
-        //public async Task GetUserAsync(Action action = null)
-        //{
-        //    UserDetail = await _userService.GetFullAsync();
-        //    if (UserDetail == null)
-        //    {
-        //        await App.LogoutAsync();
-        //        App.GoToAccountPage();
-        //        return;
-        //    }
-
-        //    UserTrackers = UserDetail.UserDetailTrackers;
-        //    UserGreeting = string.Format(TextResources.GreetingUser, UserDetail.DisplayName);
-        //    if (UserDetail.Achievement != null && UserDetail.Achievement.AchievementIcon != null)
-        //        BadgeAchievedImage = ImageResizer.ResizeImage(DependencyService.Get<IMessage>()
-        //            .GetResource(UserDetail.Achievement.AchievementIcon), _imageSizeBadge);
-        //    JoiningDate = string.Format(CommonConstants.DATE_FORMAT_MMM_d_yyyy, UserDetail.UserRegistered);
-        //    if (UserDetail.UserDetailMeta != null)
-        //        YourGoal = UserDetail.UserDetailMeta.WeightGoal;
-        //    //(the weight you want to lose / 0.33)/ 7
-        //    var noOfDays = (YourGoal / App.Configuration.AppConfig.TargetDateCalculation);
-        //    TargetDate = string.Format(CommonConstants.DATE_FORMAT_MMM_d_yyyy, UserDetail.UserRegistered.AddDays(noOfDays)); // "Sunday, March 9, 2008"
-
-        //    var trackerFirst = UserDetail.UserDetailTrackers.OrderBy(t => t.ModifyDate).FirstOrDefault();
-        //    var trackerLast = UserDetail.UserDetailTrackers.OrderByDescending(t => t.ModifyDate).FirstOrDefault();
-        //    MilestoneRequired = trackerFirst == null;
-        //    if (trackerFirst != null && trackerLast != null)
-        //    {
-        //        StartWeight = trackerFirst.CurrentWeight;
-        //        Weight = StartWeight;
-        //        WeightLossGoal = YourGoal;
-
-        //        YouLost = (short) (StartWeight - trackerLast.CurrentWeight);
-        //        ToLoose = (short) (YourGoal - YouLost);
-        //        ToLoose = (short) (ToLoose >= 0 ? ToLoose : 0);
-
-        //        int.TryParse(trackerLast.RevisionNumber, out int revisionNumber);
-        //        revisionNumber = (revisionNumber > 1 ? revisionNumber - 1 : 1);
-        //        var trackerPrevious =
-        //            UserDetail.UserDetailTrackers.FirstOrDefault(t =>
-        //                t.RevisionNumber == revisionNumber.ToString());
-        //        if (trackerPrevious != null)
-        //            YouLostThisWeek = (short) (trackerPrevious.CurrentWeight - trackerLast.CurrentWeight);
-
-        //        // Milestone Requirement Check
-        //        MilestoneRequired = UserDetail.IsWeightSubmissionRequired;
-        //    }
-
-        //    LoadGauge();
-        //    GetTrackerData();
-        //    action?.Invoke();
-        //}
-        
         private async void GetTrackerInputAsync()
         {
             await Task.Delay(TimeSpan.FromSeconds(2));
