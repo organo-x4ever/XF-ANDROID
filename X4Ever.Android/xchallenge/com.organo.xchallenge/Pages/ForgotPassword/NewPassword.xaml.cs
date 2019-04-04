@@ -12,9 +12,9 @@ namespace com.organo.xchallenge.Pages.ForgotPassword
 {
     public partial class NewPassword : NewPasswordXaml
     {
-        private RequestPasswordViewModel _model;
-        private IUserPivotService _userPivotService;
-        private IHelper _helper;
+        private readonly RequestPasswordViewModel _model;
+        private readonly IUserPivotService _userPivotService;
+        private readonly IHelper _helper;
 
         public NewPassword(RequestPasswordViewModel model)
         {
@@ -26,7 +26,6 @@ namespace com.organo.xchallenge.Pages.ForgotPassword
             _userPivotService = DependencyService.Get<IUserPivotService>();
             _helper = DependencyService.Get<IHelper>();
             buttonSubmit.Clicked += ButtonSubmit_Clicked;
-            _model.SetActivityResource();
         }
 
         private async void ButtonSubmit_Clicked(object sender, System.EventArgs e)
@@ -41,22 +40,20 @@ namespace com.organo.xchallenge.Pages.ForgotPassword
 
         private async Task ChangePassword()
         {
-                _model.LayoutOptions = LayoutOptions.Center;
-                _model.SetActivityResource(false, true);
+            _model.LayoutOptions = LayoutOptions.Center;
+            _model.SetActivityResource(false, true);
 
             if (Validate())
             {
-                var response =
-                    await _userPivotService.ChangeForgotPasswordAsync(_model.SecretCode.Trim(),
-                        _model.Password.Trim());
+                var response = await _userPivotService.ChangeForgotPasswordAsync(
+                    _model.SecretCode.Trim(), _model.Password.Trim());
                 if (response != null)
+                {
                     if (response.Contains(HttpConstants.SUCCESS))
                         App.CurrentApp.MainPage = new MainPage.MainPage(TextResources.MessagePasswordChanged);
-
-                _model.SetActivityResource(showError: true,
-                    errorMessage: response != null
-                        ? _helper.ReturnMessage(response)
-                        : TextResources.MessageSomethingWentWrong);
+                    else
+                        _model.SetActivityResource(showError: true, errorMessage: _helper.ReturnMessage(response));
+                }
             }
         }
 
@@ -80,10 +77,7 @@ namespace com.organo.xchallenge.Pages.ForgotPassword
             else if (_model.Password.Trim() != _model.ConfirmPassword.Trim())
                 validationErrors.Add(TextResources.MessagePasswordAndConfirmPasswordNotMatch);
             if (validationErrors.Count() > 0)
-                _model.SetActivityResource(showError: true,
-                    errorMessage: validationErrors.Count() > 2
-                        ? TextResources.Required_AllInputs
-                        : validationErrors.Show(CommonConstants.SPACE));
+                _model.SetActivityResource(showError: true, errorMessage: validationErrors.Show(CommonConstants.SPACE));
             return validationErrors.Count() == 0;
         }
 

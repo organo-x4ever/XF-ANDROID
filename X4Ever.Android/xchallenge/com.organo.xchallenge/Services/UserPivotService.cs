@@ -27,11 +27,9 @@ namespace com.organo.xchallenge.Services
         public string Message { get; set; }
         public string ControllerName => "userpivot";
         public string ControllerNameUnauthorized => "actions";
-        private bool retryLoading = false;
 
         public UserPivotService()
         {
-            retryLoading = false;
             _trackerPivotService = DependencyService.Get<ITrackerPivotService>();
             _authenticationService = DependencyService.Get<IAuthenticationService>();
         }
@@ -48,7 +46,7 @@ namespace com.organo.xchallenge.Services
             var response = await ClientService.PostDataAsync(user, ControllerName, "changepassword");
             if (response != null && response.IsSuccessStatusCode && response.StatusCode == HttpStatusCode.OK)
             {
-                Task<string> jsonTask = response.Content.ReadAsStringAsync();
+                var jsonTask = response.Content.ReadAsStringAsync();
                 if (jsonTask.Result.Contains(HttpConstants.SUCCESS) &&
                     !jsonTask.Result.Contains(HttpConstants.INVALID) &&
                     !jsonTask.Result.Contains(HttpConstants.ERROR) &&
@@ -107,6 +105,8 @@ namespace com.organo.xchallenge.Services
 
         public async Task<UserPivot> GetFullAsync()
         {
+            // Delays to let other tasks complete
+            await Task.Delay(TimeSpan.FromMilliseconds(50));
             var response = await ClientService.GetDataAsync(ControllerName, "getfulluser");
             if (response != null && response.IsSuccessStatusCode && response.StatusCode == HttpStatusCode.OK)
             {
@@ -164,7 +164,7 @@ namespace com.organo.xchallenge.Services
             var response = await ClientService.PostDataNoHeaderAsync(user, ControllerNameUnauthorized, "register");
             if (response != null && response.IsSuccessStatusCode && response.StatusCode == HttpStatusCode.OK)
             {
-                Task<string> jsonTask = response.Content.ReadAsStringAsync();
+                var jsonTask = response.Content.ReadAsStringAsync();
                 if (jsonTask.Result.Contains(HttpConstants.SUCCESS))
                 {
                     return HttpConstants.SUCCESS;

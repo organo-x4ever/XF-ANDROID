@@ -38,7 +38,7 @@ namespace com.organo.xchallenge.Pages
             }
         }
 
-        private void Init(object obj)
+        private async void Init(object obj)
         {
             _devicePermissionServices = DependencyService.Get<IDevicePermissionServices>();
             _model = new MenuPageViewModel(Navigation)
@@ -51,8 +51,8 @@ namespace com.organo.xchallenge.Pages
             };
             BindingContext = this._model;
             _helper = DependencyService.Get<IHelper>();
-            _model.GetMenuData();
-            _model.GetProfilePhoto();
+            await _model.GetMenuData();
+            await _model.GetProfilePhoto();
             _metaPivotService = DependencyService.Get<IMetaPivotService>();
             _media = DependencyService.Get<Globals.IMedia>();
         }
@@ -97,12 +97,8 @@ namespace com.organo.xchallenge.Pages
                         await _model.Root.NavigateAsync(((HomeMenuItem) e.SelectedItem).MenuType);
                     };
                     App.Configuration.IsMenuLoaded = true;
-                    return;
                 }
             }
-
-            App.Configuration.IsMenuLoaded = false;
-            _model.GetMenuData();
         }
 
         private async void ChangeProfilePhoto(object sender, EventArgs args)
@@ -138,8 +134,6 @@ namespace com.organo.xchallenge.Pages
                         _model.SetActivityResource(true, false, showError: true, errorMessage: _media.Message);
                         return;
                     }
-
-                    _model.SetActivityResource();
                 }
                 else if (result == TextResources.TakeFromCamera)
                 {
@@ -172,9 +166,9 @@ namespace com.organo.xchallenge.Pages
                         _model.SetActivityResource(true, false, showError: true, errorMessage: _media.Message);
                         return;
                     }
-
-                    _model.SetActivityResource();
                 }
+				
+                _model.SetActivityResource();
 
                 if (!string.IsNullOrEmpty(_media.FileName))
                 {
@@ -187,6 +181,9 @@ namespace com.organo.xchallenge.Pages
                         _model.User.ProfileImage = _media.FileName;
                         App.CurrentUser.UserInfo = _model.User;
                         _model.ProfileImagePath = _model.User.ProfileImage;
+						_model.SetActivityResource(showMessage: true,
+                            message: TextResources.ChangeProfilePhoto + " " + TextResources.Change + " " +
+                                     TextResources.Success);
                     }
                 }
                 else

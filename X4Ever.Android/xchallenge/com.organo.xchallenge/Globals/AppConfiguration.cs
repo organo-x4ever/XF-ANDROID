@@ -58,6 +58,8 @@ namespace com.organo.xchallenge.Globals
         private async void InitialTasks()
         {
             AppConfig = await _configFetcher.GetAsync();
+            AppConfig.ApplicationVersion = DependencyService.Get<IAppVersionProvider>().Version;
+            GetImageSizes(AppConfig);
             await GetConnectionInfoAsync();
             await InitAsync();
             SetBarColor();
@@ -259,16 +261,14 @@ namespace com.organo.xchallenge.Globals
 
         private void SetImageSizes(string id, string dimensions, string path = null, bool isDynamic = false)
         {
-            var imageSize = new ImageSize();
             if (dimensions != null && dimensions.Contains("*"))
             {
                 var splits = dimensions.Split('*');
                 if (splits != null && splits.Length > 1)
                 {
-                    int width = 99, height = 99;
-                    int.TryParse(splits[0], out width);
-                    int.TryParse(splits[1], out height);
-                    imageSize = new ImageSize()
+                    int.TryParse(splits[0], out var width);
+                    int.TryParse(splits[1], out var height);
+                    var imageSize = new ImageSize()
                     {
                         ImageID = id,
                         ImageName = path,

@@ -14,7 +14,7 @@ namespace com.organo.xchallenge.ViewModels.News
 {
     public class NewsViewModel : BaseViewModel
     {
-        private INewsService _newsService;
+        private readonly INewsService _newsService;
 
         public NewsViewModel(INavigation navigation = null) : base(navigation)
         {
@@ -22,15 +22,29 @@ namespace com.organo.xchallenge.ViewModels.News
             _newsService = DependencyService.Get<INewsService>();
         }
 
-        public async Task GetAsync()
+        public async Task<List<NewsModel>> GetAsync()
         {
-            NewsModels = (await _newsService.GetByLanguage(App.Configuration.AppConfig.DefaultLanguage, true))
-                .OrderByDescending(n => n.PostDate).ToList();
-            foreach (var news in NewsModels)
-            {
-                if (news.NewsImage != null && news.NewsImage.Trim().Length > 0)
-                    news.NewsImageSource = DependencyService.Get<IHelper>().GetFileUri(news.NewsImage, FileType.None);
-            }
+            var newsList = await _newsService.GetByLanguage(App.Configuration.AppConfig.DefaultLanguage, true);
+
+            NewsModels = (from n in newsList
+                select new NewsModel()
+                {
+                    Active = n.Active,
+                    ApplicationId = n.ApplicationId,
+                    Body = n.Body,
+                    Header = n.Header,
+                    ID = n.ID,
+                    LanguageCode = n.LanguageCode,
+                    ModifiedBy = n.ModifiedBy,
+                    ModifyDate = n.ModifyDate,
+                    NewsImage = n.NewsImage,
+                    NewsImagePosition = n.NewsImagePosition,
+                    NewsImageSource = DependencyService.Get<IHelper>().GetFileUri(n.NewsImage, FileType.None),
+                    PostDate = n.PostDate,
+                    PostedBy = n.PostedBy
+                }).OrderByDescending(n => n.PostDate).ToList();
+
+            return NewsModels;
         }
 
         private List<NewsModel> _newsModels;

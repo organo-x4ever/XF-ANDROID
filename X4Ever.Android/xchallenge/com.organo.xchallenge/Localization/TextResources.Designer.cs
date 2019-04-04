@@ -764,6 +764,15 @@ namespace com.organo.xchallenge.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        internal static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Desired Username.
         /// </summary>
         internal static string DesiredUsername {
@@ -5089,11 +5098,20 @@ namespace com.organo.xchallenge.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You lost {0}.
+        ///   Looks up a localized string similar to You lost.
         /// </summary>
         internal static string YouLost {
             get {
                 return ResourceManager.GetString("YouLost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You lost {0}.
+        /// </summary>
+        internal static string YouLostFormat1 {
+            get {
+                return ResourceManager.GetString("YouLostFormat1", resourceCulture);
             }
         }
         
@@ -5181,9 +5199,18 @@ namespace com.organo.xchallenge.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Your weight {0}.
         /// </summary>
-        internal static string YourWeight {
+        internal static string YourWeightFormat1 {
             get {
-                return ResourceManager.GetString("YourWeight", resourceCulture);
+                return ResourceManager.GetString("YourWeightFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your weight is.
+        /// </summary>
+        internal static string YourWeightIs {
+            get {
+                return ResourceManager.GetString("YourWeightIs", resourceCulture);
             }
         }
         

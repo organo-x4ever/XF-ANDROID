@@ -48,11 +48,6 @@ namespace com.organo.xchallenge.Droid
 
             return null;
         }
-
-        public string GetPictureDirectory()
-        {
-            return Environment.DirectoryPictures;
-        }
         
         #endregion IConfigFetcher implementation
     }

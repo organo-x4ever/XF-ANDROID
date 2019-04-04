@@ -5,26 +5,34 @@ using com.organo.xchallenge.Pages.Base;
 using com.organo.xchallenge.Services;
 using com.organo.xchallenge.ViewModels.Profile;
 using System;
+using com.organo.xchallenge.Handler;
 using Xamarin.Forms;
 
 namespace com.organo.xchallenge.Pages.UserSettings
 {
     public partial class UserSettingPage : UserSettingPageXaml
     {
-        private SettingsViewModel _model;
+        private readonly SettingsViewModel _model;
 
         public UserSettingPage(RootPage root, SettingsViewModel model)
         {
-            InitializeComponent();
-            App.Configuration.InitialAsync(this);
-            NavigationPage.SetHasNavigationBar(this, false);
-            _model = model;
-            _model.Root = root;
-            BindingContext = _model;
-            _model.CurrentPassword = string.Empty;
-            _model.NewPassword = string.Empty;
-            _model.ConfirmNewPassword = string.Empty;
-            Page_Load();
+            try
+            {
+                InitializeComponent();
+                App.Configuration.InitialAsync(this);
+                NavigationPage.SetHasNavigationBar(this, false);
+                _model = model;
+                _model.Root = root;
+                BindingContext = _model;
+                _model.CurrentPassword = string.Empty;
+                _model.NewPassword = string.Empty;
+                _model.ConfirmNewPassword = string.Empty;
+                Page_Load();
+            }
+            catch (Exception ex)
+            {
+                new ExceptionHandler(typeof(UserSettingPage).FullName, ex);
+            }
         }
 
         private async void Page_Load()

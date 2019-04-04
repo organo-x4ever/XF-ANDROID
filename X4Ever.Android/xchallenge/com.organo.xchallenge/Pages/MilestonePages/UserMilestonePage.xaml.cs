@@ -8,6 +8,7 @@ using com.organo.xchallenge.Utilities;
 using com.organo.xchallenge.ViewModels.Milestones;
 using com.organo.xchallenge.ViewModels.Profile;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using com.organo.xchallenge.Converters;
 using Xamarin.Forms;
@@ -35,13 +36,15 @@ namespace com.organo.xchallenge.Pages.MilestonePages
                     Root = root,
                     ProfileViewModel = profileViewModel,
                     // CHANGED
-                    SliderCurrentWeight = sliderCurrentWeight
+                    SliderCurrentWeight = sliderCurrentWeight,
+                    WeightLossGoal = profileViewModel.YourGoal,
+                    UserTrackers = profileViewModel.UserTrackers.OrderBy(t => t.ModifyDate).ToList(),
+                    UserMetas = profileViewModel.UserDetail.MetaPivot
                 };
                 BindingContext = _model;
                 _model.GetUserTracker();
                 _model.ChangeSliderValue(0);
-                _model.ViewComponents.Add(sliderCurrentWeight);
-                Initialization();
+                Init();
             }
             catch (Exception ex)
             {
@@ -49,7 +52,7 @@ namespace com.organo.xchallenge.Pages.MilestonePages
             }
         }
 
-        private async void Initialization()
+        private async void Init()
         {
             try
             {
@@ -68,42 +71,45 @@ namespace com.organo.xchallenge.Pages.MilestonePages
                         }
                     };
                 };
-
-                var tapMale = new TapGestureRecognizer()
+                Device.BeginInvokeOnMainThread(() =>
                 {
-                    Command = new Command(_model.Male_Selected)
-                };
-                ImageMale.GestureRecognizers.Add(tapMale);
-                LabelMale.GestureRecognizers.Add(tapMale);
+                    var tapMale = new TapGestureRecognizer()
+                    {
+                        Command = new Command(_model.Male_Selected)
+                    };
+                    ImageMale.GestureRecognizers.Add(tapMale);
+                    LabelMale.GestureRecognizers.Add(tapMale);
 
-                var tapFemale = new TapGestureRecognizer()
-                {
-                    Command = new Command(_model.Female_Selected)
-                };
-                ImageFemale.GestureRecognizers.Add(tapFemale);
-                LabelFemale.GestureRecognizers.Add(tapFemale);
+                    var tapFemale = new TapGestureRecognizer()
+                    {
+                        Command = new Command(_model.Female_Selected)
+                    };
+                    ImageFemale.GestureRecognizers.Add(tapFemale);
+                    LabelFemale.GestureRecognizers.Add(tapFemale);
 
-                var tapImageFront = new TapGestureRecognizer()
-                {
-                    Command = new Command(async (obj) => { await UploadImageAsync(ImageSide.FRONT); })
-                };
-                imageFront.GestureRecognizers.Add(tapImageFront);
+                    var tapImageFront = new TapGestureRecognizer()
+                    {
+                        Command = new Command(async (obj) => { await UploadImageAsync(ImageSide.FRONT); })
+                    };
+                    imageFront.GestureRecognizers.Add(tapImageFront);
 
-                var tapImageSide = new TapGestureRecognizer()
-                {
-                    Command = new Command(async (obj) => { await UploadImageAsync(ImageSide.SIDE); })
-                };
-                imageSide.GestureRecognizers.Add(tapImageSide);
+                    var tapImageSide = new TapGestureRecognizer()
+                    {
+                        Command = new Command(async (obj) => { await UploadImageAsync(ImageSide.SIDE); })
+                    };
+                    imageSide.GestureRecognizers.Add(tapImageSide);
 
-                _model.ViewComponents.Add(imageFront);
-                _model.ViewComponents.Add(imageSide);
-                _model.ViewComponents.Add(ImageMale);
-                _model.ViewComponents.Add(LabelMale);
-                _model.ViewComponents.Add(ImageFemale);
-                _model.ViewComponents.Add(LabelFemale);
-                _model.ViewComponents.Add(entryTShirtSize);
-                _model.ViewComponents.Add(pickerTShirtSize);
-                _model.ViewComponents.Add(entryAboutJourney);
+                    //    _model.ViewComponents.Add(sliderCurrentWeight);
+                    //    _model.ViewComponents.Add(imageFront);
+                    //    _model.ViewComponents.Add(imageSide);
+                    //    _model.ViewComponents.Add(ImageMale);
+                    //    _model.ViewComponents.Add(LabelMale);
+                    //    _model.ViewComponents.Add(ImageFemale);
+                    //    _model.ViewComponents.Add(LabelFemale);
+                    //    _model.ViewComponents.Add(entryTShirtSize);
+                    //    _model.ViewComponents.Add(pickerTShirtSize);
+                    //    _model.ViewComponents.Add(entryAboutJourney);
+                });
             }
             catch (Exception ex)
             {

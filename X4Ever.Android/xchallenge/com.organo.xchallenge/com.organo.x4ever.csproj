@@ -51,6 +51,8 @@
     <Compile Include="Controls\FooterView.xaml.cs">
       <DependentUpon>FooterView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\GridNews.cs" />
+    <Compile Include="Controls\GridTracker.cs" />
     <Compile Include="Controls\ImageAlignment.cs" />
     <Compile Include="Controls\EntryWithImage.cs" />
     <Compile Include="Controls\PopupLayout.cs" />
@@ -279,8 +281,8 @@
     <Compile Include="Pages\Profile\PictureGalleryPage.xaml.cs">
       <DependentUpon>PictureGalleryPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Profile\TrackerDetailPage.xaml.cs">
-      <DependentUpon>TrackerDetailPage.xaml</DependentUpon>
+    <Compile Include="Pages\Profile\TrackerLogPage.xaml.cs">
+      <DependentUpon>TrackerLogPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Registration\RegisterPage.xaml.cs">
       <DependentUpon>RegisterPage.xaml</DependentUpon>
@@ -747,12 +749,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Pages\Profile\TrackerDetailPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Pages\Profile\PictureGalleryPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
@@ -904,6 +900,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\Profile\LogDetailPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Profile\TrackerLogPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -14,29 +14,30 @@ namespace com.organo.xchallenge.Pages.ChangePassword
 {
     public partial class ChangePasswordPage : ChangePasswordPageXaml
     {
-        private SettingsViewModel _model;
-        private IUserPivotService _userPivotService;
-        private IHelper _helper;
+        private readonly SettingsViewModel _model;
+        private readonly IUserPivotService _userPivotService;
+        private readonly IHelper _helper;
 
         public ChangePasswordPage(RootPage root, SettingsViewModel model)
         {
             InitializeComponent();
-            App.Configuration.InitialAsync(this);
+
             _model = model;
             _model.Root = root;
             BindingContext = _model;
-            Load_Form();
             _userPivotService = DependencyService.Get<IUserPivotService>();
             _helper = DependencyService.Get<IHelper>();
-            _model.SetActivityResource();
-            _model.CurrentPassword = string.Empty;
-            _model.NewPassword = string.Empty;
-            _model.ConfirmNewPassword = string.Empty;
+            Load_Form();
         }
 
         private async void Load_Form()
         {
-            await Task.Run(() => { buttonSubmit.Clicked += async (sender, e) => { await RequestChangeAsync(); }; });
+            await App.Configuration.InitialAsync(this);
+            _model.SetActivityResource();
+            _model.CurrentPassword = string.Empty;
+            _model.NewPassword = string.Empty;
+            _model.ConfirmNewPassword = string.Empty;
+            buttonSubmit.Clicked += async (sender, e) => { await RequestChangeAsync(); };
         }
 
         private async void Entry_Completed(object sender, EventArgs e)
@@ -47,19 +48,16 @@ namespace com.organo.xchallenge.Pages.ChangePassword
         private async Task RequestChangeAsync()
         {
             _model.SetActivityResource(false, true);
-            if (await Validate())
+            if (Validate())
             {
                 var response =
-                    await _userPivotService.ChangePasswordAsync(_model.CurrentPassword.Trim(), _model.NewPassword.Trim());
-                _model.SetActivityResource();
-                if (response != null)
+                    await _userPivotService.ChangePasswordAsync(_model.CurrentPassword.Trim(),
+                        _model.NewPassword.Trim());
+                if (response != null && response.Contains(HttpConstants.SUCCESS))
                 {
-                    if (response.Contains(HttpConstants.SUCCESS))
-                    {
-                        _model.CurrentPassword = string.Empty;
-                        _model.NewPassword = string.Empty;
-                        _model.ConfirmNewPassword = string.Empty;
-                    }
+                    _model.CurrentPassword = string.Empty;
+                    _model.NewPassword = string.Empty;
+                    _model.ConfirmNewPassword = string.Empty;
                 }
 
                 _model.SetActivityResource(showError: true, errorMessage: response.Contains(HttpConstants.SUCCESS)
@@ -68,30 +66,27 @@ namespace com.organo.xchallenge.Pages.ChangePassword
             }
         }
 
-        private async Task<bool> Validate()
+        private bool Validate()
         {
             ValidationErrors validationErrors = new ValidationErrors();
-            await Task.Run(() =>
-            {
-                if (_model.CurrentPassword == null || _model.CurrentPassword.Trim().Length == 0)
-                    validationErrors.Add(string.Format(TextResources.Required_IsMandatory,
-                        TextResources.CurrentPassword));
-                if (_model.NewPassword == null || _model.NewPassword.Trim().Length == 0)
-                    validationErrors.Add(string.Format(TextResources.Required_IsMandatory, TextResources.NewPassword));
-                else if (string.IsNullOrWhiteSpace(_model.NewPassword))
-                    validationErrors.Add(string.Format(TextResources.Validation_IsInvalid, TextResources.NewPassword));
-                else if (_model.NewPassword.Trim().Length < 5)
-                    validationErrors.Add(string.Format(TextResources.Validation_LengthMustBeMoreThan,
-                        TextResources.Password, 5));
-                else if (_model.NewPassword.Trim().Length > 100)
-                    validationErrors.Add(string.Format(TextResources.Validation_LengthMustBeLessThan,
-                        TextResources.Password, 100));
-                if (_model.ConfirmNewPassword == null || _model.ConfirmNewPassword.Trim().Length == 0)
-                    validationErrors.Add(string.Format(TextResources.Required_IsMandatory,
-                        TextResources.ConfirmNewPassword));
-                else if (_model.NewPassword != _model.ConfirmNewPassword)
-                    validationErrors.Add(TextResources.MessagePasswordAndConfirmPasswordNotMatch);
-            });
+            if (_model.CurrentPassword == null || _model.CurrentPassword.Trim().Length == 0)
+                validationErrors.Add(string.Format(TextResources.Required_IsMandatory,
+                    TextResources.CurrentPassword));
+            if (_model.NewPassword == null || _model.NewPassword.Trim().Length == 0)
+                validationErrors.Add(string.Format(TextResources.Required_IsMandatory, TextResources.NewPassword));
+            else if (string.IsNullOrWhiteSpace(_model.NewPassword))
+                validationErrors.Add(string.Format(TextResources.Validation_IsInvalid, TextResources.NewPassword));
+            else if (_model.NewPassword.Trim().Length < 5)
+                validationErrors.Add(string.Format(TextResources.Validation_LengthMustBeMoreThan,
+                    TextResources.Password, 5));
+            else if (_model.NewPassword.Trim().Length > 100)
+                validationErrors.Add(string.Format(TextResources.Validation_LengthMustBeLessThan,
+                    TextResources.Password, 100));
+            if (_model.ConfirmNewPassword == null || _model.ConfirmNewPassword.Trim().Length == 0)
+                validationErrors.Add(string.Format(TextResources.Required_IsMandatory,
+                    TextResources.ConfirmNewPassword));
+            else if (_model.NewPassword != _model.ConfirmNewPassword)
+                validationErrors.Add(TextResources.MessagePasswordAndConfirmPasswordNotMatch);
             if (validationErrors.Count() > 0)
                 _model.SetActivityResource(showError: true, errorMessage: validationErrors.Show("\n"));
             return validationErrors.Count() == 0;

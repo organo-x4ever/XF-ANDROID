@@ -18,7 +18,8 @@ namespace com.organo.xchallenge.Pages.MainPage
 {
     public partial class MainPage : MainPageXaml
     {
-        private static IAuthenticationService _authenticationService;
+        private IAuthenticationService _authenticationService;
+        private IUserPivotService _userPivotService;
         private LoginViewModel _model;
         private string Message { get; set; }
         private readonly IAppVersionProvider _appVersionProvider = DependencyService.Get<IAppVersionProvider>();
@@ -29,7 +30,6 @@ namespace com.organo.xchallenge.Pages.MainPage
             {
                 InitializeComponent();
                 Message = message;
-                _authenticationService = DependencyService.Get<IAuthenticationService>();
                 _model = new LoginViewModel();
                 BindingContext = _model;
                 Init();
@@ -44,8 +44,67 @@ namespace com.organo.xchallenge.Pages.MainPage
         {
             await App.Configuration.InitialAsync(this);
             NavigationPage.SetHasNavigationBar(this, false);
-            await Task.Run(() => { _model.SetActivityResource(false, true); });
-            await DependencyService.Get<IUserPivotService>().GetAuthenticationAsync(UserRedirect, Page_Load);
+            _model.SetActivityResource(false, true);
+            _userPivotService = DependencyService.Get<IUserPivotService>();
+            _authenticationService = DependencyService.Get<IAuthenticationService>();
+            await GetUserInfo();
+        }
+
+        private async Task GetUserInfo() => await _userPivotService.GetAuthenticationAsync(UserRedirect, Page_Load);
+
+        
+        private async void entry_Completed(object sender, EventArgs e)
+        {
+            await LoginCommand();
+        }
+
+        private async Task LoginCommand()
+        {
+            _model.SetActivityResource(false, true, busyMessage: TextResources.ValidatingCredentials);
+            if (Validate())
+            {
+                if (await _authenticationService.AuthenticationAsync(EntryUsername.Text.Trim(),
+                    EntryPassword.Text.Trim()))
+                {
+                    await GetUserInfo();
+                }
+                else
+                {
+                    EntryPassword.Text = string.Empty;
+                    _model.SetActivityResource(true, showError: true,
+                        errorMessage: string.IsNullOrEmpty(_authenticationService.Message)
+                            ? TextResources.Message_LoginFailed
+                            : _authenticationService.Message);
+                }
+            }
+        }
+
+        private async void UserRedirect()
+        {
+                _model.SetActivityResource(false, true, busyMessage: TextResources.LoggedInLoadingAccount);
+            if (App.CurrentUser?.UserInfo != null)
+            {
+                await Task.Delay(1);
+                var userInfo = App.CurrentUser?.UserInfo;
+                var user = new UserFirstUpdate
+                {
+                    UserEmail = userInfo?.UserEmail,
+                    UserFirstName = userInfo?.UserFirstName ?? "",
+                    UserLastName = userInfo?.UserLastName ?? "",
+                };
+                if (userInfo?.UserFirstName?.Trim().Length == 0)
+                    App.CurrentApp.MainPage = new BasicInfoPage(user);
+                else if (userInfo?.IsMetaExists == false)
+                    App.CurrentApp.MainPage = new PersonalInfoPage(user);
+                else if (userInfo?.IsAddressExists == false)
+                    App.CurrentApp.MainPage = new AddressPage(user);
+                else if (userInfo?.IsTrackerExists == false)
+                    App.CurrentApp.MainPage = new UploadPhotoPage(user);
+                else
+                    App.GoToAccountPage(true);
+            }
+            else
+                _model.SetActivityResource();
         }
 
         private void Page_Load()
@@ -67,7 +126,7 @@ namespace com.organo.xchallenge.Pages.MainPage
 
         async void VersionCheck()
         {
-            await Task.Delay(TimeSpan.FromSeconds(3));
+            await Task.Delay(TimeSpan.FromSeconds(2));
             if (!App.Configuration.IsVersionPrompt())
             {
                 await _appVersionProvider.CheckAppVersionAsync(PromptUpdate);
@@ -97,87 +156,23 @@ namespace com.organo.xchallenge.Pages.MainPage
             }
         }
 
-        private async void entry_Completed(object sender, EventArgs e)
-        {
-            await LoginCommand();
-        }
-
-        private async Task LoginCommand()
-        {
-            await Task.Run(() =>
-            {
-                _model.SetActivityResource(false, true, busyMessage: TextResources.ValidatingCredentials);
-            });
-            if (await Validate())
-            {
-                if (!await _authenticationService.AuthenticationAsync(EntryUsername.Text.Trim(),
-                    EntryPassword.Text.Trim()))
-                {
-                    EntryPassword.Text = string.Empty;
-                    _model.SetActivityResource(true, showError: true,
-                        errorMessage: string.IsNullOrEmpty(_authenticationService.Message)
-                            ? TextResources.Message_LoginFailed
-                            : _authenticationService.Message);
-                    return;
-                }
-
-                UserRedirect();
-            }
-        }
-
-        private async void UserRedirect()
-        {
-            await Task.Run(() =>
-            {
-                _model.SetActivityResource(false, true, busyMessage: TextResources.LoggedInLoadingAccount);
-            });
-            if (App.CurrentUser?.UserInfo != null)
-            {
-                await Task.Delay(1);
-                var userInfo = App.CurrentUser?.UserInfo;
-                var user = new UserFirstUpdate
-                {
-                    UserEmail = userInfo?.UserEmail,
-                    UserFirstName = userInfo?.UserFirstName ?? "",
-                    UserLastName = userInfo?.UserLastName ?? "",
-                };
-                if (userInfo?.UserFirstName?.Trim().Length == 0)
-                    App.CurrentApp.MainPage = new BasicInfoPage(user);
-                else if (userInfo?.IsMetaExists == false)
-                    App.CurrentApp.MainPage = new PersonalInfoPage(user);
-                else if (userInfo?.IsAddressExists == false)
-                    App.CurrentApp.MainPage = new AddressPage(user);
-                else if (userInfo?.IsTrackerExists == false)
-                    App.CurrentApp.MainPage = new UploadPhotoPage(user);
-                else
-                    App.GoToAccountPage(true);
-            }
-            else
-                _model.SetActivityResource();
-        }
-
-        private async Task<bool> Validate()
+        private bool Validate()
         {
             var validationErrors = new ValidationErrors();
-            await Task.Run(() =>
-            {
-                if (this.EntryUsername == null || this.EntryUsername.Text == null ||
-                    this.EntryUsername.Text.Trim().Length == 0)
-                    validationErrors.Add(string.Format(TextResources.Required_IsMandatory, TextResources.Username));
-                else if (!Regex.IsMatch(this.EntryUsername.Text.Trim(), CommonConstants.EMAIL_VALIDATION_REGEX))
-                    validationErrors.Add(string.Format(TextResources.Validation_IsInvalid, TextResources.Username));
-
-                if (string.IsNullOrEmpty(EntryPassword?.Text))
-                    validationErrors.Add(string.Format(TextResources.Required_IsMandatory, TextResources.Password));
-                else if (string.IsNullOrWhiteSpace(EntryPassword.Text))
-                    validationErrors.Add(string.Format(TextResources.Validation_IsInvalid, TextResources.Password));
-                else if (EntryPassword.Text.Trim().Length < 5)
-                    validationErrors.Add(string.Format(TextResources.Validation_LengthMustBeMoreThan,
-                        TextResources.Password, 5));
-                else if (EntryPassword.Text.Trim().Length > 100)
-                    validationErrors.Add(string.Format(TextResources.Validation_LengthMustBeLessThan,
-                        TextResources.Password, 100));
-            });
+            if (string.IsNullOrEmpty(EntryUsername?.Text))
+                validationErrors.Add(string.Format(TextResources.Required_IsMandatory, TextResources.Username));
+            else if (!Regex.IsMatch((EntryUsername?.Text ?? "").Trim(), CommonConstants.EMAIL_VALIDATION_REGEX))
+                validationErrors.Add(string.Format(TextResources.Validation_IsInvalid, TextResources.Username));
+            if (string.IsNullOrEmpty(EntryPassword?.Text))
+                validationErrors.Add(string.Format(TextResources.Required_IsMandatory, TextResources.Password));
+            else if (string.IsNullOrWhiteSpace(EntryPassword.Text))
+                validationErrors.Add(string.Format(TextResources.Validation_IsInvalid, TextResources.Password));
+            else if (EntryPassword.Text.Trim().Length < 5)
+                validationErrors.Add(string.Format(TextResources.Validation_LengthMustBeMoreThan,
+                    TextResources.Password, 5));
+            else if (EntryPassword.Text.Trim().Length > 50)
+                validationErrors.Add(string.Format(TextResources.Validation_LengthMustBeLessThan,
+                    TextResources.Password, 50));
             if (validationErrors.Count() > 0)
                 _model.SetActivityResource(showError: true,
                     errorMessage: validationErrors.Count() > 2

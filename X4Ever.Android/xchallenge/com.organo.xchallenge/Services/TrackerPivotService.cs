@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using com.organo.xchallenge.Converters;
 using com.organo.xchallenge.Localization;
@@ -152,6 +150,22 @@ namespace com.organo.xchallenge.Services
             }
 
             return false;
+        }
+        
+        public async Task<string> DeleteTrackerAsync(string revisionNumber)
+        {
+            var method = "posttrackerdelete?revisionNumber=" + revisionNumber;
+            var response = await ClientService.PostDataAsync(null, ControllerName, method);
+            if (response != null)
+            {
+                Task<string> jsonTask = response.Content.ReadAsStringAsync();
+                if (jsonTask.Result.Contains(HttpConstants.SUCCESS))
+                    return HttpConstants.SUCCESS;
+                else if (response.ToString().Contains(HttpConstants.UNAUTHORIZED))
+                    return response.ToString();
+                return jsonTask.Result;
+            }
+            else return TextResources.MessageSomethingWentWrong;
         }
     }
 }

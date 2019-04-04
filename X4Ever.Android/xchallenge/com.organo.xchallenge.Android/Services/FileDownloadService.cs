@@ -3,7 +3,6 @@ using com.organo.xchallenge.Services;
 using System;
 using System.IO;
 using System.Net;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using com.organo.xchallenge.Droid;
 using com.organo.xchallenge.Handler;
@@ -59,10 +58,7 @@ namespace com.organo.xchallenge.Droid
 
         public async Task<string> GetFileAsync(string fileName)
         {
-            string filePathCombine = "";
-            await Task.Run(() => { filePathCombine = GetFile(fileName); });
-            //(Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDownloads)).Path
-            return filePathCombine;
+            return await Task.Factory.StartNew(() => GetFile(fileName) ?? "");
         }
 
         public async Task<bool> RemoveFileAsync(string fileName)

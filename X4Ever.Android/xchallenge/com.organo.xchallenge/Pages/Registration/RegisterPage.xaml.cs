@@ -16,15 +16,21 @@ namespace com.organo.xchallenge.Pages.Registration
 {
     public partial class RegisterPage : RegisterPageXaml
     {
-        private RegisterViewModel _model;
-        private IUserPivotService _userPivotService;
-        private IHelper _helper;
+        private readonly RegisterViewModel _model;
+        private readonly IUserPivotService _userPivotService;
+        private readonly IHelper _helper;
 
         public RegisterPage()
         {
             try
             {
                 InitializeComponent();
+                App.Configuration.Initial(this);
+                NavigationPage.SetHasNavigationBar(this, false);
+                _model = new RegisterViewModel(App.CurrentApp.MainPage.Navigation);
+                BindingContext = _model;
+                _userPivotService = DependencyService.Get<IUserPivotService>();
+                _helper = new Helper();
                 Init();
             }
             catch (Exception ex)
@@ -33,14 +39,8 @@ namespace com.organo.xchallenge.Pages.Registration
             }
         }
 
-        private async void Init()
+        private void Init()
         {
-            await App.Configuration.InitialAsync(this);
-            NavigationPage.SetHasNavigationBar(this, false);
-            _model = new RegisterViewModel(App.CurrentApp.MainPage.Navigation);
-            BindingContext = _model;
-            _userPivotService = DependencyService.Get<IUserPivotService>();
-            _helper = new Helper();
             _model.LoadApplicationList();
             var tapTermAndConditions = new TapGestureRecognizer()
             {
@@ -85,7 +85,7 @@ namespace com.organo.xchallenge.Pages.Registration
         private async Task Register()
         {
             await Task.Run(() => { _model.SetActivityResource(false, true); });
-            if (await Validate())
+            if (Validate())
             {
                 var guid = Guid.NewGuid();
                 var user = new UserRegister()
@@ -128,35 +128,32 @@ namespace com.organo.xchallenge.Pages.Registration
 
         private void GoToLogin() => App.GoToAccountPage();
 
-        private async Task<bool> Validate()
+        private bool Validate()
         {
             ValidationErrors validationErrors = new ValidationErrors();
-            await Task.Run(() =>
-            {
-                if (string.IsNullOrEmpty(_model.SelectedApplication))
-                    validationErrors.Add(string.Format(TextResources.Required_MustBeSelected, TextResources.Continent));
-                if (_model.EmailAddress == null || _model.EmailAddress.Trim().Length == 0)
-                    validationErrors.Add(string.Format(TextResources.Required_IsMandatory, TextResources.EmailAddress));
-                else if (!Regex.IsMatch(_model.EmailAddress.Trim(), CommonConstants.EMAIL_VALIDATION_REGEX))
-                    validationErrors.Add(string.Format(TextResources.Validation_IsInvalid, TextResources.EmailAddress));
-                if (_model.UserPassword == null || _model.UserPassword.Trim().Length == 0)
-                    validationErrors.Add(string.Format(TextResources.Required_IsMandatory, TextResources.Password));
-                else if (string.IsNullOrWhiteSpace(_model.UserPassword))
-                    validationErrors.Add(string.Format(TextResources.Validation_IsInvalid, TextResources.Password));
-                else if (_model.UserPassword.Trim().Length < 5)
-                    validationErrors.Add(string.Format(TextResources.Validation_LengthMustBeMoreThan,
-                        TextResources.Password, 5));
-                else if (_model.UserPassword.Trim().Length > 100)
-                    validationErrors.Add(string.Format(TextResources.Validation_LengthMustBeLessThan,
-                        TextResources.Password, 100));
-                if (_model.UserConfirmPassword == null || _model.UserConfirmPassword.Trim().Length == 0)
-                    validationErrors.Add(string.Format(TextResources.Required_IsMandatory,
-                        TextResources.ConfirmPassword));
-                else if (_model.UserPassword != _model.UserConfirmPassword)
-                    validationErrors.Add(TextResources.MessagePasswordAndConfirmPasswordNotMatch);
-                if (!_model.CheckedTermAndConditions)
-                    validationErrors.Add(TextResources.MessageMustAgree);
-            });
+            if (string.IsNullOrEmpty(_model.SelectedApplication))
+                validationErrors.Add(string.Format(TextResources.Required_MustBeSelected, TextResources.Continent));
+            if (_model.EmailAddress == null || _model.EmailAddress.Trim().Length == 0)
+                validationErrors.Add(string.Format(TextResources.Required_IsMandatory, TextResources.EmailAddress));
+            else if (!Regex.IsMatch(_model.EmailAddress.Trim(), CommonConstants.EMAIL_VALIDATION_REGEX))
+                validationErrors.Add(string.Format(TextResources.Validation_IsInvalid, TextResources.EmailAddress));
+            if (_model.UserPassword == null || _model.UserPassword.Trim().Length == 0)
+                validationErrors.Add(string.Format(TextResources.Required_IsMandatory, TextResources.Password));
+            else if (string.IsNullOrWhiteSpace(_model.UserPassword))
+                validationErrors.Add(string.Format(TextResources.Validation_IsInvalid, TextResources.Password));
+            else if (_model.UserPassword.Trim().Length < 5)
+                validationErrors.Add(string.Format(TextResources.Validation_LengthMustBeMoreThan,
+                    TextResources.Password, 5));
+            else if (_model.UserPassword.Trim().Length > 100)
+                validationErrors.Add(string.Format(TextResources.Validation_LengthMustBeLessThan,
+                    TextResources.Password, 100));
+            if (_model.UserConfirmPassword == null || _model.UserConfirmPassword.Trim().Length == 0)
+                validationErrors.Add(string.Format(TextResources.Required_IsMandatory,
+                    TextResources.ConfirmPassword));
+            else if (_model.UserPassword != _model.UserConfirmPassword)
+                validationErrors.Add(TextResources.MessagePasswordAndConfirmPasswordNotMatch);
+            if (!_model.CheckedTermAndConditions)
+                validationErrors.Add(TextResources.MessageMustAgree);
             if (validationErrors.Count() > 0)
                 _model.SetActivityResource(showError: true, errorMessage: validationErrors.Show(CommonConstants.SPACE));
             return validationErrors.Count() == 0;

@@ -232,7 +232,7 @@ namespace com.organo.xchallenge.Droid
             if (data != null)
                 oldDeviceToken = Encoding.UTF8.GetString(data, 0, data.Length);
             // Has the token changed?
-            if (string.IsNullOrEmpty(oldDeviceToken) || oldDeviceToken.Equals(deviceToken))
+            if (string.IsNullOrEmpty(oldDeviceToken) || !oldDeviceToken.Equals(deviceToken))
             {
                 //TODO: Put your own logic here to notify your server that the device token has changed/been created!
                 // Save new device token

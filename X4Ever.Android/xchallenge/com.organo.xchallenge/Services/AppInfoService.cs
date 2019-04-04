@@ -18,11 +18,11 @@ namespace com.organo.xchallenge.Services
     public class AppInfoService : IAppInfoService
     {
         public string ControllerName => "appinfo";
-        IDeviceInfo DeviceInfo = DependencyService.Get<IDeviceInfo>();
+        readonly IDeviceInfo _deviceInfo = DependencyService.Get<IDeviceInfo>();
 
         public async Task<AppInfoModel> GetAsync()
         {
-            var platform = DeviceInfo.GetPlatform;
+            var platform = _deviceInfo.GetPlatform;
             var response =
                 await ClientService.SendAsync(HttpMethod.Get, ControllerName, $"get?platform={platform}");
             if (response != null && response.IsSuccessStatusCode && response.StatusCode == HttpStatusCode.OK)

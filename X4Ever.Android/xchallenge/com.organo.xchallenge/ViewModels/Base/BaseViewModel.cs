@@ -40,30 +40,41 @@ namespace com.organo.xchallenge.ViewModels.Base
             get { return _layoutOptions; }
             set { SetProperty(ref _layoutOptions, value, LayoutOptionsPropertyName); }
         }
-
+        
         public async Task PushModalAsync(Page page)
         {
             if (Navigation != null)
-                await Navigation.PushModalAsync(page);
+            {
+                await Task.Delay(TimeSpan.FromSeconds(1));
+                Device.BeginInvokeOnMainThread(async () => { await Navigation.PushModalAsync(page); });
+            }
         }
 
         public async Task PopModalAsync()
         {
             if (Navigation != null)
-                await Navigation.PopModalAsync();
-            //await App.CurrentApp.MainPage.Navigation.PopModalAsync();
+            {
+                await Task.Delay(TimeSpan.FromSeconds(1));
+                Device.BeginInvokeOnMainThread(async () => { await Navigation.PopModalAsync(); });
+            }
         }
 
         public async Task PushAsync(Page page)
         {
             if (Navigation != null)
-                await Navigation.PushAsync(page);
+            {
+                await Task.Delay(TimeSpan.FromSeconds(1));
+                Device.BeginInvokeOnMainThread(async () => { await Navigation.PushAsync(page); });
+            }
         }
 
         public async Task PopAsync()
         {
             if (Navigation != null)
-                await Navigation.PopAsync();
+            {
+                await Task.Delay(TimeSpan.FromSeconds(1));
+                Device.BeginInvokeOnMainThread(async () => { await Navigation.PopAsync(); });
+            }
         }
 
         public void SetActivityResource(bool showEditable = true, bool showBusy = false, bool showMessage = false,

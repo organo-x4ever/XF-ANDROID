@@ -24,7 +24,8 @@ namespace com.organo.xchallenge.Models.User
             AboutJourney = string.Empty;
             ModifyDate = DateTime.Now;
             RevisionNumber = string.Empty;
-            IsImageAvailable = false;
+            IsDeleteAllowed = false;
+            IsEditAllowed = false;
         }
 
         public Int64 UserId { get; set; }
@@ -37,22 +38,36 @@ namespace com.organo.xchallenge.Models.User
         public string AboutJourney { get; set; }
         public DateTime ModifyDate { get; set; }
         public string RevisionNumber { get; set; }
+        public bool IsDeleteAllowed { get; set; }
+        public bool IsEditAllowed { get; set; }
+
+        public double WeightLost { get; set; }
+        public Color BackgroundColor { get; set; }
+
+        public ImageSource FrontImageSource { get; set; }
+        public ImageSource SideImageSource { get; set; }
+        public float PictureHeight { get; set; }
+        public float PictureWidth { get; set; }
 
         public string FrontImageWithUrl => this.FrontImage != null
             ? DependencyService.Get<IHelper>().GetFilePath(this.FrontImage, FileType.User)
-            : "";
+            : string.Empty;
 
         public string SideImageWithUrl => this.SideImage != null
             ? DependencyService.Get<IHelper>().GetFilePath(this.SideImage, FileType.User)
-            : "";
+            : string.Empty;
 
-        public double WeightLost { get; set; }
-        public string AboutYourJourney { get; set; }
-        public Color BackgroundColor { get; set; }
-        public string CurrentWeightDisplayText => string.Format(TextResources.YourWeight, CurrentWeightDisplay);
-        public string CurrentWeightDisplay => CurrentWeight + App.Configuration.AppConfig.DefaultWeightVolume;
-        public string WeightLostDisplayText => string.Format(TextResources.YouLost, WeightLostDisplay);
-        public string WeightLostDisplay => WeightLost + App.Configuration.AppConfig.DefaultWeightVolume;
+        public string CurrentWeightDisplayText => string.Format(TextResources.YourWeightFormat1, CurrentWeightDisplay);
+
+        public string CurrentWeightDisplay => CurrentWeight + (!string.IsNullOrEmpty(WeightVolumeType)
+                                                  ? WeightVolumeType
+                                                  : App.Configuration.AppConfig.DefaultWeightVolume);
+
+        public string WeightLostDisplayText => string.Format(TextResources.YouLostFormat1, WeightLostDisplay);
+
+        public string WeightLostDisplay => WeightLost + (!string.IsNullOrEmpty(WeightVolumeType)
+                                               ? WeightVolumeType
+                                               : App.Configuration.AppConfig.DefaultWeightVolume);
 
         public string RevisionNumberDisplayShort =>
             RevisionNumber != null ? TextResources.RevisionShort + RevisionNumber : "";
@@ -65,10 +80,10 @@ namespace com.organo.xchallenge.Models.User
         public string ModifyDateDisplayMonthDay =>
             string.Format(TextResources.DatetimeDisplayFormatMonthDay, ModifyDate); // "Sunday, March 9, 2008"
 
-        public ImageSource FrontImageSource { get; set; }
-        public ImageSource SideImageSource { get; set; }
-        public float PictureHeight { get; set; }
-        public float PictureWidth { get; set; }
-        public bool IsImageAvailable { get; set; }
+        public bool IsImageAvailable => !string.IsNullOrEmpty(FrontImage) && !string.IsNullOrEmpty(SideImage);
+
+        public bool IsShirtSizeAvailable => !string.IsNullOrEmpty(ShirtSize);
+        public bool IsAboutJourneyAvailable => !string.IsNullOrEmpty(AboutJourney);
+
     }
 }

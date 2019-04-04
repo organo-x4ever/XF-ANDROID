@@ -83,6 +83,16 @@ namespace com.organo.xchallenge.Statics
         /// A medium gray. Used mostly for chart axis lines and fonts.
         /// </summary>
         public static Color _White => Color.FromHex("FFFFFF");
+        
+        /// <summary>
+        /// A light gray(E). Used mostly for chart axis lines and fonts.
+        /// </summary>
+        public static Color _LightGrayE => Color.FromHex("EEEEEE");
+
+        /// <summary>
+        /// A light gray(D). Used mostly for chart axis lines and fonts.
+        /// </summary>
+        public static Color _LightGrayD => Color.FromHex("DDDDDD");
 
         /// <summary>
         /// Application Blue Color

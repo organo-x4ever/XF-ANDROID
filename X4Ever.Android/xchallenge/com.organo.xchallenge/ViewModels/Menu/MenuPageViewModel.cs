@@ -18,12 +18,11 @@ namespace com.organo.xchallenge.ViewModels.Menu
     {
         public MenuPageViewModel(INavigation navigation = null) : base(navigation)
         {
-            ApplicationVersion =
-                string.Format(TextResources.AppVersion, App.Configuration.AppConfig.ApplicationVersion);
+            ApplicationVersion = string.Format(TextResources.AppVersion, App.Configuration.AppConfig.ApplicationVersion);
             User = App.CurrentUser.UserInfo;
         }
 
-        public async void GetProfilePhoto()
+        public async Task GetProfilePhoto()
         {
             try
             {
@@ -38,11 +37,11 @@ namespace com.organo.xchallenge.ViewModels.Menu
             }
             catch (Exception ex)
             {
-                new ExceptionHandler("MenuPageViewModel", ex);
+                new ExceptionHandler(typeof(MenuPageViewModel).FullName, ex);
             }
         }
 
-        public async void GetMenuData()
+        public async Task GetMenuData()
         {
             MenuItems = await DependencyService.Get<IMenuServices>().GetByApplicationAsync();
         }

@@ -6,6 +6,7 @@ using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using com.organo.xchallenge.Handler;
 using com.organo.xchallenge.Helpers;
 using Xamarin.Forms;
 
@@ -15,12 +16,12 @@ namespace com.organo.xchallenge.Globals
 {
     public class Media : IMedia
     {
-        private IFileService fileService;
-        private IHelper _helper;
+        private readonly IFileService _fileService;
+        private readonly IHelper _helper;
 
         public Media()
         {
-            fileService = DependencyService.Get<IFileService>();
+            _fileService = DependencyService.Get<IFileService>();
             _helper = DependencyService.Get<IHelper>();
             Refresh();
         }
@@ -40,17 +41,21 @@ namespace com.organo.xchallenge.Globals
                     var mediaFile = await CrossMedia.Current.PickPhotoAsync(new PickMediaOptions()
                     {
                         PhotoSize = PhotoSize.Custom,
-                        CustomPhotoSize = 75,
-                        CompressionQuality = 92,
+                        CustomPhotoSize = 60,
+                        CompressionQuality = 80,
                         MaxWidthHeight = 1024
                     });
                     if (mediaFile != null)
                         return mediaFile;
                 }
+                else
+                {
+                    new ExceptionHandler(typeof(Media).FullName + ".PickPhotoAsync()", "Pick Photo Not Supported");
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Message = TextResources.MessageInvalidObject;
+                new ExceptionHandler(typeof(Media).FullName + ".PickPhotoAsync()", ex);
             }
 
             Message = TextResources.NoPickPhotoAvailable;
@@ -74,19 +79,23 @@ namespace com.organo.xchallenge.Globals
                             Name = imageFileName,
                             SaveToAlbum = true,
                             PhotoSize = PhotoSize.Custom,
-                            CustomPhotoSize = 75,
-                            CompressionQuality = 92,
+                            CustomPhotoSize = 60,
+                            CompressionQuality = 80,
                             AllowCropping = true,
-                            DefaultCamera = Plugin.Media.Abstractions.CameraDevice.Front,
+                            DefaultCamera = CameraDevice.Front,
                             MaxWidthHeight = 1024
                         });
                     if (mediaFile != null)
                         return mediaFile;
                 }
+                else
+                {
+                    new ExceptionHandler(typeof(Media).FullName + ".TakePhotoAsync()", "Take Photo Not Supported ");
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Message = TextResources.MessageInvalidObject;
+                new ExceptionHandler(typeof(Media).FullName + ".TakePhotoAsync()", ex);
             }
 
             Message = TextResources.NoPickPhotoAvailable;
@@ -102,18 +111,17 @@ namespace com.organo.xchallenge.Globals
         public async Task<MediaFile> UploadPhotoAsync(MediaFile mediaFile, bool takenPhoto = false)
         {
             Refresh();
-            var response = await fileService.UploadFileAsync(mediaFile);
+            var response = await _fileService.UploadFileAsync(mediaFile);
             if (response != null)
                 if (response.Contains("Success#"))
                 {
                     var splits = response.Split('#');
                     FileName = splits[1];
-                    int lastIndex = 0;
-                    lastIndex = FileName.LastIndexOf('"');
+                    var lastIndex = FileName.LastIndexOf('"');
                     if (lastIndex != -1)
                         FileName = FileName.Remove(lastIndex, 1);
 
-                    lastIndex = FileName.LastIndexOf("\"");
+                    lastIndex = FileName.LastIndexOf("\"", StringComparison.Ordinal);
                     if (lastIndex != -1)
                         FileName = FileName.Remove(lastIndex, 1);
                 }
@@ -128,24 +136,23 @@ namespace com.organo.xchallenge.Globals
         public async Task<HttpResponseMessage> UploadPhotoResponseAsync(MediaFile mediaFile)
         {
             Refresh();
-            return await fileService.UploadFileResponseAsync(mediaFile);
+            return await _fileService.UploadFileResponseAsync(mediaFile);
         }
 
         public async Task<bool> UploadPhotoAsync(MediaFile mediaFile)
         {
             Refresh();
-            var response = await fileService.UploadFileResponseAsync(mediaFile);
+            var response = await _fileService.UploadFileResponseAsync(mediaFile);
             if (response != null)
             {
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     FileName = await response.Content.ReadAsStringAsync();
-                    int lastIndex = 0;
-                    lastIndex = FileName.LastIndexOf('"');
+                    var lastIndex = FileName.LastIndexOf('"');
                     if (lastIndex != -1)
                         FileName = FileName.Remove(lastIndex, 1);
 
-                    lastIndex = FileName.LastIndexOf("\"");
+                    lastIndex = FileName.LastIndexOf("\"", StringComparison.Ordinal);
                     if (lastIndex != -1)
                         FileName = FileName.Remove(lastIndex, 1);
                     return true;

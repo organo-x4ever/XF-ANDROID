@@ -1814,12 +1814,6 @@ your 3rd meal. Enjoy Pro Meals
   <data name="EmailIDNotFound" xml:space="preserve">
     <value>E-mail ID not found</value>
   </data>
-  <data name="YouLost" xml:space="preserve">
-    <value>You lost {0}</value>
-  </data>
-  <data name="YourWeight" xml:space="preserve">
-    <value>Your weight {0}</value>
-  </data>
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
@@ -1828,5 +1822,23 @@ your 3rd meal. Enjoy Pro Meals
   </data>
   <data name="Tracker" xml:space="preserve">
     <value>Tracker</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="YourWeightFormat1" xml:space="preserve">
+    <value>Your weight {0}</value>
+  </data>
+  <data name="YourWeightFormat11" xml:space="preserve">
+    <value>Your weight {0}</value>
+  </data>
+  <data name="YourWeightIs" xml:space="preserve">
+    <value>Your weight is</value>
+  </data>
+  <data name="YouLost" xml:space="preserve">
+    <value>You lost</value>
+  </data>
+  <data name="YouLostFormat1" xml:space="preserve">
+    <value>You lost {0}</value>
   </data>
 </root>

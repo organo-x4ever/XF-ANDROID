@@ -183,7 +183,7 @@ namespace com.organo.xchallenge.Services
                 var buffer = Encoding.UTF8.GetBytes(myContent);
                 var byteContent = new ByteArrayContent(buffer);
                 byteContent.Headers.ContentType = new MediaTypeHeaderValue(HttpConstants.MEDIA_TYPE_APPLICATION_JSON);
-                byteContent.Headers.Add(App.Configuration.AppConfig.AcceptedTokenName, App.CurrentUser.AccessToken);
+                byteContent.Headers.Add(App.Configuration?.AppConfig.AcceptedTokenName, App.CurrentUser.AccessToken);
                 return await PostAsync(GetRequestUri(controller, method), byteContent);
             }
             catch (Exception exception)
@@ -364,25 +364,25 @@ namespace com.organo.xchallenge.Services
                 byteContent.Headers.ContentType = new MediaTypeHeaderValue(HttpConstants.MEDIA_TYPE_APPLICATION_JSON);
                 await HttpClient.PostAsync(GetRequestUri("logs", "post"), byteContent);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                try
-                {
-                    DependencyService.Get<IInformationMessageServices>().LongAlert(TextResources.GotError);
-                    var methodWithParam = "postdebuglog?debugLogstring=" + GetExceptionDetail(ex);
-                    var request = new HttpRequestMessage()
-                    {
-                        RequestUri = new Uri(GetRequestUri("logs", methodWithParam)),
-                        Method = HttpMethod.Post,
-                    };
-                    request.Headers.Accept.Add(
-                        new MediaTypeWithQualityHeaderValue(HttpConstants.MEDIA_TYPE_TEXT_PLAIN));
-                    await HttpClient.SendAsync(request);
-                }
-                catch (Exception)
-                {
-                    //
-                }
+                //try
+                //{
+                //    DependencyService.Get<IInformationMessageServices>().LongAlert(TextResources.GotError);
+                //    var methodWithParam = "postdebuglog?debugLogstring=" + GetExceptionDetail(ex);
+                //    var request = new HttpRequestMessage()
+                //    {
+                //        RequestUri = new Uri(GetRequestUri("logs", methodWithParam)),
+                //        Method = HttpMethod.Post,
+                //    };
+                //    request.Headers.Accept.Add(
+                //        new MediaTypeWithQualityHeaderValue(HttpConstants.MEDIA_TYPE_TEXT_PLAIN));
+                //    await HttpClient.SendAsync(request);
+                //}
+                //catch (Exception)
+                //{
+                //    //
+                //}
             }
         }
 

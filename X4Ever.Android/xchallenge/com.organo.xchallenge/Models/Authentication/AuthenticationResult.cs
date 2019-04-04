@@ -8,6 +8,11 @@ namespace com.organo.xchallenge.Models.Authentication
     /// </summary>
     public sealed class AuthenticationResult : IAuthenticationResult
     {
+        public AuthenticationResult()
+        {
+            UserInfo = new UserInfo();
+        }
+
         /// <summary>
         /// Gets the Access Token requested.
         /// </summary>

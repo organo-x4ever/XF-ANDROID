@@ -28,6 +28,7 @@ namespace com.organo.xchallenge.ViewModels.Milestones
         private readonly IUserMilestoneService _userMilestoneService;
         private readonly IHelper _helper;
         private readonly PoundToKiligramConverter _converter = new PoundToKiligramConverter();
+
         public UserMilestoneViewModel(INavigation navigation = null) : base(navigation)
         {
             _trackerPivotService = DependencyService.Get<ITrackerPivotService>();
@@ -66,6 +67,7 @@ namespace com.organo.xchallenge.ViewModels.Milestones
             IsCurrentSubTitle = false;
             ImageFront = ImageDefault;
             ImageSide = ImageDefault;
+            IsGenderRequired = false;
             TShirtSize = string.Empty;
 
             IsAchievedVisible = false;
@@ -75,14 +77,13 @@ namespace com.organo.xchallenge.ViewModels.Milestones
             MilestoneExtended = new UserMilestoneExtended();
             Milestones = new List<Models.Milestone>();
             UserMilestones = new List<UserMilestone>();
-            ViewComponents = new List<View>();
+            //ViewComponents = new List<View>();
             AchievedMilestonePercentage = null;
             AchievedMilestone = null;
         }
 
         public async void GetUserTracker()
         {
-            UserTrackers = (await _trackerPivotService.GetUserTrackerAsync()).OrderBy(t => t.ModifyDate).ToList();
             if (UserTrackers.Count > 0)
             {
                 var trackerFirst = UserTrackers.OrderBy(t => t.ModifyDate).FirstOrDefault();
@@ -103,17 +104,10 @@ namespace com.organo.xchallenge.ViewModels.Milestones
                 }
             }
 
-            UserMetas = await _metaPivotService.GetMetaAsync();
-            if (UserMetas != null)
-            {
-                if (short.TryParse(UserMetas.WeightLossGoal.ToString(), out short weightLossGoal))
-                    WeightLossGoal = weightLossGoal;
-            }
-
-            GetMilestoneExtendedAsync();
+            await GetMilestoneExtendedAsync();
         }
 
-        private async void GetMilestoneExtendedAsync()
+        private async Task GetMilestoneExtendedAsync()
         {
             MilestoneExtended =
                 await _userMilestoneService.GetExtendedAsync(App.Configuration.AppConfig.DefaultLanguage);
@@ -135,7 +129,7 @@ namespace com.organo.xchallenge.ViewModels.Milestones
                     MilestonePercentage = MilestoneExtended.MilestonePercentages.ToList();
             }
         }
-        
+
         // Find :: CHANGED
         public void ChangeSliderValue(double weightLose)
         {
@@ -162,17 +156,15 @@ namespace com.organo.xchallenge.ViewModels.Milestones
 
         private void GetUserGenderAsync()
         {
-            if (UserMetas?.Gender == null || UserMetas.Gender.Trim().Length == 0)
-                IsGenderRequired = true;
-            else
+            var gender = UserMetas?.Gender;
+            if (!string.IsNullOrEmpty(gender))
             {
-                var gender = UserMetas.Gender;
-                if (!string.IsNullOrEmpty(gender))
-                {
-                    GenderSelected = gender == Gender.Male.ToString() ? Gender.Male : Gender.Female;
-                    UpdateGenderStyleAsync();
-                }
+                IsGenderRequired = false;
+                GenderSelected = gender == Gender.Male.ToString() ? Gender.Male : Gender.Female;
+                UpdateGenderStyleAsync();
             }
+            else
+                IsGenderRequired = true;
         }
 
         public async Task<List<string>> GetTShirtSizeList()
@@ -195,7 +187,9 @@ namespace com.organo.xchallenge.ViewModels.Milestones
         }
 
         private Slider _sliderCurrentWeight;
+
         public const string SliderCurrentWeightPropertyName = "SliderCurrentWeight";
+
         // CHANGED
         public Slider SliderCurrentWeight
         {
@@ -233,7 +227,7 @@ namespace com.organo.xchallenge.ViewModels.Milestones
                     SetActivityResource(showError: true, errorMessage: TextResources.MessageGoalAchievedWishes);
                     GoalAchieved = true;
                     //PERCENTAGE:
-                   await CheckMilestonePercentageAsync();
+                    await CheckMilestonePercentageAsync();
                     return;
                 }
                 else
@@ -322,7 +316,11 @@ namespace com.organo.xchallenge.ViewModels.Milestones
                     {
                         SaveGender();
                         SaveSuccessful(string.Empty);
-                        await App.CurrentApp.MainPage.Navigation.PopModalAsync();
+                        await Task.Delay(TimeSpan.FromSeconds(1));
+                        Device.BeginInvokeOnMainThread(async () =>
+                        {
+                            await App.CurrentApp.MainPage.Navigation.PopModalAsync();
+                        });
                     }
                 }
                 else if (response.Contains(HttpConstants.UNAUTHORIZED))
@@ -401,6 +399,13 @@ namespace com.organo.xchallenge.ViewModels.Milestones
             {
                 trackerList.Add(await _trackerPivotService.AddTracker(TrackerConstants.CURRENT_WEIGHT,
                     CurrentWeightValue.ToString()));
+
+                trackerList.Add(await _trackerPivotService.AddTracker(TrackerConstants.CURRENT_WEIGHT_UI,
+                    CurrentWeightValue.ToString()));
+
+                trackerList.Add(await _trackerPivotService.AddTracker(TrackerConstants.WEIGHT_VOLUME_TYPE,
+                    App.Configuration.AppConfig.DefaultWeightVolume));
+
                 if (GoalAchieved)
                 {
                     trackerList.Add(await _trackerPivotService.AddTracker(TrackerConstants.TSHIRT_SIZE,
@@ -430,30 +435,36 @@ namespace com.organo.xchallenge.ViewModels.Milestones
                              App.Configuration.AppConfig.MINIMUM_CURRENT_WEIGHT_LB))
                     validationErrors.Add(string.Format(TextResources.Validation_MustBeMoreThan,
                         TextResources.WeightLossGoal,
-                        _converter.DisplayWeightVolume(App.Configuration.AppConfig.MINIMUM_CURRENT_WEIGHT_KG,
+                        _converter.DisplayWeightVolume(
+                            App.Configuration.AppConfig.MINIMUM_CURRENT_WEIGHT_KG,
                             App.Configuration.AppConfig.MINIMUM_CURRENT_WEIGHT_LB)));
 
                 if (GoalAchieved)
                 {
                     // Front Photo
                     if (string.IsNullOrEmpty(ImageFront) || ImageFront == ImageDefault)
-                        validationErrors.Add(string.Format(TextResources.Required_MustBeSelected, TextResources.FrontPhoto));
+                        validationErrors.Add(string.Format(TextResources.Required_MustBeSelected,
+                            TextResources.FrontPhoto));
 
                     // Side Photo
                     if (string.IsNullOrEmpty(ImageSide) || ImageSide == ImageDefault)
-                        validationErrors.Add(string.Format(TextResources.Required_MustBeSelected, TextResources.SidePhoto));
+                        validationErrors.Add(string.Format(TextResources.Required_MustBeSelected,
+                            TextResources.SidePhoto));
 
                     //Gender
                     if (IsGenderRequired && !IsGenderSelected)
-                        validationErrors.Add(string.Format(TextResources.Required_MustBeSelected,TextResources.Gender));
+                        validationErrors.Add(string.Format(TextResources.Required_MustBeSelected,
+                            TextResources.Gender));
 
                     // T-Shirt Size
-                    if (TShirtSize == null || TShirtSize.Trim().Length == 0)
-                        validationErrors.Add(string.Format(TextResources.Required_MustBeSelected, TextResources.TShirtSize));
+                    if (string.IsNullOrEmpty(TShirtSize))
+                        validationErrors.Add(string.Format(TextResources.Required_MustBeSelected,
+                            TextResources.TShirtSize));
 
                     // Why you want to join
-                    if (AboutYourJourney == null || AboutYourJourney.Trim().Length == 0)
-                        validationErrors.Add(string.Format(TextResources.Required_IsMandatory, TextResources.AboutYourJourney));
+                    if (string.IsNullOrEmpty(AboutYourJourney))
+                        validationErrors.Add(string.Format(TextResources.Required_IsMandatory,
+                            TextResources.AboutYourJourney));
                 }
             });
             if (validationErrors.Count() > 0)
@@ -496,16 +507,15 @@ namespace com.organo.xchallenge.ViewModels.Milestones
             }
         }
 
-        //private RootPage root;
-        //public const string RootPropertyName = "Root";
 
-        //public RootPage Root
-        //{
-        //    get { return root; }
-        //    set { SetProperty(ref root, value, RootPropertyName); }
-        //}
+        private MetaPivot _userMetas;
+        public const string UserMetasPropertyName = "UserMetas";
 
-        public MetaPivot UserMetas { get; set; }
+        public MetaPivot UserMetas
+        {
+            get { return _userMetas; }
+            set { SetProperty(ref _userMetas, value, UserMetasPropertyName); }
+        }
 
         private MyProfileViewModel profileViewModel;
         public const string ProfileViewModelPropertyName = "ProfileViewModel";
@@ -880,41 +890,41 @@ namespace com.organo.xchallenge.ViewModels.Milestones
 
         /********** MILESTONE **********/
 
-        private Int16 previousWeight = 0;
+        private double previousWeight = 0;
         public const string PreviousWeightPropertyName = "PreviousWeight";
 
-        public Int16 PreviousWeight
+        public double PreviousWeight
         {
             get { return previousWeight; }
             set { SetProperty(ref previousWeight, value, PreviousWeightPropertyName); }
         }
 
-        private Int16 startWeight = 0;
+        private double startWeight = 0;
         public const string StartWeightPropertyName = "StartWeight";
 
-        public Int16 StartWeight
+        public double StartWeight
         {
             get { return startWeight; }
             set { SetProperty(ref startWeight, value, StartWeightPropertyName); }
         }
 
-        private Int16 weightLossGoal = 0;
+        private double weightLossGoal = 0;
         public const string WeightLossGoalPropertyName = "WeightLossGoal";
 
-        public Int16 WeightLossGoal
+        public double WeightLossGoal
         {
             get { return weightLossGoal; }
             set { SetProperty(ref weightLossGoal, value, WeightLossGoalPropertyName); }
         }
 
-        private List<View> viewComponents;
-        public const string ViewComponentsPropertyName = "ViewComponents";
+        //private List<View> viewComponents;
+        //public const string ViewComponentsPropertyName = "ViewComponents";
 
-        public List<View> ViewComponents
-        {
-            get { return viewComponents; }
-            set { SetProperty(ref viewComponents, value, ViewComponentsPropertyName); }
-        }
+        //public List<View> ViewComponents
+        //{
+        //    get { return viewComponents; }
+        //    set { SetProperty(ref viewComponents, value, ViewComponentsPropertyName); }
+        //}
 
         private string _badgeAchievedImage;
         public const string BadgeAchievedImagePropertyName = "BadgeAchievedImage";

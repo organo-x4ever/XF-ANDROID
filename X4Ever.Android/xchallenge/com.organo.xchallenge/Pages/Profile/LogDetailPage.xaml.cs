@@ -27,9 +27,8 @@ namespace com.organo.xchallenge.Pages.Profile
         private void Init()
         {
             _model.Navigation = App.CurrentApp.MainPage.Navigation;
-            _model.SliderTrackerWeight = sliderTrackerWeight;
             BindingContext = _model;
-            ListViewTrackers.ItemSelected += async (sender, e) =>
+            ListViewTrackers.ItemSelected += (sender, e) =>
             {
                 if (_model.UserDetail.IsDownloadAllowed)
                 {
@@ -42,23 +41,11 @@ namespace com.organo.xchallenge.Pages.Profile
 
         private async void DownloadImages(TrackerPivot tracker)
         {
-            await Task.Factory.StartNew(() =>
-            {
-                Device.OpenUri(new Uri(tracker.FrontImageWithUrl));
-                Device.OpenUri(new Uri(tracker.SideImageWithUrl));
-            });
+            await Task.Factory.StartNew(() => { Device.OpenUri(new Uri(tracker.FrontImageWithUrl)); });
+            await Task.Delay(TimeSpan.FromSeconds(2));
+            await Task.Factory.StartNew(() => { Device.OpenUri(new Uri(tracker.SideImageWithUrl)); });
         }
         
-        private void TrackerEditEvent(object sender, EventArgs args)
-        {
-            _model.TrackerEditCommand.Execute(null);
-        }
-
-        private void TrackerUpdateEvent(object sender, EventArgs args)
-        {
-            _model.TrackerUpdateCommand.Execute(null);
-        }
-
         protected override bool OnBackButtonPressed()
         {
             _model.ShowTrackerDetail = false;

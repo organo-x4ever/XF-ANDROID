@@ -1813,12 +1813,6 @@
   <data name="EmailIDNotFound" xml:space="preserve">
     <value>Identificación de correo electrónico no encontrada</value>
   </data>
-  <data name="YouLost" xml:space="preserve">
-    <value>Perdiste {0}</value>
-  </data>
-  <data name="YourWeight" xml:space="preserve">
-    <value>Tu peso {0}</value>
-  </data>
   <data name="Edit" xml:space="preserve">
     <value>Editar</value>
   </data>
@@ -1827,5 +1821,23 @@
   </data>
   <data name="Tracker" xml:space="preserve">
     <value>Tracker</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Borrar</value>
+  </data>
+  <data name="YourWeightIs" xml:space="preserve">
+    <value>Tu peso es</value>
+  </data>
+  <data name="YoutubeVideoDescriptionNoAvail" xml:space="preserve">
+    <value>Description does not found on YouTube for this video.</value>
+  </data>
+  <data name="YourWeightFormat1" xml:space="preserve">
+    <value>Tu peso {0}</value>
+  </data>
+  <data name="YouLost" xml:space="preserve">
+    <value>Perdiste</value>
+  </data>
+  <data name="YouLostFromat1" xml:space="preserve">
+    <value>Perdiste {0}</value>
   </data>
 </root>

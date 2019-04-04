@@ -338,7 +338,11 @@ namespace com.organo.xchallenge.Pages.Profile
 
         private void ShowDetail(object sender, EventArgs args)
         {
-            _model.ShowTrackerDetail = true;
+			if (!_model.ShowTrackerDetail)
+            {
+				_model.ShowTrackerDetail = true;
+				_model.ShowHideTrackerDetailAsync();
+			}
         }
 
         private void ShowGallery(object sender, EventArgs args)

@@ -14,18 +14,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using com.organo.xchallenge.Helpers;
-using com.organo.xchallenge.ViewModels.Base;
 using Xamarin.Forms;
 
 namespace com.organo.xchallenge.ViewModels.Profile
 {
-    public class SettingsViewModel : BaseViewModel
+    public class SettingsViewModel : Base.BaseViewModel
     {
         private readonly IUserSettingService _settingService;
         public SettingsViewModel(INavigation navigation = null) : base(navigation)
         {
             SetPageImageSize();
             _settingService = DependencyService.Get<IUserSettingService>();
+            ProfileLoadingComplete = false;
             TitleProfile = TextResources.EditProfile;
             TitlePassword = TextResources.ChangePassword;
             TitleUserSetting = TextResources.UserSettings;
@@ -46,10 +46,10 @@ namespace com.organo.xchallenge.ViewModels.Profile
         private void GetStateList()
         {
             var provinces = CountryProvinces.FirstOrDefault(p => p.CountryName == CountryName)?.Provinces;
-            StateList = provinces?.Select(p => (string)p.ProvinceName).Distinct().ToList();
+            StateList = provinces?.Select(p => (string) p.ProvinceName).Distinct().ToList();
         }
 
-        private  List<CountryProvince> CountryProvinces { get; set; }
+        private List<CountryProvince> CountryProvinces { get; set; }
 
         #region Settings Properties
 
@@ -59,6 +59,7 @@ namespace com.organo.xchallenge.ViewModels.Profile
             switch (tabTitle)
             {
                 case TabTitle.EditProfile:
+                    ProfileLoadingComplete = false;
                     //Selected
                     UnderlineProfileStyle = BoxTabSelectedStyle;
                     TitleProfileStyle = LabelTabSelectedStyle;
@@ -139,14 +140,15 @@ namespace com.organo.xchallenge.ViewModels.Profile
                 CountryName = UserMeta.Country;
                 CityName = UserMeta.City;
                 PostalCode = UserMeta.PostalCode;
+                await Task.Delay(TimeSpan.FromMilliseconds(100));
                 StateName = UserMeta.State;
+                ProfileLoadingComplete = true;
             }
         }
 
         public async Task LoadAppLanguages(Action action)
         {
-            ApplicationLanguages =
-                await DependencyService.Get<IApplicationLanguageService>().GetWithCountryAsync();
+            ApplicationLanguages = await DependencyService.Get<IApplicationLanguageService>().GetWithCountryAsync();
             foreach (var language in ApplicationLanguages)
             {
                 if (language.LanguageCode == App.Configuration.AppConfig.DefaultLanguage)
@@ -287,15 +289,6 @@ namespace com.organo.xchallenge.ViewModels.Profile
         public string ImagePasswordSelectedPath => TextResources.icon_password_color;
         public string ImageUserSettingPath => TextResources.icon_user_settings;
         public string ImageUserSettingSelectedPath => TextResources.icon_user_settings_color;
-
-        //private RootPage root;
-        //public const string RootPropertyName = "Root";
-
-        //public RootPage Root
-        //{
-        //    get { return root; }
-        //    set { SetProperty(ref root, value, RootPropertyName); }
-        //}
 
         public TabTitle Selected { get; set; }
 
@@ -596,19 +589,14 @@ namespace com.organo.xchallenge.ViewModels.Profile
             get { return settingTabImageWidth; }
             set { SetProperty(ref settingTabImageWidth, value, SettingTabImageWidthPropertyName); }
         }
-
-        //private ICommand _showSideMenuCommand;
-
-        //public ICommand ShowSideMenuCommand
-        //{
-        //    get
-        //    {
-        //        return _showSideMenuCommand ?? (_showSideMenuCommand = new Command((obj) =>
-        //        {
-        //            Root.IsPresented = Root.IsPresented == false;
-        //        }));
-        //    }
-        //}
+        
+        private bool _profileLoadingComplete;
+        public const string ProfileLoadingCompletePropertyName = "ProfileLoadingComplete";
+        public bool ProfileLoadingComplete
+        {
+            get { return _profileLoadingComplete; }
+            set { SetProperty(ref _profileLoadingComplete, value, ProfileLoadingCompletePropertyName); }
+        }
     }
 
     public enum TabTitle

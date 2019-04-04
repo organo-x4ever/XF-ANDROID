@@ -1,7 +1,7 @@
 ﻿{
   "BaseUrl": "https://mapp.oghq.ca/",
   "BaseUrl_Development": "https://mapp.oghq.ca/",
-  "AuthenticationUrl": "authenticatepivot/userauth",
+  "AuthenticationUrl": "authenticatepivot/login",
   "AcceptedTokenName": "Token",
   "AccessTokenType": "Basic",
   "ApplicationRequestHeader": "Application",

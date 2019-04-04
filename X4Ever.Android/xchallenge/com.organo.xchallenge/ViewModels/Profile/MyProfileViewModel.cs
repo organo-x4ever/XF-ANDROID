@@ -31,6 +31,7 @@ namespace com.organo.xchallenge.ViewModels.Profile
         private readonly ITrackerPivotService _trackerPivotService;
         private readonly ImageSize _imageSizeBadge;
         private readonly PoundToKiligramConverter _converter = new PoundToKiligramConverter();
+        
         public MyProfileViewModel(Xamarin.Forms.INavigation navigation = null) : base(navigation)
         {
             _userPivotService = DependencyService.Get<IUserPivotService>();
@@ -49,6 +50,7 @@ namespace com.organo.xchallenge.ViewModels.Profile
                 UserBadgeImageHeight = _imageSizeBadge.Height;
                 UserBadgeImageWidth = _imageSizeBadge.Width;
             }
+
             BadgeAchievedImage = ImageResizer.ResizeImage(TextResources.Badge_Null, _imageSizeBadge);
             MilestoneRequired = false;
             ShowTrackerDetail = false;
@@ -61,70 +63,85 @@ namespace com.organo.xchallenge.ViewModels.Profile
 
         public async void GetPageData()
         {
-            await GetUserAsync(GetTrackerInputAsync);
+            await GetUserAsync(true);
         }
 
         /********** Profile Content View : START **********/
 
-        public async Task GetUserAsync(Action action = null)
+        public async Task GetUserAsync(bool showTracker = false)
         {
-            UserDetail = await _userPivotService.GetFullAsync();
-            if (UserDetail == null)
+            try
             {
-                await App.LogoutAsync();
-                App.GoToAccountPage();
-                return;
-            }
-
-            UserTrackers = UserDetail.TrackerPivot.ToList();
-            UserGreeting = string.Format(TextResources.GreetingUser, UserDetail.DisplayName);
-            if (UserDetail.Achievement != null && UserDetail.Achievement.AchievementIcon != null)
-                BadgeAchievedImage = ImageResizer.ResizeImage(DependencyService.Get<IMessage>()
-                    .GetResource(UserDetail.Achievement.AchievementIcon), _imageSizeBadge);
-            JoiningDate = string.Format(CommonConstants.DATE_FORMAT_MMM_d_yyyy, UserDetail.UserRegistered);
-            double.TryParse(UserDetail.MetaPivot.WeightLossGoal, out double yourGoal);
-            YourGoal = yourGoal;
-            TargetDate = UserDetail.TargetDate;
-
-            var trackerFirst = UserDetail.TrackerPivot.OrderBy(t => t.ModifyDate).FirstOrDefault();
-            var trackerLast = UserDetail.TrackerPivot.OrderByDescending(t => t.ModifyDate).FirstOrDefault();
-            MilestoneRequired = trackerFirst == null;
-            if (trackerFirst != null && trackerLast != null)
-            {
-                double.TryParse(trackerFirst.CurrentWeight, out double firstWeight);
-                StartWeight = firstWeight;
-                Weight = StartWeight;
-                WeightLossGoal = YourGoal;
-                double.TryParse(trackerLast.CurrentWeight, out double lastWeight);
-                YouLost = (short) (StartWeight - lastWeight);
-                ToLoose = (short) (YourGoal - YouLost);
-                ToLoose = (short) (ToLoose >= 0 ? ToLoose : 0);
-
-                int.TryParse(trackerLast.RevisionNumber, out int revisionNumber);
-                revisionNumber = (revisionNumber > 1 ? revisionNumber - 1 : 1);
-                var trackerPrevious =
-                    UserDetail.TrackerPivot.FirstOrDefault(t => t.RevisionNumber == revisionNumber.ToString());
-                if (trackerPrevious != null)
+                MilestoneRequired = false;
+                UserDetail = await _userPivotService.GetFullAsync();
+                if (UserDetail == null)
                 {
-                    double.TryParse(trackerLast.CurrentWeight, out double previousWeight);
-                    YouLostThisWeek = (short) (previousWeight - lastWeight);
+                    await App.LogoutAsync();
+                    App.GoToAccountPage();
+                    return;
                 }
 
-                // Milestone Requirement Check
-                MilestoneRequired = UserDetail.IsWeightSubmissionRequired;
-            }
+                UserTrackers = UserDetail.TrackerPivot.ToList();
+                UserGreeting = string.Format(TextResources.GreetingUser, UserDetail.DisplayName);
+                if (UserDetail.Achievement != null && UserDetail.Achievement.AchievementIcon != null)
+                    BadgeAchievedImage = ImageResizer.ResizeImage(DependencyService.Get<IMessage>()
+                            .GetResource(UserDetail.Achievement.AchievementIcon),
+                        _imageSizeBadge);
+                JoiningDate = string.Format(CommonConstants.DATE_FORMAT_MMM_d_yyyy, UserDetail.UserRegistered);
+                double.TryParse(UserDetail.MetaPivot.WeightLossGoal, out double yourGoal);
+                YourGoal = yourGoal;
+                TargetDate = UserDetail.TargetDate;
 
-            LoadGauge();
-            GetTrackerData();
-            action?.Invoke();
+                var trackerFirst = UserDetail.TrackerPivot.OrderBy(t => t.ModifyDate).FirstOrDefault();
+                var trackerLast = UserDetail.TrackerPivot.OrderByDescending(t => t.ModifyDate).FirstOrDefault();
+                MilestoneRequired = trackerFirst == null;
+                if (trackerFirst != null && trackerLast != null)
+                {
+                    double.TryParse(trackerFirst.CurrentWeight, out double firstWeight);
+                    StartWeight = firstWeight;
+                    Weight = StartWeight;
+                    WeightLossGoal = YourGoal;
+                    double.TryParse(trackerLast.CurrentWeight, out double lastWeight);
+                    YouLost = (short) (StartWeight - lastWeight);
+                    ToLoose = (short) (YourGoal - YouLost);
+                    ToLoose = (short) (ToLoose >= 0 ? ToLoose : 0);
+
+                    int.TryParse(trackerLast.RevisionNumber, out int revisionNumber);
+                    revisionNumber = (revisionNumber > 1 ? revisionNumber - 1 : 1);
+                    var trackerPrevious =
+                        UserDetail.TrackerPivot.FirstOrDefault(t => t.RevisionNumber == revisionNumber.ToString());
+                    if (trackerPrevious != null)
+                    {
+                        double.TryParse(trackerLast.CurrentWeight, out double previousWeight);
+                        YouLostThisWeek = (short) (previousWeight - lastWeight);
+                    }
+
+                    // Milestone Requirement Check
+                    MilestoneRequired = UserDetail.IsWeightSubmissionRequired;
+                }
+
+                LoadGauge();
+                GetTrackerData();
+                if (showTracker)
+                    await GetTrackerInputAsync();
+            }
+            catch (Exception)
+            {
+                //
+            }
         }
 
-        private async void GetTrackerInputAsync()
+        private async Task GetTrackerInputAsync()
         {
-            await Task.Delay(TimeSpan.FromSeconds(2));
+            await Task.Delay(TimeSpan.FromMilliseconds(1500));
             if (MilestoneRequired)
-                await App.CurrentApp.MainPage.Navigation.PushModalAsync(
-                    new UserMilestonePage(Root, this));
+            {
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    await App.CurrentApp.MainPage.Navigation.PushModalAsync(
+                        new UserMilestonePage(Root, this));
+                });
+            }
         }
 
         private void LoadGauge()
@@ -171,52 +188,6 @@ namespace com.organo.xchallenge.ViewModels.Profile
             get { return userDetail; }
             set { SetProperty(ref userDetail, value, UserDetailPropertyName); }
         }
-        
-        private Slider _sliderTrackerWeight;
-        public const string SliderTrackerWeightPropertyName = "SliderTrackerWeight";
-        // CHANGED
-        public Slider SliderTrackerWeight
-        {
-            get { return _sliderTrackerWeight; }
-            set { SetProperty(ref _sliderTrackerWeight, value, SliderTrackerWeightPropertyName); }
-        }
-
-        private bool isTrackerEdit;
-        public const string IsTrackerEditPropertyName = "IsTrackerEdit";
-
-        public bool IsTrackerEdit
-        {
-            get { return isTrackerEdit; }
-            set { SetProperty(ref isTrackerEdit, value, IsTrackerEditPropertyName); }
-        }
-        
-        private bool isTrackerUpdate;
-        public const string IsTrackerUpdatePropertyName = "IsTrackerUpdate";
-
-        public bool IsTrackerUpdate
-        {
-            get { return isTrackerUpdate; }
-            set { SetProperty(ref isTrackerUpdate, value, IsTrackerUpdatePropertyName); }
-        }
-
-        private string trackerEditText;
-        public const string TrackerEditTextPropertyName = "TrackerEditText";
-
-        public string TrackerEditText
-        {
-            get { return trackerEditText; }
-            set { SetProperty(ref trackerEditText, value, TrackerEditTextPropertyName); }
-        }
-        
-        private string trackerUpdateText;
-        public const string TrackerUpdateTextPropertyName = "TrackerUpdateText";
-
-        public string TrackerUpdateText
-        {
-            get { return trackerUpdateText; }
-            set { SetProperty(ref trackerUpdateText, value, TrackerUpdateTextPropertyName); }
-        }
-
         
         private double trackerWeightValue = 0;
         public const string TrackerWeightValuePropertyName = "TrackerWeightValue";
@@ -350,7 +321,7 @@ namespace com.organo.xchallenge.ViewModels.Profile
             set { SetProperty(ref displayDetailLink, value, DisplayDetailLinkPropertyName); }
         }
 
-        private Xamarin.Forms.Page TrackerPage => new LogDetailPage(this); //new TrackerDetailPage(this);
+        private Xamarin.Forms.Page TrackerPage => new TrackerLogPage(this); //new LogDetailPage(this); //new TrackerDetailPage(this);
         private bool showTrackerDetail;
         public const string ShowTrackerDetailPropertyName = "ShowTrackerDetail";
 
@@ -359,7 +330,7 @@ namespace com.organo.xchallenge.ViewModels.Profile
             get { return showTrackerDetail; }
             set
             {
-                SetProperty(ref showTrackerDetail, value, ShowTrackerDetailPropertyName, ShowHideTrackerDetailAsync);
+                SetProperty(ref showTrackerDetail, value, ShowTrackerDetailPropertyName);
             }
         }
 
@@ -375,10 +346,6 @@ namespace com.organo.xchallenge.ViewModels.Profile
         public async Task ShowTrackerDetailAsync()
         {
             PopType = PopupType.Detail;
-            IsTrackerEdit = UserDetail.IsTrackerEditAllowed;
-            IsTrackerUpdate = false;
-            TrackerEditText = TextResources.Edit + " " + TextResources.Latest;
-            TrackerUpdateText = TextResources.Update + " " + TextResources.Latest;
             TrackerWeightMinimumValue = 0;
             TrackerWeightMaximumValue = _converter.DisplayWeightVolume(
                 App.Configuration.AppConfig.MAXIMUM_CURRENT_WEIGHT_KG,
@@ -392,7 +359,11 @@ namespace com.organo.xchallenge.ViewModels.Profile
 
         public async Task HideTrackerDetailAsync()
         {
-            await PopModalAsync();
+            await Task.Delay(TimeSpan.FromSeconds(1));
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                await App.CurrentApp.MainPage.Navigation.PopModalAsync();
+            });
         }
 
         /********** Tracker Content View : END **********/
@@ -456,32 +427,35 @@ namespace com.organo.xchallenge.ViewModels.Profile
 
         /********** Profile Chart View : START **********/
 
-        private async void GetTrackerData()
+        private void GetTrackerData()
         {
-            await Task.Factory.StartNew(() =>
+            Device.BeginInvokeOnMainThread(async () =>
             {
-                Entries = new List<Entry>();
-                UserTrackers = UserTrackers.OrderBy(t => t.ModifyDate).ToList();
-                int index = 0;
-                foreach (var tracker in UserTrackers)
+                await Task.Factory.StartNew(() =>
                 {
-                    index++;
-                    var barColor = ChartColor.Get(index);
-                    double.TryParse(tracker.CurrentWeight, out double currentWeight);
-                    tracker.WeightLost = StartWeight - currentWeight;
-                    tracker.BackgroundColor = Xamarin.Forms.Color.FromHex(ChartColor.GetString(index));
-                    Entries.Add(new Entry((float) tracker.WeightLost)
+                    Entries = new List<Entry>();
+                    UserTrackers = UserTrackers.OrderBy(t => t.ModifyDate).ToList();
+                    int index = 0;
+                    foreach (var tracker in UserTrackers)
                     {
-                        Label =
-                            tracker
-                                .RevisionNumberDisplayShort, // tracker.ModifyDate.Day.ToString() + " " + tracker.ModifyDate.Month.ToMonthShortNameCapital(),
-                        ValueLabel = tracker.WeightLostDisplay.ToString(),
-                        Color = barColor,
-                        TextColor = barColor
-                    });
-                }
+                        index++;
+                        var barColor = ChartColor.Get(index);
+                        double.TryParse(tracker.CurrentWeight, out double currentWeight);
+                        tracker.WeightLost = StartWeight - currentWeight;
+                        tracker.BackgroundColor = Xamarin.Forms.Color.FromHex(ChartColor.GetString(index));
+                        Entries.Add(new Entry((float) tracker.WeightLost)
+                        {
+                            Label =
+                                tracker
+                                    .RevisionNumberDisplayShort, // tracker.ModifyDate.Day.ToString() + " " + tracker.ModifyDate.Month.ToMonthShortNameCapital(),
+                            ValueLabel = tracker.WeightLostDisplay.ToString(),
+                            Color = barColor,
+                            TextColor = barColor
+                        });
+                    }
 
-                SetChart();
+                    SetChart();
+                });
             });
         }
 
@@ -539,78 +513,96 @@ namespace com.organo.xchallenge.ViewModels.Profile
 
         private void SetDonutChart()
         {
-            ChartData = new DonutChart()
+            Device.BeginInvokeOnMainThread(() =>
             {
-                Entries = Entries,
-                AnimationDuration = new TimeSpan(AnimationTime),
-                IsAnimated = true,
-                BackgroundColor = BackgroundColor
-            };
+                ChartData = new DonutChart()
+                {
+                    Entries = Entries,
+                    AnimationDuration = new TimeSpan(AnimationTime),
+                    IsAnimated = true,
+                    BackgroundColor = BackgroundColor
+                };
+            });
         }
 
         private void SetLineChart(double maxValue = 100)
         {
-            ChartData = new LineChart()
+            Device.BeginInvokeOnMainThread(() =>
             {
-                Entries = Entries,
-                AnimationDuration = new TimeSpan(AnimationTime),
-                IsAnimated = true,
-                LabelOrientation = Orientation.Horizontal,
-                PointMode = PointMode.Circle,
-                ValueLabelOrientation = Orientation.Vertical,
-                MinValue = 0,
-                MaxValue = (float) maxValue,
-                BackgroundColor = BackgroundColor
-            };
+                ChartData = new LineChart()
+                {
+                    Entries = Entries,
+                    AnimationDuration = new TimeSpan(AnimationTime),
+                    IsAnimated = true,
+                    LabelOrientation = Orientation.Horizontal,
+                    PointMode = PointMode.Circle,
+                    ValueLabelOrientation = Orientation.Vertical,
+                    MinValue = 0,
+                    MaxValue = (float) maxValue,
+                    BackgroundColor = BackgroundColor
+                };
+            });
         }
 
         private void SetPieChart()
         {
-            ChartData = new PieChart()
+            Device.BeginInvokeOnMainThread(() =>
             {
-                Entries = Entries,
-                AnimationDuration = new TimeSpan(AnimationTime),
-                IsAnimated = true,
-                BackgroundColor = BackgroundColor
-            };
+                ChartData = new PieChart()
+                {
+                    Entries = Entries,
+                    AnimationDuration = new TimeSpan(AnimationTime),
+                    IsAnimated = true,
+                    BackgroundColor = BackgroundColor
+                };
+            });
         }
 
         private void SetPointChart(double maxValue = 100)
         {
-            ChartData = new PointChart()
+            Device.BeginInvokeOnMainThread(() =>
             {
-                Entries = Entries,
-                AnimationDuration = new TimeSpan(AnimationTime),
-                IsAnimated = true,
-                LabelOrientation = Orientation.Horizontal,
-                PointMode = PointMode.Square,
-                ValueLabelOrientation = Orientation.Vertical,
-                MinValue = 0,
-                MaxValue = (float) maxValue,
-                BackgroundColor = BackgroundColor
-            };
+                ChartData = new PointChart()
+                {
+                    Entries = Entries,
+                    AnimationDuration = new TimeSpan(AnimationTime),
+                    IsAnimated = true,
+                    LabelOrientation = Orientation.Horizontal,
+                    PointMode = PointMode.Square,
+                    ValueLabelOrientation = Orientation.Vertical,
+                    MinValue = 0,
+                    MaxValue = (float) maxValue,
+                    BackgroundColor = BackgroundColor
+                };
+            });
         }
 
         private void SetRadarChart()
         {
-            ChartData = new RadarChart()
+            Device.BeginInvokeOnMainThread(() =>
             {
-                Entries = Entries,
-                AnimationDuration = new TimeSpan(AnimationTime),
-                IsAnimated = true,
-                BackgroundColor = BackgroundColor
-            };
+                ChartData = new RadarChart()
+                {
+                    Entries = Entries,
+                    AnimationDuration = new TimeSpan(AnimationTime),
+                    IsAnimated = true,
+                    BackgroundColor = BackgroundColor
+                };
+            });
         }
 
         private void SetRadialGaugeChart()
         {
-            ChartData = new RadialGaugeChart()
+            Device.BeginInvokeOnMainThread(() =>
             {
-                Entries = Entries,
-                AnimationDuration = new TimeSpan(AnimationTime),
-                IsAnimated = true,
-                BackgroundColor = BackgroundColor
-            };
+                ChartData = new RadialGaugeChart()
+                {
+                    Entries = Entries,
+                    AnimationDuration = new TimeSpan(AnimationTime),
+                    IsAnimated = true,
+                    BackgroundColor = BackgroundColor
+                };
+            });
         }
 
         protected long AnimationTime => Milliseconds;
@@ -667,9 +659,6 @@ namespace com.organo.xchallenge.ViewModels.Profile
                 if (!string.IsNullOrEmpty(userTracker.SideImage))
                     userTracker.SideImageSource =
                         DependencyService.Get<IHelper>().GetFileUri(userTracker.SideImage, FileType.User);
-
-                userTracker.IsImageAvailable = !string.IsNullOrEmpty(userTracker.FrontImage) ||
-                                               !string.IsNullOrEmpty(userTracker.SideImage);
 
                 userTracker.PictureHeight = GalleryImageSize.Height;
                 userTracker.PictureWidth = GalleryImageSize.Width;
@@ -764,80 +753,7 @@ namespace com.organo.xchallenge.ViewModels.Profile
             get { return _badgeAchievedImage; }
             set { SetProperty(ref _badgeAchievedImage, value, BadgeAchievedImagePropertyName); }
         }
-
-        //private ICommand _showSideMenuCommand;
-
-        //public ICommand ShowSideMenuCommand
-        //{
-        //    get
-        //    {
-        //        return _showSideMenuCommand ?? (_showSideMenuCommand = new Command((obj) =>
-        //        {
-        //            Root.IsPresented = Root.IsPresented == false;
-        //        }));
-        //    }
-        //}
-
-        private ICommand _trackerEditCommand;
-
-        public ICommand TrackerEditCommand
-        {
-            get
-            {
-                return _trackerEditCommand ?? (_trackerEditCommand = new Command((obj) =>
-                {
-                    if (IsTrackerEdit)
-                    {
-                        IsTrackerEdit = false;
-                        IsTrackerUpdate = true;
-                        if (double.TryParse(
-                            UserTrackers.OrderBy(t => t.ModifyDate).LastOrDefault()?.CurrentWeight ?? "",
-                            out double weightLose))
-                        {
-                            SliderTrackerWeight.SetMinValueAsync(weightLose);
-                        }
-                        SliderTrackerWeight.ValueChanged += (sender, e) =>
-                        {
-                            if ((short) e.NewValue < _converter.DisplayWeightVolume(
-                                    App.Configuration.AppConfig.MINIMUM_WEIGHT_LOSE_KG,
-                                    App.Configuration.AppConfig.MINIMUM_WEIGHT_LOSE_LB))
-                                SliderTrackerWeight.Value = TrackerWeightValue;
-                            else
-                                TrackerWeightValue = (short) e.NewValue;
-                        };
-                    }
-                }));
-            }
-        }
-
-        private ICommand _trackerUpdateCommand;
-
-        public ICommand TrackerUpdateCommand
-        {
-            get
-            {
-                return _trackerUpdateCommand ?? (_trackerUpdateCommand = new Command(async (obj) =>
-                {
-                    if (IsTrackerUpdate)
-                    {
-                        IsTrackerUpdate = false;
-                        IsTrackerEdit = false;
-                        var tracker = UserTrackers.OrderBy(t => t.ModifyDate).LastOrDefault();
-                        double.TryParse(SliderTrackerWeight.Value.ToString(), out double nVal);
-                        double.TryParse(tracker.CurrentWeight, out double oVal);
-                        DateTime.TryParse(tracker.ModifyDate.ToString(), out DateTime dVal);
-                        var response = await _trackerPivotService.UpdateLatestTrackerAsync(nVal, oVal, dVal);
-                        if (response)
-                        {
-                            UserTrackers.RemoveAt(UserTrackers.Count - 1);
-                            tracker.CurrentWeight = nVal.ToString();
-                            UserTrackers.Add(tracker);
-                        }
-                    }
-                }));
-            }
-        }
-
+        
         private ICommand _badgeHintShowCommand;
 
         public ICommand BadgeHintShowCommand
@@ -863,9 +779,13 @@ namespace com.organo.xchallenge.ViewModels.Profile
                            (obj) =>
                            {
                                if (PopType == PopupType.Detail)
+                               {
                                    ShowTrackerDetail = false;
+                                   ShowHideTrackerDetailAsync();
+                               }
                                else if (PopType == PopupType.Gallery)
                                    ShowGalleryDetail = false;
+
                                PopType = PopupType.None;
                            }));
             }

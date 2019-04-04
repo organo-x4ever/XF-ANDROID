@@ -202,27 +202,26 @@ namespace com.organo.xchallenge.Pages
                     Pages.Remove(id);
 
                 //pop to root for Windows Phone
-                if (Detail != null && Device.RuntimePlatform == Device.WinPhone)
-                {
-                    await Detail.Navigation.PopToRootAsync();
-                }
+                // if (Detail != null && Device.RuntimePlatform == Device.WinPhone)
+                // {
+                    // await Detail.Navigation.PopToRootAsync();
+                // }
 
                 Detail = new Page();
                 Detail = newPage;
                 if (!backPressed)
                     VisitedPages.Add(id, true);
-                IsPresented = false;
                 MasterBehavior = MasterBehavior.Popover;
                 if (Device.Idiom == TargetIdiom.Phone)
-                {
-                    IsPresented = false;
+				{
+					IsPresented = false;
                     MasterBehavior = MasterBehavior.Popover;
-                }
+				}
                 else if (Device.Idiom == TargetIdiom.Tablet)
-                {
-                    IsPresented = false;
+				{
+					IsPresented = false;
                     MasterBehavior = MasterBehavior.SplitOnLandscape;
-                }
+				}
             }
             catch (Exception ex)
             {

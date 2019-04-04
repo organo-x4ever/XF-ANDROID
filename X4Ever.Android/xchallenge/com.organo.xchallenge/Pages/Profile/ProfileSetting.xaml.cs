@@ -15,8 +15,8 @@ namespace com.organo.xchallenge.Pages.Profile
 {
     public partial class ProfileSetting : ProfileSettingXaml
     {
-        private SettingsViewModel _model;
-        private IMetaPivotService metaPivotService;
+        private readonly SettingsViewModel _model;
+        private readonly IMetaPivotService _metaPivotService;
 
         public ProfileSetting(RootPage root, SettingsViewModel model)
         {
@@ -33,7 +33,7 @@ namespace com.organo.xchallenge.Pages.Profile
                 _model.NewPassword = string.Empty;
                 _model.ConfirmNewPassword = string.Empty;
                 LoadForm();
-                metaPivotService = DependencyService.Get<IMetaPivotService>();
+                _metaPivotService = DependencyService.Get<IMetaPivotService>();
             }
             catch (Exception ex)
             {
@@ -42,7 +42,7 @@ namespace com.organo.xchallenge.Pages.Profile
             }
         }
 
-        private async void LoadForm()
+        private void LoadForm()
         {
             entryCountry.Focused += (sender, e) =>
             {
@@ -57,7 +57,7 @@ namespace com.organo.xchallenge.Pages.Profile
             };
             pickerCountry.SelectedIndexChanged += (sender1, e1) =>
             {
-                if (pickerCountry.SelectedItem != null)
+                if (pickerCountry.SelectedItem != null && _model.ProfileLoadingComplete)
                     entryAddress.Focus();
             };
 
@@ -75,11 +75,11 @@ namespace com.organo.xchallenge.Pages.Profile
             };
             pickerState.SelectedIndexChanged += (sender1, e1) =>
             {
-                if (pickerState.SelectedItem != null)
+                if (pickerState.SelectedItem != null && _model.ProfileLoadingComplete)
                     entryPostalCode.Focus();
             };
 
-            await Task.Run(() => { buttonSubmit.Clicked += async (sender, e) => { await UpdateProfileAsync(); }; });
+            buttonSubmit.Clicked += async (sender, e) => { await UpdateProfileAsync(); };
         }
 
         private async Task UpdateProfileAsync()
@@ -88,17 +88,17 @@ namespace com.organo.xchallenge.Pages.Profile
             if (await Validate())
             {
                 List<Meta> metaList = new List<Meta>();
-                metaList.Add(await metaPivotService.AddMeta(_model.CountryName, MetaConstants.COUNTRY, MetaConstants.COUNTRY,
+                metaList.Add(await _metaPivotService.AddMeta(_model.CountryName, MetaConstants.COUNTRY, MetaConstants.COUNTRY,
                     MetaConstants.LABEL));
-                metaList.Add(await metaPivotService.AddMeta(_model.Address, MetaConstants.ADDRESS, MetaConstants.ADDRESS,
+                metaList.Add(await _metaPivotService.AddMeta(_model.Address, MetaConstants.ADDRESS, MetaConstants.ADDRESS,
                     MetaConstants.LABEL));
-                metaList.Add(await metaPivotService.AddMeta(_model.CityName, MetaConstants.CITY, MetaConstants.CITY,
+                metaList.Add(await _metaPivotService.AddMeta(_model.CityName, MetaConstants.CITY, MetaConstants.CITY,
                     MetaConstants.LABEL));
-                metaList.Add(await metaPivotService.AddMeta(_model.StateName, MetaConstants.STATE, MetaConstants.STATE,
+                metaList.Add(await _metaPivotService.AddMeta(_model.StateName, MetaConstants.STATE, MetaConstants.STATE,
                     MetaConstants.LABEL));
-                metaList.Add(await metaPivotService.AddMeta(_model.PostalCode, MetaConstants.POSTAL_CODE,
+                metaList.Add(await _metaPivotService.AddMeta(_model.PostalCode, MetaConstants.POSTAL_CODE,
                     MetaConstants.POSTAL_CODE, MetaConstants.LABEL));
-                var response = await metaPivotService.SaveMetaAsync(metaList);
+                var response = await _metaPivotService.SaveMetaAsync(metaList);
                 _model.SetActivityResource();
                 if (response == HttpConstants.SUCCESS)
                     _model.UserMeta = null;

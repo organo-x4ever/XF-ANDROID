@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace com.organo.xchallenge.Models.User
 {
@@ -17,14 +14,14 @@ namespace com.organo.xchallenge.Models.User
             IsWeightSubmissionRequired = false;
             UserRegistered = new DateTime(1900, 1, 1);
             TargetDate = string.Empty;
-            IsTrackerEditAllowed = false;
+            IsTrackerRequiredAfterDelete = false;
             IsTrackerViewAllowed = false;
             IsDownloadAllowed = false;
             Achievement = new MilestonePercentage();
             MetaPivot = new MetaPivot();
             TrackerPivot = new List<TrackerPivot>();
         }
-
+        
         public Int64 ID { get; set; }
 
         public string UserFirstName { get; set; }
@@ -37,7 +34,7 @@ namespace com.organo.xchallenge.Models.User
 
         public DateTime UserRegistered { get; set; }
         public string TargetDate { get; set; }
-        public bool IsTrackerEditAllowed { get; set; }
+        public bool IsTrackerRequiredAfterDelete { get; set; }
         public bool IsTrackerViewAllowed { get; set; }
         public bool IsDownloadAllowed { get; set; }
 

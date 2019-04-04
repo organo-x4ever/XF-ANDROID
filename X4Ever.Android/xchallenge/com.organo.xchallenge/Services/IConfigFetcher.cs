@@ -14,7 +14,5 @@ namespace com.organo.xchallenge.Services
         /// </summary>
         /// <returns></returns>
         Task<AppConfig> GetAsync();
-
-        string GetPictureDirectory();
     }
 }

@@ -14,9 +14,9 @@ namespace com.organo.xchallenge.Pages.ForgotPassword
 {
     public partial class RequestPasswordPage : RequestPasswordPageXaml
     {
-        private RequestPasswordViewModel _model;
-        private IUserPivotService _userPivotService;
-        private IHelper _helper;
+        private readonly RequestPasswordViewModel _model;
+        private readonly IUserPivotService _userPivotService;
+        private readonly IHelper _helper;
 
         public RequestPasswordPage()
         {
@@ -35,10 +35,7 @@ namespace com.organo.xchallenge.Pages.ForgotPassword
             linkGotPassword.GestureRecognizers.Add(tapGotPassword);
         }
 
-        private void GoToLogin()
-        {
-            App.GoToAccountPage();
-        }
+        private void GoToLogin() => App.GoToAccountPage();
 
         private async void ButtonSubmit_Clicked(object sender, EventArgs e)
         {
@@ -56,33 +53,21 @@ namespace com.organo.xchallenge.Pages.ForgotPassword
             if (Validate())
             {
                 _model.UserName = _model.EmailAddress.Trim();
-                var response =
-                    await _userPivotService.RequestForgotPasswordAsync(_model.EmailAddress.Trim(),
-                        _model.EmailAddress.Trim());
+                var response = await _userPivotService.RequestForgotPasswordAsync(
+                    _model.EmailAddress.Trim(),
+                    _model.EmailAddress.Trim());
                 if (response != null)
                 {
+                    _model.SetActivityResource();
                     if (response.Contains(HttpConstants.SUCCESS))
-                    {
                         App.CurrentApp.MainPage = new NewPassword(_model);
-                    }
                     else
-                    {
-                        try
-                        {
-                            _model.SetActivityResource(true, showError: true,
-                                errorMessage: _helper.ReturnMessage(response));
-                        }
-                        catch (Exception)
-                        {
-                            //
-                        }
-                    }
+                        _model.SetActivityResource(true, showError: true,
+                            errorMessage: _helper.ReturnMessage(response));
                 }
                 else
-                {
                     _model.SetActivityResource(true, showError: true,
                         errorMessage: TextResources.EmailIDNotFound);
-                }
             }
         }
 

@@ -10,9 +10,7 @@ namespace com.organo.xchallenge.Services
     public interface IUserPushTokenServices : IBaseService
     {
         Task<string> SaveDeviceToken();
-        Task<string> SaveDeviceTokenByOldToken(string deviceToken, string oldDeviceToken);
         Task<UserPushTokenModel> Get();
         Task<string> Insert(UserPushTokenModel model);
-        Task<string> InsertByOldToken(UserPushTokenModelRegister model);
     }
 }

@@ -52,14 +52,50 @@ namespace com.organo.xchallenge.Services
             var request = new HttpRequestMessage()
             {
                 RequestUri = new Uri(authenticationUrl),
-                Method = HttpMethod.Post,
+                Method = HttpMethod.Post
             };
             var userPasswordEncrypt = Convert.ToBase64String(Encoding.UTF8.GetBytes(username + ":" + password));
             var baseWithUserPassword = HttpConstants.BASIC + " " + userPasswordEncrypt;
             request.Headers.Add(HttpConstants.AUTHORIZATION, baseWithUserPassword);
             request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(HttpConstants.MEDIA_TYPE_TEXT_PLAIN));
             var response = await ClientService.SendAsync(request);
-            return await GetDetailAsync(response);
+            return await GetTokenAsync(response);
+        }
+
+        private async Task<AuthenticationResult> GetTokenAsync(HttpResponseMessage response)
+        {
+            if (response?.StatusCode == HttpStatusCode.OK)
+            {
+                if (!response.ToString().Contains(HttpConstants.UNAUTHORIZED))
+                {
+                    var date = DateTime.Now.AddHours(-1);
+                    var tokenValue = GetValue(response, App.Configuration.AppConfig.TokenHeaderName);
+                    if (!string.IsNullOrEmpty(tokenValue))
+                    {
+                        DateTime.TryParse(GetValue(response, App.Configuration.AppConfig.TokenExpiryHeaderName), out date);
+
+                        if (date >= DateTime.Now.AddMinutes(-1))
+                        {
+                            await App.Configuration.SetUserToken(tokenValue);
+                            var authenticationResult = new AuthenticationResult
+                            {
+                                AccessToken = tokenValue,
+                                ExpiresOn = date,
+                                ExtendedLifeTimeToken = true
+                            };
+                            await Task.Delay(1);
+                            return authenticationResult;
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        private string GetValue(HttpResponseMessage response, string headerName)
+        {
+            return response.Headers.GetValues(headerName)?.First();
         }
 
         public async Task<AuthenticationResult> GetDetailAsync(HttpResponseMessage response)
@@ -69,39 +105,26 @@ namespace com.organo.xchallenge.Services
                 Task<string> jsonTask = response.Content.ReadAsStringAsync();
                 if (!string.IsNullOrEmpty(jsonTask.Result) && !response.ToString().Contains(HttpConstants.UNAUTHORIZED))
                 {
-                    var date = DateTime.Now.AddHours(-1);
-                    var tokenValue = response.Headers.GetValues(App.Configuration.AppConfig.TokenHeaderName)
-                        .First();
+                    var tokenValue = GetValue(response, App.Configuration.AppConfig.TokenHeaderName);
                     if (!string.IsNullOrEmpty(tokenValue))
                     {
-                        var tokenExpiry = response.Headers
-                            .GetValues(App.Configuration.AppConfig.TokenExpiryHeaderName)
-                            .First();
-                        if (!string.IsNullOrEmpty(tokenExpiry))
-                            DateTime.TryParse(tokenExpiry, out date);
-
-                        if (date >= DateTime.Now.AddMinutes(-1))
+                        var model = JsonConvert.DeserializeObject<UserInfo>(jsonTask.Result);
+                        if (model != null)
                         {
-                            var model = JsonConvert.DeserializeObject<UserInfo>(jsonTask.Result);
-                            if (model != null)
+                            await App.Configuration.SetUserToken(tokenValue);
+                            if (!string.IsNullOrEmpty(model.LanguageCode))
+                                await App.Configuration.SetUserLanguage(model.LanguageCode);
+                            if (!string.IsNullOrEmpty(model.WeightVolumeType))
+                                await App.Configuration.SetWeightVolume(model.WeightVolumeType);
+                            var user = new AuthenticationResult
                             {
-                                await App.Configuration.SetUserToken(tokenValue);
-                                if (!string.IsNullOrEmpty(model.LanguageCode))
-                                    await App.Configuration.SetUserLanguage(model.LanguageCode);
-                                if (!string.IsNullOrEmpty(model.WeightVolumeType))
-                                    await App.Configuration.SetWeightVolume(model.WeightVolumeType);
-                                //if (string.IsNullOrEmpty(model.ProfileImage))
-                                //    model.ProfileImage = TextResources.ImageNotAvailable;
-                                var user = new AuthenticationResult()
-                                {
-                                    AccessToken = tokenValue,
-                                    ExpiresOn = date,
-                                    ExtendedLifeTimeToken = true,
-                                    UserInfo = model
-                                };
-                                await Task.Delay(1);
-                                return user;
-                            }
+                                AccessToken = tokenValue,
+                                ExpiresOn = DateTime.Now.AddDays(3),
+                                ExtendedLifeTimeToken = true,
+                                UserInfo = model
+                            };
+                            await Task.Delay(1);
+                            return user;
                         }
                     }
                 }

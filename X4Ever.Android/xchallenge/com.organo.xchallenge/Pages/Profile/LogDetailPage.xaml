@@ -36,8 +36,8 @@
                           <RowDefinition Height="18" />
                           <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Text="{Binding CurrentWeightDisplayText}" Style="{DynamicResource labelStyleTextTitleIntern}" />
-                        <Label Grid.Row="1" Text="{Binding WeightLostDisplayText}" Style="{DynamicResource labelStyleTextTitleIntern}" />
+                        <Label Grid.Row="0" Text="{Binding CurrentWeightDisplayText}" Style="{DynamicResource labelStyleText}" />
+                        <Label Grid.Row="1" Text="{Binding WeightLostDisplayText}" Style="{DynamicResource labelStyleText}" />
                         <StackLayout Grid.Row="2" Margin="0" Orientation="Horizontal" HorizontalOptions="Center" BackgroundColor="{x:Static statics:Palette._Transparent}" IsVisible="{Binding IsImageAvailable}">
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -55,34 +55,6 @@
               </DataTemplate>
             </ListView.ItemTemplate>
           </ListView>
-            <StackLayout Margin="15,10" HorizontalOptions="CenterAndExpand" BackgroundColor="{x:Static statics:Palette._Transparent}" IsVisible="{Binding IsTrackerEdit}">
-                   <Button  Text="{Binding TrackerEditText}" Style="{DynamicResource buttonStyle}" IsEnabled="{Binding IsTrackerEdit}" Margin="0,10,0,0">
-                     <Button.GestureRecognizers>
-                       <TapGestureRecognizer Tapped="TrackerEditEvent" NumberOfTapsRequired="1" />
-                     </Button.GestureRecognizers>
-                   </Button>
-                 </StackLayout>
-                 <StackLayout Margin="15,10" HorizontalOptions="CenterAndExpand" Orientation="Vertical" BackgroundColor="{x:Static statics:Palette._Transparent}" IsVisible="{Binding IsTrackerUpdate}">
-                    <Grid>
-                      <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                      </Grid.ColumnDefinitions>
-                      <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                      </Grid.RowDefinitions>
-                      <Label Grid.Row="0" Grid.Column="0" Text="{Binding YourCurrentWeightText}" Style="{DynamicResource labelStyleInfoHeading}" />
-                      <Label Grid.Row="0" Grid.Column="1" Text="{Binding CurrentWeightValue, Mode=TwoWay}" Style="{DynamicResource labelStyleInfoHighlight}" HorizontalOptions="End" />
-                      <Slider Grid.Row="1" Grid.ColumnSpan="2" x:Name="sliderTrackerWeight" Minimum="{Binding TrackerWeightMinimumValue}" Maximum="{Binding TrackerWeightMaximumValue}" />
-                      <Button Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding TrackerUpdateText}" Style="{DynamicResource buttonStyle}" IsEnabled="{Binding IsTrackerUpdate}" Margin="0,10,0,0" >
-                          <Button.GestureRecognizers>
-                              <TapGestureRecognizer Tapped="TrackerUpdateEvent" NumberOfTapsRequired="1"/>
-                          </Button.GestureRecognizers>
-                      </Button>
-                    </Grid>
-                </StackLayout>
         </StackLayout>
       <controls:FooterView />
   </StackLayout>
