@@ -17,11 +17,11 @@ namespace com.organo.xchallenge.Pages.News
             try
             {
                 InitializeComponent();
-                this._model = new NewsViewModel()
+                _model = new NewsViewModel()
                 {
                     Root = root
                 };
-                this.Init();
+                Init();
             }
             catch (Exception ex)
             {
@@ -31,9 +31,14 @@ namespace com.organo.xchallenge.Pages.News
 
         private async void Init()
         {
+            BindingContext = _model;
+            SetGridNews();
             await App.Configuration.InitialAsync(this);
             NavigationPage.SetHasNavigationBar(this, false);
-            BindingContext = this._model;
+        }
+
+        private async void SetGridNews()
+        {
             GridNews.Source = await _model.GetAsync();
         }
 
