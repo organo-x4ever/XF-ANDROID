@@ -30,11 +30,12 @@ namespace com.organo.xchallenge.Droid.Services
                 player = new MediaPlayer();
             }
 
-            player.Reset();
-            player.SetDataSource(filePath);
-            player.Prepare();
-            player.Start();
-            player.TimedText += Player_TimedText;
+            player?.Reset();
+            player?.SetDataSource(filePath);
+            player?.Prepare();
+            player?.Start();
+            if (player != null)
+                player.TimedText += Player_TimedText;
         }
 
         private void Player_TimedText(object sender, MediaPlayer.TimedTextEventArgs e)
@@ -44,19 +45,19 @@ namespace com.organo.xchallenge.Droid.Services
 
         public void Pause()
         {
-            player.Pause();
+            player?.Pause();
         }
 
         public void Play()
         {
-            player.Start();
+            player?.Start();
         }
 
         public void Stop()
         {
             try
             {
-                player.Stop();
+                player?.Stop();
             }
             catch
             {
@@ -66,7 +67,7 @@ namespace com.organo.xchallenge.Droid.Services
 
         public void Release()
         {
-            player.Release();
+            player?.Release();
         }
 
         private Action _timedTextAction;

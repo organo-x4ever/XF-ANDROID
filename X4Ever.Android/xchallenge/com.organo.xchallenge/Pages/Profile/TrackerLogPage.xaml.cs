@@ -23,22 +23,36 @@ namespace com.organo.xchallenge.Pages.Profile
 
         private async void Init(object obj = null)
         {
+            BindingContext = _model;
+            SetGridTracker();
             await App.Configuration.InitialAsync(this);
             NavigationPage.SetHasNavigationBar(this, false);
             _model.Navigation = App.CurrentApp.MainPage.Navigation;
-            BindingContext = _model;
-            this.GridTracker.ProfileModel = _model;
-            this.GridTracker.Source = _model.UserTrackers;
-            this.GridTracker.CloseAction = () =>
+        }
+
+        private async void SetGridTracker()
+        {
+            await Task.Factory.StartNew(() =>
+            {
+                GridTracker.ProfileModel = _model;
+                GridTracker.Source = _model.UserTrackers;
+            });
+            GridTracker.CloseAction = () =>
             {
                 _model.ShowTrackerDetail = false;
-                Device.BeginInvokeOnMainThread(async () => { await _model.PopModalAsync(); });
+                ClosePopup();
             };
+        }
+
+        private void ClosePopup()
+        {
+            Device.BeginInvokeOnMainThread(async () => { await _model.PopModalAsync(); });
         }
 
         protected override bool OnBackButtonPressed()
         {
             _model.ShowTrackerDetail = false;
+            ClosePopup();
             return true;
         }
     }
