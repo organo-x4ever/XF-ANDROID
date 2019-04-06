@@ -11,7 +11,7 @@
     Title="{Binding Title}"
     BackgroundColor="{x:Static statics:Palette._DarkTransparent}">
   <page:MenuPageXaml.Content>
-    <ListView x:Name="ListViewMenu" SeparatorColor="Transparent" HasUnevenRows="True" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="{x:Static statics:Palette._Transparent}">
+    <ListView x:Name="ListViewMenu" SeparatorColor="Transparent" HasUnevenRows="True" ItemsSource="{Binding MenuItems}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="{x:Static statics:Palette._Transparent}">
       <ListView.Header>
         <Grid HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Margin="0,0,0,6" BackgroundColor="{x:Static statics:Palette._Transparent}">
           <Grid.ColumnDefinitions>
@@ -45,7 +45,7 @@
           <ViewCell>
             <StackLayout Padding="15,5,0,5" Orientation="Horizontal" VerticalOptions="StartAndExpand" BackgroundColor="{x:Static statics:Palette._Transparent}">
               <Image Source="{Binding IconSource}" Style="{DynamicResource imageIconMenuItem}" VerticalOptions="Center" IsVisible="{Binding IsIconVisible}" BackgroundColor="{x:Static statics:Palette._Transparent}"/>
-              <Label Text="{Binding MenuTitle}" Style="{DynamicResource labelStyleMenuItem}" VerticalOptions="Center" BackgroundColor="{x:Static statics:Palette._Transparent}" />
+              <Label Text="{Binding MenuTitle}" Style="{Binding TextStyle}" VerticalOptions="Center" BackgroundColor="{x:Static statics:Palette._Transparent}" />
             </StackLayout>
           </ViewCell>
         </DataTemplate>

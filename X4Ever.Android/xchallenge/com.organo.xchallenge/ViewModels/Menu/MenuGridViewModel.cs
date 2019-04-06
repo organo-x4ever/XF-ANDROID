@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using com.organo.xchallenge.Globals;
 using com.organo.xchallenge.Handler;
@@ -15,13 +16,14 @@ using Xamarin.Forms;
 
 namespace com.organo.xchallenge.ViewModels.Menu
 {
-    public class MenuPageViewModel : BaseViewModel
-    {private readonly IHelper _helper;
-
-        public MenuPageViewModel(INavigation navigation = null) : base(navigation)
+    public class MenuGridViewModel : BaseViewModel
+    {
+        private readonly IHelper _helper;
+        public MenuGridViewModel(INavigation navigation = null) : base(navigation)
         {
             _helper = DependencyService.Get<IHelper>();
-            ApplicationVersion = string.Format(TextResources.AppVersion, App.Configuration.AppConfig.ApplicationVersion);
+            ApplicationVersion =
+                string.Format(TextResources.AppVersion, App.Configuration.AppConfig.ApplicationVersion);
             User = App.CurrentUser.UserInfo;
         }
 
@@ -44,7 +46,7 @@ namespace com.organo.xchallenge.ViewModels.Menu
             }
         }
 
-        public async Task GetMenuData()
+        public async Task BindMenuData()
         {
             float height = 30, width = 30;
             var iconSize = App.Configuration.GetImageSizeByID(ImageIdentity.MENU_ITEM_ICON);
@@ -77,22 +79,17 @@ namespace com.organo.xchallenge.ViewModels.Menu
         public UserInfo User
         {
             get { return _user; }
-            set
-            {
-                SetProperty(ref _user, value, UserPropertyName);
-            }
+            set { SetProperty(ref _user, value, UserPropertyName); }
         }
-        
+
         private List<HomeMenuItem> _menuItems;
         public const string MenuItemsPropertyName = "MenuItems";
 
         public List<HomeMenuItem> MenuItems
         {
             get { return _menuItems; }
-            set { SetProperty(ref _menuItems, value, MenuItemsPropertyName, MenuBindCallback); }
+            set { SetProperty(ref _menuItems, value, MenuItemsPropertyName); }
         }
-
-        public Action MenuBindCallback { get; set; }
 
         private string DefaultImage => TextResources.ImageNotAvailable;
 

@@ -1,32 +1,31 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using com.organo.xchallenge.Extensions;
+using com.organo.xchallenge.Globals;
+using com.organo.xchallenge.Handler;
 using com.organo.xchallenge.Localization;
 using com.organo.xchallenge.Pages.Base;
 using com.organo.xchallenge.Permissions;
 using com.organo.xchallenge.Services;
 using com.organo.xchallenge.Statics;
 using com.organo.xchallenge.ViewModels.Menu;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using com.organo.xchallenge.Globals;
-using com.organo.xchallenge.Handler;
-using com.organo.xchallenge.Helpers;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace com.organo.xchallenge.Pages
 {
-    public partial class MenuPage : MenuPageXaml
+    public partial class MenuGridPage : MenuGridPageXaml
     {
         private Globals.IMedia _media;
         private IMetaPivotService _metaPivotService;
         private IDevicePermissionServices _devicePermissionServices;
-        private MenuPageViewModel _model;
-        private Style DefaultStyle => (Style) App.CurrentApp.Resources["labelStyleMenuItem"];
-        private Style SelectedStyle => (Style) App.CurrentApp.Resources["labelStyleMenuItemHighlight"];
+        private MenuGridViewModel _model;
+        private IHelper _helper;
 
-        public MenuPage(RootPage root)
+        public MenuGridPage(RootPage root)
         {
             try
             {
@@ -42,48 +41,24 @@ namespace com.organo.xchallenge.Pages
         private async void Init(object obj)
         {
             _devicePermissionServices = DependencyService.Get<IDevicePermissionServices>();
-            _model = new MenuPageViewModel(Navigation)
+            _model = new MenuGridViewModel(Navigation)
             {
                 Title = TextResources.XChallenge,
                 Subtitle = TextResources.XChallenge,
                 Icon = TextResources.icon_menu,
-                Root = (RootPage) obj,
-                MenuBindCallback = MenuBind
+                Root = (RootPage) obj
             };
             BindingContext = this._model;
-            await _model.GetMenuData();
+            _helper = DependencyService.Get<IHelper>();
+            this.GridMenu.RootPage = _model.Root;
+            this.GridMenu.ApplicationVersion =
+                string.Format(TextResources.AppVersion, App.Configuration.AppConfig.ApplicationVersion);
+            await _model.BindMenuData();
             await _model.GetProfilePhoto();
+            App.Configuration.IsMenuLoaded = true;
             _metaPivotService = DependencyService.Get<IMetaPivotService>();
             _media = DependencyService.Get<Globals.IMedia>();
         }
-
-        public void MenuBind()
-        {
-            if (_model.MenuItems?.Count > 0)
-            {
-                ListViewMenu.SelectedItem = _model.MenuItems.FirstOrDefault(m => m.IsSelected);
-                ListViewMenu.ItemSelected += async (sender, e) =>
-                {
-                    if (ListViewMenu.SelectedItem != null)
-                    {
-                        var menuItem = (HomeMenuItem) ListViewMenu.SelectedItem;
-                        if (menuItem.IsSelected) return;
-                        await _model.Root.NavigateAsync(menuItem.MenuType);
-                        foreach (var mi in _model.MenuItems)
-                        {
-                            mi.IsSelected = false;
-                            mi.TextStyle = DefaultStyle;
-                        }
-
-                        var menu = _model.MenuItems.Find(t => t.MenuType == menuItem.MenuType);
-                        menu.IsSelected = true;
-                        menu.TextStyle = SelectedStyle;
-                    }
-                };
-                App.Configuration.IsMenuLoaded = true;
-            }
-        }
-
 
         private async void ChangeProfilePhoto(object sender, EventArgs args)
         {
@@ -176,7 +151,8 @@ namespace com.organo.xchallenge.Pages
         }
     }
 
-    public abstract class MenuPageXaml : ModelBoundContentPage<MenuPageViewModel>
+    
+    public abstract class MenuGridPageXaml : ModelBoundContentPage<MenuGridViewModel>
     {
     }
 }

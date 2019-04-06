@@ -19,7 +19,6 @@ using com.organo.xchallenge.Pages.Rewards;
 using com.organo.xchallenge.Pages.YouTube;
 using Xamarin.Forms;
 
-
 namespace com.organo.xchallenge.Pages
 {
     public class RootPage : MasterDetailPage
@@ -272,7 +271,9 @@ namespace com.organo.xchallenge.Pages
         {
             MenuType = MenuType.MyProfile;
             IsIconVisible = true;
+            IsSelected = false;
         }
+
         public string MenuIcon { get; set; }
         public ImageSource IconSource { get; set; }
 
@@ -289,6 +290,8 @@ namespace com.organo.xchallenge.Pages
         public float IconWidth { get; set; }
 
         public float IconHeight { get; set; }
+        public Style TextStyle { get; set; }
+        public bool IsSelected { get; set; }
     }
 
     /*public class RootPage : TabbedPage

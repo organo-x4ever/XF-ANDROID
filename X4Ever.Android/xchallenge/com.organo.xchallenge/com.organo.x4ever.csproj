@@ -51,10 +51,12 @@
     <Compile Include="Controls\FooterView.xaml.cs">
       <DependentUpon>FooterView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\GridMenu.cs" />
     <Compile Include="Controls\GridNews.cs" />
     <Compile Include="Controls\GridTracker.cs" />
     <Compile Include="Controls\ImageAlignment.cs" />
     <Compile Include="Controls\EntryWithImage.cs" />
+    <Compile Include="Controls\MenuUser.cs" />
     <Compile Include="Controls\PopupLayout.cs" />
     <Compile Include="Controls\LanguageOption.cs" />
     <Compile Include="Controls\TopBarAccountView.xaml.cs">
@@ -254,6 +256,9 @@
     <Compile Include="Pages\Media\AudioPlayerPage.xaml.cs">
       <DependentUpon>AudioPlayerPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\MenuGridPage.xaml.cs">
+      <DependentUpon>MenuGridPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\MenuPage.xaml.cs">
       <DependentUpon>MenuPage.xaml</DependentUpon>
     </Compile>
@@ -448,6 +453,7 @@
     <Compile Include="ViewModels\Login\LoginViewModel.cs" />
     <Compile Include="ViewModels\MealPlan\MealPlanViewModel.cs" />
     <Compile Include="ViewModels\Media\AudioPlayerViewModel.cs" />
+    <Compile Include="ViewModels\Menu\MenuGridViewModel.cs" />
     <Compile Include="ViewModels\Menu\MenuPageViewModel.cs" />
     <Compile Include="ViewModels\Message\MessageViewModel.cs" />
     <Compile Include="ViewModels\Milestones\UserMilestoneViewModel.cs" />
@@ -906,6 +912,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\Profile\TrackerLogPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\MenuGridPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

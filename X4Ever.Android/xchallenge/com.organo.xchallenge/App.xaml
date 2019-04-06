@@ -3,7 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="com.organo.xchallenge.App"
              xmlns:statics="clr-namespace:com.organo.xchallenge.Statics"
-             xmlns:converter="clr-namespace:com.organo.xchallenge.Converters">
+             xmlns:converter="clr-namespace:com.organo.xchallenge.Converters"
+             xmlns:controls="clr-namespace:com.organo.xchallenge.Controls;assembly=com.organo.xchallenge"
+             xmlns:xchallenge="clr-namespace:com.organo.xchallenge;assembly=com.organo.xchallenge"
+             xmlns:global="clr-namespace:;assembly=com.organo.xchallenge">
     <!--<StackLayout x:Name="stackLayout" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
 
     </StackLayout>-->
@@ -488,6 +491,11 @@
 
             <Style x:Key="labelStyleMenuItem" TargetType="Label" BasedOn="{StaticResource labelStyle}">
                 <Setter Property="TextColor" Value="{x:Static statics:Palette._White}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
+            </Style>
+
+            <Style x:Key="labelStyleMenuItemHighlight" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._MainAccent}" />
                 <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
             </Style>
 
