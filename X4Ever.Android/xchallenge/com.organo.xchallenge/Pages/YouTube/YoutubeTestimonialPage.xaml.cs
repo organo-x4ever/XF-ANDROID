@@ -29,8 +29,14 @@ namespace com.organo.xchallenge.Pages.YouTube
 
         private void ListViewOnItemTapped(object sender, ItemTappedEventArgs itemTappedEventArgs)
         {
-            var youtubeItem = itemTappedEventArgs.Item as YoutubeItem;
-            Device.OpenUri(new Uri(string.Format(_model.YoutubeConfiguration.VideoWatchApiUrl, youtubeItem?.VideoId)));
+            if (itemTappedEventArgs.Item != null)
+            {
+                var youtubeItem = itemTappedEventArgs.Item as YoutubeItem;
+                Device.OpenUri(
+                    new Uri(string.Format(_model.YoutubeConfiguration.VideoWatchApiUrl, youtubeItem?.VideoId)));
+            }
+
+            ListViewYouTube.SelectedItem = null;
         }
     }
 

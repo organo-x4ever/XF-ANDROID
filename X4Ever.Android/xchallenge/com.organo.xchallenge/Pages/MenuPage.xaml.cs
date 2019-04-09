@@ -23,8 +23,7 @@ namespace com.organo.xchallenge.Pages
         private IMetaPivotService _metaPivotService;
         private IDevicePermissionServices _devicePermissionServices;
         private MenuPageViewModel _model;
-        private Style DefaultStyle => (Style) App.CurrentApp.Resources["labelStyleMenuItem"];
-        private Style SelectedStyle => (Style) App.CurrentApp.Resources["labelStyleMenuItemHighlight"];
+        private IHelper _helper;
 
         public MenuPage(RootPage root)
         {
@@ -51,13 +50,14 @@ namespace com.organo.xchallenge.Pages
                 MenuBindCallback = MenuBind
             };
             BindingContext = this._model;
+            _helper = DependencyService.Get<IHelper>();
             await _model.GetMenuData();
             await _model.GetProfilePhoto();
             _metaPivotService = DependencyService.Get<IMetaPivotService>();
             _media = DependencyService.Get<Globals.IMedia>();
         }
 
-        public void MenuBind()
+        private void MenuBind()
         {
             if (_model.MenuItems?.Count > 0)
             {
@@ -67,17 +67,21 @@ namespace com.organo.xchallenge.Pages
                     if (ListViewMenu.SelectedItem != null)
                     {
                         var menuItem = (HomeMenuItem) ListViewMenu.SelectedItem;
-                        if (menuItem.IsSelected) return;
-                        await _model.Root.NavigateAsync(menuItem.MenuType);
-                        foreach (var mi in _model.MenuItems)
+                        if (!menuItem.IsSelected)
                         {
-                            mi.IsSelected = false;
-                            mi.TextStyle = DefaultStyle;
+                            await _model.Root.NavigateAsync(menuItem.MenuType);
+                            foreach (var mi in _model.MenuItems)
+                            {
+                                mi.IsSelected = false;
+                                mi.TextStyle = _model.DefaultStyle;
+                            }
+
+                            var menu = _model.MenuItems.Find(t => t.MenuType == menuItem.MenuType);
+                            menu.IsSelected = true;
+                            menu.TextStyle = _model.SelectedStyle;
                         }
 
-                        var menu = _model.MenuItems.Find(t => t.MenuType == menuItem.MenuType);
-                        menu.IsSelected = true;
-                        menu.TextStyle = SelectedStyle;
+                        ListViewMenu.SelectedItem = null;
                     }
                 };
                 App.Configuration.IsMenuLoaded = true;
@@ -151,7 +155,7 @@ namespace com.organo.xchallenge.Pages
                         return;
                     }
                 }
-				
+
                 _model.SetActivityResource();
 
                 if (!string.IsNullOrEmpty(_media.FileName))
@@ -165,7 +169,7 @@ namespace com.organo.xchallenge.Pages
                         _model.User.ProfileImage = _media.FileName;
                         App.CurrentUser.UserInfo = _model.User;
                         _model.ProfileImagePath = _model.User.ProfileImage;
-						_model.SetActivityResource(showMessage: true,
+                        _model.SetActivityResource(showMessage: true,
                             message: TextResources.ChangeProfilePhoto + " " + TextResources.Change + " " +
                                      TextResources.Success);
                     }

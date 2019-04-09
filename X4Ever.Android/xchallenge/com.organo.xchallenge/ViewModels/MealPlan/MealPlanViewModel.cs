@@ -93,8 +93,7 @@ namespace com.organo.xchallenge.ViewModels.MealPlan
                                 HorizontalOptions = LayoutOptions.StartAndExpand,
                                 Style = (Style) App.CurrentApp.Resources["labelAccordionStyleItemTitle"],
                                 Text = mealPlanOptionDetail.MealOptionSubtitle,
-                                IsVisible = (mealPlanOptionDetail.MealOptionSubtitle != null &&
-                                             mealPlanOptionDetail.MealOptionSubtitle.Trim().Length > 0)
+                                IsVisible = !string.IsNullOrEmpty(mealPlanOptionDetail.MealOptionSubtitle)
                             },
                             new StackLayout()
                             {
@@ -102,8 +101,7 @@ namespace com.organo.xchallenge.ViewModels.MealPlan
                                 BackgroundColor = Palette._TitleTexts,
                                 HorizontalOptions = LayoutOptions.FillAndExpand,
                                 VerticalOptions = LayoutOptions.End,
-                                IsVisible = (mealPlanOptionDetail.MealOptionSubtitle != null &&
-                                             mealPlanOptionDetail.MealOptionSubtitle.Trim().Length > 0)
+                                IsVisible = !string.IsNullOrEmpty(mealPlanOptionDetail.MealOptionSubtitle)
                             }
                         }
                     },
@@ -120,6 +118,7 @@ namespace com.organo.xchallenge.ViewModels.MealPlan
                             HorizontalOptions = LayoutOptions.FillAndExpand,
                             Style = (Style) App.CurrentApp.Resources["labelAccordionStyleItem"]
                         };
+
                         titleLabel.SetBinding(Label.TextProperty,
                             new Binding("MealOptionDetail", BindingMode.OneWay, null, null, "{0}"));
 
@@ -164,9 +163,10 @@ namespace com.organo.xchallenge.ViewModels.MealPlan
                     VerticalOptions = LayoutOptions.Start,
                     RowHeight = 70,
                     HasUnevenRows = true,
-                    BackgroundColor = Color.Transparent
+                    BackgroundColor = Color.Transparent,
                 };
                 contentListView.HeightRequest = (contentListView.RowHeight * (mealPlanOptionListDetails.Count)) + 65;
+                contentListView.ItemSelected += (sender, e) => contentListView.SelectedItem = null;
             });
             return new AccordionMultiViewSource()
             {
@@ -210,8 +210,7 @@ namespace com.organo.xchallenge.ViewModels.MealPlan
                                 HorizontalOptions = LayoutOptions.StartAndExpand,
                                 Style = (Style) App.CurrentApp.Resources["labelAccordionStyleItemHeader"],
                                 Text = mealPlanOptionDetail.MealOptionSubtitle,
-                                IsVisible = (mealPlanOptionDetail.MealOptionSubtitle != null &&
-                                             mealPlanOptionDetail.MealOptionSubtitle.Trim().Length > 0)
+                                IsVisible = !string.IsNullOrEmpty(mealPlanOptionDetail.MealOptionSubtitle)
                             },
                             new StackLayout()
                             {
@@ -219,8 +218,7 @@ namespace com.organo.xchallenge.ViewModels.MealPlan
                                 BackgroundColor = Palette._TitleTexts,
                                 HorizontalOptions = LayoutOptions.FillAndExpand,
                                 VerticalOptions = LayoutOptions.End,
-                                IsVisible = (mealPlanOptionDetail.MealOptionSubtitle != null &&
-                                             mealPlanOptionDetail.MealOptionSubtitle.Trim().Length > 0)
+                                IsVisible = !string.IsNullOrEmpty(mealPlanOptionDetail.MealOptionSubtitle)
                             }
                         }
                     },
@@ -305,6 +303,7 @@ namespace com.organo.xchallenge.ViewModels.MealPlan
                 contentListView.HeightRequest =
                     (contentListView.RowHeight * (mealPlanOptionDetail.MealPlanOptionGridDetails.Count)) + 15;
 
+                contentListView.ItemSelected += (sender, e) => contentListView.SelectedItem = null;
                 //contentListView.HeightRequest = Elements.Length * contentListView.RowHeight;
                 //listView.HeightRequest = listView.RowHeight * ((Your List that you want to show in ListView).Count + 1);
             });
@@ -315,7 +314,7 @@ namespace com.organo.xchallenge.ViewModels.MealPlan
                 HeaderSelectedStyle = (Style) App.CurrentApp.Resources["labelStyleInfoHighlight"],
 
                 HeaderImage = TextResources.icon_plus_gray,
-                HeaderImageStyle = (Style) App.CurrentApp.Resources["imagePopupClose"],
+                HeaderImageStyle = (Style) App.CurrentApp.Resources["imageExpandPlus"],
                 HeaderImageSelected = TextResources.icon_plus,
 
                 ViewType = viewType,
@@ -358,8 +357,8 @@ namespace com.organo.xchallenge.ViewModels.MealPlan
         //public Style ButtonStyleDefault = (Style)App.CurrentApp.Resources["buttonAccordion"];
         //public Style ButtonStyleSelected = (Style)App.CurrentApp.Resources["buttonAccordionHighlight"];
 
-        public Style LabelStyleDefault = (Style) App.CurrentApp.Resources["labelStyleDark"];
-        public Style LabelStyleSelected = (Style) App.CurrentApp.Resources["labelStyleHighlight"];
+        private readonly Style LabelStyleDefault = (Style) App.CurrentApp.Resources["labelStyleDark"];
+        private readonly Style LabelStyleSelected = (Style) App.CurrentApp.Resources["labelStyleHighlight"];
 
         private ICommand _fullMealsCommand;
 
@@ -583,29 +582,7 @@ namespace com.organo.xchallenge.ViewModels.MealPlan
         {
             BindDataSourceAction?.Invoke();
         }
-
-        //private RootPage root;
-        //public const string RootPropertyName = "Root";
-
-        //public RootPage Root
-        //{
-        //    get { return root; }
-        //    set { SetProperty(ref root, value, RootPropertyName); }
-        //}
-
-        //private ICommand _showSideMenuCommand;
-
-        //public ICommand ShowSideMenuCommand
-        //{
-        //    get
-        //    {
-        //        return _showSideMenuCommand ?? (_showSideMenuCommand = new Command((obj) =>
-        //        {
-        //            this.Root.IsPresented = this.Root.IsPresented == false;
-        //        }));
-        //    }
-        //}
-
+        
         private void SetPageImageSize()
         {
             this.MealImageSize = App.Configuration.GetImageSizeByID(ImageIdentity.MEAL_PLAN_PAGE_MEAL_IMAGE);

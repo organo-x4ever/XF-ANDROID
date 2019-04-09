@@ -10,7 +10,7 @@
   <storage:FileExplorerPageXaml.Content>
     <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
         <controls:TopBarAccountView></controls:TopBarAccountView>
-      <ListView SeparatorVisibility="None" HasUnevenRows="True" ItemsSource="{Binding FileDetails}" Margin="0,-6,0,0">
+      <ListView x:Name="ListViewFile" SeparatorVisibility="None" HasUnevenRows="True" ItemsSource="{Binding FileDetails}" Margin="0,-6,0,0">
         <ListView.Header>
           <StackLayout Margin="5,5,5,10" HorizontalOptions="Center">
             <Label Text="File Explorer" Style="{DynamicResource labelStyleXLargeHeader}" />

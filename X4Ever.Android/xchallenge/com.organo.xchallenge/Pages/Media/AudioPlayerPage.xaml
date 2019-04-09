@@ -72,7 +72,7 @@
         <Label IsVisible="{Binding IsMessage}" Text="{Binding MessageText}" Style="{DynamicResource labelSuccessMessage}" />
       </StackLayout>
       <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" IsEnabled="{Binding IsEditable}" BackgroundColor="{x:Static statics:Palette._Transparent}">
-        <ListView HasUnevenRows="True" SeparatorVisibility="None" ItemsSource="{Binding MediaFiles}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" ItemSelected="ListView_OnItemSelected" BackgroundColor="{x:Static statics:Palette._Transparent}">
+        <ListView x:Name="ListViewPlayer" HasUnevenRows="True" SeparatorVisibility="None" ItemsSource="{Binding MediaFiles}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" ItemSelected="ListView_OnItemSelected" BackgroundColor="{x:Static statics:Palette._Transparent}">
           <ListView.ItemTemplate>
             <DataTemplate>
               <ViewCell>

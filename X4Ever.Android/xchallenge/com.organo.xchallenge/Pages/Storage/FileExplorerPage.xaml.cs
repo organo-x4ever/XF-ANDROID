@@ -22,6 +22,7 @@ namespace com.organo.xchallenge.Pages.Storage
                 this._model.Root = root;
                 BindingContext = this._model;
                 this._model.GetFiles();
+                ListViewFile.ItemSelected += (sender, e) => { ListViewFile.SelectedItem = null; };
             }
             catch (Exception ex)
             {

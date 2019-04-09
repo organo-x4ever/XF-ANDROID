@@ -32,10 +32,11 @@ namespace com.organo.xchallenge.Pages.Profile
             {
                 if (_model.UserDetail.IsDownloadAllowed)
                 {
-                    if (ListViewTrackers.SelectedItem == null)
-                        return;
-                    DownloadImages((TrackerPivot) e.SelectedItem);
+                    if (ListViewTrackers.SelectedItem != null)
+                        DownloadImages((TrackerPivot) e.SelectedItem);
                 }
+
+                ListViewTrackers.SelectedItem = null;
             };
         }
 

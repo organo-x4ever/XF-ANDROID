@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using com.organo.xchallenge.Handler;
@@ -265,7 +266,7 @@ namespace com.organo.xchallenge.Pages
         Logout
     }
 
-    public class HomeMenuItem
+    public class HomeMenuItem : INotifyPropertyChanged
     {
         public HomeMenuItem()
         {
@@ -290,8 +291,68 @@ namespace com.organo.xchallenge.Pages
         public float IconWidth { get; set; }
 
         public float IconHeight { get; set; }
-        public Style TextStyle { get; set; }
         public bool IsSelected { get; set; }
+        public Style IconStyle { get; set; }
+        public Thickness ItemPadding { get; set; }
+
+        private Style _textStyle;
+        public const string TextStylePropertyName = "TextStyle";
+
+        public Style TextStyle
+        {
+            get => _textStyle;
+            set => SetProperty(ref _textStyle, value, TextStylePropertyName);
+        }
+
+        protected void SetProperty<U>(
+            ref U backingStore, U value,
+            string propertyName,
+            Action onChanged = null,
+            Action<U> onChanging = null)
+        {
+            if (EqualityComparer<U>.Default.Equals(backingStore, value))
+                return;
+
+            if (onChanging != null)
+                onChanging(value);
+
+            OnPropertyChanging(propertyName);
+
+            backingStore = value;
+
+            if (onChanged != null)
+                onChanged();
+
+            OnPropertyChanged(propertyName);
+        }
+
+        #region INotifyPropertyChanging implementation
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        #endregion INotifyPropertyChanging implementation
+
+        public void OnPropertyChanging(string propertyName)
+        {
+            if (PropertyChanging == null)
+                return;
+
+            PropertyChanging(this, new PropertyChangingEventArgs(propertyName));
+        }
+
+        #region INotifyPropertyChanged implementation
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion INotifyPropertyChanged implementation
+
+        public void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged == null)
+                return;
+
+            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 
     /*public class RootPage : TabbedPage

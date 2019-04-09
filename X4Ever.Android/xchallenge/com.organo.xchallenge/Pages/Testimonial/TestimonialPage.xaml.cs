@@ -17,11 +17,10 @@ namespace com.organo.xchallenge.Pages.Testimonial
             try
             {
                 InitializeComponent();
-                App.Configuration.InitialAsync(this);
-                this._model = new TestimonialViewModel(App.CurrentApp.MainPage.Navigation);
-                this._model.Root = rootPage;
-                BindingContext = this._model;
-                this.Initial();
+                _model = new TestimonialViewModel(App.CurrentApp.MainPage.Navigation);
+                _model.Root = rootPage;
+                BindingContext = _model;
+                Init();
             }
             catch (Exception ex)
             {
@@ -30,16 +29,24 @@ namespace com.organo.xchallenge.Pages.Testimonial
             }
         }
 
-        private async void Initial()
+        private async void Init()
         {
+            await App.Configuration.InitialAsync(this);
+            NavigationPage.SetHasNavigationBar(this, false);
+
             await this._model.OnLoad();
             this.ListViewTestimonials.ItemSelected += async (object sender, SelectedItemChangedEventArgs e) =>
             {
-                var content = (Models.Testimonial)e.SelectedItem;
-                if (content.IsVideoExists)
-                    await App.CurrentApp.MainPage.Navigation.PushModalAsync(new TestimonialDetailPage(content));
-                else
-                    await App.CurrentApp.MainPage.Navigation.PushModalAsync(new TestimonialPhotoPage(content));
+                if (e.SelectedItem != null)
+                {
+                    var content = (Models.Testimonial) e.SelectedItem;
+                    if (content.IsVideoExists)
+                        await App.CurrentApp.MainPage.Navigation.PushModalAsync(new TestimonialDetailPage(content));
+                    else
+                        await App.CurrentApp.MainPage.Navigation.PushModalAsync(new TestimonialPhotoPage(content));
+                }
+
+                ListViewTestimonials.SelectedItem = null;
             };
         }
 

@@ -23,7 +23,7 @@
                 </StackLayout>
                 <Label Text="{localization:Translate TapOnPhotoToWatchVideo}" Style="{DynamicResource labelStyleInfoHeading}" HorizontalOptions="Center" />
             </StackLayout>
-            <ListView ItemsSource="{Binding YoutubeItems}" HasUnevenRows="True" ItemTapped="ListViewOnItemTapped" IsVisible="{Binding IsEditable}" HorizontalOptions="FillAndExpand">
+            <ListView x:Name="ListViewYouTube" ItemsSource="{Binding YoutubeItems}" HasUnevenRows="True" ItemTapped="ListViewOnItemTapped" IsVisible="{Binding IsEditable}" HorizontalOptions="FillAndExpand">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

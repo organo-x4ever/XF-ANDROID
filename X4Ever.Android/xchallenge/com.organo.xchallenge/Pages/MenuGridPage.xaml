@@ -37,6 +37,8 @@
             <StackLayout Grid.Row="3" BackgroundColor="{x:Static statics:Palette._White}"></StackLayout>
         </Grid>
         <controls:GridMenu x:Name="GridMenu" Source="{Binding MenuItems}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="{x:Static statics:Palette._Transparent}"></controls:GridMenu>
-
+        <StackLayout HorizontalOptions="Center" VerticalOptions="End" Margin="0,10,0,0" BackgroundColor="{x:Static statics:Palette._Transparent}">
+            <Label Text="{Binding ApplicationVersion}" Style="{DynamicResource labelAccordionStyleHeaderIntern}" />
+        </StackLayout>
     </StackLayout>
 </pages:MenuGridPageXaml>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using com.organo.xchallenge.Controls;
 using com.organo.xchallenge.Extensions;
 using com.organo.xchallenge.Globals;
 using com.organo.xchallenge.Handler;
@@ -50,15 +51,35 @@ namespace com.organo.xchallenge.Pages
             };
             BindingContext = this._model;
             _helper = DependencyService.Get<IHelper>();
-            this.GridMenu.RootPage = _model.Root;
-            this.GridMenu.ApplicationVersion =
-                string.Format(TextResources.AppVersion, App.Configuration.AppConfig.ApplicationVersion);
+            GridMenu.ItemSelectedHandler += GridMenu_ItemSelectedHandler;
             await _model.BindMenuData();
             await _model.GetProfilePhoto();
             App.Configuration.IsMenuLoaded = true;
             _metaPivotService = DependencyService.Get<IMetaPivotService>();
             _media = DependencyService.Get<Globals.IMedia>();
         }
+
+        private async void GridMenu_ItemSelectedHandler(object sender, EventArgs e)
+        {
+            if (GridMenu.SelectedItem != null)
+            {
+                if (GridMenu.SelectedItem.IsSelected) return;
+                Redirect(GridMenu.SelectedItem.MenuType);
+                foreach (var mi in _model.MenuItems)
+                {
+                    mi.IsSelected = false;
+                    mi.TextStyle = _model.DefaultStyle;
+                }
+
+                var menu = _model.MenuItems.Find(t => t.MenuType == GridMenu.SelectedItem.MenuType);
+                menu.IsSelected = true;
+                menu.TextStyle = _model.SelectedStyle;
+                GridMenu.Source = _model.MenuItems;
+                await GridMenu.Rebind(sender, _model.MenuItems);
+            }
+        }
+
+        private async void Redirect(MenuType menuType) => await _model.Root.NavigateAsync(menuType);
 
         private async void ChangeProfilePhoto(object sender, EventArgs args)
         {

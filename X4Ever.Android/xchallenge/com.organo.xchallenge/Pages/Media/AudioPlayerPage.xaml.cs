@@ -41,10 +41,15 @@ namespace com.organo.xchallenge.Pages.Media
 
         private async void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var selectedContent = (MediaFile) e.SelectedItem;
-            _model.CurrentMediaFile = selectedContent;
-            int index = this._model.MediaFiles.FindIndex(m => m == selectedContent && m == selectedContent);
-            await _model.PlayCurrent(index);
+            if (e.SelectedItem != null)
+            {
+                var selectedContent = (MediaFile) e.SelectedItem;
+                _model.CurrentMediaFile = selectedContent;
+                int index = this._model.MediaFiles.FindIndex(m => m == selectedContent && m == selectedContent);
+                await _model.PlayCurrent(index);
+            }
+
+            ListViewPlayer.SelectedItem = null;
         }
 
         protected override void OnDisappearing()

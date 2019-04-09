@@ -16,17 +16,24 @@ namespace com.organo.xchallenge.Pages.Profile
             try
             {
                 InitializeComponent();
-                App.Configuration.InitialAsync(this);
-                NavigationPage.SetHasNavigationBar(this, false);
                 this._model = model;
-                this._model.Navigation = App.CurrentApp.MainPage.Navigation;
-                BindingContext = this._model;
+                Init();
             }
             catch (Exception ex)
             {
                 DependencyService.Get<IMessage>().AlertAsync(TextResources.Alert,
                     ex.InnerException != null ? ex.InnerException.Message : ex.Message, TextResources.Ok);
             }
+        }
+
+        private async void Init()
+        {
+            await App.Configuration.InitialAsync(this);
+            NavigationPage.SetHasNavigationBar(this, false);
+
+            _model.Navigation = App.CurrentApp.MainPage.Navigation;
+            BindingContext = _model;
+            ListViewGallery.ItemSelected += (sender, e) => ListViewGallery.SelectedItem = null;
         }
 
         protected override bool OnBackButtonPressed()

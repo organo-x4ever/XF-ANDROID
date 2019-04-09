@@ -16,8 +16,8 @@ using Xamarin.Forms;
 namespace com.organo.xchallenge.ViewModels.Menu
 {
     public class MenuPageViewModel : BaseViewModel
-    {private readonly IHelper _helper;
-
+    {
+        private readonly IHelper _helper;
         public MenuPageViewModel(INavigation navigation = null) : base(navigation)
         {
             _helper = DependencyService.Get<IHelper>();
@@ -53,23 +53,31 @@ namespace com.organo.xchallenge.ViewModels.Menu
                 height = iconSize.Height;
                 width = iconSize.Width;
             }
-
+            
             MenuItems = (from m in await DependencyService.Get<IMenuServices>().GetByApplicationAsync()
                 select new HomeMenuItem
                 {
                     MenuTitle = _helper.GetResource(m.MenuTitle),
                     MenuType = (MenuType) Enum.Parse(typeof(MenuType), m.MenuType),
                     MenuIcon = m.MenuIcon != null ? _helper.GetResource(m.MenuIcon) : "",
+                    IconStyle = IconStyle,
                     IconSource = m.MenuIcon != null
                         ? ImageResizer.ResizeImage(_helper.GetResource(m.MenuIcon), iconSize)
                         : null,
                     IconHeight = height,
                     IconWidth = width,
                     IsIconVisible = m.MenuIconVisible,
-                    TextStyle = (Style) App.CurrentApp.Resources["labelStyleMenuItem"],
-                    IsSelected = (MenuType) Enum.Parse(typeof(MenuType), m.MenuType) == MenuType.MyProfile
+                    TextStyle = (MenuType) Enum.Parse(typeof(MenuType), m.MenuType) == MenuType.MyProfile
+                        ? SelectedStyle
+                        : DefaultStyle,
+                    IsSelected = (MenuType) Enum.Parse(typeof(MenuType), m.MenuType) == MenuType.MyProfile,
+                    ItemPadding = new Thickness(15, 5, 0, 5)
                 }).ToList();
         }
+
+        public Style DefaultStyle => (Style) App.CurrentApp.Resources["labelStyleMenuItem"];
+        public Style SelectedStyle => (Style) App.CurrentApp.Resources["labelStyleMenuItemHighlight"];
+        public Style IconStyle => (Style) App.CurrentApp.Resources["imageIconMenuItem"];
 
         private UserInfo _user;
         public const string UserPropertyName = "User";

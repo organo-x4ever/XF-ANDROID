@@ -8,8 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.Globalization;
-
 namespace com.organo.xchallenge.Localization {
     using System;
     using System.Reflection;
@@ -1300,9 +1298,8 @@ namespace com.organo.xchallenge.Localization {
         ///   Looks up a localized string similar to icon_background_blur.png.
         /// </summary>
         internal static string icon_background_blur {
-            get
-            {
-                return ResourceManager.GetString("icon_background_blur", resourceCulture ?? new CultureInfo("en-US"));
+            get {
+                return ResourceManager.GetString("icon_background_blur", resourceCulture);
             }
         }
         
@@ -5065,7 +5062,7 @@ namespace com.organo.xchallenge.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to xchallenge.
+        ///   Looks up a localized string similar to X4Ever.
         /// </summary>
         internal static string XChallenge {
             get {

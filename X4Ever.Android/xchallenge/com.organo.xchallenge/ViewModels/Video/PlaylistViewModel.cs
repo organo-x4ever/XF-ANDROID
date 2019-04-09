@@ -238,7 +238,18 @@ namespace com.organo.xchallenge.ViewModels.Video
                         BackgroundColor = Color.Transparent
                     };
                     contentListView.HeightRequest = (contentListView.RowHeight * (mediaContentDetails.Count)) + 20;
-                    contentListView.ItemSelected += ContentListView_ItemSelected;
+                    //contentListView.ItemSelected += ContentListView_ItemSelected;
+                    contentListView.ItemSelected += (object sender, SelectedItemChangedEventArgs e) =>
+                    {
+                        if (e.SelectedItem != null)
+                        {
+                            CurrentMediaContent = (mediaFile.MediaContentDetail) e.SelectedItem;
+                            if (!CurrentMediaContent?.IsHeader ?? true)
+                                PopupActionCommand();
+
+                            contentListView.SelectedItem = null;
+                        }
+                    };
 
                     accordionSourceItems.Add(new AccordionExtendedSourceItem()
                     {
@@ -319,12 +330,12 @@ namespace com.organo.xchallenge.ViewModels.Video
             return WorkoutLevels;
         }
 
-        private void ContentListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            CurrentMediaContent = (mediaFile.MediaContentDetail)e.SelectedItem;
-            if (!CurrentMediaContent.IsHeader)
-                PopupActionCommand();
-        }
+        //private void ContentListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        //{
+        //    CurrentMediaContent = (mediaFile.MediaContentDetail)e.SelectedItem;
+        //    if (!CurrentMediaContent.IsHeader)
+        //        PopupActionCommand();
+        //}
 
         public async void UpdateCurrentMedia()
         {
