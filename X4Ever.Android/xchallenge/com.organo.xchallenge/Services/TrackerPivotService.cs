@@ -20,16 +20,32 @@ namespace com.organo.xchallenge.Services
         public string ControllerName => "trackerpivot";
         private readonly PoundToKiligramConverter _converter = new PoundToKiligramConverter();
 
-        public async Task<Tracker> AddTracker(string attr_name, string attr_value)
+        public Tracker AddTracker(string attr_name, string attr_value)
         {
             var userId = App.CurrentUser.UserInfo.ID;
             var modifyDate = DateTime.Now;
-            var tracker = new Tracker();
-            await Task.Run(() =>
+            if (attr_name == TrackerConstants.CURRENT_WEIGHT)
+                attr_value = _converter.StorageWeightVolume(attr_value).ToString();
+            var tracker = new Tracker()
+            {
+                AttributeLabel = TrackerConstants.LABEL,
+                AttributeName = attr_name,
+                AttributeValue = attr_value,
+                ModifyDate = modifyDate,
+                UserID = userId
+            };
+            return tracker;
+        }
+
+        public async Task<Tracker> AddTrackerAsync(string attr_name, string attr_value)
+        {
+            var userId = App.CurrentUser.UserInfo.ID;
+            var modifyDate = DateTime.Now;
+            return await Task.Factory.StartNew(() =>
             {
                 if (attr_name == TrackerConstants.CURRENT_WEIGHT)
                     attr_value = _converter.StorageWeightVolume(attr_value).ToString();
-                tracker = new Tracker()
+                return new Tracker()
                 {
                     AttributeLabel = TrackerConstants.LABEL,
                     AttributeName = attr_name,
@@ -38,7 +54,6 @@ namespace com.organo.xchallenge.Services
                     UserID = userId
                 };
             });
-            return tracker;
         }
 
         public async Task<TrackerPivot> GetLatestTrackerAsync()

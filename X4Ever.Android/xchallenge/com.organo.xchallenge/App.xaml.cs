@@ -31,7 +31,7 @@ namespace com.organo.xchallenge
             }
             catch (Exception ex)
             {
-                new ExceptionHandler(TAG, ex);
+                var exceptionHandler = new ExceptionHandler(TAG, ex);
             }
         }
 

@@ -59,7 +59,7 @@ namespace com.organo.xchallenge.Droid.Services
             }
             catch (Exception ex)
             {
-                new ExceptionHandler("KeyVaultStorage.cs _constructor", ex);
+                var exceptionHandler = new ExceptionHandler(typeof(KeyVaultStorage).FullName + "._constructor", ex);
             }
         }
 
@@ -105,7 +105,7 @@ namespace com.organo.xchallenge.Droid.Services
             }
             catch (Exception ex)
             {
-                new ExceptionHandler("KeyVaultStorage.cs _Store(" + key + ")", ex);
+                var exceptionHandler = new ExceptionHandler("KeyVaultStorage.cs _Store(" + key + ")", ex);
             }
         }
 
@@ -129,7 +129,7 @@ namespace com.organo.xchallenge.Droid.Services
             }
             catch (Exception ex)
             {
-                new ExceptionHandler("KeyVaultStorage.cs Retrieve(" + key + ")", ex);
+                var exceptionHandler = new ExceptionHandler("KeyVaultStorage.cs Retrieve(" + key + ")", ex);
             }
 
             return null;
@@ -151,7 +151,7 @@ namespace com.organo.xchallenge.Droid.Services
             }
             catch (Exception ex)
             {
-                new ExceptionHandler("KeyVaultStorage.cs Delete(" + key + ")", ex);
+                var exceptionHandler = new ExceptionHandler("KeyVaultStorage.cs Delete(" + key + ")", ex);
             }
         }
 
@@ -172,7 +172,7 @@ namespace com.organo.xchallenge.Droid.Services
             }
             catch (Exception ex)
             {
-                new ExceptionHandler("KeyVaultStorage.cs Contains(" + key + ")", ex);
+                var exceptionHandler = new ExceptionHandler("KeyVaultStorage.cs Contains(" + key + ")", ex);
             }
 
             return false;

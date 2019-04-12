@@ -82,7 +82,7 @@ namespace com.organo.xchallenge.ViewModels.Milestones
             AchievedMilestone = null;
         }
 
-        public async void GetUserTracker()
+        public void GetUserTracker()
         {
             if (UserTrackers.Count > 0)
             {
@@ -104,10 +104,10 @@ namespace com.organo.xchallenge.ViewModels.Milestones
                 }
             }
 
-            await GetMilestoneExtendedAsync();
+            GetMilestoneExtendedAsync();
         }
 
-        private async Task GetMilestoneExtendedAsync()
+        private async void GetMilestoneExtendedAsync()
         {
             MilestoneExtended =
                 await _userMilestoneService.GetExtendedAsync(App.Configuration.AppConfig.DefaultLanguage);
@@ -167,9 +167,9 @@ namespace com.organo.xchallenge.ViewModels.Milestones
                 IsGenderRequired = true;
         }
 
-        public async Task<List<string>> GetTShirtSizeList()
+        public List<string> GetTShirtSizeList()
         {
-            await Task.Run(() => { TShirtSizeList = TextResources.TShirtSizes.Split(',').ToList(); });
+            TShirtSizeList =  TextResources.TShirtSizes.Split(',').ToList();
             return TShirtSizeList;
         }
 
@@ -205,18 +205,18 @@ namespace com.organo.xchallenge.ViewModels.Milestones
             {
                 return _submitCommand ?? (_submitCommand = new Command(async (obj) =>
                 {
-                    await Task.Run(() => { SetActivityResource(false, true); });
+                    SetActivityResource(false, true);
                     if (ActionType == ActionType.Check)
-                        await CurrentWeightChanged();
+                        CurrentWeightChanged();
                     else
                         await SaveTrackerAsync();
                 }));
             }
         }
 
-        private async Task CurrentWeightChanged()
+        private async void CurrentWeightChanged()
         {
-            if (await Validate())
+            if (Validate())
             {
                 AchievedMilestone = null;
                 AchievedMilestonePercentage = null;
@@ -227,16 +227,16 @@ namespace com.organo.xchallenge.ViewModels.Milestones
                     SetActivityResource(showError: true, errorMessage: TextResources.MessageGoalAchievedWishes);
                     GoalAchieved = true;
                     //PERCENTAGE:
-                    await CheckMilestonePercentageAsync();
+                    CheckMilestonePercentageAsync();
                     return;
                 }
                 else
                 {
                     //MILESTONE:
-                    await CheckMilestoneAsync();
+                    CheckMilestoneAsync();
 
                     //PERCENTAGE:
-                    await CheckMilestonePercentageAsync();
+                    CheckMilestonePercentageAsync();
                 }
 
                 if (!GoalAchieved)
@@ -252,64 +252,60 @@ namespace com.organo.xchallenge.ViewModels.Milestones
             }
         }
 
-        private async Task CheckMilestoneAsync()
+        private void CheckMilestoneAsync()
         {
             var localMessage = "";
-            await Task.Run(() =>
+
+            var included = Milestones.Where(m => UserMilestones.Any(u => u.MilestoneID == m.ID));
+            var milestones = Milestones.Except(included).OrderByDescending(m => m.TargetValue);
+            foreach (var milestone in milestones)
             {
-                var included = Milestones.Where(m => UserMilestones.Any(u => u.MilestoneID == m.ID));
-                var milestones = Milestones.Except(included).OrderByDescending(m => m.TargetValue);
-                foreach (var milestone in milestones)
+                if ((StartWeight - CurrentWeightValue) >= milestone.TargetValue)
                 {
-                    if ((StartWeight - CurrentWeightValue) >= milestone.TargetValue)
-                    {
-                        AchievedMilestone = milestone;
-                        CurrentTitle = string.Format(AchievedMilestone.MilestoneTitle,
-                            (StartWeight - CurrentWeightValue),
-                            App.Configuration.AppConfig.DefaultWeightVolume);
-                        localMessage = string.Format(milestone.AchievedMessage, (StartWeight - CurrentWeightValue),
-                            App.Configuration.AppConfig.DefaultWeightVolume);
-                        CurrentSubTitle = string.Format(AchievedMilestone.MilestoneSubTitle,
-                            (StartWeight - CurrentWeightValue),
-                            App.Configuration.AppConfig.DefaultWeightVolume);
-                        IsCurrentSubTitle = !string.IsNullOrEmpty(CurrentSubTitle);
-                        GoalAchieved = true;
-                        break;
-                    }
+                    AchievedMilestone = milestone;
+                    CurrentTitle = string.Format(AchievedMilestone.MilestoneTitle,
+                        (StartWeight - CurrentWeightValue),
+                        App.Configuration.AppConfig.DefaultWeightVolume);
+                    localMessage = string.Format(milestone.AchievedMessage, (StartWeight - CurrentWeightValue),
+                        App.Configuration.AppConfig.DefaultWeightVolume);
+                    CurrentSubTitle = string.Format(AchievedMilestone.MilestoneSubTitle,
+                        (StartWeight - CurrentWeightValue),
+                        App.Configuration.AppConfig.DefaultWeightVolume);
+                    IsCurrentSubTitle = !string.IsNullOrEmpty(CurrentSubTitle);
+                    GoalAchieved = true;
+                    break;
                 }
-            });
+            }
+
             if (!string.IsNullOrEmpty(localMessage))
                 SetActivityResource(showMessage: true, message: localMessage, modalWindow: true);
         }
 
-        private async Task CheckMilestonePercentageAsync()
+        private void CheckMilestonePercentageAsync()
         {
-            await Task.Run(() =>
+            var includedPercent = MilestonePercentage.Where(m =>
+                UserMilestones.Any(u => u.MilestonePercentageId == m.ID && m.IsPercent));
+            var milestonePercents = MilestonePercentage?.Except(includedPercent)
+                .OrderByDescending(m => m.TargetPercentValue);
+            foreach (var milestonePercent in milestonePercents)
             {
-                var includedPercent = MilestonePercentage.Where(m =>
-                    UserMilestones.Any(u => u.MilestonePercentageId == m.ID && m.IsPercent == true));
-                var milestonePercents = MilestonePercentage?.Except(includedPercent)
-                    .OrderByDescending(m => m.TargetPercentValue);
-                foreach (var milestonePercent in milestonePercents)
+                if ((StartWeight - CurrentWeightValue) >=
+                    ((WeightLossGoal * milestonePercent.TargetPercentValue) / 100))
                 {
-                    if ((StartWeight - CurrentWeightValue) >=
-                        ((WeightLossGoal * milestonePercent.TargetPercentValue) / 100))
-                    {
-                        AchievedMilestonePercentage = milestonePercent;
-                        BadgeAchievedImage = DependencyService.Get<IMessage>()
-                            .GetResource(milestonePercent.AchievementGiftImage);
-                    }
+                    AchievedMilestonePercentage = milestonePercent;
+                    BadgeAchievedImage = DependencyService.Get<IMessage>()
+                        .GetResource(milestonePercent.AchievementGiftImage);
                 }
-            });
+            }
         }
 
         private async Task SaveTrackerAsync()
         {
             if (ActionType != ActionType.Submit)
                 return;
-            if (await Validate())
+            if (Validate())
             {
-                var response = await _trackerPivotService.SaveTrackerAsync(await BuildTracker());
+                var response = await _trackerPivotService.SaveTrackerAsync(BuildTracker());
                 if (response == HttpConstants.SUCCESS)
                 {
                     if (await MilestoneSaveAsync())
@@ -338,8 +334,8 @@ namespace com.organo.xchallenge.ViewModels.Milestones
             if (IsGenderRequired)
                 await _metaPivotService.SaveMetaAsync(new List<Meta>()
                 {
-                    await _metaPivotService.AddMeta(GenderSelected.ToString(), MetaConstants.GENDER,
-                        MetaConstants.GENDER, MetaConstants.LABEL)
+                    _metaPivotService.AddMeta(GenderSelected.ToString(), MetaConstants.GENDER, MetaConstants.GENDER,
+                        MetaConstants.LABEL)
                 });
         }
 
@@ -392,81 +388,79 @@ namespace com.organo.xchallenge.ViewModels.Milestones
                     : TextResources.MessageCurrentWeightSubmissionSuccessful);
         }
 
-        private async Task<List<Models.User.Tracker>> BuildTracker()
+        private List<Models.User.Tracker> BuildTracker()
         {
             var trackerList = new List<Models.User.Tracker>();
-            await Task.Run(async () =>
+
+            trackerList.Add(_trackerPivotService.AddTracker(TrackerConstants.CURRENT_WEIGHT,
+                CurrentWeightValue.ToString()));
+
+            trackerList.Add(_trackerPivotService.AddTracker(TrackerConstants.CURRENT_WEIGHT_UI,
+                CurrentWeightValue.ToString()));
+
+            trackerList.Add(_trackerPivotService.AddTracker(TrackerConstants.WEIGHT_VOLUME_TYPE,
+                App.Configuration.AppConfig.DefaultWeightVolume));
+
+            if (GoalAchieved)
             {
-                trackerList.Add(await _trackerPivotService.AddTracker(TrackerConstants.CURRENT_WEIGHT,
-                    CurrentWeightValue.ToString()));
+                trackerList.Add(_trackerPivotService.AddTracker(TrackerConstants.TSHIRT_SIZE,
+                    TShirtSize.Trim()));
+                trackerList.Add(_trackerPivotService.AddTracker(TrackerConstants.FRONT_IMAGE,
+                    ImageFront.Trim()));
+                trackerList.Add(_trackerPivotService.AddTracker(TrackerConstants.SIDE_IMAGE,
+                    ImageSide.Trim()));
+                trackerList.Add(_trackerPivotService.AddTracker(TrackerConstants.ABOUT_JOURNEY,
+                    AboutYourJourney.Trim()));
+            }
 
-                trackerList.Add(await _trackerPivotService.AddTracker(TrackerConstants.CURRENT_WEIGHT_UI,
-                    CurrentWeightValue.ToString()));
-
-                trackerList.Add(await _trackerPivotService.AddTracker(TrackerConstants.WEIGHT_VOLUME_TYPE,
-                    App.Configuration.AppConfig.DefaultWeightVolume));
-
-                if (GoalAchieved)
-                {
-                    trackerList.Add(await _trackerPivotService.AddTracker(TrackerConstants.TSHIRT_SIZE,
-                        TShirtSize.Trim()));
-                    trackerList.Add(await _trackerPivotService.AddTracker(TrackerConstants.FRONT_IMAGE,
-                        ImageFront.Trim()));
-                    trackerList.Add(await _trackerPivotService.AddTracker(TrackerConstants.SIDE_IMAGE,
-                        ImageSide.Trim()));
-                    trackerList.Add(await _trackerPivotService.AddTracker(TrackerConstants.ABOUT_JOURNEY,
-                        AboutYourJourney.Trim()));
-                }
-            });
             return trackerList;
         }
 
-        private async Task<bool> Validate()
+        private bool Validate()
         {
             var validationErrors = new ValidationErrors();
-            await Task.Run(() =>
+
+            // Current Weight
+            if (CurrentWeightValue == 0)
+                validationErrors.Add(
+                    string.Format(TextResources.Required_IsMandatory, TextResources.WeightLossGoal));
+            else if (CurrentWeightValue < _converter.DisplayWeightVolume(
+                         App.Configuration.AppConfig.MINIMUM_CURRENT_WEIGHT_KG,
+                         App.Configuration.AppConfig.MINIMUM_CURRENT_WEIGHT_LB))
+                validationErrors.Add(string.Format(TextResources.Validation_MustBeMoreThan,
+                    TextResources.WeightLossGoal,
+                    _converter.DisplayWeightVolume(
+                        App.Configuration.AppConfig.MINIMUM_CURRENT_WEIGHT_KG,
+                        App.Configuration.AppConfig.MINIMUM_CURRENT_WEIGHT_LB)));
+
+            if (GoalAchieved)
             {
-                // Current Weight
-                if (CurrentWeightValue == 0)
-                    validationErrors.Add(
-                        string.Format(TextResources.Required_IsMandatory, TextResources.WeightLossGoal));
-                else if (CurrentWeightValue < _converter.DisplayWeightVolume(
-                             App.Configuration.AppConfig.MINIMUM_CURRENT_WEIGHT_KG,
-                             App.Configuration.AppConfig.MINIMUM_CURRENT_WEIGHT_LB))
-                    validationErrors.Add(string.Format(TextResources.Validation_MustBeMoreThan,
-                        TextResources.WeightLossGoal,
-                        _converter.DisplayWeightVolume(
-                            App.Configuration.AppConfig.MINIMUM_CURRENT_WEIGHT_KG,
-                            App.Configuration.AppConfig.MINIMUM_CURRENT_WEIGHT_LB)));
+                // Front Photo
+                if (string.IsNullOrEmpty(ImageFront) || ImageFront == ImageDefault)
+                    validationErrors.Add(string.Format(TextResources.Required_MustBeSelected,
+                        TextResources.FrontPhoto));
 
-                if (GoalAchieved)
-                {
-                    // Front Photo
-                    if (string.IsNullOrEmpty(ImageFront) || ImageFront == ImageDefault)
-                        validationErrors.Add(string.Format(TextResources.Required_MustBeSelected,
-                            TextResources.FrontPhoto));
+                // Side Photo
+                if (string.IsNullOrEmpty(ImageSide) || ImageSide == ImageDefault)
+                    validationErrors.Add(string.Format(TextResources.Required_MustBeSelected,
+                        TextResources.SidePhoto));
 
-                    // Side Photo
-                    if (string.IsNullOrEmpty(ImageSide) || ImageSide == ImageDefault)
-                        validationErrors.Add(string.Format(TextResources.Required_MustBeSelected,
-                            TextResources.SidePhoto));
+                //Gender
+                if (IsGenderRequired && !IsGenderSelected)
+                    validationErrors.Add(string.Format(TextResources.Required_MustBeSelected,
+                        TextResources.Gender));
 
-                    //Gender
-                    if (IsGenderRequired && !IsGenderSelected)
-                        validationErrors.Add(string.Format(TextResources.Required_MustBeSelected,
-                            TextResources.Gender));
+                // T-Shirt Size
+                if (string.IsNullOrEmpty(TShirtSize))
+                    validationErrors.Add(string.Format(TextResources.Required_MustBeSelected,
+                        TextResources.TShirtSize));
 
-                    // T-Shirt Size
-                    if (string.IsNullOrEmpty(TShirtSize))
-                        validationErrors.Add(string.Format(TextResources.Required_MustBeSelected,
-                            TextResources.TShirtSize));
+                // Why you want to join
+                if (string.IsNullOrEmpty(AboutYourJourney))
+                    validationErrors.Add(string.Format(TextResources.Required_IsMandatory,
+                        TextResources.AboutYourJourney));
+            }
 
-                    // Why you want to join
-                    if (string.IsNullOrEmpty(AboutYourJourney))
-                        validationErrors.Add(string.Format(TextResources.Required_IsMandatory,
-                            TextResources.AboutYourJourney));
-                }
-            });
             if (validationErrors.Count() > 0)
                 SetActivityResource(showError: true,
                     errorMessage: validationErrors.Count() > 2

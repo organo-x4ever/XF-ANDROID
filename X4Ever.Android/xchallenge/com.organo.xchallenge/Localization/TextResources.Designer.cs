@@ -4936,7 +4936,7 @@ namespace com.organo.xchallenge.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Weight Loss Goal.
+        ///   Looks up a localized string similar to Weight Lose Goal.
         /// </summary>
         internal static string WeightLossGoal {
             get {
@@ -4945,7 +4945,7 @@ namespace com.organo.xchallenge.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Weight Loss Goal ({0}) : .
+        ///   Looks up a localized string similar to Weight Lose Goal ({0}) : .
         /// </summary>
         internal static string WeightLossGoalFormat {
             get {
@@ -4954,7 +4954,7 @@ namespace com.organo.xchallenge.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Weight Loss Goal (min {0}{1}).
+        ///   Looks up a localized string similar to Weight Lose Goal (min {0}{1}).
         /// </summary>
         internal static string WeightLossGoalMinFormat2 {
             get {
@@ -4963,7 +4963,7 @@ namespace com.organo.xchallenge.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Weight Loss Goal (min 5{0}).
+        ///   Looks up a localized string similar to Weight Lose Goal (min 5{0}).
         /// </summary>
         internal static string WeightLossGoalMinKG {
             get {
@@ -4972,7 +4972,7 @@ namespace com.organo.xchallenge.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Weight Loss Goal (min 10{0}).
+        ///   Looks up a localized string similar to Weight Lose Goal (min 10{0}).
         /// </summary>
         internal static string WeightLossGoalMinLB {
             get {
@@ -4981,7 +4981,7 @@ namespace com.organo.xchallenge.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Weight Loss Goal ({0}).
+        ///   Looks up a localized string similar to Weight Lose Goal ({0}).
         /// </summary>
         internal static string WeightLossGoalWithValue {
             get {
@@ -4990,7 +4990,7 @@ namespace com.organo.xchallenge.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Weight Loss Graph.
+        ///   Looks up a localized string similar to Weight Lose Graph.
         /// </summary>
         internal static string WeightLossGraph {
             get {

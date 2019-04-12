@@ -18,7 +18,8 @@ namespace com.organo.xchallenge.Services
         Task<TrackerPivot> GetLatestTrackerAsync();
 
         //Task<List<TrackerPivot>> GetFirstAndLastTrackerAsync();
-        Task<Tracker> AddTracker(string attr_name, string attr_value);
+        Task<Tracker> AddTrackerAsync(string attr_name, string attr_value);
+        Tracker AddTracker(string attr_name, string attr_value);
         Task<string> SaveTrackerAsync(List<Tracker> trackers);
         Task<bool> SaveTrackerStep3Async(List<Tracker> trackers, bool loadUserProfile = false);
         Task<bool> UpdateLatestTrackerAsync(double newValue, double oldValue, DateTime lastModifyDate);

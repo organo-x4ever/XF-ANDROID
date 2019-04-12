@@ -30,7 +30,7 @@ namespace com.organo.xchallenge.Pages.TrainingVideo
             }
             catch (Exception ex)
             {
-                new ExceptionHandler(TAG, ex);
+                var exceptionHandler = new ExceptionHandler(TAG, ex);
             }
         }
 

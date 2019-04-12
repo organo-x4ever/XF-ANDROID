@@ -41,7 +41,7 @@ namespace com.organo.xchallenge.ViewModels.Menu
             }
             catch (Exception ex)
             {
-                new ExceptionHandler(typeof(MenuPageViewModel).FullName, ex);
+                var exceptionHandler = new ExceptionHandler(typeof(MenuPageViewModel).FullName, ex);
             }
         }
 
@@ -55,7 +55,8 @@ namespace com.organo.xchallenge.ViewModels.Menu
                 width = iconSize.Width;
             }
 
-            MenuItems = (from m in await DependencyService.Get<IMenuServices>().GetByApplicationAsync()
+            var menuItems = await DependencyService.Get<IMenuServices>().GetByApplicationAsync();
+            MenuItems = (from m in menuItems
                 select new HomeMenuItem
                 {
                     MenuTitle = _helper.GetResource(m.MenuTitle),

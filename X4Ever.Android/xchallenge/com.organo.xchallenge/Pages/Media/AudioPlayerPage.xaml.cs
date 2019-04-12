@@ -24,11 +24,11 @@ namespace com.organo.xchallenge.Pages.Media
             }
             catch (Exception ex)
             {
-                new ExceptionHandler(TAG, ex);
+                var exceptionHandler = new ExceptionHandler(TAG, ex);
             }
         }
 
-        public async void Init(object obj)
+        private async void Init(object obj)
         {
             await App.Configuration.InitialAsync(this);
             _model = new AudioPlayerViewModel()

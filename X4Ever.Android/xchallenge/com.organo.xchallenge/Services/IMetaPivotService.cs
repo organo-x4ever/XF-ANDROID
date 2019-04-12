@@ -14,6 +14,7 @@ namespace com.organo.xchallenge.Services
         Task<string> SaveMetaAsync(Meta metas);
         Task<bool> SaveMetaStep2Async(List<Meta> metas);
         Task<MetaPivot> GetMetaAsync();
-        Task<Meta> AddMeta(string metaValue, string description, string key, string type);
+        Task<Meta> AddMetaAsync(string metaValue, string description, string key, string type);
+        Meta AddMeta(string metaValue, string description, string key, string type);
     }
 }

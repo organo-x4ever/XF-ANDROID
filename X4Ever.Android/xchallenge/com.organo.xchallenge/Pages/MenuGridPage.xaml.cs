@@ -35,7 +35,7 @@ namespace com.organo.xchallenge.Pages
             }
             catch (Exception ex)
             {
-                new ExceptionHandler(TAG, ex);
+                var exceptionHandler = new ExceptionHandler(TAG, ex);
             }
         }
 
@@ -59,7 +59,7 @@ namespace com.organo.xchallenge.Pages
             _media = DependencyService.Get<Globals.IMedia>();
         }
 
-        private async void GridMenu_ItemSelectedHandler(object sender, EventArgs e)
+        private void GridMenu_ItemSelectedHandler(object sender, EventArgs e)
         {
             if (GridMenu.SelectedItem != null)
             {
@@ -75,7 +75,7 @@ namespace com.organo.xchallenge.Pages
                 menu.IsSelected = true;
                 menu.TextStyle = _model.SelectedStyle;
                 GridMenu.Source = _model.MenuItems;
-                await GridMenu.Rebind(sender, _model.MenuItems);
+                GridMenu.Rebind(sender, _model.MenuItems);
             }
         }
 
@@ -107,7 +107,7 @@ namespace com.organo.xchallenge.Pages
                         return;
                     }
 
-                    await Task.Run(() => { _model.SetActivityResource(false, true); });
+                    _model.SetActivityResource(false, true);
                     var response = await _media.UploadPhotoAsync(mediaFile);
                     if (!response)
                     {
@@ -139,7 +139,7 @@ namespace com.organo.xchallenge.Pages
                         return;
                     }
 
-                    await Task.Run(() => { _model.SetActivityResource(false, true); });
+                    _model.SetActivityResource(false, true);
                     var response = await _media.UploadPhotoAsync(mediaFile);
                     if (!response)
                     {
@@ -152,9 +152,7 @@ namespace com.organo.xchallenge.Pages
 
                 if (!string.IsNullOrEmpty(_media.FileName))
                 {
-                    var profileImage = await _metaPivotService.AddMeta(_media.FileName,
-                        MetaConstants.PROFILE_PHOTO.ToCapital(), MetaConstants.PROFILE_PHOTO,
-                        MetaConstants.PROFILE_PHOTO);
+                    var profileImage = _metaPivotService.AddMeta(_media.FileName, MetaConstants.PROFILE_PHOTO.ToCapital(), MetaConstants.PROFILE_PHOTO, MetaConstants.PROFILE_PHOTO);
                     var response = await _metaPivotService.SaveMetaAsync(profileImage);
                     if (response != null && response.Contains(HttpConstants.SUCCESS))
                     {

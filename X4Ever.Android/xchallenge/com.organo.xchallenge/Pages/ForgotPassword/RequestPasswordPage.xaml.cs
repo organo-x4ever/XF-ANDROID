@@ -49,7 +49,7 @@ namespace com.organo.xchallenge.Pages.ForgotPassword
 
         private async Task RequestPassword()
         {
-            await Task.Run(() => { _model.SetActivityResource(false, true); });
+            _model.SetActivityResource(false, true);
             if (Validate())
             {
                 _model.UserName = _model.EmailAddress.Trim();

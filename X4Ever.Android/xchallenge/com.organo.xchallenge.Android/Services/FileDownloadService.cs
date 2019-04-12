@@ -30,7 +30,7 @@ namespace com.organo.xchallenge.Droid
             }
             catch (Exception ex)
             {
-                new ExceptionHandler(typeof(FileDownloadService).FullName, ex);
+                var exceptionHandler = new ExceptionHandler(typeof(FileDownloadService).FullName, ex);
             }
 
             return false;
@@ -45,7 +45,7 @@ namespace com.organo.xchallenge.Droid
             }
             catch (Exception ex)
             {
-                new ExceptionHandler(typeof(FileDownloadService).FullName, ex);
+                var exceptionHandler = new ExceptionHandler(typeof(FileDownloadService).FullName, ex);
             }
 
             return false;
@@ -76,7 +76,7 @@ namespace com.organo.xchallenge.Droid
             }
             catch (Exception ex)
             {
-                new ExceptionHandler(typeof(FileDownloadService).FullName, ex);
+                var exceptionHandler = new ExceptionHandler(typeof(FileDownloadService).FullName, ex);
             }
 
             return removed;

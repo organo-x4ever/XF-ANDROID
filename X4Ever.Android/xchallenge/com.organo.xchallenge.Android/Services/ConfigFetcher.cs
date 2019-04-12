@@ -3,16 +3,10 @@ using com.organo.xchallenge.Services;
 using System.IO;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Android.OS;
-using com.organo.xchallenge.Globals;
 using com.organo.xchallenge.Handler;
-using com.organo.xchallenge.Helpers;
 using com.organo.xchallenge.Models;
-using com.organo.xchallenge.Statics;
-using Java.Lang;
 using Newtonsoft.Json;
 using Xamarin.Forms;
-using System.Collections.Generic;
 
 [assembly: Dependency(typeof(ConfigFetcher))]
 
@@ -24,6 +18,7 @@ namespace com.organo.xchallenge.Droid
     public class ConfigFetcher : IConfigFetcher
     {
         #region IConfigFetcher implementation
+
         public async Task<AppConfig> GetAsync()
         {
             try
@@ -41,14 +36,14 @@ namespace com.organo.xchallenge.Droid
                         }
                     }
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
-                new ExceptionHandler("ConfigFetcher", ex);
+                var exceptionHandler = new ExceptionHandler("ConfigFetcher", ex);
             }
 
             return null;
         }
-        
+
         #endregion IConfigFetcher implementation
     }
 }

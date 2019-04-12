@@ -20,16 +20,33 @@ namespace com.organo.xchallenge.Services
         public string ControllerName => "metapivot";
         private readonly PoundToKiligramConverter _converter = new PoundToKiligramConverter();
 
-        public async Task<Meta> AddMeta(string metaValue, string description, string key, string type)
+        public Meta AddMeta(string metaValue, string description, string key, string type)
         {
             var userId = App.CurrentUser.UserInfo.ID;
             var modifyDate = DateTime.Now;
-            var meta = new Meta();
-            await Task.Run(() =>
+            if (key == MetaConstants.WEIGHT_LOSS_GOAL || key == MetaConstants.WEIGHT_TO_LOSE)
+                metaValue = _converter.StorageWeightVolume(metaValue).ToString();
+            return new Meta()
+            {
+                MetaValue = metaValue,
+                MetaDescription = description,
+                MetaKey = key,
+                MetaLabel = MetaConstants.LABEL,
+                MetaType = type,
+                ModifyDate = modifyDate,
+                UserID = userId
+            };
+        }
+
+        public async Task<Meta> AddMetaAsync(string metaValue, string description, string key, string type)
+        {
+            var userId = App.CurrentUser.UserInfo.ID;
+            var modifyDate = DateTime.Now;
+            return await Task.Factory.StartNew(() =>
             {
                 if (key == MetaConstants.WEIGHT_LOSS_GOAL || key == MetaConstants.WEIGHT_TO_LOSE)
                     metaValue = _converter.StorageWeightVolume(metaValue).ToString();
-                meta = new Meta()
+                return new Meta()
                 {
                     MetaValue = metaValue,
                     MetaDescription = description,
@@ -40,7 +57,6 @@ namespace com.organo.xchallenge.Services
                     UserID = userId
                 };
             });
-            return meta;
         }
 
         public async Task<MetaPivot> GetMetaAsync()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using com.organo.xchallenge.Handler;
 using com.organo.xchallenge.Models.Youtube;
 using com.organo.xchallenge.Pages.Base;
 using com.organo.xchallenge.ViewModels.YouTube;
@@ -17,14 +18,21 @@ namespace com.organo.xchallenge.Pages.YouTube
 
         public YoutubeTestimonialPage(RootPage root)
         {
-            InitializeComponent();
-            App.Configuration.InitialAsync(this);
-            NavigationPage.SetHasNavigationBar(this, false);
-            _model = new YoutubeViewModel()
+            try
             {
-                Root = root,
-            };
-            BindingContext = _model;
+                InitializeComponent();
+                App.Configuration.InitialAsync(this);
+                NavigationPage.SetHasNavigationBar(this, false);
+                _model = new YoutubeViewModel()
+                {
+                    Root = root,
+                };
+                BindingContext = _model;
+            }
+            catch (Exception ex)
+            {
+                var exceptionHandler = new ExceptionHandler(typeof(YoutubeTestimonialPage).FullName, ex);
+            }
         }
 
         private void ListViewOnItemTapped(object sender, ItemTappedEventArgs itemTappedEventArgs)

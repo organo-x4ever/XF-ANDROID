@@ -15,29 +15,18 @@ namespace com.organo.xchallenge.Services
 {
     public class UserMilestoneService : IUserMilestoneService
     {
-        private const string controller = "usermilestones"; //"testusermilestones"
-        private bool retryLoading = false;
+        private const string controller = "usermilestones";
+
         public async Task<Dictionary<string, object>> GetDetailAsync()
         {
             var model = new Dictionary<string, object>();
-            try
+            var response = await ClientService.GetDataAsync(controller, "getdetail");
+            if (response != null)
             {
-                var response = await ClientService.GetDataAsync(controller, "getdetail");
-                if (response != null)
-                {
-                    var jsonTask = response.Content.ReadAsStringAsync();
-                    jsonTask.Wait();
-                    model = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonTask.Result);
-                    return model;
-                }
-            }
-            catch (Exception)
-            {
-                if (!retryLoading)
-                {
-                    retryLoading = true;
-                    return await GetDetailAsync();
-                }
+                var jsonTask = response.Content.ReadAsStringAsync();
+                jsonTask.Wait();
+                model = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonTask.Result);
+                return model;
             }
 
             return null;
@@ -46,24 +35,13 @@ namespace com.organo.xchallenge.Services
         public async Task<UserMilestoneExtended> GetExtendedAsync()
         {
             var model = new UserMilestoneExtended();
-            try
+            var response = await ClientService.GetDataAsync(controller, "getextended");
+            if (response != null)
             {
-                var response = await ClientService.GetDataAsync(controller, "getextended");
-                if (response != null)
-                {
-                    var jsonTask = response.Content.ReadAsStringAsync();
-                    jsonTask.Wait();
-                    model = JsonConvert.DeserializeObject<UserMilestoneExtended>(jsonTask.Result);
-                    return model;
-                }
-            }
-            catch (Exception)
-            {
-                if (!retryLoading)
-                {
-                    retryLoading = true;
-                    return await GetExtendedAsync();
-                }
+                var jsonTask = response.Content.ReadAsStringAsync();
+                jsonTask.Wait();
+                model = JsonConvert.DeserializeObject<UserMilestoneExtended>(jsonTask.Result);
+                return model;
             }
 
             return null;
@@ -72,24 +50,13 @@ namespace com.organo.xchallenge.Services
         public async Task<UserMilestoneExtended> GetExtendedAsync(string languageCode)
         {
             var model = new UserMilestoneExtended();
-            try
+            var response = await ClientService.GetDataAsync(controller, "getextended?languageCode=" + languageCode);
+            if (response != null)
             {
-                var response = await ClientService.GetDataAsync(controller, "getextended?languageCode=" + languageCode);
-                if (response != null)
-                {
-                    var jsonTask = response.Content.ReadAsStringAsync();
-                    jsonTask.Wait();
-                    model = JsonConvert.DeserializeObject<UserMilestoneExtended>(jsonTask.Result);
-                    return model;
-                }
-            }
-            catch (Exception)
-            {
-                if (!retryLoading)
-                {
-                    retryLoading = true;
-                    return await GetExtendedAsync(languageCode);
-                }
+                var jsonTask = response.Content.ReadAsStringAsync();
+                jsonTask.Wait();
+                model = JsonConvert.DeserializeObject<UserMilestoneExtended>(jsonTask.Result);
+                return model;
             }
 
             return null;
@@ -98,24 +65,13 @@ namespace com.organo.xchallenge.Services
         public async Task<List<UserMilestone>> GetUserMilestoneAsync()
         {
             var model = new List<UserMilestone>();
-            try
+            var response = await ClientService.GetDataAsync(controller, "getbyuser");
+            if (response != null)
             {
-                var response = await ClientService.GetDataAsync(controller, "getbyuser");
-                if (response != null)
-                {
-                    var jsonTask = response.Content.ReadAsStringAsync();
-                    jsonTask.Wait();
-                    model = JsonConvert.DeserializeObject<List<UserMilestone>>(jsonTask.Result);
-                    return model;
-                }
-            }
-            catch (Exception)
-            {
-                if (!retryLoading)
-                {
-                    retryLoading = true;
-                    return await GetUserMilestoneAsync();
-                }
+                var jsonTask = response.Content.ReadAsStringAsync();
+                jsonTask.Wait();
+                model = JsonConvert.DeserializeObject<List<UserMilestone>>(jsonTask.Result);
+                return model;
             }
 
             return null;

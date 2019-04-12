@@ -1,23 +1,23 @@
 ﻿
+using com.organo.xchallenge.Handler;
+using com.organo.xchallenge.Localization;
+using com.organo.xchallenge.Models;
+using com.organo.xchallenge.Pages.Community;
+using com.organo.xchallenge.Pages.HowItWorks;
+using com.organo.xchallenge.Pages.MealPlan;
+using com.organo.xchallenge.Pages.Media;
+using com.organo.xchallenge.Pages.News;
+using com.organo.xchallenge.Pages.OGX;
+using com.organo.xchallenge.Pages.Profile;
+using com.organo.xchallenge.Pages.Rewards;
+using com.organo.xchallenge.Pages.Video;
+using com.organo.xchallenge.Pages.YouTube;
+using com.organo.xchallenge.ViewModels.Base;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
-using com.organo.xchallenge.Handler;
-using com.organo.xchallenge.Models;
-using com.organo.xchallenge.ViewModels.Base;
-using com.organo.xchallenge.Localization;
-using com.organo.xchallenge.Pages.MealPlan;
-using com.organo.xchallenge.Pages.Media;
-using com.organo.xchallenge.Pages.News;
-using com.organo.xchallenge.Pages.Profile;
-using com.organo.xchallenge.Pages.Video;
-using com.organo.xchallenge.Pages.Community;
-using com.organo.xchallenge.Pages.HowItWorks;
-using com.organo.xchallenge.Pages.OGX;
-using com.organo.xchallenge.Pages.Rewards;
-using com.organo.xchallenge.Pages.YouTube;
 using Xamarin.Forms;
 
 namespace com.organo.xchallenge.Pages
@@ -225,7 +225,7 @@ namespace com.organo.xchallenge.Pages
             }
             catch (Exception ex)
             {
-                new ExceptionHandler("RootPage.cs", ex);
+                var exceptionHandler = new ExceptionHandler("RootPage.cs", ex);
             }
         }
     }

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using com.organo.xchallenge.Extensions;
 using com.organo.xchallenge.Handler;
 using Xamarin.Forms;
 
@@ -37,7 +38,7 @@ namespace com.organo.xchallenge.Pages.Profile
             }
             catch (Exception ex)
             {
-                new ExceptionHandler(TAG, ex);
+                var exceptionHandler = new ExceptionHandler(TAG, ex);
             }
         }
 
@@ -52,11 +53,11 @@ namespace com.organo.xchallenge.Pages.Profile
         public async void OpenPopupWindow()
         {
             var imageSize = App.Configuration.GetImageSizeByID(ImageIdentity.BADGE_HINT_WINDOW);
-            Int16 height = 330, width = 306;
+            short height = 330, width = 306;
             if (imageSize != null)
             {
-                height = (Int16) imageSize.Height;
-                width = (Int16) imageSize.Width;
+                height = (short) imageSize.Height;
+                width = (short) imageSize.Width;
             }
 
             ClosePopupWindow();
@@ -288,7 +289,7 @@ namespace com.organo.xchallenge.Pages.Profile
                     }
                     catch (Exception e)
                     {
-                        new ExceptionHandler(TAG, e);
+                        var exceptionHandler = new ExceptionHandler(TAG, e);
                     }
                 }
             }
@@ -344,12 +345,7 @@ namespace com.organo.xchallenge.Pages.Profile
 				_model.ShowHideTrackerDetailAsync();
 			}
         }
-
-        private void ShowGallery(object sender, EventArgs args)
-        {
-            _model.ShowGalleryDetail = true;
-        }
-
+        
         protected override bool OnBackButtonPressed()
         {
             return DependencyService.Get<IBackButtonPress>().Exit();

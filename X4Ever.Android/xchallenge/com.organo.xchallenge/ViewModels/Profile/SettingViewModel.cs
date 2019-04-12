@@ -45,8 +45,11 @@ namespace com.organo.xchallenge.ViewModels.Profile
 
         private void GetStateList()
         {
-            var provinces = CountryProvinces.FirstOrDefault(p => p.CountryName == CountryName)?.Provinces;
-            StateList = provinces?.Select(p => (string) p.ProvinceName).Distinct().ToList();
+            if (!string.IsNullOrEmpty(CountryName))
+            {
+                var provinces = CountryProvinces.FirstOrDefault(p => p.CountryName == CountryName)?.Provinces;
+                StateList = provinces?.Select(p => (string) p.ProvinceName).Distinct().ToList();
+            }
         }
 
         private List<CountryProvince> CountryProvinces { get; set; }

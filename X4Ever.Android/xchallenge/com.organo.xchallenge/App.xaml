@@ -435,6 +435,11 @@
                 <Setter Property="TextColor" Value="{x:Static statics:Palette._MainAccent}" />
             </Style>
 
+            <Style x:Key="labelStyleTextGuageHeader" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._MainAccent}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
+            </Style>
+
             <Style x:Key="labelStyleTextTitleIntern" TargetType="Label" BasedOn="{StaticResource labelStyle}">
                 <Setter Property="TextColor" Value="{x:Static statics:Palette._FooterTexts}" />
                 <Setter Property="FontSize" Value="{StaticResource FontSizeXXXSmall}" />
@@ -599,7 +604,7 @@
                 <Setter Property="TextColor" Value="{x:Static statics:Palette._FieldTexts}" />
                 <!--<Setter Property="FontFamily" Value="{StaticResource PoppinsFontFamily}" />-->
                 <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
-                <Setter Property="HeightRequest" Value="50" />
+                <Setter Property="HeightRequest" Value="150" />
                 <Setter Property="Margin" Value="0,0,0,-4" />
             </Style>
 

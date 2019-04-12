@@ -1698,16 +1698,16 @@ your 3rd meal. Enjoy Pro Meals
     <value>Weight (lb)</value>
   </data>
   <data name="WeightLossGoal" xml:space="preserve">
-    <value>Weight Loss Goal</value>
+    <value>Weight Lose Goal</value>
   </data>
   <data name="WeightLossGoalMinKG" xml:space="preserve">
-    <value>Weight Loss Goal (min 5{0})</value>
+    <value>Weight Lose Goal (min 5{0})</value>
   </data>
   <data name="WeightLossGoalMinLB" xml:space="preserve">
-    <value>Weight Loss Goal (min 10{0})</value>
+    <value>Weight Lose Goal (min 10{0})</value>
   </data>
   <data name="WeightLossGraph" xml:space="preserve">
-    <value>Weight Loss Graph</value>
+    <value>Weight Lose Graph</value>
   </data>
   <data name="WeightVolume" xml:space="preserve">
     <value>Weight Volume</value>
@@ -1770,7 +1770,7 @@ your 3rd meal. Enjoy Pro Meals
     <value>Your Photos:</value>
   </data>
   <data name="WeightLossGoalWithValue" xml:space="preserve">
-    <value>Weight Loss Goal ({0})</value>
+    <value>Weight Lose Goal ({0})</value>
   </data>
   <data name="icon_eye_hide" xml:space="preserve">
     <value>eye_hide.png</value>
@@ -1791,10 +1791,10 @@ your 3rd meal. Enjoy Pro Meals
     <value>Your Starting Weight ({0}) : </value>
   </data>
   <data name="WeightLossGoalFormat" xml:space="preserve">
-    <value>Weight Loss Goal ({0}) : </value>
+    <value>Weight Lose Goal ({0}) : </value>
   </data>
   <data name="WeightLossGoalMinFormat2" xml:space="preserve">
-    <value>Weight Loss Goal (min {0}{1})</value>
+    <value>Weight Lose Goal (min {0}{1})</value>
   </data>
   <data name="Continent" xml:space="preserve">
     <value>Continent</value>

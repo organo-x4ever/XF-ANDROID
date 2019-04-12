@@ -20,9 +20,9 @@ namespace com.organo.xchallenge.Statics
                 Remote(message);
         }
 
-        public static void Remote(string message)
+        public static async void Remote(string message)
         {
-            LogServices.WriteDebug(message);
+            await LogServices.WriteDebug(message);
         }
 
         //2018-08-27 08:43:01.297

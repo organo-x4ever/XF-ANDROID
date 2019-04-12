@@ -47,19 +47,19 @@ namespace com.organo.xchallenge.Pages.Account
                         : _helper.ReturnMessage(message));
         }
 
-        private async void Initialization()
+        private void Initialization()
         {
             _imageFrontName = _imageSideName = string.Empty;
             if (_user.UserTrackers != null && _user.UserTrackers.Count > 0)
             {
-                var frontPath = await _user.UserTrackers.Get(TrackerEnum.frontimage);
+                var frontPath = _user.UserTrackers.Get(TrackerEnum.frontimage);
                 if (frontPath != null && frontPath.Trim().Length > 0)
                 {
                     _model.ImageFront = frontPath;
                     _imageFrontName = frontPath;
                 }
 
-                var sidePath = await _user.UserTrackers.Get(TrackerEnum.frontimage);
+                var sidePath = _user.UserTrackers.Get(TrackerEnum.frontimage);
                 if (sidePath != null && sidePath.Trim().Length > 0)
                 {
                     _model.ImageSide = sidePath;
@@ -119,7 +119,7 @@ namespace com.organo.xchallenge.Pages.Account
                         return;
                     }
 
-                    await Task.Run(() => { _model.SetActivityResource(false, true); });
+                    _model.SetActivityResource(false, true);
                     var response = await _media.UploadPhotoAsync(mediaFile);
                     if (!response)
                     {
@@ -166,7 +166,7 @@ namespace com.organo.xchallenge.Pages.Account
                         return;
                     }
 
-                    await Task.Run(() => { _model.SetActivityResource(false, true); });
+                    _model.SetActivityResource(false, true);
                     var response = await _media.UploadPhotoAsync(mediaFile);
                     if (!response)
                     {
@@ -195,16 +195,12 @@ namespace com.organo.xchallenge.Pages.Account
 
         private async Task SubmitAsync()
         {
-            await Task.Run(() =>
-            {
-                _model.SetActivityResource(showEditable: false, showBusy: true,
-                    busyMessage: TextResources.ProcessingPleaseWait);
-            });
-            if (await Validate())
+            _model.SetActivityResource(showEditable: false, showBusy: true, busyMessage: TextResources.ProcessingPleaseWait);
+            if (Validate())
             {
                 _trackers = new List<Models.User.Tracker>();
-                _trackers.Add(await _trackerPivotService.AddTracker(TrackerConstants.FRONT_IMAGE, _model.ImageFront));
-                _trackers.Add(await _trackerPivotService.AddTracker(TrackerConstants.SIDE_IMAGE, _model.ImageSide));
+                _trackers.Add(_trackerPivotService.AddTracker(TrackerConstants.FRONT_IMAGE, _model.ImageFront));
+                _trackers.Add(_trackerPivotService.AddTracker(TrackerConstants.SIDE_IMAGE, _model.ImageSide));
                 foreach (var tracker in _trackers)
                 {
                     tracker.RevisionNumber = "10000";
@@ -219,18 +215,15 @@ namespace com.organo.xchallenge.Pages.Account
             }
         }
 
-        private async Task<bool> Validate()
+        private bool Validate()
         {
             ValidationErrors validationErrors = new ValidationErrors();
-            await Task.Run(() =>
-            {
-                if (_model.ImageFront == null || _model.ImageFront.Trim().Length == 0 ||
-                    _imageFrontName.Trim().Length == 0)
-                    validationErrors.Add(string.Format(TextResources.Required_IsMandatory, TextResources.FrontPhoto));
-                if (_model.ImageSide == null || _model.ImageSide.Trim().Length == 0 ||
-                    _imageSideName.Trim().Length == 0)
-                    validationErrors.Add(string.Format(TextResources.Required_IsMandatory, TextResources.SidePhoto));
-            });
+            if (_model.ImageFront == null || _model.ImageFront.Trim().Length == 0 ||
+                _imageFrontName.Trim().Length == 0)
+                validationErrors.Add(string.Format(TextResources.Required_IsMandatory, TextResources.FrontPhoto));
+            if (_model.ImageSide == null || _model.ImageSide.Trim().Length == 0 ||
+                _imageSideName.Trim().Length == 0)
+                validationErrors.Add(string.Format(TextResources.Required_IsMandatory, TextResources.SidePhoto));
             if (validationErrors.Count() > 0)
                 _model.SetActivityResource(showError: true, errorMessage: validationErrors.Show(CommonConstants.SPACE));
             return validationErrors.Count() == 0;

@@ -74,11 +74,13 @@
     <Compile Include="Converters\DoubleToIntConverter.cs" />
     <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Converters\LoadingLabelHeightConverter.cs" />
+    <Compile Include="Extensions\MetaObjectFromCollection.cs" />
     <Compile Include="Converters\PeriodIntervalToDatetimeConverter.cs" />
     <Compile Include="Converters\PoundToKiligramConverter.cs" />
     <Compile Include="Converters\ShortDatePatternConverter.cs" />
     <Compile Include="Converters\SplitStringConverter.cs" />
     <Compile Include="Converters\ToUpperConverter.cs" />
+    <Compile Include="Extensions\TrackerObjectFromCollection.cs" />
     <Compile Include="Converters\WholePercentToDecimalPercent.cs" />
     <Compile Include="Effects\Control\Animation.cs" />
     <Compile Include="Effects\Control\ControlEntity.cs" />
@@ -87,11 +89,10 @@
     <Compile Include="Extensions\Capitalize.cs" />
     <Compile Include="Extensions\ExtensionCheck.cs" />
     <Compile Include="Extensions\ImageResourceExtension.cs" />
-    <Compile Include="Extensions\MetaObjectFromCollection.cs" />
+    <Compile Include="Extensions\LogExtensions.cs" />
     <Compile Include="Extensions\MonthName.cs" />
     <Compile Include="Extensions\SetValueAnimation.cs" />
     <Compile Include="Extensions\SliderValueAnimate.cs" />
-    <Compile Include="Extensions\TrackerObjectFromCollection.cs" />
     <Compile Include="Globals\Helper.cs" />
     <Compile Include="Globals\IAppConfiguration.cs" />
     <Compile Include="Globals\IHelper.cs" />
@@ -283,9 +284,6 @@
     <Compile Include="Pages\Profile\ProfileSetting.xaml.cs">
       <DependentUpon>ProfileSetting.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Profile\PictureGalleryPage.xaml.cs">
-      <DependentUpon>PictureGalleryPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\Profile\TrackerLogPage.xaml.cs">
       <DependentUpon>TrackerLogPage.xaml</DependentUpon>
     </Compile>
@@ -311,9 +309,6 @@
     </Compile>
     <Compile Include="Pages\Testimonial\TestimonialPage.xaml.cs">
       <DependentUpon>TestimonialPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Tracker\TrackerGalleryPage.xaml.cs">
-      <DependentUpon>TrackerGalleryPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\TrainingVideo\TrainingVideoPage.xaml.cs">
       <DependentUpon>TrainingVideoPage.xaml</DependentUpon>
@@ -368,7 +363,6 @@
     <Compile Include="Services\IMessageService.cs" />
     <Compile Include="Services\IInformationMessageServices.cs" />
     <Compile Include="Services\IMetaPivotService.cs" />
-    <Compile Include="Services\IMetaService.cs" />
     <Compile Include="Services\IMilestonePercentageService.cs" />
     <Compile Include="Services\IMilestoneService.cs" />
     <Compile Include="Services\INewsService.cs" />
@@ -377,11 +371,9 @@
     <Compile Include="Services\ISecureStorage.cs" />
     <Compile Include="Services\ITestimonialService.cs" />
     <Compile Include="Services\ITrackerPivotService.cs" />
-    <Compile Include="Services\ITrackerService.cs" />
     <Compile Include="Services\IUserMilestoneService.cs" />
     <Compile Include="Services\IUserPivotService.cs" />
     <Compile Include="Services\IUserPushTokenServices.cs" />
-    <Compile Include="Services\IUserService.cs" />
     <Compile Include="Services\IUserSettingService.cs" />
     <Compile Include="Services\IWeightVolumeService.cs" />
     <Compile Include="Services\IYoutubeDataServices.cs" />
@@ -391,7 +383,6 @@
     <Compile Include="Services\MenuServices.cs" />
     <Compile Include="Services\MessageService.cs" />
     <Compile Include="Services\MetaPivotService.cs" />
-    <Compile Include="Services\MetaService.cs" />
     <Compile Include="Services\MilestonePercentageService.cs" />
     <Compile Include="Services\MilestoneService.cs" />
     <Compile Include="Services\NewsService.cs" />
@@ -399,11 +390,9 @@
     <Compile Include="Services\ResourceService.cs" />
     <Compile Include="Services\TestimonialService.cs" />
     <Compile Include="Services\TrackerPivotService.cs" />
-    <Compile Include="Services\TrackerService.cs" />
     <Compile Include="Services\UserMilestoneService.cs" />
     <Compile Include="Services\UserPivotService.cs" />
     <Compile Include="Services\UserPushTokenServices.cs" />
-    <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\UserSettingService.cs" />
     <Compile Include="Services\WeightVolumeService.cs" />
     <Compile Include="Services\YoutubeDataServices.cs" />
@@ -755,12 +744,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Pages\Profile\PictureGalleryPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Pages\TrainingVideo\TrainingVideoPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
@@ -876,12 +859,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\HowItWorks\HowItWorksPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Pages\Tracker\TrackerGalleryPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

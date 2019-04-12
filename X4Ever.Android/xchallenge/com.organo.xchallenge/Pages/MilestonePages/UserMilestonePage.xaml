@@ -116,7 +116,7 @@
                   </StackLayout>
                 </Grid>
 
-                <Entry x:Name="entryTShirtSize" Text="{Binding ShirtSize, Mode=TwoWay}" Placeholder="{localization:Translate TShirtSize}" Style="{DynamicResource entryStyle}" />
+                <Entry x:Name="entryTShirtSize" Text="{Binding TShirtSize, Mode=TwoWay}" Placeholder="{localization:Translate TShirtSize}" Style="{DynamicResource entryStyle}" />
                 <Picker x:Name="pickerTShirtSize" Title="{localization:Translate SelectTShirtSize}" IsVisible="False"></Picker>
 
                 <Label Text="{localization:Translate TellUsAboutYourJourney}" Style="{DynamicResource labelStyleInfoHeading}" Margin="4,5,4,0" />

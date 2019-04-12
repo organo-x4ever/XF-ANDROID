@@ -38,11 +38,11 @@ namespace com.organo.xchallenge.Pages.Video
             }
             catch (Exception ex)
             {
-                new ExceptionHandler(TAG, ex);
+                var exceptionHandler = new ExceptionHandler(TAG, ex);
             }
         }
 
-        public async void Init()
+        private async void Init()
         {
             await App.Configuration.InitialAsync(this);
             NavigationPage.SetHasNavigationBar(this, false);

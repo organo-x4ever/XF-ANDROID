@@ -19,7 +19,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using com.organo.xchallenge.Converters;
 using com.organo.xchallenge.Extensions;
-using com.organo.xchallenge.Pages.MilestonePages;
 using Xamarin.Forms;
 using Entry = Microcharts.Entry;
 
@@ -40,7 +39,6 @@ namespace com.organo.xchallenge.ViewModels.Profile
             JoiningDate = string.Empty;
             TargetDate = string.Empty;
             DisplayDetailLink = TextResources.Details;
-            DisplayGalleryLink = TextResources.Gallery;
             Seperator = "|";
             YourGoal = YouLost = ToLoose = GaugeMin = GaugeCurrent = 0;
             GaugeMax = 100;
@@ -57,6 +55,7 @@ namespace com.organo.xchallenge.ViewModels.Profile
             UserDetail = new UserPivot();
             UserTrackers = new List<TrackerPivot>();
             UserTrackersDescending = new List<TrackerPivot>();
+            YourGoal = YouLostThisWeek = ToLoose = 0;
             WeightSubmitDetails = TextResources.Weight + " " + TextResources.Submit + " " + TextResources.Details;
             SetPageImageSize();
         }
@@ -76,24 +75,25 @@ namespace com.organo.xchallenge.ViewModels.Profile
                 UserDetail = await _userPivotService.GetFullAsync();
                 if (UserDetail == null)
                 {
-                    await App.LogoutAsync();
                     App.GoToAccountPage();
                     return;
                 }
 
-                UserTrackers = UserDetail.TrackerPivot.ToList();
                 UserGreeting = string.Format(TextResources.GreetingUser, UserDetail.DisplayName);
-                if (UserDetail.Achievement != null && UserDetail.Achievement.AchievementIcon != null)
+                if ((UserDetail.Achievement?.AchievementIcon ?? null) != null)
+                {
                     BadgeAchievedImage = ImageResizer.ResizeImage(DependencyService.Get<IMessage>()
-                            .GetResource(UserDetail.Achievement.AchievementIcon),
-                        _imageSizeBadge);
+                        .GetResource(UserDetail.Achievement.AchievementIcon), _imageSizeBadge);
+                }
+
                 JoiningDate = string.Format(CommonConstants.DATE_FORMAT_MMM_d_yyyy, UserDetail.UserRegistered);
                 double.TryParse(UserDetail.MetaPivot.WeightLossGoal, out double yourGoal);
                 YourGoal = yourGoal;
-                TargetDate = UserDetail.TargetDate;
+                TargetDate = UserDetail.TargetDate; // "Sunday, March 9, 2008"
 
-                var trackerFirst = UserDetail.TrackerPivot.OrderBy(t => t.ModifyDate).FirstOrDefault();
-                var trackerLast = UserDetail.TrackerPivot.OrderByDescending(t => t.ModifyDate).FirstOrDefault();
+                UserTrackers = UserDetail.TrackerPivot.ToList();
+                var trackerFirst = UserTrackers.OrderBy(t => t.ModifyDate).FirstOrDefault();
+                var trackerLast = UserTrackers.OrderBy(t => t.ModifyDate).LastOrDefault();
                 MilestoneRequired = trackerFirst == null;
                 if (trackerFirst != null && trackerLast != null)
                 {
@@ -106,13 +106,11 @@ namespace com.organo.xchallenge.ViewModels.Profile
                     ToLoose = (short) (YourGoal - YouLost);
                     ToLoose = (short) (ToLoose >= 0 ? ToLoose : 0);
 
-                    int.TryParse(trackerLast.RevisionNumber, out int revisionNumber);
-                    revisionNumber = (revisionNumber > 1 ? revisionNumber - 1 : 1);
-                    var trackerPrevious =
-                        UserDetail.TrackerPivot.FirstOrDefault(t => t.RevisionNumber == revisionNumber.ToString());
-                    if (trackerPrevious != null)
+                    if (UserTrackers.Count != 1)
                     {
-                        double.TryParse(trackerLast.CurrentWeight, out double previousWeight);
+                        double.TryParse(UserTrackers.OrderBy(t => t.ModifyDate)
+                                .LastOrDefault(t => t.RevisionNumber != trackerLast?.RevisionNumber)?.CurrentWeight,
+                            out double previousWeight);
                         YouLostThisWeek = (short) (previousWeight - lastWeight);
                     }
 
@@ -122,32 +120,28 @@ namespace com.organo.xchallenge.ViewModels.Profile
 
                 LoadGauge();
                 GetTrackerData();
-                if (showTracker)
-                    await GetTrackerInputAsync();
-            }
-            catch (Exception)
-            {
-                //
-            }
-        }
-
-        private async Task GetTrackerInputAsync()
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(1500));
-            if (MilestoneRequired)
-            {
-                Device.BeginInvokeOnMainThread(async () =>
+                if (showTracker && MilestoneRequired)
                 {
-                    await App.CurrentApp.MainPage.Navigation.PushModalAsync(
-                        new UserMilestonePage(Root, this));
-                });
+                    await Task.Delay(TimeSpan.FromMilliseconds(1500));
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        await App.CurrentApp.MainPage.Navigation.PushModalAsync(
+                            new Pages.MilestonePages.UserMilestonePage(Root, this));
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                var exceptionHandler = new ExceptionHandler(typeof(MyProfileViewModel).FullName, ex);
+                //
             }
         }
 
         private void LoadGauge()
         {
-            var trackerFirst = UserDetail.TrackerPivot.OrderBy(t => t.ModifyDate).FirstOrDefault();
-            var trackerLast = UserDetail.TrackerPivot.OrderByDescending(t => t.ModifyDate).FirstOrDefault();
+            // Gauge Values
+            var trackerFirst = UserTrackers.OrderBy(t => t.ModifyDate).FirstOrDefault();
+            var trackerLast = UserTrackers.OrderBy(t => t.ModifyDate).LastOrDefault();
             if (trackerFirst != null && trackerLast != null)
             {
                 double.TryParse(trackerFirst.CurrentWeight, out double firstCurrent);
@@ -320,8 +314,17 @@ namespace com.organo.xchallenge.ViewModels.Profile
             get { return displayDetailLink; }
             set { SetProperty(ref displayDetailLink, value, DisplayDetailLinkPropertyName); }
         }
+        
+        private string seperator;
+        public const string SeperatorPropertyName = "Seperator";
 
-        private Xamarin.Forms.Page TrackerPage => new TrackerLogPage(this); //new LogDetailPage(this); //new TrackerDetailPage(this);
+        public string Seperator
+        {
+            get { return seperator; }
+            set { SetProperty(ref seperator, value, SeperatorPropertyName); }
+        }
+
+        private Xamarin.Forms.Page TrackerPage => new TrackerLogPage(this);
         private bool showTrackerDetail;
         public const string ShowTrackerDetailPropertyName = "ShowTrackerDetail";
 
@@ -359,7 +362,7 @@ namespace com.organo.xchallenge.ViewModels.Profile
 
         public async Task HideTrackerDetailAsync()
         {
-            await Task.Delay(TimeSpan.FromSeconds(1));
+            await Task.Delay(TimeSpan.FromMilliseconds(200));
             Device.BeginInvokeOnMainThread(async () =>
             {
                 await App.CurrentApp.MainPage.Navigation.PopModalAsync();
@@ -367,64 +370,7 @@ namespace com.organo.xchallenge.ViewModels.Profile
         }
 
         /********** Tracker Content View : END **********/
-
-        /********** Tracker Gallery View : START **********/
-
-        private string seperator;
-        public const string SeperatorPropertyName = "Seperator";
-
-        public string Seperator
-        {
-            get { return seperator; }
-            set { SetProperty(ref seperator, value, SeperatorPropertyName); }
-        }
-
-        private string displayGalleryLink;
-        public const string DisplayGalleryLinkPropertyName = "DisplayGalleryLink";
-
-        public string DisplayGalleryLink
-        {
-            get { return displayGalleryLink; }
-            set { SetProperty(ref displayGalleryLink, value, DisplayGalleryLinkPropertyName); }
-        }
-
-        Xamarin.Forms.Page GalleryPage => new PictureGalleryPage(this);
-        private bool showGalleryDetail;
-        public const string ShowGalleryDetailPropertyName = "ShowGalleryDetail";
-
-        public bool ShowGalleryDetail
-        {
-            get { return showGalleryDetail; }
-            set
-            {
-                SetProperty(ref showGalleryDetail, value, ShowGalleryDetailPropertyName, ShowHideGalleryDetailAsync);
-            }
-        }
-
-        public async void ShowHideGalleryDetailAsync()
-        {
-            PopType = PopupType.None;
-            if (ShowGalleryDetail)
-                await ShowGalleryDetailAsync();
-            else
-                await HideGalleryDetailAsync();
-        }
-
-        public async Task ShowGalleryDetailAsync()
-        {
-            PopType = PopupType.Gallery;
-            UserTrackersDescending = new List<TrackerPivot>();
-            UserTrackersDescending = UserTrackers;
-            await PushModalAsync(GalleryPage);
-        }
-
-        public async Task HideGalleryDetailAsync()
-        {
-            await PopModalAsync();
-        }
-
-        /********** Tracker Gallery View : END **********/
-
+        
         /********** Profile Chart View : START **********/
 
         private void GetTrackerData()
@@ -445,9 +391,7 @@ namespace com.organo.xchallenge.ViewModels.Profile
                         tracker.BackgroundColor = Xamarin.Forms.Color.FromHex(ChartColor.GetString(index));
                         Entries.Add(new Entry((float) tracker.WeightLost)
                         {
-                            Label =
-                                tracker
-                                    .RevisionNumberDisplayShort, // tracker.ModifyDate.Day.ToString() + " " + tracker.ModifyDate.Month.ToMonthShortNameCapital(),
+                            Label = tracker.RevisionNumberDisplayShort,
                             ValueLabel = tracker.WeightLostDisplay.ToString(),
                             Color = barColor,
                             TextColor = barColor
@@ -469,45 +413,38 @@ namespace com.organo.xchallenge.ViewModels.Profile
                 {
                     await Task.Factory.StartNew(() =>
                     {
-                        try
+                        switch (chartType)
                         {
-                            switch (chartType)
-                            {
-                                case ChartType.DonutChart:
-                                    SetDonutChart();
-                                    break;
+                            case ChartType.DonutChart:
+                                SetDonutChart();
+                                break;
 
-                                case ChartType.LineChart:
-                                    SetLineChart(maxValue);
-                                    break;
+                            case ChartType.LineChart:
+                                SetLineChart(maxValue);
+                                break;
 
-                                case ChartType.PieChart:
-                                    SetPieChart();
-                                    break;
+                            case ChartType.PieChart:
+                                SetPieChart();
+                                break;
 
-                                case ChartType.PointChart:
-                                    SetPointChart(maxValue);
-                                    break;
+                            case ChartType.PointChart:
+                                SetPointChart(maxValue);
+                                break;
 
-                                case ChartType.RadarChart:
-                                    SetRadarChart();
-                                    break;
+                            case ChartType.RadarChart:
+                                SetRadarChart();
+                                break;
 
-                                case ChartType.RadialGaugeChart:
-                                    SetRadialGaugeChart();
-                                    break;
-                            }
-                        }
-                        catch (Exception exception)
-                        {
-                            new ExceptionHandler("MyProfileViewModel:SetChart()::" + chartType, exception);
+                            case ChartType.RadialGaugeChart:
+                                SetRadialGaugeChart();
+                                break;
                         }
                     });
                 });
             }
             catch (Exception ex)
             {
-                new ExceptionHandler("MyProfileViewModel:SetChart()", ex);
+                var exceptionHandler = new ExceptionHandler(typeof(MyProfileViewModel).FullName, ex);
             }
         }
 
@@ -518,9 +455,9 @@ namespace com.organo.xchallenge.ViewModels.Profile
                 ChartData = new DonutChart()
                 {
                     Entries = Entries,
-                    AnimationDuration = new TimeSpan(AnimationTime),
+                    AnimationDuration = AnimationTime,
                     IsAnimated = true,
-                    BackgroundColor = BackgroundColor
+                    BackgroundColor = ChartBackgroundColor
                 };
             });
         }
@@ -532,14 +469,14 @@ namespace com.organo.xchallenge.ViewModels.Profile
                 ChartData = new LineChart()
                 {
                     Entries = Entries,
-                    AnimationDuration = new TimeSpan(AnimationTime),
+                    AnimationDuration = AnimationTime,
                     IsAnimated = true,
                     LabelOrientation = Orientation.Horizontal,
                     PointMode = PointMode.Circle,
                     ValueLabelOrientation = Orientation.Vertical,
                     MinValue = 0,
                     MaxValue = (float) maxValue,
-                    BackgroundColor = BackgroundColor
+                    BackgroundColor = ChartBackgroundColor
                 };
             });
         }
@@ -551,9 +488,9 @@ namespace com.organo.xchallenge.ViewModels.Profile
                 ChartData = new PieChart()
                 {
                     Entries = Entries,
-                    AnimationDuration = new TimeSpan(AnimationTime),
+                    AnimationDuration = AnimationTime,
                     IsAnimated = true,
-                    BackgroundColor = BackgroundColor
+                    BackgroundColor = ChartBackgroundColor
                 };
             });
         }
@@ -565,14 +502,14 @@ namespace com.organo.xchallenge.ViewModels.Profile
                 ChartData = new PointChart()
                 {
                     Entries = Entries,
-                    AnimationDuration = new TimeSpan(AnimationTime),
+                    AnimationDuration = AnimationTime,
                     IsAnimated = true,
                     LabelOrientation = Orientation.Horizontal,
                     PointMode = PointMode.Square,
                     ValueLabelOrientation = Orientation.Vertical,
                     MinValue = 0,
                     MaxValue = (float) maxValue,
-                    BackgroundColor = BackgroundColor
+                    BackgroundColor = ChartBackgroundColor
                 };
             });
         }
@@ -584,9 +521,9 @@ namespace com.organo.xchallenge.ViewModels.Profile
                 ChartData = new RadarChart()
                 {
                     Entries = Entries,
-                    AnimationDuration = new TimeSpan(AnimationTime),
+                    AnimationDuration = AnimationTime,
                     IsAnimated = true,
-                    BackgroundColor = BackgroundColor
+                    BackgroundColor = ChartBackgroundColor
                 };
             });
         }
@@ -598,17 +535,15 @@ namespace com.organo.xchallenge.ViewModels.Profile
                 ChartData = new RadialGaugeChart()
                 {
                     Entries = Entries,
-                    AnimationDuration = new TimeSpan(AnimationTime),
+                    AnimationDuration = AnimationTime,
                     IsAnimated = true,
-                    BackgroundColor = BackgroundColor
+                    BackgroundColor = ChartBackgroundColor
                 };
             });
         }
 
-        protected long AnimationTime => Milliseconds;
-        protected long Tick => 10000;
-        protected long Milliseconds => 1000;
-        protected long Seconds => 2;
+        private TimeSpan AnimationTime => TimeSpan.FromMilliseconds(1000);
+        private SKColor ChartBackgroundColor => SKColor.Parse("00F9F9F9");
 
         private string chartTypeDisplay;
         public const string ChartTypeDisplayPropertyName = "ChartTypeDisplay";
@@ -705,8 +640,6 @@ namespace com.organo.xchallenge.ViewModels.Profile
             set { SetProperty(ref _weightSubmitDetails, value, WeightSubmitDetailsPropertyName); }
         }
 
-        public SKColor BackgroundColor => ChartColor.Get(0);
-
         public double _gaugeMin;
         private const string GaugeMinPropertyName = "GaugeMin";
 
@@ -783,8 +716,6 @@ namespace com.organo.xchallenge.ViewModels.Profile
                                    ShowTrackerDetail = false;
                                    ShowHideTrackerDetailAsync();
                                }
-                               else if (PopType == PopupType.Gallery)
-                                   ShowGalleryDetail = false;
 
                                PopType = PopupType.None;
                            }));

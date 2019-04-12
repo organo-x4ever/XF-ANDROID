@@ -50,12 +50,12 @@ namespace com.organo.xchallenge.Globals
                 }
                 else
                 {
-                    new ExceptionHandler(typeof(Media).FullName + ".PickPhotoAsync()", "Pick Photo Not Supported");
+                    var exceptionHandler = new ExceptionHandler(typeof(Media).FullName + ".PickPhotoAsync()", "Pick Photo Not Supported");
                 }
             }
             catch (Exception ex)
             {
-                new ExceptionHandler(typeof(Media).FullName + ".PickPhotoAsync()", ex);
+                var exceptionHandler = new ExceptionHandler(typeof(Media).FullName + ".PickPhotoAsync()", ex);
             }
 
             Message = TextResources.NoPickPhotoAvailable;
@@ -90,12 +90,12 @@ namespace com.organo.xchallenge.Globals
                 }
                 else
                 {
-                    new ExceptionHandler(typeof(Media).FullName + ".TakePhotoAsync()", "Take Photo Not Supported ");
+                    var exceptionHandler = new ExceptionHandler(typeof(Media).FullName + ".TakePhotoAsync()", "Take Photo Not Supported ");
                 }
             }
             catch (Exception ex)
             {
-                new ExceptionHandler(typeof(Media).FullName + ".TakePhotoAsync()", ex);
+                var exceptionHandler = new ExceptionHandler(typeof(Media).FullName + ".TakePhotoAsync()", ex);
             }
 
             Message = TextResources.NoPickPhotoAvailable;

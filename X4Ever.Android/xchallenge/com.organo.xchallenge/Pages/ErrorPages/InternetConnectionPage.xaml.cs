@@ -23,7 +23,7 @@ namespace com.organo.xchallenge.Pages.ErrorPages
             }
             catch (Exception ex)
             {
-                new ExceptionHandler(TAG, ex);
+                var exceptionHandler = new ExceptionHandler(TAG, ex);
             }
         }
 

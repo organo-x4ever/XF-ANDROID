@@ -37,6 +37,7 @@ namespace com.organo.xchallenge.Globals
         Task GetConnectionInfoAsync();
         void GetConnectionInfo();
         Task SetImageAsync(string imageIdentity, string badgeImage);
+        void SetImage(string imageIdentity, string badgeImage);
         ImageSize GetImageSizeByID(string imageIdentity);
         Task<ImageSize> GetImageSizeByIDAsync(string imageIdentity);
         string GetApplication();

@@ -36,7 +36,7 @@ namespace com.organo.xchallenge.Pages.MainPage
             }
             catch (Exception ex)
             {
-                new ExceptionHandler(TAG, ex);
+                var exceptionHandler = new ExceptionHandler(TAG, ex);
             }
         }
 
@@ -150,7 +150,7 @@ namespace com.organo.xchallenge.Pages.MainPage
                     }
                     catch (Exception e)
                     {
-                        new ExceptionHandler(TAG, e);
+                        var exceptionHandler = new ExceptionHandler(TAG, e);
                     }
                 }
             }

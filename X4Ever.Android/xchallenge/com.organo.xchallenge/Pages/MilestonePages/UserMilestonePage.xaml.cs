@@ -1,17 +1,18 @@
-﻿using com.organo.xchallenge.Extensions;
+﻿
+using com.organo.xchallenge.Converters;
+using com.organo.xchallenge.Extensions;
 using com.organo.xchallenge.Globals;
 using com.organo.xchallenge.Localization;
 using com.organo.xchallenge.Pages.Base;
-using com.organo.xchallenge.Permissions;
 using com.organo.xchallenge.Services;
 using com.organo.xchallenge.Utilities;
-using com.organo.xchallenge.ViewModels.Milestones;
 using com.organo.xchallenge.ViewModels.Profile;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using com.organo.xchallenge.Converters;
+using com.organo.xchallenge.ViewModels.Milestones;
 using Xamarin.Forms;
+using com.organo.xchallenge.Permissions;
 
 namespace com.organo.xchallenge.Pages.MilestonePages
 {
@@ -56,7 +57,7 @@ namespace com.organo.xchallenge.Pages.MilestonePages
         {
             try
             {
-                pickerTShirtSize.ItemsSource = await _model.GetTShirtSizeList();
+                pickerTShirtSize.ItemsSource = _model.GetTShirtSizeList();
                 entryTShirtSize.Focused += (sender, e) =>
                 {
                     entryTShirtSize.Unfocus();
@@ -148,7 +149,7 @@ namespace com.organo.xchallenge.Pages.MilestonePages
                             localMessage = _media.Message;
                         else
                         {
-                            await Task.Run(() => { _model.SetActivityResource(false, true); });
+                            _model.SetActivityResource(false, true);
                             var response = await _media.UploadPhotoAsync(mediaFile);
                             if (response)
                             {
@@ -186,7 +187,7 @@ namespace com.organo.xchallenge.Pages.MilestonePages
                             localMessage = _media.Message;
                         else
                         {
-                            await Task.Run(() => { _model.SetActivityResource(false, true); });
+                            _model.SetActivityResource(false, true);
                             var response = await _media.UploadPhotoAsync(mediaFile);
                             if (response)
                             {

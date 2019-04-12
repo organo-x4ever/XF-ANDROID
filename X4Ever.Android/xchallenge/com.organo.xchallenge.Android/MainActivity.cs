@@ -184,7 +184,7 @@ namespace com.organo.xchallenge.Droid
             //Android.Util.Log.Error("Crash Report", errorMessage);
             // just suppress any error logging exceptions
             CollectionCrashReport(
-                $"Time: {DateTime.Now}\r\nError: Unhandled Exception\r\n{exception?.ToString() ?? ""}");
+                $"Time: {DateTime.Now}\r\nError: Unhandled Exception\r\n{exception?.ToString() ?? ""}Inner Exception: \r\n{exception?.InnerException?.ToString() ?? ""}");
         }
 
         //// If there is an unhandled exception, the exception information is diplayed 

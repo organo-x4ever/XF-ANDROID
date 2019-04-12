@@ -31,7 +31,7 @@ namespace com.organo.xchallenge.Pages.UserSettings
             }
             catch (Exception ex)
             {
-                new ExceptionHandler(typeof(UserSettingPage).FullName, ex);
+                var exceptionHandler = new ExceptionHandler(typeof(UserSettingPage).FullName, ex);
             }
         }
 

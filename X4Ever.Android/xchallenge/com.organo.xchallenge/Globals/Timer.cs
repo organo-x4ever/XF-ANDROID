@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using com.organo.xchallenge.Extensions;
 
 namespace com.organo.xchallenge.Globals
 {
@@ -16,7 +17,7 @@ namespace com.organo.xchallenge.Globals
             {
                 while (true)
                 {
-                    await Task.Delay(dueTimeMilliseconds);
+                    await Task.Delay(TimeSpan.FromMilliseconds(dueTimeMilliseconds));
                     callback();
                     await TimerAsync(Name, callback, dueTimeMilliseconds);
                 }

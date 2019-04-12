@@ -49,24 +49,24 @@ namespace com.organo.xchallenge.Pages.Account
             Initialization();
         }
 
-        private async void Initialization()
+        private void Initialization()
         {
             if (_user?.UserMetas?.Count > 0)
             {
                 //var age = _model.AgeValue;
                 //var weight = _converter.DisplayWeightVolume(_model.CurrentWeightValue);
                 //var weightLossGoal = _converter.DisplayWeightVolume(_model.WeightLossGoalValue);
-                if (short.TryParse(await _user.UserMetas?.ToList().Get(MetaEnum.age), out short age) && age > 0)
+                if (short.TryParse(_user.UserMetas?.ToList().Get(MetaEnum.age), out short age) && age > 0)
                     _model.AgeValue = age;
 
-                if (double.TryParse(await _user.UserMetas?.ToList().Get(MetaEnum.weighttolose),
+                if (double.TryParse(_user.UserMetas?.ToList().Get(MetaEnum.weighttolose),
                         out double weightLossGoal) && weightLossGoal > 0)
                     _model.WeightLossGoalValue = _converter.DisplayWeightVolume(weightLossGoal);
             }
 
             if (_user?.UserTrackers?.Count > 0)
             {
-                if (double.TryParse(await _user.UserTrackers?.ToList().Get(TrackerEnum.currentweight),
+                if (double.TryParse(_user.UserTrackers?.ToList().Get(TrackerEnum.currentweight),
                         out double weight) && weight > 0)
                     _model.CurrentWeightValue = _converter.DisplayWeightVolume(weight);
             }
@@ -76,36 +76,33 @@ namespace com.organo.xchallenge.Pages.Account
 
         private async Task NextStepAsync()
         {
-            await Task.Run(() =>
+            _model.SetActivityResource(false, true, busyMessage: TextResources.ProcessingPleaseWait);
+            if (Validate())
             {
-                _model.SetActivityResource(false, true, busyMessage: TextResources.ProcessingPleaseWait);
-            });
-            if (await Validate())
-            {
-                _user.UserMetas.Add(await _metaPivotService.AddMeta(_model.AgeValue.ToString(), MetaConstants.AGE,
+                _user.UserMetas.Add(_metaPivotService.AddMeta(_model.AgeValue.ToString(), MetaConstants.AGE,
                     MetaConstants.AGE, MetaConstants.LABEL));
-                var tracker = await _trackerPivotService.AddTracker(TrackerConstants.CURRENT_WEIGHT,
+                var tracker = _trackerPivotService.AddTracker(TrackerConstants.CURRENT_WEIGHT,
                     _model.CurrentWeightValue.ToString());
                 tracker.RevisionNumber = "10000";
                 _user.UserTrackers.Add(tracker);
 
-                tracker = await _trackerPivotService.AddTracker(TrackerConstants.CURRENT_WEIGHT_UI,
+                tracker = _trackerPivotService.AddTracker(TrackerConstants.CURRENT_WEIGHT_UI,
                     _model.CurrentWeightValue.ToString());
                 tracker.RevisionNumber = "10000";
                 _user.UserTrackers.Add(tracker);
 
-                tracker = await _trackerPivotService.AddTracker(TrackerConstants.WEIGHT_VOLUME_TYPE,
+                tracker = _trackerPivotService.AddTracker(TrackerConstants.WEIGHT_VOLUME_TYPE,
                     App.Configuration.AppConfig.DefaultWeightVolume);
                 tracker.RevisionNumber = "10000";
                 _user.UserTrackers.Add(tracker);
 
-                _user.UserMetas.Add(await _metaPivotService.AddMeta(_model.WeightLossGoalValue.ToString(),
+                _user.UserMetas.Add(_metaPivotService.AddMeta(_model.WeightLossGoalValue.ToString(),
                     MetaConstants.WEIGHT_LOSS_GOAL, MetaConstants.WEIGHT_LOSS_GOAL, MetaConstants.LABEL));
 
-                _user.UserMetas.Add(await _metaPivotService.AddMeta(_model.WeightLossGoalValue.ToString(),
+                _user.UserMetas.Add(_metaPivotService.AddMeta(_model.WeightLossGoalValue.ToString(),
                     MetaConstants.WEIGHT_LOSS_GOAL_UI, MetaConstants.WEIGHT_LOSS_GOAL_UI, MetaConstants.LABEL));
 
-                _user.UserMetas.Add(await _metaPivotService.AddMeta(App.Configuration.AppConfig.DefaultWeightVolume,
+                _user.UserMetas.Add(_metaPivotService.AddMeta(App.Configuration.AppConfig.DefaultWeightVolume,
                     MetaConstants.WEIGHT_VOLUME_TYPE, MetaConstants.WEIGHT_VOLUME_TYPE, MetaConstants.LABEL));
 
                 var response = await _metaPivotService.SaveMetaStep2Async(_user.UserMetas);
@@ -124,39 +121,36 @@ namespace com.organo.xchallenge.Pages.Account
             }
         }
 
-        private async Task<bool> Validate()
+        private bool Validate()
         {
             ValidationErrors validationErrors = new ValidationErrors();
-            await Task.Run(() =>
-            {
-                if (_model.AgeValue == 0)
-                    validationErrors.Add(string.Format(TextResources.Required_IsMandatory, TextResources.YourAge));
-                else if (_model.AgeValue < App.Configuration.AppConfig.MINIMUM_AGE)
-                    validationErrors.Add(string.Format(TextResources.Validation_MustBeMoreThan, TextResources.YourAge,
-                        App.Configuration.AppConfig.MINIMUM_AGE));
+            if (_model.AgeValue == 0)
+                validationErrors.Add(string.Format(TextResources.Required_IsMandatory, TextResources.YourAge));
+            else if (_model.AgeValue < App.Configuration.AppConfig.MINIMUM_AGE)
+                validationErrors.Add(string.Format(TextResources.Validation_MustBeMoreThan, TextResources.YourAge,
+                    App.Configuration.AppConfig.MINIMUM_AGE));
 
-                if (_model.CurrentWeightValue == 0)
-                    validationErrors.Add(string.Format(TextResources.Required_IsMandatory,
-                        TextResources.YourCurrentWeight));
-                else if (_model.CurrentWeightValue <
-                         _converter.DisplayWeightVolume(App.Configuration.AppConfig.MINIMUM_CURRENT_WEIGHT_KG,
-                             App.Configuration.AppConfig.MINIMUM_CURRENT_WEIGHT_LB))
-                    validationErrors.Add(string.Format(TextResources.Validation_MustBeMoreThan,
-                        TextResources.YourCurrentWeight,
-                        _converter.DisplayWeightVolume(App.Configuration.AppConfig.MINIMUM_CURRENT_WEIGHT_KG,
-                            App.Configuration.AppConfig.MINIMUM_CURRENT_WEIGHT_LB)));
+            if (_model.CurrentWeightValue == 0)
+                validationErrors.Add(string.Format(TextResources.Required_IsMandatory,
+                    TextResources.YourCurrentWeight));
+            else if (_model.CurrentWeightValue <
+                     _converter.DisplayWeightVolume(App.Configuration.AppConfig.MINIMUM_CURRENT_WEIGHT_KG,
+                         App.Configuration.AppConfig.MINIMUM_CURRENT_WEIGHT_LB))
+                validationErrors.Add(string.Format(TextResources.Validation_MustBeMoreThan,
+                    TextResources.YourCurrentWeight,
+                    _converter.DisplayWeightVolume(App.Configuration.AppConfig.MINIMUM_CURRENT_WEIGHT_KG,
+                        App.Configuration.AppConfig.MINIMUM_CURRENT_WEIGHT_LB)));
 
-                if (_model.WeightLossGoalValue == 0)
-                    validationErrors.Add(
-                        string.Format(TextResources.Required_IsMandatory, TextResources.WeightLossGoal));
-                else if (_model.WeightLossGoalValue <
-                         _converter.DisplayWeightVolume(App.Configuration.AppConfig.MINIMUM_WEIGHT_LOSE_KG,
-                             App.Configuration.AppConfig.MINIMUM_WEIGHT_LOSE_LB))
-                    validationErrors.Add(string.Format(TextResources.Validation_MustBeMoreThan,
-                        TextResources.WeightLossGoal,
-                        _converter.DisplayWeightVolume(App.Configuration.AppConfig.MINIMUM_WEIGHT_LOSE_KG,
-                            App.Configuration.AppConfig.MINIMUM_WEIGHT_LOSE_LB)));
-            });
+            if (_model.WeightLossGoalValue == 0)
+                validationErrors.Add(
+                    string.Format(TextResources.Required_IsMandatory, TextResources.WeightLossGoal));
+            else if (_model.WeightLossGoalValue <
+                     _converter.DisplayWeightVolume(App.Configuration.AppConfig.MINIMUM_WEIGHT_LOSE_KG,
+                         App.Configuration.AppConfig.MINIMUM_WEIGHT_LOSE_LB))
+                validationErrors.Add(string.Format(TextResources.Validation_MustBeMoreThan,
+                    TextResources.WeightLossGoal,
+                    _converter.DisplayWeightVolume(App.Configuration.AppConfig.MINIMUM_WEIGHT_LOSE_KG,
+                        App.Configuration.AppConfig.MINIMUM_WEIGHT_LOSE_LB)));
             if (validationErrors.Count() > 0)
                 _model.SetActivityResource(showError: true,
                     errorMessage: validationErrors.Count() > 2

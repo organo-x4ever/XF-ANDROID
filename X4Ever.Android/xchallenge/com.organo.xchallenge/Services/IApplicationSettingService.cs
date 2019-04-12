@@ -9,7 +9,6 @@ namespace com.organo.xchallenge.Services
 {
     public interface IApplicationSettingService : IBaseService
     {
-        ApplicationSetting Get();
         Task<ApplicationSetting> GetAsync();
     }
 }

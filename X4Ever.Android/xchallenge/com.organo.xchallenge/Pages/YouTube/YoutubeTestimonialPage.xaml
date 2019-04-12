@@ -7,23 +7,28 @@
              x:Class="com.organo.xchallenge.Pages.YouTube.YoutubeTestimonialPage">
     <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
         <controls:TopBarAccountView></controls:TopBarAccountView>
-        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,-6,0,0">
-            <StackLayout Orientation="Vertical" Margin="0,10,0,5" HorizontalOptions="Center" IsVisible="{Binding IsEditable}">
-                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                    <Label Text="{Binding PlaylistCollectionType}" Style="{Binding PlaylistStyle}" VerticalOptions="End" IsVisible="{Binding PlaylistExists}">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding PlaylistCommand}" />
-                        </Label.GestureRecognizers>
-                    </Label>
-                    <Label Text="{Binding ChannelCollectionType}" Style="{Binding ChannelStyle}" VerticalOptions="End" IsVisible="{Binding ChannelExists}">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding ChannelCommand}" />
-                        </Label.GestureRecognizers>
-                    </Label>
-                </StackLayout>
-                <Label Text="{localization:Translate TapOnPhotoToWatchVideo}" Style="{DynamicResource labelStyleInfoHeading}" HorizontalOptions="Center" />
-            </StackLayout>
+        <StackLayout VerticalOptions="Start" HorizontalOptions="FillAndExpand" Margin="0,-6,0,0">
+            <Label Margin="0,15,0,0" Text="{localization:Translate MainTabs_Testimonials}" Style="{DynamicResource labelStyleXLargeHeader}" HorizontalOptions="Center" />
+        </StackLayout>
+        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <ListView x:Name="ListViewYouTube" ItemsSource="{Binding YoutubeItems}" HasUnevenRows="True" ItemTapped="ListViewOnItemTapped" IsVisible="{Binding IsEditable}" HorizontalOptions="FillAndExpand">
+                <ListView.Header>
+                    <StackLayout Orientation="Vertical" Margin="0,5,0,0" HorizontalOptions="Center" IsVisible="{Binding IsEditable}">
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                            <Label Text="{Binding PlaylistCollectionType}" Style="{Binding PlaylistStyle}" VerticalOptions="End" IsVisible="{Binding PlaylistExists}">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding PlaylistCommand}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Label Text="{Binding ChannelCollectionType}" Style="{Binding ChannelStyle}" VerticalOptions="End" IsVisible="{Binding ChannelExists}">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ChannelCommand}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </StackLayout>
+                        <Label Text="{localization:Translate TapOnPhotoToWatchVideo}" Style="{DynamicResource labelStyleInfoHeading}" HorizontalOptions="Center" />
+                    </StackLayout>
+                </ListView.Header>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -44,6 +49,9 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+                <ListView.Footer>
+                    <controls:FooterView></controls:FooterView>
+                </ListView.Footer>
             </ListView>
             <StackLayout Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
                 <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
@@ -52,6 +60,5 @@
                 <Label IsVisible="{Binding IsMessage}" Text="{Binding MessageText}" Style="{DynamicResource labelSuccessMessage}" />
             </StackLayout>
         </StackLayout>
-        <controls:FooterView></controls:FooterView>
     </StackLayout>
 </youTube:YoutubeTestimonialPageXaml>

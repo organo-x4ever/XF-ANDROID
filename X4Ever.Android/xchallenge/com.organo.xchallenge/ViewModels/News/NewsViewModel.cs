@@ -18,15 +18,13 @@ namespace com.organo.xchallenge.ViewModels.News
 
         public NewsViewModel(INavigation navigation = null) : base(navigation)
         {
-            NewsModels = new List<NewsModel>();
             _newsService = DependencyService.Get<INewsService>();
         }
 
         public async Task<List<NewsModel>> GetAsync()
         {
             var newsList = await _newsService.GetByLanguage(App.Configuration.AppConfig.DefaultLanguage, true);
-
-            NewsModels = (from n in newsList
+            return (from n in newsList
                 select new NewsModel()
                 {
                     Active = n.Active,
@@ -43,17 +41,6 @@ namespace com.organo.xchallenge.ViewModels.News
                     PostDate = n.PostDate,
                     PostedBy = n.PostedBy
                 }).OrderByDescending(n => n.PostDate).ToList();
-
-            return NewsModels;
-        }
-
-        private List<NewsModel> _newsModels;
-        public const string NewsModelsPropertyName = "NewsModels";
-
-        public List<NewsModel> NewsModels
-        {
-            get { return _newsModels; }
-            set { SetProperty(ref _newsModels, value, NewsModelsPropertyName); }
         }
     }
 }

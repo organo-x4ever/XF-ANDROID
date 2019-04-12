@@ -53,7 +53,7 @@ namespace com.organo.xchallenge.Pages.Splash
             }
             catch (Exception ex)
             {
-                new ExceptionHandler("SplashView.cs", ex);
+                var exceptionHandler = new ExceptionHandler("SplashView.cs", ex);
             }
         }
 

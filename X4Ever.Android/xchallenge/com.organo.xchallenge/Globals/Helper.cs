@@ -115,10 +115,7 @@ namespace com.organo.xchallenge.Globals
 
         public async Task<string> DatetimeStampAsync()
         {
-            var date = DateTime.Now;
-            var dateString = date.ToString();
-            await Task.Run(() => { dateString = date.ToString("yyyyMMddHHmmss"); });
-            return dateString;
+            return await Task.Factory.StartNew(() => DateTime.Now.ToString("yyyyMMddHHmmss"));
         }
 
         public string GetFilePath(string fileName, FileType fileType)

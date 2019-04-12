@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using com.organo.xchallenge.Controls;
+using com.organo.xchallenge.Extensions;
 using com.organo.xchallenge.Globals;
 using com.organo.xchallenge.Pages.Base;
 using com.organo.xchallenge.Services;
@@ -69,7 +70,7 @@ namespace com.organo.xchallenge.Pages.OGX
 
         async Task RemoveFile()
         {
-            await Task.Delay(3000);
+            await Task.Delay(TimeSpan.FromSeconds(3));
             await _fileDownloadService.RemoveFileAsync(_model.FileUri);
         }
 

@@ -35,7 +35,7 @@ namespace com.organo.xchallenge.Pages.Registration
             }
             catch (Exception ex)
             {
-                new ExceptionHandler(TAG, ex);
+                var exceptionHandler = new ExceptionHandler(TAG, ex);
             }
         }
 
@@ -84,7 +84,7 @@ namespace com.organo.xchallenge.Pages.Registration
 
         private async Task Register()
         {
-            await Task.Run(() => { _model.SetActivityResource(false, true); });
+            _model.SetActivityResource(false, true);
             if (Validate())
             {
                 var guid = Guid.NewGuid();

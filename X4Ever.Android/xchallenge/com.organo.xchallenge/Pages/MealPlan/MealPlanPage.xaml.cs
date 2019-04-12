@@ -33,11 +33,11 @@ namespace com.organo.xchallenge.Pages.MealPlan
             }
             catch (Exception ex)
             {
-                new ExceptionHandler(TAG, ex);
+                var exceptionHandler = new ExceptionHandler(TAG, ex);
             }
         }
 
-        protected async void Page_Load()
+        private async void Page_Load()
         {
             await this._model.UpdateMealOptionSelected(MealOptionSelected.FullMeals);
 

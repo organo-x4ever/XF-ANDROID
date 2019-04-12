@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using com.organo.xchallenge.Extensions;
 using com.organo.xchallenge.Handler;
 using Xamarin.Forms;
 
@@ -48,12 +49,12 @@ namespace com.organo.xchallenge.Effects.Control
                 {
                     if (App.Configuration.IsAnimationAllowed)
                         view.Scale = 0;
-                    ControlList.Add(new ControlEntity() { ControlView = view });
+                    ControlList.Add(new ControlEntity() {ControlView = view});
                 });
             }
             catch (Exception ex)
             {
-                new ExceptionHandler("Animation.cs", ex);
+                var exceptionHandler =  new ExceptionHandler("Animation.cs", ex);
             }
         }
 

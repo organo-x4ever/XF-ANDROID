@@ -25,7 +25,7 @@ namespace com.organo.xchallenge.Pages.News
             }
             catch (Exception ex)
             {
-                new ExceptionHandler(TAG, ex);
+                var exceptionHandler = new ExceptionHandler(TAG, ex);
             }
         }
 

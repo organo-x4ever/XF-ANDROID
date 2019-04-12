@@ -43,13 +43,13 @@ namespace com.organo.xchallenge.Pages.Account
 				await _model.GetCountryList();
                 if (_user.UserMetas != null && _user.UserMetas.Count > 0)
                 {
-                    _model.CountryName = await _user.UserMetas.ToList().Get(MetaEnum.country);
-                    _model.Address = await _user.UserMetas.ToList().Get(MetaEnum.address);
-                    _model.CityName = await _user.UserMetas.ToList().Get(MetaEnum.city);
-                    _model.PostalCode = await _user.UserMetas.ToList().Get(MetaEnum.postalcode);
+                    _model.CountryName = _user.UserMetas.ToList().Get(MetaEnum.country);
+                    _model.Address = _user.UserMetas.ToList().Get(MetaEnum.address);
+                    _model.CityName = _user.UserMetas.ToList().Get(MetaEnum.city);
+                    _model.PostalCode = _user.UserMetas.ToList().Get(MetaEnum.postalcode);
                     if (_model.CountryName != null && _model.CountryName.Trim().Length > 0)
                         _model.GetStateList(_model.CountryName);
-                    _model.StateName = await _user.UserMetas.ToList().Get(MetaEnum.state);
+                    _model.StateName = _user.UserMetas.ToList().Get(MetaEnum.state);
                 }
 
                 pickerCountry.ItemsSource = _model.CountryList;
@@ -116,17 +116,11 @@ namespace com.organo.xchallenge.Pages.Account
             _model.SetActivityResource(false, true, busyMessage: TextResources.ProcessingPleaseWait);
             if (Validate())
             {
-                _metas.Add(await _metaPivotService.AddMeta(_model.CountryName, MetaConstants.COUNTRY,
-                    MetaConstants.COUNTRY, MetaConstants.LABEL));
-
-                _metas.Add(await _metaPivotService.AddMeta(_model.Address, MetaConstants.ADDRESS,
-                    MetaConstants.ADDRESS, MetaConstants.LABEL));
-                _metas.Add(await _metaPivotService.AddMeta(_model.CityName, MetaConstants.CITY, MetaConstants.CITY,
-                    MetaConstants.LABEL));
-                _metas.Add(await _metaPivotService.AddMeta(_model.StateName, MetaConstants.STATE,
-                    MetaConstants.STATE, MetaConstants.LABEL));
-                _metas.Add(await _metaPivotService.AddMeta(_model.PostalCode, MetaConstants.POSTAL_CODE,
-                    MetaConstants.POSTAL_CODE, MetaConstants.LABEL));
+                _metas.Add(_metaPivotService.AddMeta(_model.CountryName, MetaConstants.COUNTRY, MetaConstants.COUNTRY, MetaConstants.LABEL));
+                _metas.Add(_metaPivotService.AddMeta(_model.Address, MetaConstants.ADDRESS, MetaConstants.ADDRESS, MetaConstants.LABEL));
+                _metas.Add(_metaPivotService.AddMeta(_model.CityName, MetaConstants.CITY, MetaConstants.CITY, MetaConstants.LABEL));
+                _metas.Add(_metaPivotService.AddMeta(_model.StateName, MetaConstants.STATE, MetaConstants.STATE, MetaConstants.LABEL));
+                _metas.Add(_metaPivotService.AddMeta(_model.PostalCode, MetaConstants.POSTAL_CODE, MetaConstants.POSTAL_CODE, MetaConstants.LABEL));
 
                 foreach (var meta in _metas)
                 {

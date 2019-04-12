@@ -21,7 +21,8 @@ namespace com.organo.xchallenge.ViewModels.Menu
         public MenuPageViewModel(INavigation navigation = null) : base(navigation)
         {
             _helper = DependencyService.Get<IHelper>();
-            ApplicationVersion = string.Format(TextResources.AppVersion, App.Configuration.AppConfig.ApplicationVersion);
+            ApplicationVersion =
+                string.Format(TextResources.AppVersion, App.Configuration.AppConfig.ApplicationVersion);
             User = App.CurrentUser.UserInfo;
         }
 
@@ -40,7 +41,7 @@ namespace com.organo.xchallenge.ViewModels.Menu
             }
             catch (Exception ex)
             {
-                new ExceptionHandler(typeof(MenuPageViewModel).FullName, ex);
+                var exceptionHandler = new ExceptionHandler(typeof(MenuPageViewModel).FullName, ex);
             }
         }
 
@@ -53,8 +54,9 @@ namespace com.organo.xchallenge.ViewModels.Menu
                 height = iconSize.Height;
                 width = iconSize.Width;
             }
-            
-            MenuItems = (from m in await DependencyService.Get<IMenuServices>().GetByApplicationAsync()
+
+            var menuItems = await DependencyService.Get<IMenuServices>().GetByApplicationAsync();
+            MenuItems = (from m in menuItems
                 select new HomeMenuItem
                 {
                     MenuTitle = _helper.GetResource(m.MenuTitle),
@@ -85,12 +87,9 @@ namespace com.organo.xchallenge.ViewModels.Menu
         public UserInfo User
         {
             get { return _user; }
-            set
-            {
-                SetProperty(ref _user, value, UserPropertyName);
-            }
+            set { SetProperty(ref _user, value, UserPropertyName); }
         }
-        
+
         private List<HomeMenuItem> _menuItems;
         public const string MenuItemsPropertyName = "MenuItems";
 

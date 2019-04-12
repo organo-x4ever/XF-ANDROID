@@ -9,6 +9,7 @@ using com.organo.xchallenge.ViewModels.Profile;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using com.organo.xchallenge.Extensions;
 using Xamarin.Forms;
 
 namespace com.organo.xchallenge.Pages.Profile
@@ -84,20 +85,15 @@ namespace com.organo.xchallenge.Pages.Profile
 
         private async Task UpdateProfileAsync()
         {
-            await Task.Run(() => { _model.SetActivityResource(false, true); });
-            if (await Validate())
+            _model.SetActivityResource(false, true);
+            if (Validate())
             {
                 List<Meta> metaList = new List<Meta>();
-                metaList.Add(await _metaPivotService.AddMeta(_model.CountryName, MetaConstants.COUNTRY, MetaConstants.COUNTRY,
-                    MetaConstants.LABEL));
-                metaList.Add(await _metaPivotService.AddMeta(_model.Address, MetaConstants.ADDRESS, MetaConstants.ADDRESS,
-                    MetaConstants.LABEL));
-                metaList.Add(await _metaPivotService.AddMeta(_model.CityName, MetaConstants.CITY, MetaConstants.CITY,
-                    MetaConstants.LABEL));
-                metaList.Add(await _metaPivotService.AddMeta(_model.StateName, MetaConstants.STATE, MetaConstants.STATE,
-                    MetaConstants.LABEL));
-                metaList.Add(await _metaPivotService.AddMeta(_model.PostalCode, MetaConstants.POSTAL_CODE,
-                    MetaConstants.POSTAL_CODE, MetaConstants.LABEL));
+                metaList.Add(_metaPivotService.AddMeta(_model.CountryName, MetaConstants.COUNTRY, MetaConstants.COUNTRY,MetaConstants.LABEL));
+                metaList.Add(_metaPivotService.AddMeta(_model.Address, MetaConstants.ADDRESS, MetaConstants.ADDRESS,MetaConstants.LABEL));
+                metaList.Add(_metaPivotService.AddMeta(_model.CityName, MetaConstants.CITY, MetaConstants.CITY,MetaConstants.LABEL));
+                metaList.Add(_metaPivotService.AddMeta(_model.StateName, MetaConstants.STATE, MetaConstants.STATE, MetaConstants.LABEL));
+                metaList.Add(_metaPivotService.AddMeta(_model.PostalCode, MetaConstants.POSTAL_CODE, MetaConstants.POSTAL_CODE, MetaConstants.LABEL));
                 var response = await _metaPivotService.SaveMetaAsync(metaList);
                 _model.SetActivityResource();
                 if (response == HttpConstants.SUCCESS)
@@ -109,22 +105,20 @@ namespace com.organo.xchallenge.Pages.Profile
             }
         }
 
-        private async Task<bool> Validate()
+        private bool Validate()
         {
             ValidationErrors validationErrors = new ValidationErrors();
-            await Task.Run(() =>
-            {
-                if (_model.CountryName == null || _model.CountryName.Trim().Length == 0)
-                    validationErrors.Add(string.Format(TextResources.Required_IsMandatory, TextResources.Country));
-                if (_model.Address == null || _model.Address.Trim().Length == 0)
-                    validationErrors.Add(string.Format(TextResources.Required_IsMandatory, TextResources.Address));
-                if (_model.CityName == null || _model.CityName.Trim().Length == 0)
-                    validationErrors.Add(string.Format(TextResources.Required_IsMandatory, TextResources.City));
-                if (_model.StateName == null || _model.StateName.Trim().Length == 0)
-                    validationErrors.Add(string.Format(TextResources.Required_IsMandatory, TextResources.State));
-                if (_model.PostalCode == null || _model.PostalCode.Trim().Length == 0)
-                    validationErrors.Add(string.Format(TextResources.Required_IsMandatory, TextResources.PostalCode));
-            });
+
+            if (_model.CountryName == null || _model.CountryName.Trim().Length == 0)
+                validationErrors.Add(string.Format(TextResources.Required_IsMandatory, TextResources.Country));
+            if (_model.Address == null || _model.Address.Trim().Length == 0)
+                validationErrors.Add(string.Format(TextResources.Required_IsMandatory, TextResources.Address));
+            if (_model.CityName == null || _model.CityName.Trim().Length == 0)
+                validationErrors.Add(string.Format(TextResources.Required_IsMandatory, TextResources.City));
+            if (_model.StateName == null || _model.StateName.Trim().Length == 0)
+                validationErrors.Add(string.Format(TextResources.Required_IsMandatory, TextResources.State));
+            if (_model.PostalCode == null || _model.PostalCode.Trim().Length == 0)
+                validationErrors.Add(string.Format(TextResources.Required_IsMandatory, TextResources.PostalCode));
             if (validationErrors.Count() > 0)
                 _model.SetActivityResource(showError: true,
                     errorMessage: validationErrors.Count() > 2

@@ -34,11 +34,6 @@ namespace com.organo.xchallenge.Services
             action?.Invoke();
         }
 
-        public async Task ActionAsync(Action action)
-        {
-            await Task.Run(() => { action?.Invoke(); });
-        }
-
         public bool Exit()
         {
             var timeDifference = DateTime.Now.CompareTo(_backPressPeriod.AddMilliseconds(timeDelay));
@@ -67,27 +62,6 @@ namespace com.organo.xchallenge.Services
             return true;
         }
 
-        public async Task<bool> ExitAsync()
-        {
-            if (DateTime.Now.CompareTo(_backPressPeriod.AddMilliseconds(timeDelay)) >= 0)
-            {
-                App.CurrentApp.Quit();
-                return false;
-            }
-            else
-            {
-                //https://github.com/EgorBo/Toasts.Forms.Plugin
-                var result = await _notificator.Notify(new NotificationOptions()
-                {
-                    Title = TextResources.MessagePressBackTwiceToExitTitle,
-                    Description = TextResources.MessagePressBackTwiceToExit,
-                });
-            }
-
-            _backPressPeriod = DateTime.Now;
-            return true;
-        }
-
         public void ExitWarning()
         {
             //https://github.com/EgorBo/Toasts.Forms.Plugin
@@ -106,29 +80,6 @@ namespace com.organo.xchallenge.Services
                 }
             });
             // "#F99D1C",
-        }
-
-        public async Task ExitWarningAsync()
-        {
-            await Task.Run(() =>
-            {
-                //https://github.com/EgorBo/Toasts.Forms.Plugin
-                ShowNotification(new NotificationOptions()
-                {
-                    Title = TextResources.MessagePressBackTwiceToExitTitle,
-                    Description = TextResources.MessageTapHereToExit,
-                    IsClickable = true,
-                    WindowsOptions = new WindowsOptions() {LogoUri = "logo.png"},
-                    ClearFromHistory = false,
-                    AllowTapInNotificationCenter = false,
-                    AndroidOptions = new AndroidOptions()
-                    {
-                        HexColor = "#" + Palette._MainAccent.ToString(),
-                        ForceOpenAppOnNotificationTap = true
-                    }
-                });
-                // "#F99D1C",
-            });
         }
 
         private void ShowNotification(NotificationOptions options)
@@ -152,17 +103,6 @@ namespace com.organo.xchallenge.Services
             return Exit();
         }
 
-        public async Task<bool> RedirectAsync(Page page)
-        {
-            if (page != null)
-            {
-                App.CurrentApp.MainPage = page;
-                return true;
-            }
-
-            return await ExitAsync();
-        }
-
         public bool Redirect(RootPage root, MenuType? menuType)
         {
             if (menuType != null)
@@ -172,18 +112,6 @@ namespace com.organo.xchallenge.Services
             }
 
             return Exit();
-        }
-
-        public async Task<bool> RedirectAsync(RootPage root, MenuType? menuType)
-        {
-
-            if (menuType != null)
-            {
-                await root.NavigateAsync((MenuType) menuType, true);
-                return true;
-            }
-
-            return await ExitAsync();
         }
 
         public bool Redirect(RootPage root)
@@ -196,18 +124,6 @@ namespace com.organo.xchallenge.Services
             }
 
             return Exit();
-        }
-
-        public async Task<bool> RedirectAsync(RootPage root)
-        {
-            var lastPage = root?.VisitedPages.GetPreviousMenuType();
-            if (lastPage != null)
-            {
-                await root.NavigateAsync(lastPage.MenuType, true);
-                return true;
-            }
-
-            return await ExitAsync();
         }
 
         public void ExitFinal()

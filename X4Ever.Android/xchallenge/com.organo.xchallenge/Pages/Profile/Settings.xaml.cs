@@ -25,7 +25,7 @@ namespace com.organo.xchallenge.Pages.Profile
             }
             catch (Exception ex)
             {
-                new ExceptionHandler("Settings.xaml.cs", ex);
+                var exceptionHandler = new ExceptionHandler("Settings.xaml.cs", ex);
             }
         }
 

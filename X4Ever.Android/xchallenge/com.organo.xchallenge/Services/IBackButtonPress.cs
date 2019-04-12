@@ -12,16 +12,10 @@ namespace com.organo.xchallenge.Services
     {
         void ExitFinal();
         bool Exit();
-        Task<bool> ExitAsync();
         void ExitWarning();
-        Task ExitWarningAsync();
         void Action(Action action);
-        Task ActionAsync(Action action);
         bool Redirect(Page page);
-        Task<bool> RedirectAsync(Page page);
         bool Redirect(RootPage root, MenuType? menuType);
-        Task<bool> RedirectAsync(RootPage root, MenuType? menuType);
         bool Redirect(RootPage root);
-        Task<bool> RedirectAsync(RootPage root);
     }
 }

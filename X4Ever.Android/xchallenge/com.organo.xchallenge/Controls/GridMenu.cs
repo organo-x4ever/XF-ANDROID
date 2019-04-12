@@ -11,26 +11,6 @@ namespace com.organo.xchallenge.Controls
 {
     public class GridMenu : Grid
     {
-        //public string ApplicationVersion
-        //{
-        //    get => (string) GetValue(ApplicationVersionProperty);
-        //    set => SetValue(ApplicationVersionProperty, value);
-        //}
-
-        //public static readonly BindableProperty ApplicationVersionProperty = BindableProperty.Create(
-        //    nameof(ApplicationVersion),
-        //    typeof(string), typeof(GridMenu), null, BindingMode.OneWay, null);
-
-        //public RootPage RootPage
-        //{
-        //    get => (RootPage) GetValue(RootPageProperty);
-        //    set => SetValue(RootPageProperty, value);
-        //}
-
-        //public static readonly BindableProperty RootPageProperty = BindableProperty.Create(
-        //    nameof(RootPage),
-        //    typeof(RootPage), typeof(GridMenu), null, BindingMode.OneWay, null);
-
         public List<HomeMenuItem> Source
         {
             get => (List<HomeMenuItem>) GetValue(SourceProperty);
@@ -50,7 +30,7 @@ namespace com.organo.xchallenge.Controls
             handler?.Invoke(this, e);
         }
 
-        public async Task Rebind(object sender, List<HomeMenuItem> menuItems) =>
+        public void Rebind(object sender, List<HomeMenuItem> menuItems) =>
             OnGridMenuChanged((BindableObject) sender, null, menuItems);
 
         private static async void OnGridMenuChanged(BindableObject bindable, object oldValue, object newValue)

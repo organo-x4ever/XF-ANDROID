@@ -334,6 +334,15 @@ namespace com.organo.xchallenge.Globals
             });
         }
 
+        public void SetImage(string imageIdentity, string badgeImage)
+        {
+            var imageSize = GetImageSizeByID(imageIdentity);
+            if (imageSize != null)
+            {
+                imageSize.ImageName = badgeImage;
+            }
+        }
+
         public string GetApplication()
         {
             return App.CurrentUser?.UserInfo?.UserApplication ?? "";
