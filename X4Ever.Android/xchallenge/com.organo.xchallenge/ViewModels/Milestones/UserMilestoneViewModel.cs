@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using com.organo.xchallenge.Converters;
+﻿using com.organo.xchallenge.Converters;
 using com.organo.xchallenge.Extensions;
 using com.organo.xchallenge.Globals;
 using com.organo.xchallenge.Helpers;
@@ -11,12 +6,16 @@ using com.organo.xchallenge.Localization;
 using com.organo.xchallenge.Models;
 using com.organo.xchallenge.Models.User;
 using com.organo.xchallenge.Models.Validation;
-using com.organo.xchallenge.Pages;
 using com.organo.xchallenge.Services;
 using com.organo.xchallenge.Statics;
 using com.organo.xchallenge.Utilities;
 using com.organo.xchallenge.ViewModels.Base;
 using com.organo.xchallenge.ViewModels.Profile;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace com.organo.xchallenge.ViewModels.Milestones
@@ -118,7 +117,7 @@ namespace com.organo.xchallenge.ViewModels.Milestones
                     var miles = MilestoneExtended.Milestones.ToList();
                     foreach (var mile in miles)
                     {
-                        mile.TargetValue = (int) _converter.DisplayWeightVolume(mile.TargetValue);
+                        mile.TargetValue = (int)_converter.DisplayWeightVolume(mile.TargetValue);
                         Milestones.Add(mile);
                     }
                 }
@@ -145,12 +144,12 @@ namespace com.organo.xchallenge.ViewModels.Milestones
 
             SliderCurrentWeight.ValueChanged += (sender, e) =>
             {
-                if ((short) e.NewValue < _converter.DisplayWeightVolume(
+                if ((short)e.NewValue < _converter.DisplayWeightVolume(
                         App.Configuration.AppConfig.MINIMUM_WEIGHT_LOSE_KG,
                         App.Configuration.AppConfig.MINIMUM_WEIGHT_LOSE_LB))
                     SliderCurrentWeight.Value = CurrentWeightValue;
                 else
-                    CurrentWeightValue = (short) e.NewValue;
+                    CurrentWeightValue = (short)e.NewValue;
             };
         }
 
@@ -169,7 +168,7 @@ namespace com.organo.xchallenge.ViewModels.Milestones
 
         public List<string> GetTShirtSizeList()
         {
-            TShirtSizeList =  TextResources.TShirtSizes.Split(',').ToList();
+            TShirtSizeList = TextResources.TShirtSizes.Split(',').ToList();
             return TShirtSizeList;
         }
 

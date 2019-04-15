@@ -1,11 +1,12 @@
 ﻿
+using com.organo.xchallenge.Converters;
+using com.organo.xchallenge.Extensions;
 using com.organo.xchallenge.Globals;
 using com.organo.xchallenge.Handler;
 using com.organo.xchallenge.Helpers;
 using com.organo.xchallenge.Localization;
 using com.organo.xchallenge.Models;
 using com.organo.xchallenge.Models.User;
-using com.organo.xchallenge.Pages;
 using com.organo.xchallenge.Pages.Profile;
 using com.organo.xchallenge.Services;
 using com.organo.xchallenge.Statics;
@@ -17,8 +18,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using com.organo.xchallenge.Converters;
-using com.organo.xchallenge.Extensions;
 using Xamarin.Forms;
 using Entry = Microcharts.Entry;
 
@@ -30,7 +29,7 @@ namespace com.organo.xchallenge.ViewModels.Profile
         private readonly ITrackerPivotService _trackerPivotService;
         private readonly ImageSize _imageSizeBadge;
         private readonly PoundToKiligramConverter _converter = new PoundToKiligramConverter();
-        
+
         public MyProfileViewModel(Xamarin.Forms.INavigation navigation = null) : base(navigation)
         {
             _userPivotService = DependencyService.Get<IUserPivotService>();
@@ -102,16 +101,16 @@ namespace com.organo.xchallenge.ViewModels.Profile
                     Weight = StartWeight;
                     WeightLossGoal = YourGoal;
                     double.TryParse(trackerLast.CurrentWeight, out double lastWeight);
-                    YouLost = (short) (StartWeight - lastWeight);
-                    ToLoose = (short) (YourGoal - YouLost);
-                    ToLoose = (short) (ToLoose >= 0 ? ToLoose : 0);
+                    YouLost = (short)(StartWeight - lastWeight);
+                    ToLoose = (short)(YourGoal - YouLost);
+                    ToLoose = (short)(ToLoose >= 0 ? ToLoose : 0);
 
                     if (UserTrackers.Count != 1)
                     {
                         double.TryParse(UserTrackers.OrderBy(t => t.ModifyDate)
                                 .LastOrDefault(t => t.RevisionNumber != trackerLast?.RevisionNumber)?.CurrentWeight,
                             out double previousWeight);
-                        YouLostThisWeek = (short) (previousWeight - lastWeight);
+                        YouLostThisWeek = (short)(previousWeight - lastWeight);
                     }
 
                     // Milestone Requirement Check
@@ -147,7 +146,7 @@ namespace com.organo.xchallenge.ViewModels.Profile
                 double.TryParse(trackerFirst.CurrentWeight, out double firstCurrent);
                 double.TryParse(trackerLast.CurrentWeight, out double lastCurrent);
                 var gaugeCurrent = firstCurrent - lastCurrent;
-                GaugeCurrentConstant = (gaugeCurrent * 100) / (double) YourGoal;
+                GaugeCurrentConstant = (gaugeCurrent * 100) / (double)YourGoal;
                 GaugeCurrent = GaugeCurrentConstant > 100 ? 100 : GaugeCurrentConstant;
                 ChangeSliderValue(SliderGaugeModel, GaugeCurrent, 6);
             }
@@ -161,7 +160,7 @@ namespace com.organo.xchallenge.ViewModels.Profile
             get { return _sliderGaugeModel; }
             set { SetProperty(ref _sliderGaugeModel, value, SliderGaugeModelPropertyName); }
         }
-        
+
         // Find :: CHANGED
         public async void ChangeSliderValue(Slider slider, double newValue, short delay = 3)
         {
@@ -182,7 +181,7 @@ namespace com.organo.xchallenge.ViewModels.Profile
             get { return userDetail; }
             set { SetProperty(ref userDetail, value, UserDetailPropertyName); }
         }
-        
+
         private double trackerWeightValue = 0;
         public const string TrackerWeightValuePropertyName = "TrackerWeightValue";
 
@@ -314,7 +313,7 @@ namespace com.organo.xchallenge.ViewModels.Profile
             get { return displayDetailLink; }
             set { SetProperty(ref displayDetailLink, value, DisplayDetailLinkPropertyName); }
         }
-        
+
         private string seperator;
         public const string SeperatorPropertyName = "Seperator";
 
@@ -370,7 +369,7 @@ namespace com.organo.xchallenge.ViewModels.Profile
         }
 
         /********** Tracker Content View : END **********/
-        
+
         /********** Profile Chart View : START **********/
 
         private void GetTrackerData()
@@ -389,7 +388,7 @@ namespace com.organo.xchallenge.ViewModels.Profile
                         double.TryParse(tracker.CurrentWeight, out double currentWeight);
                         tracker.WeightLost = StartWeight - currentWeight;
                         tracker.BackgroundColor = Xamarin.Forms.Color.FromHex(ChartColor.GetString(index));
-                        Entries.Add(new Entry((float) tracker.WeightLost)
+                        Entries.Add(new Entry((float)tracker.WeightLost)
                         {
                             Label = tracker.RevisionNumberDisplayShort,
                             ValueLabel = tracker.WeightLostDisplay.ToString(),
@@ -475,7 +474,7 @@ namespace com.organo.xchallenge.ViewModels.Profile
                     PointMode = PointMode.Circle,
                     ValueLabelOrientation = Orientation.Vertical,
                     MinValue = 0,
-                    MaxValue = (float) maxValue,
+                    MaxValue = (float)maxValue,
                     BackgroundColor = ChartBackgroundColor
                 };
             });
@@ -508,7 +507,7 @@ namespace com.organo.xchallenge.ViewModels.Profile
                     PointMode = PointMode.Square,
                     ValueLabelOrientation = Orientation.Vertical,
                     MinValue = 0,
-                    MaxValue = (float) maxValue,
+                    MaxValue = (float)maxValue,
                     BackgroundColor = ChartBackgroundColor
                 };
             });
@@ -686,7 +685,7 @@ namespace com.organo.xchallenge.ViewModels.Profile
             get { return _badgeAchievedImage; }
             set { SetProperty(ref _badgeAchievedImage, value, BadgeAchievedImagePropertyName); }
         }
-        
+
         private ICommand _badgeHintShowCommand;
 
         public ICommand BadgeHintShowCommand

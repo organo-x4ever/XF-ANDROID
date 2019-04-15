@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<docs>
+  <members name="gridTracker">
+    <GridTracker>
+      <summary>
+        This class is inherited from Grid element to display Trackers information.
+        It will take Source data and manipulate it accordingly and send to user's screen as popup window.
+      </summary>
+      <remarks>
+        <para>Send TrackerPivot list object as Source</para>
+        <para>Also MyProfileViewModel object to close popup window and updated required properties.</para>
+      </remarks>
+    </GridTracker>
+    <Constructor>
+      <summary>
+        GridTracker class constructor.
+      </summary>
+    </Constructor>
+    <Source>
+      <summary>
+        Source is an instance of TrackerPivot list class object.
+      </summary>
+    </Source>
+    <ProfileModel>
+      <summary>
+        ProfileModel is an instance of MyProfileViewModel class object.
+      </summary>
+    </ProfileModel>
+    <CloseAction>
+      <summary>
+        Set CloseAction property with method and it will be executed on close event.
+      </summary>
+    </CloseAction>
+    <OnGridTrackerChanged>
+      <summary>
+        This function is triggered when Source object updated.
+      </summary>
+      <remarks>
+        <para>OnGridTrackerChanged function is called on Source update and manipulate it, send code to user's screen as popup window.</para>
+      </remarks>
+      <param name="bindable">This class object is set here.</param>
+      <param name="oldValue">Old Source object already on screen. (if any)</param>
+      <param name="newValue">New Source object to update on screen.</param>
+    </OnGridTrackerChanged>
+  </members>
+</docs>

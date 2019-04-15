@@ -34,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Animated\AnimatedButton.cs" />
@@ -647,6 +648,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="docs.xml" />
     <Content Include="Helpers\CrossPushNotificationListener.txt" />
     <Content Include="Microcharts\package-installs.txt" />
     <Content Include="PluginsHelp\ConnectivityReadme.txt" />

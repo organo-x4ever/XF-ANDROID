@@ -13,15 +13,18 @@ using Xamarin.Forms;
 
 namespace com.organo.xchallenge.Controls
 {
-        public class GridTracker : Grid
+    /// <include file='docs.xml' path='[@name="gridTracker"]/GridTracker/*'/>
+    public class GridTracker : Grid
     {
         private ITrackerPivotService _trackerPivotService;
 
+        /// <include file='docs.xml' path='[@name="gridTracker"]/Constructor/*'/>
         public GridTracker()
         {
             _trackerPivotService = DependencyService.Get<ITrackerPivotService>();
         }
 
+        /// <include file='docs.xml' path='[@name="gridTracker"]/Source/*'/>
         public List<TrackerPivot> Source
         {
             get => (List<TrackerPivot>) GetValue(SourceProperty);
@@ -31,6 +34,7 @@ namespace com.organo.xchallenge.Controls
         public static readonly BindableProperty SourceProperty = BindableProperty.Create(nameof(Source),
             typeof(List<TrackerPivot>), typeof(GridTracker), null, BindingMode.TwoWay, null, OnGridTrackerChanged);
 
+        /// <include file='docs.xml' path='[@name="gridTracker"]/ProfileModel/*'/>
         public MyProfileViewModel ProfileModel
         {
             get => (MyProfileViewModel) GetValue(ProfileModelProperty);
@@ -40,6 +44,7 @@ namespace com.organo.xchallenge.Controls
         public static readonly BindableProperty ProfileModelProperty = BindableProperty.Create(nameof(ProfileModel),
             typeof(MyProfileViewModel), typeof(GridTracker), null, BindingMode.OneWay, null);
 
+        /// <include file='docs.xml' path='[@name="gridTracker"]/CloseAction/*'/>
         public Action CloseAction
         {
             get => (Action) GetValue(CloseActionProperty);
@@ -49,6 +54,7 @@ namespace com.organo.xchallenge.Controls
         public static readonly BindableProperty CloseActionProperty = BindableProperty.Create(nameof(CloseAction),
             typeof(Action), typeof(GridTracker), null, BindingMode.TwoWay, null);
 
+        /// <include file='docs.xml' path='[@name="gridTracker"]/OnGridTrackerChanged/*'/>
         private static void OnGridTrackerChanged(BindableObject bindable, object oldValue, object newValue)
         {
             var control = (GridTracker) bindable;
