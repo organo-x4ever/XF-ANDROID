@@ -25,20 +25,15 @@
         }
       ],
       "services": {
+        "analytics_service": {
+          "status": 1
+        },
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "738422998101-nv2el3o1t9poa893b7td92aho2aahide.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "738422998101-h1k1sps50u2e7edc5e1fo5l4g4611gb0.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.organo.x4ever.iOS"
-              }
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
         }
       }
     },
@@ -61,20 +56,15 @@
         }
       ],
       "services": {
+        "analytics_service": {
+          "status": 1
+        },
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "738422998101-nv2el3o1t9poa893b7td92aho2aahide.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "738422998101-h1k1sps50u2e7edc5e1fo5l4g4611gb0.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.organo.x4ever.iOS"
-              }
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
         }
       }
     },
@@ -97,20 +87,15 @@
         }
       ],
       "services": {
+        "analytics_service": {
+          "status": 1
+        },
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "738422998101-nv2el3o1t9poa893b7td92aho2aahide.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "738422998101-h1k1sps50u2e7edc5e1fo5l4g4611gb0.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.organo.x4ever.iOS"
-              }
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
         }
       }
     },
@@ -133,20 +118,15 @@
         }
       ],
       "services": {
+        "analytics_service": {
+          "status": 1
+        },
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "738422998101-nv2el3o1t9poa893b7td92aho2aahide.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "738422998101-h1k1sps50u2e7edc5e1fo5l4g4611gb0.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.organo.x4ever.iOS"
-              }
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
         }
       }
     }
