@@ -587,7 +587,6 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="platform\android\google-services-1.json1" />
     <GoogleServicesJson Include="platform\android\google-services.json" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
