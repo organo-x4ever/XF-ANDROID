@@ -230,18 +230,13 @@ namespace com.organo.xchallenge.Droid
             var oldDeviceToken = "";
             var data = await _secureStorage.RetrieveAsync(Keys.DEVICE_TOKEN_IDENTITY);
             if (data != null)
-                oldDeviceToken = Encoding.UTF8.GetString(data, 0, data.Length);
+                oldDeviceToken = Encoding.UTF8.GetString(data, 0, data.Length) ?? "";
             // Has the token changed?
-            if (string.IsNullOrEmpty(oldDeviceToken) || !oldDeviceToken.Equals(deviceToken))
+            if (!oldDeviceToken.Equals(deviceToken))
             {
                 //TODO: Put your own logic here to notify your server that the device token has changed/been created!
                 // Save new device token
                 await _secureStorage.StoreAsync(Keys.DEVICE_TOKEN_IDENTITY, Encoding.UTF8.GetBytes(deviceToken));
-                await _secureStorage.StoreAsync(Keys.DEVICE_TOKEN_CHANGED, Encoding.UTF8.GetBytes(CommonConstants.YES));
-            }
-            else
-            {
-                _secureStorage.Delete(Keys.DEVICE_TOKEN_CHANGED);
             }
         }
 

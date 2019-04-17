@@ -42,12 +42,12 @@ namespace com.organo.xchallenge.Pages.Profile
             }
         }
 
-        private void Init()
+        private async void Init()
         {
-            App.Configuration.Initial(this);
+            await App.Configuration.InitialAsync(this);
             NavigationPage.SetHasNavigationBar(this, false);
             _model.GetPageData();
-            Initialization();
+            await Initialization();
         }
 
         public async void OpenPopupWindow()
@@ -257,39 +257,39 @@ namespace com.organo.xchallenge.Pages.Profile
             }
         }
 
-        private void Initialization()
+        private async Task Initialization()
         {
-            DependencyService.Get<IUserPushTokenServices>().SaveDeviceToken();
+            await DependencyService.Get<IUserPushTokenServices>().SaveDeviceToken();
             VersionCheck();
-        }
 
-        async void VersionCheck()
-        {
-            await Task.Delay(TimeSpan.FromSeconds(3));
-            if (!App.Configuration.IsVersionPrompt())
+            async void VersionCheck()
             {
-                await _appVersionProvider.CheckAppVersionAsync(PromptUpdate);
-
-                void PromptUpdate()
+                await Task.Delay(TimeSpan.FromSeconds(3));
+                if (!App.Configuration.IsVersionPrompt())
                 {
-                    try
+                    await _appVersionProvider.CheckAppVersionAsync(PromptUpdate);
+
+                    void PromptUpdate()
                     {
-                        Device.BeginInvokeOnMainThread(async () =>
+                        try
                         {
-                            var updateMessage = string.Format(TextResources.UpdateMessageArgs,
-                                _appVersionProvider.AppName,
-                                _appVersionProvider.UpdateVersion);
-                            var response = await DisplayAlert(TextResources.UpdateTitle, updateMessage,
-                                TextResources.Update,
-                                TextResources.Later);
-                            App.Configuration.VersionPrompted();
-                            if (response)
-                                _appVersionProvider.GotoGoogleAppStoreAsync();
-                        });
-                    }
-                    catch (Exception e)
-                    {
-                        var exceptionHandler = new ExceptionHandler(TAG, e);
+                            Device.BeginInvokeOnMainThread(async () =>
+                            {
+                                var updateMessage = string.Format(TextResources.UpdateMessageArgs,
+                                    _appVersionProvider.AppName,
+                                    _appVersionProvider.UpdateVersion);
+                                var response = await DisplayAlert(TextResources.UpdateTitle, updateMessage,
+                                    TextResources.Update,
+                                    TextResources.Later);
+                                App.Configuration.VersionPrompted();
+                                if (response)
+                                    _appVersionProvider.GotoGoogleAppStoreAsync();
+                            });
+                        }
+                        catch (Exception e)
+                        {
+                            ExceptionHandler exceptionHandler = new ExceptionHandler(TAG, e);
+                        }
                     }
                 }
             }

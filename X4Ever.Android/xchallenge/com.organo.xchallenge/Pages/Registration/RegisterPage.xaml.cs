@@ -131,7 +131,7 @@ namespace com.organo.xchallenge.Pages.Registration
         private bool Validate()
         {
             ValidationErrors validationErrors = new ValidationErrors();
-            if (string.IsNullOrEmpty(_model.SelectedApplication))
+            if (_model.SelectedApplication == null || string.IsNullOrEmpty(_model.SelectedApplication))
                 validationErrors.Add(string.Format(TextResources.Required_MustBeSelected, TextResources.Continent));
             if (_model.EmailAddress == null || _model.EmailAddress.Trim().Length == 0)
                 validationErrors.Add(string.Format(TextResources.Required_IsMandatory, TextResources.EmailAddress));

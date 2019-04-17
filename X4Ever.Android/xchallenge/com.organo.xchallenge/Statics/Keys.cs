@@ -10,6 +10,5 @@ namespace com.organo.xchallenge.Statics
     {
         public static string GOOGLE_CLOUD_MESSAGING_APIs_ID => "AIzaSyCcRC1kvU6vsNefFpmKu-e6ZIc89FLKSoU";
         public static string DEVICE_TOKEN_IDENTITY => "PushDeviceToken";
-        public static string DEVICE_TOKEN_CHANGED => "PushDeviceTokenChanged";
     }
 }

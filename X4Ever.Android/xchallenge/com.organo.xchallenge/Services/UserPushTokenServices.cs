@@ -57,34 +57,18 @@ namespace com.organo.xchallenge.Services
 
         public async Task<string> SaveDeviceToken()
         {
-            var tokenChanged = "";
-            var tokenChangedData =
-                await DependencyService.Get<ISecureStorage>().RetrieveAsync(Keys.DEVICE_TOKEN_CHANGED);
-            if (tokenChangedData != null)
+            var data = await DependencyService.Get<ISecureStorage>().RetrieveAsync(Keys.DEVICE_TOKEN_IDENTITY);
+            if (data != null)
             {
-                tokenChanged = Encoding.UTF8.GetString(tokenChangedData, 0, tokenChangedData.Length);
-                if (string.IsNullOrEmpty(tokenChanged) || !tokenChanged.Equals(CommonConstants.YES))
-                    return "";
-            }
-            else
-                return "";
-
-            if ((!string.IsNullOrEmpty(tokenChanged) && tokenChanged.Equals(CommonConstants.YES)))
-            {
-                var deviceToken = "";
-                var data = await DependencyService.Get<ISecureStorage>().RetrieveAsync(Keys.DEVICE_TOKEN_IDENTITY);
-                if (data != null)
-                    deviceToken = Encoding.UTF8.GetString(data, 0, data.Length);
-
+                var deviceToken = Encoding.UTF8.GetString(data, 0, data.Length);
                 if (!string.IsNullOrEmpty(deviceToken))
                 {
-                    var identity = string.Format(TextResources.AppVersion,
-                        App.Configuration.AppConfig.ApplicationVersion);
                     return await Insert(new UserPushTokenModel()
                     {
                         DeviceToken = deviceToken,
                         IssuedOn = DateTime.Now,
-                        DeviceIdentity = identity,
+                        DeviceIdentity = string.Format(TextResources.AppVersion,
+                            App.Configuration.AppConfig.ApplicationVersion),
                         DeviceIdiom = Device.Idiom.ToString(),
                     });
                 }

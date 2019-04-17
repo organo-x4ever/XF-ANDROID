@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿
+using System;
 using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
-using com.organo.xchallenge.Extensions;
-using com.organo.xchallenge.Handler;
 using com.organo.xchallenge.Localization;
 using com.organo.xchallenge.Models;
 using com.organo.xchallenge.Models.Authentication;
@@ -77,18 +71,9 @@ namespace com.organo.xchallenge.Services
 
         public async Task GetAuthenticationAsync(Action callbackSuccess, Action callbackFailed)
         {
-            var token = await App.Configuration.GetUserToken();
-            if (!string.IsNullOrEmpty(token))
+            if (!string.IsNullOrEmpty(await App.Configuration.GetUserToken()))
             {
-                var request = new HttpRequestMessage()
-                {
-                    RequestUri = new Uri(ClientService.GetRequestUri(ControllerName, "authuser_v2")),
-                    Method = HttpMethod.Post,
-                };
-                request.Headers.Add(App.Configuration.AppConfig.TokenHeaderName, token);
-                request.Headers.Accept.Add(
-                    new MediaTypeWithQualityHeaderValue(HttpConstants.MEDIA_TYPE_TEXT_PLAIN));
-                var response = await ClientService.SendAsync(request);
+                var response = await ClientService.GetDataAsync(ControllerName, "authuser_v3");
                 var authenticationResult = await _authenticationService.GetDetailAsync(response);
                 if (authenticationResult != null)
                 {
