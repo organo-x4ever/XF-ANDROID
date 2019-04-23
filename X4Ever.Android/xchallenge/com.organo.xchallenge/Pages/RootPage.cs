@@ -185,6 +185,7 @@ namespace com.organo.xchallenge.Pages
 
                         case MenuType.Logout:
                             await App.LogoutAsync();
+                            App.Configuration.DeleteUserKey();
                             App.GoToAccountPage();
                             return;
                     }

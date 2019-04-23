@@ -174,7 +174,7 @@ namespace com.organo.xchallenge.ViewModels.Profile
             var response = await _settingService.UpdateUserLanguageAsync(requestModel);
             if (response == HttpConstants.SUCCESS)
             {
-                await App.Configuration.SetUserLanguage(requestModel.LanguageCode);
+                await App.Configuration.SetUserLanguageAsync(requestModel.LanguageCode);
                 App.GoToAccountPage(true);
             }
         }
@@ -207,7 +207,7 @@ namespace com.organo.xchallenge.ViewModels.Profile
             var response = await _settingService.UpdateUserWeightVolumeAsync(requestModel);
             if (response == HttpConstants.SUCCESS)
             {
-                await App.Configuration.SetWeightVolume(requestModel.WeightVolume);
+                await App.Configuration.SetWeightVolumeAsync(requestModel.WeightVolume);
                 App.GoToAccountPage(true);
             }
         }

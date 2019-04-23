@@ -10,15 +10,28 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using com.organo.xchallenge.ViewModels.Profile;
 using Xamarin.Forms;
 
 namespace com.organo.xchallenge.Globals
 {
     public class AppConfiguration : IAppConfiguration
     {
+        /// <summary>
+        /// Object Instances
+        /// </summary>
         private readonly IConfigFetcher _configFetcher;
+        private readonly ISecureStorage _secureStorage;
+        private readonly ILocalize _localize;
+        private readonly ISetDeviceProperty _deviceProperty;
+        private readonly IHelper _helper;
+
+        /// <summary>
+        /// Properties
+        /// </summary>
         public string BackgroundImage { get; set; }
         public Color BackgroundColor { get; set; }
         public Color StatusBarColor { get; set; }
@@ -29,19 +42,14 @@ namespace com.organo.xchallenge.Globals
         public bool IsAnimationAllowed { get; set; }
         public UserSetting UserSetting { get; set; }
         public AppConfig AppConfig { get; set; }
-        public string UserToken { get; set; }
         public bool IsMenuLoaded { get; set; }
         public List<ImageSize> ImageSizes { get; set; }
 
-        private readonly ISecureStorage _secureStorage;
-        private readonly ILocalize _localize;
-        private readonly ISetDeviceProperty _deviceProperty;
-
         public AppConfiguration()
         {
-            UserToken = string.Empty;
             AppConfig = new AppConfig();
-            ImageSizes=new List<ImageSize>();
+            ImageSizes = new List<ImageSize>();
+            _helper = new Helper();
             _configFetcher = DependencyService.Get<IConfigFetcher>();
             _secureStorage = DependencyService.Get<ISecureStorage>();
             _localize = DependencyService.Get<ILocalize>();
@@ -68,7 +76,6 @@ namespace com.organo.xchallenge.Globals
         public async Task InitAsync()
         {
             IsMenuLoaded = false;
-            await GetUserToken();
             await GetLanguageAsync();
             await GetWeightVolumeAsync();
         }
@@ -115,48 +122,54 @@ namespace com.organo.xchallenge.Globals
         private void SetBarColor() => DependencyService.Get<ISetDeviceProperty>()
             .SetStatusBarColor(StatusBarColor, IsFullScreenMode);
 
-        public async Task GetActivity(string action = "")
+        public async Task GetActivityAsync(string action = "")
         {
             await Task.Run(() =>
             {
-                if (action != null && action.Trim().Length > 0)
+                if (!string.IsNullOrEmpty(action))
                     if (action == ActivityType.WEIGHT_SUBMISSION_REQUIRED.ToString())
                         ActivityType = ActivityType.WEIGHT_SUBMISSION_REQUIRED;
             });
         }
 
-        public async Task SetUserLanguage(string languageCode)
+        public async Task SetTokenLanguageWeightAsync(string token, string languageCode, string weightVolume)
         {
-            //_localize.GetCurrentCultureInfo(AppConfig.DefaultLanguage);
+            await SetUserTokenAsync(token);
+            if (!string.IsNullOrEmpty(languageCode))
+                await SetUserLanguageAsync(languageCode);
+            if (!string.IsNullOrEmpty(weightVolume))
+                await SetWeightVolumeAsync(weightVolume);
+        }
+
+        public async Task SetUserLanguageAsync(string languageCode) => await Task.Run(async () =>
+        {
             if (!string.IsNullOrEmpty(languageCode))
                 _secureStorage.Store(StorageConstants.KEY_USER_LANGUAGE, Encoding.UTF8.GetBytes(languageCode));
             await GetLanguageAsync();
-        }
+        });
 
         private async Task GetLanguageAsync()
         {
-            var language = "";
             await Task.Run(() =>
             {
                 var data = _secureStorage.Retrieve(StorageConstants.KEY_USER_LANGUAGE);
-                if (data != null)
-                    language = Encoding.UTF8.GetString(data, 0, data.Length);
+                var language = data != null ? Encoding.UTF8.GetString(data, 0, data.Length) : "";
                 if (string.IsNullOrEmpty(language))
+                    AppConfig.DefaultLanguage = language;
+                else
                 {
                     if (!string.IsNullOrEmpty(AppConfig.DefaultLanguage))
                         AppConfig.DefaultLanguage = _localize.GetLanguage(AppConfig?.DefaultLanguage);
                     else
                         AppConfig.DefaultLanguage = _localize.GetLanguage();
                 }
-                else
-                    AppConfig.DefaultLanguage = language;
 
                 LanguageInfo = _localize.GetCurrentCultureInfo(AppConfig.DefaultLanguage);
                 TextResources.Culture = LanguageInfo;
             });
         }
 
-        public async Task SetWeightVolume(string weightVolume)
+        public async Task SetWeightVolumeAsync(string weightVolume)
         {
             if (weightVolume != null)
                 _secureStorage.Store(StorageConstants.KEY_USER_WEIGHT_VOLUME, Encoding.UTF8.GetBytes(weightVolume));
@@ -176,36 +189,27 @@ namespace com.organo.xchallenge.Globals
             });
         }
 
-        public async Task GetConnectionInfoAsync()
-        {
-            await Task.Run(() => { IsConnected = DependencyService.Get<IInternetConnection>().Check(); });
-        }
+        public async Task GetConnectionInfoAsync() => await Task.Run(() => { GetConnectionInfo(); });
 
         public void GetConnectionInfo()
         {
             IsConnected = DependencyService.Get<IInternetConnection>().Check();
         }
 
-        public async Task SetUserToken(string token)
+        public async Task SetUserTokenAsync(string token) => await Task.Run(() =>
         {
             _secureStorage.Store(StorageConstants.KEY_VAULT_TOKEN_ID, Encoding.UTF8.GetBytes(token));
-            await GetUserToken();
-        }
+        });
 
-        public async Task<string> GetUserToken()
-        {
-            UserToken = "";
-            await Task.Run(() => { UserToken = GetToken(); });
-            return UserToken;
-        }
-
-        public string GetToken()
+        public async Task<string> GetUserTokenAsync() => await Task.Factory.StartNew(() =>
         {
             var data = _secureStorage.Retrieve(StorageConstants.KEY_VAULT_TOKEN_ID);
-            if (data != null)
-                return Encoding.UTF8.GetString(data, 0, data.Length);
-            return "";
-        }
+            return data != null ? Encoding.UTF8.GetString(data, 0, data.Length) : "";
+        });
+
+        public async Task<bool> IsUserTokenExistsAsync() => !string.IsNullOrEmpty(await GetUserTokenAsync());
+
+        public async Task DeleteUserTokenAsync() => await Task.Run(() => _secureStorage.Delete(StorageConstants.KEY_VAULT_TOKEN_ID));
 
         private async void GetImageSizes(AppConfig appConfig)
         {
@@ -292,7 +296,7 @@ namespace com.organo.xchallenge.Globals
             await DependencyService.Get<IMessage>().AlertAsync(TextResources.Alert,
                 "Image ID '" + id + "' has an error", TextResources.Ok, TextResources.Cancel);
         }
-        
+
         private IntervalPeriodType GetIntervalPeriodType(string intervalType)
         {
             if (intervalType.ToLower().Contains("year"))
@@ -310,9 +314,7 @@ namespace com.organo.xchallenge.Globals
 
         public async Task<ImageSize> GetImageSizeByIDAsync(string imageIdentity)
         {
-            var imageSize = new ImageSize();
-            await Task.Run(() => { imageSize = GetImageSizeByID(imageIdentity); });
-            return imageSize;
+            return await Task.Factory.StartNew(() => { return GetImageSizeByID(imageIdentity); });
         }
 
         public ImageSize GetImageSizeByID(string imageIdentity)
@@ -328,9 +330,7 @@ namespace com.organo.xchallenge.Globals
             {
                 var imageSize = await GetImageSizeByIDAsync(imageIdentity);
                 if (imageSize != null)
-                {
                     imageSize.ImageName = badgeImage;
-                }
             });
         }
 
@@ -338,9 +338,7 @@ namespace com.organo.xchallenge.Globals
         {
             var imageSize = GetImageSizeByID(imageIdentity);
             if (imageSize != null)
-            {
                 imageSize.ImageName = badgeImage;
-            }
         }
 
         public string GetApplication()
@@ -377,7 +375,7 @@ namespace com.organo.xchallenge.Globals
                 if (Encoding.UTF8.GetString(data, 0, data.Length)?.Trim().ToLower() ==
                     StorageConstants.KEY_VAULT_VERSION.Trim().ToLower())
                 {
-                    var versionCheckDate = 
+                    var versionCheckDate =
                         _secureStorage.Retrieve(StorageConstants.KEY_VAULT_VERSION_PROMPT_DATE);
                     if (versionCheckDate != null)
                     {
@@ -405,5 +403,37 @@ namespace com.organo.xchallenge.Globals
             _secureStorage.Delete(StorageConstants.KEY_VAULT_VERSION_PROMPT_DATE);
             _secureStorage.Delete(StorageConstants.KEY_VAULT_VERSION_PROMPT);
         }
+
+        public void SetUserKey() =>
+            _secureStorage.Store(StorageConstants.KEY_USER, Encoding.UTF8.GetBytes(_helper.GetUniqueCode()));
+
+        public string GetUserKey()
+        {
+            if (App.CurrentUser?.UserInfo != null && !string.IsNullOrEmpty(App.CurrentUser?.UserInfo?.UserKey))
+                return App.CurrentUser?.UserInfo?.UserKey;
+
+            var data = _secureStorage.Retrieve(StorageConstants.KEY_USER);
+            if (data != null)
+                return Encoding.UTF8.GetString(data, 0, data.Length);
+            return string.Empty;
+        }
+
+        public bool IsUserKeyExists() => !string.IsNullOrEmpty(GetUserKey());
+
+        public void DeleteUserKey() => _secureStorage.Delete(StorageConstants.KEY_USER);
+
+        public void SetUserGraph(ChartType chartType) => _secureStorage.Store(StorageConstants.KEY_USER_GRAPH,
+            Encoding.UTF8.GetBytes(chartType.ToString()));
+
+        public ChartType GetUserGraph()
+        {
+            var data = _secureStorage.Retrieve(StorageConstants.KEY_USER_GRAPH);
+            if (data != null)
+                return (ChartType) Enum.Parse(typeof(ChartType), Encoding.UTF8.GetString(data, 0, data.Length));
+
+            return ChartType.LineChart;
+        }
+
+        public void DeleteUserGraph() => _secureStorage.Delete(StorageConstants.KEY_USER_GRAPH);
     }
 }

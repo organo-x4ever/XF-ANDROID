@@ -12,5 +12,7 @@
         public static string KEY_USER_LANGUAGE => "x_lang";
         public static string KEY_USER_FONTSIZE => "x_f_size";
         public static string KEY_USER_WEIGHT_VOLUME => "x_w_vol";
+        public static string KEY_USER => "x_u_key";
+        public static string KEY_USER_GRAPH => "x_u_graph";
     }
 }

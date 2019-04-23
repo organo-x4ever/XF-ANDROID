@@ -16,6 +16,7 @@ namespace com.organo.xchallenge.Services
     public class UserPushTokenServices : IUserPushTokenServices
     {
         public string ControllerName => "pushnotifications";
+        public string ControllerName_UnAuthorized => "actions";
 
         public async Task<UserPushTokenModel> Get()
         {
@@ -35,7 +36,6 @@ namespace com.organo.xchallenge.Services
         {
             try
             {
-                await Task.Delay(TimeSpan.FromSeconds(5));
                 var response = await ClientService.PostDataAsync(model, ControllerName, "post");
                 if (response != null)
                 {
@@ -75,6 +75,52 @@ namespace com.organo.xchallenge.Services
             }
 
             return "";
+        }
+
+        public async Task<string> SaveDeviceTokenUnauthorized()
+        {
+            var data = await DependencyService.Get<ISecureStorage>().RetrieveAsync(Keys.DEVICE_TOKEN_IDENTITY);
+            if (data != null)
+            {
+                var deviceToken = Encoding.UTF8.GetString(data, 0, data.Length);
+                if (!string.IsNullOrEmpty(deviceToken))
+                {
+                    return await InsertUnauthorized(new UserPushTokenModel()
+                    {
+                        DeviceToken = deviceToken,
+                        IssuedOn = DateTime.Now,
+                        DeviceIdentity = string.Format(TextResources.AppVersion,
+                            App.Configuration.AppConfig.ApplicationVersion),
+                        DeviceIdiom = Device.Idiom.ToString(),
+                        UserKey = App.Configuration?.GetUserKey()
+                    });
+                }
+            }
+
+            return "";
+
+            async Task<string> InsertUnauthorized(UserPushTokenModel model)
+            {
+                try
+                {
+                    var response =
+                        await ClientService.PostDataNoHeaderAsync(model, ControllerName_UnAuthorized,
+                            "postnotification");
+                    if (response != null && response.IsSuccessStatusCode &&
+                        response.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        var jsonTask = response.Content.ReadAsStringAsync();
+                        return jsonTask.Result.Contains(HttpConstants.SUCCESS)
+                            ? HttpConstants.SUCCESS
+                            : jsonTask.Result;
+                    }
+                    else return TextResources.MessageSomethingWentWrong;
+                }
+                catch (Exception)
+                {
+                    return TextResources.MessageSomethingWentWrong;
+                }
+            }
         }
     }
 }

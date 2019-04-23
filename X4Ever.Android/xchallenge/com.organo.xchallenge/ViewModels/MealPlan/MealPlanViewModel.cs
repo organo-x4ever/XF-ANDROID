@@ -333,7 +333,7 @@ namespace com.organo.xchallenge.ViewModels.MealPlan
         {
             MealHeaderImage = mealPlanDetail?.MealPlanPhoto;
             MealHeaderImageExists = mealPlanDetail?.MealPlanPhoto != null;
-            await Task.Delay(1);
+            await Task.Delay(TimeSpan.FromMilliseconds(1));
         }
 
         private List<MealPlanDetail> _mealPlanDetails;

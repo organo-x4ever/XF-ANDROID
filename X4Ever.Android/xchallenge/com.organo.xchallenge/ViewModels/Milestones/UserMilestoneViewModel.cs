@@ -318,11 +318,6 @@ namespace com.organo.xchallenge.ViewModels.Milestones
                         });
                     }
                 }
-                else if (response.Contains(HttpConstants.UNAUTHORIZED))
-                {
-                    await App.LogoutAsync();
-                    App.GoToAccountPage();
-                }
                 else
                     SetActivityResource(showError: true, errorMessage: response, modalWindow: true);
             }

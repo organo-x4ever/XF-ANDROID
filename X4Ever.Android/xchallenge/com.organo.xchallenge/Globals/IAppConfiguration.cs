@@ -4,6 +4,7 @@ using com.organo.xchallenge.Models.User;
 using com.organo.xchallenge.Notification;
 using System.Globalization;
 using System.Threading.Tasks;
+using com.organo.xchallenge.ViewModels.Profile;
 using Xamarin.Forms;
 
 namespace com.organo.xchallenge.Globals
@@ -12,7 +13,6 @@ namespace com.organo.xchallenge.Globals
     {
         AppConfig AppConfig { get; set; }
         UserSetting UserSetting { get; set; }
-        string UserToken { get; set; }
         string BackgroundImage { get; set; }
         Color BackgroundColor { get; set; }
         Color StatusBarColor { get; set; }
@@ -24,16 +24,18 @@ namespace com.organo.xchallenge.Globals
         bool IsAnimationAllowed { get; set; }
         bool IsMenuLoaded { get; set; }
         Task InitAsync();
-        Task SetUserLanguage(string languageCode);
-        Task SetWeightVolume(string weightVolume);
-        Task<string> GetUserToken();
-        string GetToken();
-        Task SetUserToken(string token);
+        Task SetTokenLanguageWeightAsync(string token, string languageCode, string weightVolume);
+        Task SetUserLanguageAsync(string languageCode);
+        Task SetWeightVolumeAsync(string weightVolume);
+        Task SetUserTokenAsync(string token);
+        Task<string> GetUserTokenAsync();
+        Task<bool> IsUserTokenExistsAsync();
+        Task DeleteUserTokenAsync();
         void Initial(Page page, bool showBackgroundImage = false);
         Task InitialAsync(Page page, bool showBackgroundImage = false);
         void Initial(Page page, Color backgroundColor, bool showBackgroundImage = false);
         Task InitialAsync(Page page, Color backgroundColor, bool showBackgroundImage = false);
-        Task GetActivity(string action);
+        Task GetActivityAsync(string action);
         Task GetConnectionInfoAsync();
         void GetConnectionInfo();
         Task SetImageAsync(string imageIdentity, string badgeImage);
@@ -47,5 +49,12 @@ namespace com.organo.xchallenge.Globals
         bool IsVersionPrompt();
         void VersionPrompted();
         void DeleteVersionPrompt();
+        void SetUserKey();
+        string GetUserKey();
+        bool IsUserKeyExists();
+        void DeleteUserKey();
+        void SetUserGraph(ChartType chartType);
+        ChartType GetUserGraph();
+        void DeleteUserGraph();
     }
 }

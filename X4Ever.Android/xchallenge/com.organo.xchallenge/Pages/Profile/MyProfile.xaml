@@ -82,7 +82,10 @@
             </Frame>
 
             <Frame Grid.Row="7" Grid.ColumnSpan="3" HeightRequest="200" HorizontalOptions="FillAndExpand" Margin="0,10,0,0" Style="{DynamicResource frameStyle}" HasShadow="False">
-              <microcharts:ChartView x:Name="chartView" Chart="{Binding ChartData}" HorizontalOptions="FillAndExpand" />
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="ShowDetail" NumberOfTapsRequired="2" />
+                </Frame.GestureRecognizers>
+                <microcharts:ChartView x:Name="chartView" Chart="{Binding ChartData}" HorizontalOptions="FillAndExpand" />
             </Frame>
             <StackLayout Grid.Row="8" Grid.ColumnSpan="3" Margin="0,-4,13,10" Orientation="Horizontal" HorizontalOptions="End" VerticalOptions="StartAndExpand">
               <!--<Label Text="{Binding DisplayGalleryLink}" Style="{DynamicResource labelStyleLinkHighlight}">

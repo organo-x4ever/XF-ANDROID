@@ -9,6 +9,7 @@ using com.organo.xchallenge.ViewModels.Login;
 using System;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using com.organo.xchallenge.Globals;
 using com.organo.xchallenge.Handler;
 using com.organo.xchallenge.Helpers;
 using com.organo.xchallenge.Pages.Account;
@@ -84,7 +85,7 @@ namespace com.organo.xchallenge.Pages.MainPage
                 _model.SetActivityResource(false, true, busyMessage: TextResources.LoggedInLoadingAccount);
             if (App.CurrentUser?.UserInfo != null)
             {
-                await Task.Delay(1);
+                await Task.Delay(TimeSpan.FromMilliseconds(1));
                 var userInfo = App.CurrentUser?.UserInfo;
                 var user = new UserFirstUpdate
                 {
@@ -107,14 +108,20 @@ namespace com.organo.xchallenge.Pages.MainPage
                 _model.SetActivityResource();
         }
 
-        private void Page_Load()
+        private async void Page_Load()
         {
             _model.SetActivityResource();
             ButtonSignIn.Clicked += async (sender, e) => { await LoginCommand(); };
             Initialization(Message);
             VersionCheck();
+
+            if (!App.Configuration.IsUserKeyExists())
+            {
+                App.Configuration.SetUserKey();
+                await DependencyService.Get<IUserPushTokenServices>().SaveDeviceTokenUnauthorized();
+            }
         }
-        
+
         private void Initialization(string message = "")
         {
             if (message != null && message.Trim().Length > 0)

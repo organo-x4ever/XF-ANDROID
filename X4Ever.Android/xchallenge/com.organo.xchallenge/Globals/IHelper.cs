@@ -31,9 +31,13 @@ namespace com.organo.xchallenge.Globals
         UriImageSource GetFileUri(string fileName, FileType fileType);
 
         ImageSource GetFileSource(string fileName, FileType fileType);
+
         object GetFileObject(string fileName, FileType fileType);
 
+        string GetUniqueCode();
+
         string Encrypt(string input, string key = "");
+
         string Decrypt(string input, string key = "");
     }
 }

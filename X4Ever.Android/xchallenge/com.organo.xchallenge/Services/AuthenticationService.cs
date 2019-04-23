@@ -76,14 +76,14 @@ namespace com.organo.xchallenge.Services
 
                         if (date >= DateTime.Now.AddMinutes(-1))
                         {
-                            await App.Configuration.SetUserToken(tokenValue);
+                            await App.Configuration.SetUserTokenAsync(tokenValue);
                             var authenticationResult = new AuthenticationResult
                             {
                                 AccessToken = tokenValue,
                                 ExpiresOn = date,
                                 ExtendedLifeTimeToken = true
                             };
-                            await Task.Delay(1);
+                            await Task.Delay(TimeSpan.FromMilliseconds(1));
                             return authenticationResult;
                         }
                     }
@@ -111,11 +111,7 @@ namespace com.organo.xchallenge.Services
                         var model = JsonConvert.DeserializeObject<UserInfo>(jsonTask.Result);
                         if (model != null)
                         {
-                            await App.Configuration.SetUserToken(tokenValue);
-                            if (!string.IsNullOrEmpty(model.LanguageCode))
-                                await App.Configuration.SetUserLanguage(model.LanguageCode);
-                            if (!string.IsNullOrEmpty(model.WeightVolumeType))
-                                await App.Configuration.SetWeightVolume(model.WeightVolumeType);
+                            await App.Configuration.SetTokenLanguageWeightAsync(tokenValue, model.LanguageCode, model.WeightVolumeType);
                             var user = new AuthenticationResult
                             {
                                 AccessToken = tokenValue,
@@ -123,7 +119,7 @@ namespace com.organo.xchallenge.Services
                                 ExtendedLifeTimeToken = true,
                                 UserInfo = model
                             };
-                            await Task.Delay(1);
+                            await Task.Delay(TimeSpan.FromMilliseconds(1));
                             return user;
                         }
                     }
@@ -136,9 +132,10 @@ namespace com.organo.xchallenge.Services
         public async Task LogoutAsync()
         {
             TokenKill();
-            _secureStorage.Delete(StorageConstants.KEY_VAULT_TOKEN_ID);
+            await App.Configuration.DeleteUserTokenAsync();
             _secureStorage.Delete(StorageConstants.KEY_USER_LANGUAGE);
             _secureStorage.Delete(StorageConstants.KEY_USER_WEIGHT_VOLUME);
+            App.Configuration.DeleteVersionPrompt();
             App.Configuration = new AppConfiguration();
             await App.Configuration.InitAsync();
             App.CurrentUser = null;

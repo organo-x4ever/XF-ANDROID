@@ -78,7 +78,6 @@ namespace com.organo.xchallenge.Droid
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
 
-
             global::Xamarin.Forms.Forms.Init(this, bundle);
             // APP Crash Report
             //DisplayCrashReport();

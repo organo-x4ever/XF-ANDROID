@@ -397,7 +397,7 @@ namespace com.organo.xchallenge.ViewModels.Profile
                         });
                     }
 
-                    SetChart();
+                    SetChart(App.Configuration.GetUserGraph());
                 });
             });
         }
@@ -406,6 +406,7 @@ namespace com.organo.xchallenge.ViewModels.Profile
         {
             try
             {
+                App.Configuration.SetUserGraph(chartType);
                 ChartTypeDisplay = ChartDisplay.Get(chartType);
                 var maxValue = WeightLossGoal + ((WeightLossGoal * 25) / 100);
                 Device.BeginInvokeOnMainThread(async () =>

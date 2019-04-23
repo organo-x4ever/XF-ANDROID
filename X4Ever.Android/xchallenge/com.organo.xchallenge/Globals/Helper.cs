@@ -263,6 +263,11 @@ namespace com.organo.xchallenge.Globals
             }
         }
 
+        public string GetUniqueCode()
+        {
+            return Guid.NewGuid().ToString().Replace("-","").ToUpper();
+        }
+
         public string Encrypt(string input, string key = "")
         {
             return input;

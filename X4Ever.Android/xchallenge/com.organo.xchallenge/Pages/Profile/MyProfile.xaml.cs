@@ -47,7 +47,7 @@ namespace com.organo.xchallenge.Pages.Profile
             await App.Configuration.InitialAsync(this);
             NavigationPage.SetHasNavigationBar(this, false);
             _model.GetPageData();
-            await Initialization();
+            await VersionCheck();
         }
 
         public async void OpenPopupWindow()
@@ -245,7 +245,7 @@ namespace com.organo.xchallenge.Pages.Profile
 
             stackInner.Children.Add(gridMain);
             popupLayout.ShowPopup(stackLayout);
-            await Task.Delay(1);
+            await Task.Delay(TimeSpan.FromMilliseconds(1));
         }
 
         public void ClosePopupWindow()
@@ -257,39 +257,34 @@ namespace com.organo.xchallenge.Pages.Profile
             }
         }
 
-        private async Task Initialization()
+        //await DependencyService.Get<IUserPushTokenServices>().SaveDeviceToken();
+        private async Task VersionCheck()
         {
-            await DependencyService.Get<IUserPushTokenServices>().SaveDeviceToken();
-            VersionCheck();
-
-            async void VersionCheck()
+            await Task.Delay(TimeSpan.FromSeconds(3));
+            if (!App.Configuration.IsVersionPrompt())
             {
-                await Task.Delay(TimeSpan.FromSeconds(3));
-                if (!App.Configuration.IsVersionPrompt())
-                {
-                    await _appVersionProvider.CheckAppVersionAsync(PromptUpdate);
+                await _appVersionProvider.CheckAppVersionAsync(PromptUpdate);
 
-                    void PromptUpdate()
+                void PromptUpdate()
+                {
+                    try
                     {
-                        try
+                        Device.BeginInvokeOnMainThread(async () =>
                         {
-                            Device.BeginInvokeOnMainThread(async () =>
-                            {
-                                var updateMessage = string.Format(TextResources.UpdateMessageArgs,
-                                    _appVersionProvider.AppName,
-                                    _appVersionProvider.UpdateVersion);
-                                var response = await DisplayAlert(TextResources.UpdateTitle, updateMessage,
-                                    TextResources.Update,
-                                    TextResources.Later);
-                                App.Configuration.VersionPrompted();
-                                if (response)
-                                    _appVersionProvider.GotoGoogleAppStoreAsync();
-                            });
-                        }
-                        catch (Exception e)
-                        {
-                            ExceptionHandler exceptionHandler = new ExceptionHandler(TAG, e);
-                        }
+                            var updateMessage = string.Format(TextResources.UpdateMessageArgs,
+                                _appVersionProvider.AppName,
+                                _appVersionProvider.UpdateVersion);
+                            var response = await DisplayAlert(TextResources.UpdateTitle, updateMessage,
+                                TextResources.Update,
+                                TextResources.Later);
+                            App.Configuration.VersionPrompted();
+                            if (response)
+                                _appVersionProvider.GotoGoogleAppStoreAsync();
+                        });
+                    }
+                    catch (Exception e)
+                    {
+                        ExceptionHandler exceptionHandler = new ExceptionHandler(TAG, e);
                     }
                 }
             }
@@ -320,8 +315,6 @@ namespace com.organo.xchallenge.Pages.Profile
 
         private async void ChooseGraphType(object sender, EventArgs args)
         {
-            //pickerGraphType.Focus();
-
             var chartTypes = EnumUtil.GetValues<ChartType>().ToArray();
             string[] list = new string[chartTypes.Count()];
             for (var i = 0; i < chartTypes.Count(); i++)

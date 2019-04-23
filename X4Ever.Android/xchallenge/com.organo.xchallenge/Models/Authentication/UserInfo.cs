@@ -10,7 +10,7 @@ namespace com.organo.xchallenge.Models.Authentication
             ID = 0;
             UserLogin = String.Empty;
             UserFirstName = String.Empty;
-            UserLastName = String.Empty;
+            UserLastName = string.Empty;
             UserEmail = String.Empty;
             UserRegistered = new DateTime(1900, 1, 1);
             ProfileImage = String.Empty;
@@ -19,6 +19,7 @@ namespace com.organo.xchallenge.Models.Authentication
             IsMetaExists = false;
             IsAddressExists = false;
             IsTrackerExists = false;
+            UserKey = string.Empty;
         }
 
         // Summary: Create user information copied from another UserInfo object
@@ -38,6 +39,7 @@ namespace com.organo.xchallenge.Models.Authentication
             IsMetaExists = other.IsMetaExists;
             IsAddressExists = false;
             IsTrackerExists = other.IsTrackerExists;
+            UserKey = other.UserKey;
         }
 
         /// <summary>
@@ -120,5 +122,7 @@ namespace com.organo.xchallenge.Models.Authentication
         /// User Tracker Exists
         /// </summary>
         public bool IsTrackerExists { get; set; }
+
+        public string UserKey { get; set; }
     }
 }

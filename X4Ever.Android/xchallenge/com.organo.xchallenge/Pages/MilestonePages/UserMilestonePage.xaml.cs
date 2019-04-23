@@ -209,7 +209,7 @@ namespace com.organo.xchallenge.Pages.MilestonePages
                         _model.SetActivityResource(showError: true, errorMessage: localMessage);
                 }
             });
-            await Task.Delay(1);
+            await Task.Delay(TimeSpan.FromMilliseconds(1));
         }
 
         protected override bool OnBackButtonPressed()

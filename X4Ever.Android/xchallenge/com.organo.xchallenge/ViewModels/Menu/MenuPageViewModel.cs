@@ -18,11 +18,11 @@ namespace com.organo.xchallenge.ViewModels.Menu
     public class MenuPageViewModel : BaseViewModel
     {
         private readonly IHelper _helper;
+
         public MenuPageViewModel(INavigation navigation = null) : base(navigation)
         {
             _helper = DependencyService.Get<IHelper>();
-            ApplicationVersion =
-                string.Format(TextResources.AppVersion, App.Configuration.AppConfig.ApplicationVersion);
+            ApplicationVersion = App.Configuration.AppConfig.ApplicationVersion;
             User = App.CurrentUser.UserInfo;
         }
 
@@ -165,7 +165,13 @@ namespace com.organo.xchallenge.ViewModels.Menu
         public string ApplicationVersion
         {
             get { return _applicationVersion; }
-            set { SetProperty(ref _applicationVersion, value, ApplicationVersionPropertyName); }
+            set
+            {
+                var appVersions = value.Split('.');
+                var appVersion = string.Format(TextResources.AppVersion,
+                    $"{appVersions[0]}.{appVersions[1]}.{appVersions[2]}");
+                SetProperty(ref _applicationVersion, appVersion, ApplicationVersionPropertyName);
+            }
         }
     }
 }

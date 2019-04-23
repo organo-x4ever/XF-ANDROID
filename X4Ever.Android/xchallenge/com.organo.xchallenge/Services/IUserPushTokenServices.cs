@@ -9,6 +9,8 @@ namespace com.organo.xchallenge.Services
 {
     public interface IUserPushTokenServices : IBaseService
     {
+        string ControllerName_UnAuthorized { get; }
+        Task<string> SaveDeviceTokenUnauthorized();
         Task<string> SaveDeviceToken();
         Task<UserPushTokenModel> Get();
         Task<string> Insert(UserPushTokenModel model);

@@ -71,7 +71,7 @@ namespace com.organo.xchallenge.Services
 
         public async Task GetAuthenticationAsync(Action callbackSuccess, Action callbackFailed)
         {
-            if (!string.IsNullOrEmpty(await App.Configuration.GetUserToken()))
+            if (await App.Configuration.IsUserTokenExistsAsync())
             {
                 var response = await ClientService.GetDataAsync(ControllerName, "authuser_v3");
                 var authenticationResult = await _authenticationService.GetDetailAsync(response);
@@ -82,7 +82,7 @@ namespace com.organo.xchallenge.Services
                     return;
                 }
                 else
-                    await _authenticationService?.LogoutAsync();
+                    await App.LogoutAsync();
             }
             
             callbackFailed();
@@ -90,8 +90,6 @@ namespace com.organo.xchallenge.Services
 
         public async Task<UserPivot> GetFullAsync()
         {
-            // Delays to let other tasks complete
-            await Task.Delay(TimeSpan.FromMilliseconds(50));
             var response = await ClientService.GetDataAsync(ControllerName, "getfulluser");
             if (response != null && response.IsSuccessStatusCode && response.StatusCode == HttpStatusCode.OK)
             {

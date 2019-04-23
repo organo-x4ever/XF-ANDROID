@@ -9,6 +9,7 @@ namespace com.organo.xchallenge.Models.Authentication
         string UserFirstName { get; set; }
         string UserLastName { get; set; }
         string UserEmail { get; set; }
+        string UserKey { get; set; }
         string ProfileImage { get; set; }
         DateTime UserRegistered { get; set; }
         string DisplayName { get; }

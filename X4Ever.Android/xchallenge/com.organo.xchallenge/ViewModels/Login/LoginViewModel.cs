@@ -19,9 +19,23 @@ namespace com.organo.xchallenge.ViewModels.Login
             UserPassword = string.Empty;
             this.PageBackgroundImage = ImageResizer.ResizeImage(App.Configuration.BackgroundImage, 800, 1280);
             SetPageImageSize();
-            //IsPassword = true;
             BoxHeight = 1;
             ShowPasswordAction = () => { IsPassword = IsPassword == false; };
+            ApplicationVersion = App.Configuration.AppConfig.ApplicationVersion;
+        }
+
+        private string _applicationVersion;
+        public const string ApplicationVersionPropertyName = "ApplicationVersion";
+
+        public string ApplicationVersion
+        {
+            get { return _applicationVersion; }
+            set
+            {
+                var appVersions = value.Split('.');
+                var appVersion = $"v{appVersions[0]}.{appVersions[1]}.{appVersions[2]}";
+                SetProperty(ref _applicationVersion, appVersion, ApplicationVersionPropertyName);
+            }
         }
 
         private string emailAddress;
