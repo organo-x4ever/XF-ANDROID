@@ -23,11 +23,13 @@ namespace com.organo.xchallenge.Globals
         bool IsConnected { get; set; }
         bool IsAnimationAllowed { get; set; }
         bool IsMenuLoaded { get; set; }
+        string UserToken { get; }
         Task InitAsync();
         Task SetTokenLanguageWeightAsync(string token, string languageCode, string weightVolume);
         Task SetUserLanguageAsync(string languageCode);
         Task SetWeightVolumeAsync(string weightVolume);
         Task SetUserTokenAsync(string token);
+        string GetUserToken();
         Task<string> GetUserTokenAsync();
         Task<bool> IsUserTokenExistsAsync();
         Task DeleteUserTokenAsync();

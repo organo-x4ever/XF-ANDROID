@@ -279,6 +279,7 @@
     <Compile Include="Helpers\AppVersionProvider.cs" />
     <Compile Include="Helpers\DeviceInfo.cs" />
     <Compile Include="Helpers\ImageResizerHelpers.cs" />
+    <Compile Include="MediaManager\MusicDictionary.cs" />
     <Compile Include="MyFirebaseIIDService.cs" />
     <Compile Include="MyFirebaseMessagingService.cs" />
     <Compile Include="Notification\NotificationServices.cs" />
@@ -297,7 +298,6 @@
     <Compile Include="Services\ConfigFetcher.cs" />
     <Compile Include="Services\FileDownloadService.cs" />
     <Compile Include="Services\KeyVaultStorage.cs" />
-    <Compile Include="Services\LocalFile.cs" />
     <Compile Include="Services\MediaPlayerServices.cs" />
     <Compile Include="Services\InformationMessageServices.cs" />
   </ItemGroup>

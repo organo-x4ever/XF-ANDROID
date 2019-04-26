@@ -33,7 +33,8 @@ namespace com.organo.xchallenge.ViewModels.Login
             set
             {
                 var appVersions = value.Split('.');
-                var appVersion = $"v{appVersions[0]}.{appVersions[1]}.{appVersions[2]}";
+                var appVersion = string.Format(TextResources.AppVersion,
+                    $"{appVersions[0]}.{appVersions[1]}.{appVersions[2]}");
                 SetProperty(ref _applicationVersion, appVersion, ApplicationVersionPropertyName);
             }
         }

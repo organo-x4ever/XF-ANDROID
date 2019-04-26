@@ -183,7 +183,8 @@ namespace com.organo.xchallenge.Services
                 var buffer = Encoding.UTF8.GetBytes(myContent);
                 var byteContent = new ByteArrayContent(buffer);
                 byteContent.Headers.ContentType = new MediaTypeHeaderValue(HttpConstants.MEDIA_TYPE_APPLICATION_JSON);
-                byteContent.Headers.Add(App.Configuration?.AppConfig.AcceptedTokenName, App.CurrentUser.AccessToken);
+                byteContent.Headers.Add(App.Configuration?.AppConfig.AcceptedTokenName,
+                    App.Configuration.UserToken);
                 return await PostAsync(GetRequestUri(controller, method), byteContent);
             }
             catch (Exception exception)
@@ -250,36 +251,16 @@ namespace com.organo.xchallenge.Services
 
             return null;
         }
-
-        ///// <summary>
-        ///// Gets Post header.
-        ///// </summary>
-        ///// <param name="data">
-        ///// Object to post data
-        ///// </param>
-        ///// <returns>
-        ///// returns Headers for Post request
-        ///// </returns>
-        //private static ByteArrayContent DataHeaderAsync(object data)
-        //{
-        //    var myContent = JsonConvert.SerializeObject(data);
-        //    var buffer = Encoding.UTF8.GetBytes(myContent);
-        //    var byteContent = new ByteArrayContent(buffer);
-        //    byteContent.Headers.ContentType = new MediaTypeHeaderValue(HttpConstants.MEDIA_TYPE_APPLICATION_JSON);
-        //    if (App.Configuration != null && App.CurrentUser != null)
-        //        byteContent.Headers.Add(App.Configuration?.AppConfig.AcceptedTokenName, App.CurrentUser?.AccessToken);
-        //    return byteContent;
-        //}
-
+        
         private static HttpRequestMessage CheckHeaders(HttpRequestMessage request)
         {
-            if (App.Configuration != null && App.CurrentUser != null)
+            if (App.Configuration != null)
             {
                 if (!request.Headers.Contains(App.Configuration?.AppConfig.AcceptedTokenName))
                 {
-                    if (App.CurrentUser != null && !string.IsNullOrEmpty(App.CurrentUser?.AccessToken))
-                        request.Headers.Add(App.Configuration?.AppConfig.AcceptedTokenName,
-                            App.CurrentUser?.AccessToken);
+                    var token = App.Configuration.UserToken;
+                    if (!string.IsNullOrEmpty(token))
+                        request.Headers.Add(App.Configuration?.AppConfig.AcceptedTokenName,token);
                 }
 
                 if (!request.Headers.Contains(App.Configuration?.AppConfig.ApplicationRequestHeader))
@@ -309,13 +290,13 @@ namespace com.organo.xchallenge.Services
 
         private static HttpContent CheckHeaders(HttpContent request)
         {
-            if (App.Configuration != null && App.CurrentUser != null)
+            if (App.Configuration != null)
             {
                 if (!request.Headers.Contains(App.Configuration?.AppConfig.AcceptedTokenName))
                 {
-                    if (App.CurrentUser != null && !string.IsNullOrEmpty(App.CurrentUser?.AccessToken))
-                        request.Headers.Add(App.Configuration?.AppConfig.AcceptedTokenName,
-                            App.CurrentUser?.AccessToken);
+                    var token = App.Configuration.UserToken;
+                    if (!string.IsNullOrEmpty(token))
+                        request.Headers.Add(App.Configuration?.AppConfig.AcceptedTokenName, token);
                 }
 
                 if (!request.Headers.Contains(App.Configuration?.AppConfig.ApplicationRequestHeader))
@@ -392,10 +373,7 @@ namespace com.organo.xchallenge.Services
             try
             {
                 WriteDebugger(message, messageDetail);
-                var token = App.CurrentUser != null && App.CurrentUser.AccessToken != null &&
-                            App.CurrentUser.AccessToken.Trim().Length > 0
-                    ? App.CurrentUser.AccessToken
-                    : "";
+                var token = App.Configuration.UserToken;
                 var deviceDetail = "";
                 try
                 {

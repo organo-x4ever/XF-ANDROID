@@ -101,6 +101,7 @@
     <Compile Include="Helpers\IDeviceInfo.cs" />
     <Compile Include="Helpers\IImageResizerHelpers.cs" />
     <Compile Include="Helpers\ImageResizer.cs" />
+    <Compile Include="MediaManager\IMusicDictionary.cs" />
     <Compile Include="Models\AppInfoModel.cs" />
     <Compile Include="Models\ApplicationSetting.cs" />
     <Compile Include="Models\ApplicationUserSelection.cs" />
@@ -158,6 +159,7 @@
     <Compile Include="Models\MessageModel.cs" />
     <Compile Include="Models\ApplicationLanguage.cs" />
     <Compile Include="Models\MilestonePercentage.cs" />
+    <Compile Include="Models\MusicFile.cs" />
     <Compile Include="Models\News\NewsModel.cs" />
     <Compile Include="Models\Notifications\UserPushTokenModel.cs" />
     <Compile Include="Models\Province.cs" />
@@ -255,6 +257,9 @@
     <Compile Include="Pages\MealPlan\MealPlanPage.xaml.cs">
       <DependentUpon>MealPlanPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\MediaPlayers\AudioMediaPlayerPage.xaml.cs">
+      <DependentUpon>AudioMediaPlayerPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Media\AudioPlayerPage.xaml.cs">
       <DependentUpon>AudioPlayerPage.xaml</DependentUpon>
     </Compile>
@@ -299,9 +304,6 @@
     </Compile>
     <Compile Include="Pages\RootPage.cs" />
     <Compile Include="Pages\Splash\SplashView.cs" />
-    <Compile Include="Pages\Storage\FileExplorerPage.xaml.cs">
-      <DependentUpon>FileExplorerPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\Testimonial\TestimonialPhotoPage.xaml.cs">
       <DependentUpon>TestimonialPhotoPage.xaml</DependentUpon>
     </Compile>
@@ -355,7 +357,6 @@
     <Compile Include="Services\IFileService.cs" />
     <Compile Include="Services\IGeoCodingService.cs" />
     <Compile Include="Services\IHttpClientHandlerFactory.cs" />
-    <Compile Include="Services\ILocalFile.cs" />
     <Compile Include="Services\ILogServices.cs" />
     <Compile Include="Services\IMealPlanService.cs" />
     <Compile Include="Services\IMediaContentService.cs" />
@@ -456,7 +457,6 @@
     <Compile Include="ViewModels\Registration\TermAndConditionViewModel.cs" />
     <Compile Include="ViewModels\Rewards\RewardsViewModel.cs" />
     <Compile Include="ViewModels\Splash\SplashViewModel.cs" />
-    <Compile Include="ViewModels\Storage\FileExplorerViewModel.cs" />
     <Compile Include="ViewModels\Testimonial\TestimonialDetailViewModel.cs" />
     <Compile Include="ViewModels\Testimonial\TestimonialPhotoViewModel.cs" />
     <Compile Include="ViewModels\Testimonial\TestimonialViewModel.cs" />
@@ -758,12 +758,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Pages\Storage\FileExplorerPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Pages\Media\AudioPlayerPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
@@ -897,6 +891,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\MenuGridPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\MediaPlayers\AudioMediaPlayerPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

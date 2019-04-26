@@ -3,6 +3,7 @@ using Android.Media;
 using com.organo.xchallenge.Droid.Services;
 using com.organo.xchallenge.Services;
 using System;
+using Android.OS;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(AudioPlayerService))]
@@ -42,6 +43,7 @@ namespace com.organo.xchallenge.Droid.Services
             //Get Activity
             MainActivity activity = Forms.Context as MainActivity;
             this.Context = activity.Window.Context;
+            _mediaPlayer.SetWakeMode(Context, WakeLockFlags.ScreenDim);
         }
 
         public void Play(string pathToAudioFile)

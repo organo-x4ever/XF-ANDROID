@@ -44,6 +44,15 @@ namespace com.organo.xchallenge.Globals
         public AppConfig AppConfig { get; set; }
         public bool IsMenuLoaded { get; set; }
         public List<ImageSize> ImageSizes { get; set; }
+        private string _userToken { get; set; }
+        public string UserToken
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_userToken)) _userToken = GetUserToken();
+                return _userToken;
+            }
+        }
 
         public AppConfiguration()
         {
@@ -196,20 +205,27 @@ namespace com.organo.xchallenge.Globals
             IsConnected = DependencyService.Get<IInternetConnection>().Check();
         }
 
-        public async Task SetUserTokenAsync(string token) => await Task.Run(() =>
+        public async Task SetUserTokenAsync(string token) => await Task.Run(async () =>
         {
+            await App.Configuration.DeleteUserTokenAsync();
             _secureStorage.Store(StorageConstants.KEY_VAULT_TOKEN_ID, Encoding.UTF8.GetBytes(token));
         });
 
-        public async Task<string> GetUserTokenAsync() => await Task.Factory.StartNew(() =>
+        public string GetUserToken()
         {
             var data = _secureStorage.Retrieve(StorageConstants.KEY_VAULT_TOKEN_ID);
             return data != null ? Encoding.UTF8.GetString(data, 0, data.Length) : "";
-        });
+        }
+
+        public async Task<string> GetUserTokenAsync() => await Task.Factory.StartNew(() => { return UserToken; });
 
         public async Task<bool> IsUserTokenExistsAsync() => !string.IsNullOrEmpty(await GetUserTokenAsync());
 
-        public async Task DeleteUserTokenAsync() => await Task.Run(() => _secureStorage.Delete(StorageConstants.KEY_VAULT_TOKEN_ID));
+        public async Task DeleteUserTokenAsync() => await Task.Run(() =>
+        {
+            _secureStorage.Delete(StorageConstants.KEY_VAULT_TOKEN_ID);
+            _userToken = string.Empty;
+        });
 
         private async void GetImageSizes(AppConfig appConfig)
         {

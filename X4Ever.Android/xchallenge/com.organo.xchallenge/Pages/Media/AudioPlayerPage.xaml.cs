@@ -54,7 +54,7 @@ namespace com.organo.xchallenge.Pages.Media
 
         protected override void OnDisappearing()
         {
-            _model.StopAsync();
+            _model?.StopAsync();
             base.OnDisappearing();
         }
 
