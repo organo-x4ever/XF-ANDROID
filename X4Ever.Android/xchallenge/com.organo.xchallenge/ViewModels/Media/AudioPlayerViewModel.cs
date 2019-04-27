@@ -97,38 +97,7 @@ namespace com.organo.xchallenge.ViewModels.Media
                     music._Year = long.TryParse(music.Year, out long year) ? year : 0;
                     music._DurationTimeSpan = (TimeSpan.FromMilliseconds(duration).ToString().Split('.'))[0];
                     return music;
-                }).ToList();
-
-                //foreach (var content in musicFiles.OrderBy(f => f.Title))
-                //{
-                //    int.TryParse(content.Duration, out int duration);
-                //    int.TryParse(content.Track, out int trackNumber);
-                //    long.TryParse(content.Year, out long year);
-                //    DateTime.TryParse(content.DateModified, out DateTime date);
-
-                    //IMediaFileMetadata mediaFileMetadata = new MediaFileMetadata()
-                    //{
-                    //    Title = content.Title,
-                    //    Album = content.Album,
-                    //    Artist = content.Artist,
-                    //    DisplayTitle = content.DisplayName,
-                    //    Duration = duration,
-                    //    Date = date,
-                    //    MediaUri = content.Data,
-                    //    NumTracks = trackNumber,
-                    //    Year = year,
-                    //    AlbumArt = (TimeSpan.FromMilliseconds(duration).ToString().Split('.'))[0]
-                    //};
-
-                    //MediaFiles.Add(new MediaFile()
-                    //{
-                    //    Url = content.Data,
-                    //    Type = MediaFileType.Audio,
-                    //    MetadataExtracted = false,
-                    //    Availability = ResourceAvailability.Local,
-                    //    Metadata = mediaFileMetadata
-                    //});
-                //}
+                }).OrderBy(m => m.Title).ToList();
 
                 IsMediaExists = MusicFiles.Count > 0;
                 if (MusicFiles.Count == 0)
