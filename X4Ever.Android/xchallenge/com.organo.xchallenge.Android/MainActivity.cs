@@ -50,11 +50,12 @@ namespace com.organo.xchallenge.Droid
         TextView msgText;
 
         /**
-     	* Id to identify a camera permission request.
+     	* Id to identify a permission request.
      	*/
         public static readonly int REQUEST_CAMERA = 0;
         public static readonly int REQUEST_READ_EXTERNAL_STORAGE = 1;
         public static readonly int REQUEST_WRITE_EXTERNAL_STORAGE = 2;
+        public static readonly int REQUEST_DEVICE_KEEP_AWAKE_STORAGE = 3;
 
         public Context GetContext()
         {
@@ -266,31 +267,46 @@ namespace com.organo.xchallenge.Droid
             }
             else if (requestCode == REQUEST_READ_EXTERNAL_STORAGE)
             {
-                Log.Debug(TAG, "Received response for contact permissions request.");
-                // We have requested multiple permissions for contacts, so all of them need to be checked.
+                Log.Debug(TAG, "Received response for Read from External Storage permissions request.");
+                // We have requested multiple permissions for Read from External Storage, so all of them need to be checked.
                 if (PermissionUtil.VerifyPermissions(grantResults))
                 {
-                    // All required permissions have been granted, display contacts fragment.
+                    // All required permissions have been granted, display Read from External Storage fragment.
                     GrantPermissionTaskCompletionSource.SetResult(true);
                 }
                 else
                 {
-                    Log.Debug(TAG, "Contacts permissions were NOT granted.");
+                    Log.Debug(TAG, "Read from External Storage permissions were NOT granted.");
                     GrantPermissionTaskCompletionSource.SetResult(false);
                 }
             }
             else if (requestCode == REQUEST_WRITE_EXTERNAL_STORAGE)
             {
-                Log.Debug(TAG, "Received response for contact permissions request.");
-                // We have requested multiple permissions for contacts, so all of them need to be checked.
+                Log.Debug(TAG, "Received response for Write to External Storage permissions request.");
+                // We have requested multiple permissions for Write to External Storage, so all of them need to be checked.
                 if (PermissionUtil.VerifyPermissions(grantResults))
                 {
-                    // All required permissions have been granted, display contacts fragment.
+                    // All required permissions have been granted, display Write to External Storage fragment.
                     GrantPermissionTaskCompletionSource.SetResult(true);
                 }
                 else
                 {
-                    Log.Debug(TAG, "Contacts permissions were NOT granted.");
+                    Log.Debug(TAG, "Read to External Storage permissions were NOT granted.");
+                    GrantPermissionTaskCompletionSource.SetResult(false);
+                }
+            }
+            else if (requestCode == REQUEST_DEVICE_KEEP_AWAKE_STORAGE)
+            {
+                Log.Debug(TAG, "Received response for Device Keep Awake permissions request.");
+                // We have requested multiple permissions for Device Keep Awake, so all of them need to be checked.
+                if (PermissionUtil.VerifyPermissions(grantResults))
+                {
+                    // All required permissions have been granted, display Device Keep Awake fragment.
+                    GrantPermissionTaskCompletionSource.SetResult(true);
+                }
+                else
+                {
+                    Log.Debug(TAG, "Device Keep Awake permissions were NOT granted.");
                     GrantPermissionTaskCompletionSource.SetResult(false);
                 }
             }

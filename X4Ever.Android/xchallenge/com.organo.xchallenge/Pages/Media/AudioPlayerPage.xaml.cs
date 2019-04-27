@@ -8,18 +8,20 @@ using com.organo.xchallenge.Notification;
 using com.organo.xchallenge.Services;
 using Plugin.MediaManager.Abstractions.Implementations;
 using Xamarin.Forms;
+using com.organo.xchallenge.Permissions;
 
 namespace com.organo.xchallenge.Pages.Media
 {
     public partial class AudioPlayerPage : AudioPlayerPageXaml
     {
         private AudioPlayerViewModel _model;
-
+        private readonly IDevicePermissionServices _devicePermissionServices;
         public AudioPlayerPage(RootPage rootPage)
         {
             try
             {
                 InitializeComponent();
+                _devicePermissionServices = DependencyService.Get<IDevicePermissionServices>();
                 Init(rootPage);
             }
             catch (Exception ex)
@@ -36,6 +38,10 @@ namespace com.organo.xchallenge.Pages.Media
                 Root = (RootPage) obj
             };
             BindingContext = _model;
+            if (await _devicePermissionServices.RequestDeviceKeepWakePermission())
+            {
+                _model.IsPermissionGranted = true;
+            }
             await _model.GetFilesAsync();
         }
 
@@ -43,10 +49,18 @@ namespace com.organo.xchallenge.Pages.Media
         {
             if (e.SelectedItem != null)
             {
-                var selectedContent = (MediaFile) e.SelectedItem;
-                _model.CurrentMediaFile = selectedContent;
-                int index = this._model.MediaFiles.FindIndex(m => m == selectedContent && m == selectedContent);
-                await _model.PlayCurrent(index);
+                if (await _devicePermissionServices.RequestDeviceKeepWakePermission())
+                {
+                    _model.IsPermissionGranted = true;
+                }
+
+                if (_model.CurrentMusicFile != (MusicFile) e.SelectedItem)
+                {
+                    var selectedContent = (MusicFile) e.SelectedItem;
+                    _model.CurrentMusicFile = selectedContent;
+                    int index = this._model.MusicFiles.FindIndex(m => m == selectedContent && m == selectedContent);
+                    await _model.PlayCurrent(index);
+                }
             }
 
             ListViewPlayer.SelectedItem = null;

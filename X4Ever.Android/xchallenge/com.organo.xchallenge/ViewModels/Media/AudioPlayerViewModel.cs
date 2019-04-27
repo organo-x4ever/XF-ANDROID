@@ -14,61 +14,52 @@ using com.organo.xchallenge.Models;
 using Plugin.MediaManager.Abstractions.Enums;
 using Plugin.MediaManager.Abstractions.Implementations;
 using Xamarin.Forms;
-using com.organo.xchallenge.MediaManager;
+using com.organo.xchallenge;
 using Plugin.MediaManager.Abstractions;
 
 namespace com.organo.xchallenge.ViewModels.Media
 {
     public class AudioPlayerViewModel : BaseViewModel
     {
-        private IMediaPlayerServices _mediaPlayerServices;
+        private IAudioPlayerManager _audioPlayerManager;
         private readonly IMusicDictionary _musicDictionary;
-        private IAudioPlayerService _audioPlayer;
         private IDevicePermissionServices _devicePermissionServices;
         private static short timerSeconds = 1;
+
         public AudioPlayerViewModel(INavigation navigation = null) : base(navigation)
         {
-            _mediaPlayerServices = DependencyService.Get<IMediaPlayerServices>();
+            _audioPlayerManager = DependencyService.Get<IAudioPlayerManager>();
             _musicDictionary = DependencyService.Get<IMusicDictionary>();
-            _audioPlayer = DependencyService.Get<IAudioPlayerService>();
             _devicePermissionServices = DependencyService.Get<IDevicePermissionServices>();
             SetPageImageSize();
-            MediaFiles = new List<MediaFile>();
-            CurrentMediaFile = new MediaFile();
+            MusicFiles = new List<MusicFile>();
+            CurrentMusicFile = new MusicFile();
             PlayButton = ImageResizer.ResizeImage(TextResources.icon_media_play, ButtonImageSize);
             PauseButton = ImageResizer.ResizeImage(TextResources.icon_media_pause, ButtonImageSize);
             StopButton = ImageResizer.ResizeImage(TextResources.icon_media_stop, ButtonImageSize);
             NextButton = ImageResizer.ResizeImage(TextResources.icon_media_next, ButtonImageSize);
             PreviousButton = ImageResizer.ResizeImage(TextResources.icon_media_previous, ButtonImageSize);
+            ForwardButton = ImageResizer.ResizeImage(TextResources.icon_media_forward, ButtonImageSize);
+            BackwardButton = ImageResizer.ResizeImage(TextResources.icon_media_backward, ButtonImageSize);
             PlayPauseButton = PlayButton;
+            NowPlayingButton = PlayButton;
             IsPlaying = false;
             IsPause = false;
             IsMediaExists = false;
             CurrentSongIndex = 0;
-            _mediaPlayerServices.TimedTextAction = TimedText;
-            //CrossMediaManager.Current.PlayingChanged += async (sender, e) =>
-            //{
-            //    CurrentPosition = e.Progress;
-            //    CurrentTimer = e.Position.ToString(@"hh\:mm\:ss");
-            //    TotalTimer = e.Duration.ToString(@"hh\:mm\:ss");
-            //    double TOLERANCE = 0;
-            //    if (Math.Abs(e.Progress - 1) < TOLERANCE)
-            //        await PlayCurrent(Next());
-            //};
-        }
-
-        private void TimedText()
-        {
-
+            IsLoopStarted = false;
+            IsPermissionGranted = false;
         }
 
         private void CurrentPlay()
         {
+            if (IsLoopStarted) return;
             var seconds = TimeSpan.FromSeconds(timerSeconds);
             Device.StartTimer(seconds, () =>
             {
+                IsLoopStarted = true;
                 PlayerLoop().GetAwaiter();
-                return true;
+                return IsLoopStarted;
             });
         }
 
@@ -76,11 +67,13 @@ namespace com.organo.xchallenge.ViewModels.Media
         {
             if (IsPlaying)
             {
-                CurrentPosition = (_mediaPlayerServices.CurrentPosition * 100) / _mediaPlayerServices.Duration;
-                CurrentTimer = TimeSpan.FromMilliseconds(_mediaPlayerServices.CurrentPosition).ToString(@"hh\:mm\:ss");
-                TotalTimer = TimeSpan.FromMilliseconds(_mediaPlayerServices.Duration).ToString(@"hh\:mm\:ss");
-                double TOLERANCE = _mediaPlayerServices.Duration;
-                if (_mediaPlayerServices.CurrentPosition >= _mediaPlayerServices.Duration)
+                CurrentPosition = (_audioPlayerManager.CurrentPlayer.CurrentPosition * 100) /
+                                  _audioPlayerManager.CurrentPlayer.Duration;
+                CurrentTimer = TimeSpan.FromSeconds(_audioPlayerManager.CurrentPlayer.CurrentPosition)
+                    .ToString(TimeStyle);
+                double TOLERANCE = _audioPlayerManager.CurrentPlayer.Duration;
+                if (_audioPlayerManager.CurrentPlayer.IsPlaying && _audioPlayerManager.CurrentPlayer.CurrentPosition >=
+                    _audioPlayerManager.CurrentPlayer.Duration)
                     await PlayCurrent(Next());
             }
         }
@@ -89,51 +82,56 @@ namespace com.organo.xchallenge.ViewModels.Media
 
         public async Task GetFilesAsync()
         {
-            MediaFiles = new List<MediaFile>();
-            var mediaFiles = new List<MediaFile>();
+            MusicFiles = new List<MusicFile>();
             if (await _devicePermissionServices.RequestReadStoragePermission())
             {
-                var fileDetails = _musicDictionary.GetMusic();
-                //if (fileDetails == null || fileDetails.Count == 0 && !fileDetails.Any(f => f.Type.EndsWith(FileType)))
-                //    SetActivityResource(showError: true, errorMessage: TextResources.NoFileExists);
-                //else
+                var musicFiles = _musicDictionary.GetMusic();
+
+                MusicFiles = musicFiles.Select(music =>
+                {
+                    music._Duration = int.TryParse(music.Duration, out int duration) ? duration : 0;
+                    music._Date = DateTime.TryParse(music.DateModified, out DateTime date)
+                        ? date
+                        : new DateTime(1900, 1, 1);
+                    music._Track = int.TryParse(music.Track, out int trackNumber) ? trackNumber : 0;
+                    music._Year = long.TryParse(music.Year, out long year) ? year : 0;
+                    music._DurationTimeSpan = (TimeSpan.FromMilliseconds(duration).ToString().Split('.'))[0];
+                    return music;
+                }).ToList();
+
+                //foreach (var content in musicFiles.OrderBy(f => f.Title))
                 //{
-                    //foreach (var content in fileDetails.Where(f => f.Type.EndsWith(FileType)).OrderBy(f => f.Name))
-                    foreach (var content in fileDetails.OrderBy(f => f.Title))
-                    {
-                        int.TryParse(content.Duration, out int duration);
-                        int.TryParse(content.Track, out int trackNumber);
-                        long.TryParse(content.Year, out long year);
-                        DateTime.TryParse(content.DateModified, out DateTime date);
+                //    int.TryParse(content.Duration, out int duration);
+                //    int.TryParse(content.Track, out int trackNumber);
+                //    long.TryParse(content.Year, out long year);
+                //    DateTime.TryParse(content.DateModified, out DateTime date);
 
-                        IMediaFileMetadata mediaFileMetadata = new MediaFileMetadata()
-                        {
-                            Title = content.Title,
-                            Album = content.Album,
-                            Artist = content.Artist,
-                            DisplayTitle = content.DisplayName,
-                            Duration = duration,
-                            Date = date,
-                            MediaUri = content.Data,
-                            NumTracks = trackNumber,
-                            Year = year,
-                            AlbumArt = (TimeSpan.FromMilliseconds(duration).ToString().Split('.'))[0]
-                        };
+                    //IMediaFileMetadata mediaFileMetadata = new MediaFileMetadata()
+                    //{
+                    //    Title = content.Title,
+                    //    Album = content.Album,
+                    //    Artist = content.Artist,
+                    //    DisplayTitle = content.DisplayName,
+                    //    Duration = duration,
+                    //    Date = date,
+                    //    MediaUri = content.Data,
+                    //    NumTracks = trackNumber,
+                    //    Year = year,
+                    //    AlbumArt = (TimeSpan.FromMilliseconds(duration).ToString().Split('.'))[0]
+                    //};
 
-                        mediaFiles.Add(new MediaFile()
-                        {
-                            Url = content.Data,
-                            Type = MediaFileType.Audio,
-                            MetadataExtracted = false,
-                            Availability = ResourceAvailability.Local,
-                            Metadata = mediaFileMetadata
-                        });
-                    }
-                    //}
+                    //MediaFiles.Add(new MediaFile()
+                    //{
+                    //    Url = content.Data,
+                    //    Type = MediaFileType.Audio,
+                    //    MetadataExtracted = false,
+                    //    Availability = ResourceAvailability.Local,
+                    //    Metadata = mediaFileMetadata
+                    //});
+                //}
 
-                MediaFiles = mediaFiles;
-                IsMediaExists = MediaFiles.Count > 0;
-                if (MediaFiles.Count == 0)
+                IsMediaExists = MusicFiles.Count > 0;
+                if (MusicFiles.Count == 0)
                     SetActivityResource(showError: true, errorMessage: TextResources.NoFileExists);
             }
             else
@@ -143,16 +141,18 @@ namespace com.organo.xchallenge.ViewModels.Media
             }
         }
 
-        private bool _showPlayer;
-        public const string ShowPlayerPropertyName = "ShowPlayer";
+        private bool IsLoopStarted { get; set; }
+        private bool IsDurationLong { get; set; }
+        private string TimeStyle { get; set; }
 
-        public bool ShowPlayer
+        private bool _isPermissionGranted;
+        public const string IsPermissionGrantedPropertyName = "IsPermissionGranted";
+
+        public bool IsPermissionGranted
         {
-            get { return _showPlayer; }
-            set { SetProperty(ref _showPlayer, value, ShowPlayerPropertyName); }
+            get { return _isPermissionGranted; }
+            set { SetProperty(ref _isPermissionGranted, value, IsPermissionGrantedPropertyName); }
         }
-
-        private string FileType => "MP3";
 
         private double _currentPosition;
         public const string CurrentPositionPropertyName = "CurrentPosition";
@@ -172,7 +172,7 @@ namespace com.organo.xchallenge.ViewModels.Media
             set { SetProperty(ref _currentTimer, value, CurrentTimerPropertyName); }
         }
 
-        
+
         private string _timeSplitor;
         public const string TimeSplitorPropertyName = "TimeSplitor";
 
@@ -236,6 +236,24 @@ namespace com.organo.xchallenge.ViewModels.Media
             set { SetProperty(ref _stopButton, value, StopButtonPropertyName); }
         }
 
+        private ImageSource _forwardButton;
+        public string ForwardButtonPropertyName = "ForwardButton";
+
+        public ImageSource ForwardButton
+        {
+            get { return _forwardButton; }
+            set { SetProperty(ref _forwardButton, value, ForwardButtonPropertyName); }
+        }
+        
+        private ImageSource _backwardButton;
+        public string BackwardButtonPropertyName = "BackwardButton";
+
+        public ImageSource BackwardButton
+        {
+            get { return _backwardButton; }
+            set { SetProperty(ref _backwardButton, value, BackwardButtonPropertyName); }
+        }
+
         private ImageSource _nextButton;
         public string NextButtonPropertyName = "NextButton";
 
@@ -252,6 +270,15 @@ namespace com.organo.xchallenge.ViewModels.Media
         {
             get { return _previousButton; }
             set { SetProperty(ref _previousButton, value, PreviousButtonPropertyName); }
+        }
+        
+        private ImageSource _nowPlayingButton;
+        public string NowPlayingButtonPropertyName = "NowPlayingButton";
+
+        public ImageSource NowPlayingButton
+        {
+            get { return _nowPlayingButton; }
+            set { SetProperty(ref _nowPlayingButton, value, NowPlayingButtonPropertyName); }
         }
 
         private ImageSize ButtonImageSize { get; set; }
@@ -336,22 +363,35 @@ namespace com.organo.xchallenge.ViewModels.Media
                 {
                     CurrentSongIndex = songIndex;
                     IsPlaying = true;
-                    CurrentMediaFile = MediaFiles[songIndex];
-                    MediaTitle = MediaFiles[songIndex].Metadata.Title;
-                    _mediaPlayerServices.StartPlayer(CurrentMediaFile.Url);
+                    MusicFiles = MusicFiles.Select(m =>
+                    {
+                        m.IsPlayNow = false;
+                        m.TextColor = Palette._LightGrayD;
+                        return m;
+                    }).ToList();
+                    var currentMusicFile = MusicFiles[songIndex];
+                    currentMusicFile.IsPlayNow = true;
+                    currentMusicFile.TextColor = Palette._MainAccent;
+                    CurrentMusicFile = currentMusicFile;
+                    MediaTitle = MusicFiles[songIndex].Title;
+                    _audioPlayerManager.CurrentPlayer.Load(CurrentMusicFile.Data, true);
+                    _audioPlayerManager.CurrentPlayer.Play();
+                    IsDurationLong = _audioPlayerManager.CurrentPlayer.Duration > (60 * 60);
+                    TimeStyle = IsDurationLong ? @"hh\:mm\:ss" : @"mm\:ss";
+                    TotalTimer = TimeSpan.FromSeconds(_audioPlayerManager.CurrentPlayer.Duration).ToString(TimeStyle);
                     CurrentPlay();
-                    //_mediaPlayerServices.Play(CurrentMediaFile);
                 });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 //Error
+                _ = ex;
             }
         }
 
         private int Next()
         {
-            if (MediaFiles.Count() > (CurrentSongIndex + 1))
+            if (MusicFiles.Count() > (CurrentSongIndex + 1))
                 CurrentSongIndex++;
             else
                 CurrentSongIndex = 0;
@@ -363,26 +403,26 @@ namespace com.organo.xchallenge.ViewModels.Media
             if (CurrentSongIndex > 0)
                 CurrentSongIndex--;
             else
-                CurrentSongIndex = MediaFiles.Count - 1;
+                CurrentSongIndex = MusicFiles.Count - 1;
             return CurrentSongIndex;
         }
 
-        private List<MediaFile> _mediaFiles;
-        public const string MediaFilesPropertyName = "MediaFiles";
+        private List<MusicFile> _musicFiles;
+        public const string MusicFilesPropertyName = "MusicFiles";
 
-        public List<MediaFile> MediaFiles
+        public List<MusicFile> MusicFiles
         {
-            get { return _mediaFiles; }
-            set { SetProperty(ref _mediaFiles, value, MediaFilesPropertyName); }
+            get { return _musicFiles; }
+            set { SetProperty(ref _musicFiles, value, MusicFilesPropertyName); }
         }
-        
-        private MediaFile _currentMediaFile;
-        public const string CurrentMediaFilePropertyName = "CurrentMediaFile";
 
-        public MediaFile CurrentMediaFile
+        private MusicFile _currentMusicFile;
+        public const string CurrentMusicFilePropertyName = "CurrentMusicFile";
+
+        public MusicFile CurrentMusicFile
         {
-            get { return _currentMediaFile; }
-            set { SetProperty(ref _currentMediaFile, value, CurrentMediaFilePropertyName); }
+            get { return _currentMusicFile; }
+            set { SetProperty(ref _currentMusicFile, value, CurrentMusicFilePropertyName); }
         }
 
         private ICommand _playCommand;
@@ -397,7 +437,7 @@ namespace com.organo.xchallenge.ViewModels.Media
                     if (IsPlaying)
                     {
                         if (IsPause)
-                            _mediaPlayerServices.Play();
+                            _audioPlayerManager.CurrentPlayer.Play();
                         else
                             await PlayCurrent(CurrentSongIndex);
                         IsPause = false;
@@ -405,7 +445,7 @@ namespace com.organo.xchallenge.ViewModels.Media
                     else
                     {
                         IsPause = true;
-                        _mediaPlayerServices.Pause();
+                        _audioPlayerManager.CurrentPlayer.Pause();
                     }
                 }));
             }
@@ -421,7 +461,7 @@ namespace com.organo.xchallenge.ViewModels.Media
                 {
                     IsPlaying = false;
                     StopAsync();
-                    CurrentTimer = TimeSpan.FromSeconds(0).ToString(@"hh\:mm\:ss");
+                    CurrentTimer = TimeSpan.FromSeconds(0).ToString(TimeStyle);
                     TimeSplitor = "";
                 }));
             }
@@ -431,8 +471,9 @@ namespace com.organo.xchallenge.ViewModels.Media
         {
             try
             {
+                IsLoopStarted = false;
                 CurrentPosition = 0;
-                _mediaPlayerServices.Stop();
+                _audioPlayerManager.CurrentPlayer.Stop();
             }
             catch
             {
@@ -444,10 +485,7 @@ namespace com.organo.xchallenge.ViewModels.Media
 
         public ICommand NextCommand
         {
-            get
-            {
-                return _nextCommand ?? (_nextCommand = new Command(async () => { await PlayCurrent(Next()); }));
-            }
+            get { return _nextCommand ?? (_nextCommand = new Command(async () => { await PlayCurrent(Next()); })); }
         }
 
         private ICommand _previousCommand;
@@ -459,6 +497,39 @@ namespace com.organo.xchallenge.ViewModels.Media
                 return _previousCommand ?? (_previousCommand = new Command(async () =>
                 {
                     await PlayCurrent(Previous());
+                }));
+            }
+        }
+
+        private ICommand _forwardCommand;
+
+        public ICommand ForwardCommand
+        {
+            get
+            {
+                return _forwardCommand ?? (_forwardCommand = new Command(async () =>
+                {
+                    if (_audioPlayerManager.CurrentPlayer.Duration >
+                        _audioPlayerManager.CurrentPlayer.CurrentPosition + 10)
+                        _audioPlayerManager.CurrentPlayer.Seek(_audioPlayerManager.CurrentPlayer.CurrentPosition + 10);
+                    else
+                        await PlayCurrent(Next());
+                }));
+            }
+        }
+
+        private ICommand _backwardCommand;
+
+        public ICommand BackwardCommand
+        {
+            get
+            {
+                return _backwardCommand ?? (_backwardCommand = new Command(() =>
+                {
+                    if (_audioPlayerManager.CurrentPlayer.CurrentPosition - 10 > 0)
+                        _audioPlayerManager.CurrentPlayer.Seek(_audioPlayerManager.CurrentPlayer.CurrentPosition - 10);
+                    else
+                        _audioPlayerManager.CurrentPlayer.Seek(0);
                 }));
             }
         }

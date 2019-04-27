@@ -14,15 +14,15 @@ namespace com.organo.xchallenge.Droid.Services
     {
         #region PRIVATE PROPERTIES
 
-        private MediaPlayer _mediaPlayer;
+        private readonly MediaPlayer _mediaPlayer;
         private float MAX_VOLUME => 1.0f;
 
         #endregion PRIVATE PROPERTIES
 
         #region PUBLIC PROPERTIES
 
-        public int Duration => _mediaPlayer != null ? _mediaPlayer.Duration : 0;
-        public int CurrentPosition => _mediaPlayer != null ? _mediaPlayer.CurrentPosition : 0;
+        public int Duration => _mediaPlayer?.Duration ?? 0;
+        public int CurrentPosition => _mediaPlayer?.CurrentPosition ?? 0;
         public float Volume { get; set; }
         public bool CanSeek => true;
         public bool IsPlaying { get; set; }
@@ -39,11 +39,19 @@ namespace com.organo.xchallenge.Droid.Services
 
         public AudioPlayerService()
         {
-            this.Volume = 1.0f;
+            Volume = 1.0f;
             //Get Activity
             MainActivity activity = Forms.Context as MainActivity;
-            this.Context = activity.Window.Context;
-            _mediaPlayer.SetWakeMode(Context, WakeLockFlags.ScreenDim);
+            Context = activity.Window.Context;
+            _mediaPlayer = new MediaPlayer();
+            try
+            {
+                _mediaPlayer.SetWakeMode(Context, WakeLockFlags.ScreenDim);
+            }
+            catch (Exception ex)
+            {
+                _ = ex;
+            }
         }
 
         public void Play(string pathToAudioFile)
@@ -54,11 +62,10 @@ namespace com.organo.xchallenge.Droid.Services
                 _mediaPlayer.Stop();
             }
 
-            this.PlayNow = pathToAudioFile;
+            PlayNow = pathToAudioFile;
 
             if (_mediaPlayer == null)
             {
-                _mediaPlayer = new MediaPlayer();
                 _mediaPlayer.Prepared += (sender, args) =>
                 {
                     _mediaPlayer.Start();
@@ -69,17 +76,17 @@ namespace com.organo.xchallenge.Droid.Services
             if (_mediaPlayer != null)
             {
                 _mediaPlayer.Reset();
-                SetVolume(this.Volume);
-                _mediaPlayer.SetDataSource(this.PlayNow);
+                SetVolume(Volume);
+                _mediaPlayer.SetDataSource(PlayNow);
                 _mediaPlayer.PrepareAsync();
-                this.IsPlaying = _mediaPlayer.IsPlaying;
+                IsPlaying = _mediaPlayer.IsPlaying;
             }
         }
 
         public void SetVolume(float volume)
         {
-            this.Volume = volume;
-            float volumeValue = this.Volume / MAX_VOLUME;
+            Volume = volume;
+            float volumeValue = Volume / MAX_VOLUME;
             //(float) (1 - (Math.Log(MAX_VOLUME - soundVolume) / Math.Log(MAX_VOLUME)));
             if (_mediaPlayer != null)
                 _mediaPlayer.SetVolume(volumeValue, volumeValue);
@@ -89,47 +96,74 @@ namespace com.organo.xchallenge.Droid.Services
         {
             OnFinishedPlaying?.Invoke();
             if (_mediaPlayer != null)
-                this.IsPlaying = _mediaPlayer.IsPlaying;
+                IsPlaying = _mediaPlayer.IsPlaying;
         }
 
         public void Pause()
         {
             _mediaPlayer?.Pause();
             if (_mediaPlayer != null)
-                this.IsPlaying = _mediaPlayer.IsPlaying;
+                IsPlaying = _mediaPlayer.IsPlaying;
         }
 
         public void Play()
         {
             _mediaPlayer?.Start();
             if (_mediaPlayer != null)
-                this.IsPlaying = _mediaPlayer.IsPlaying;
+                IsPlaying = _mediaPlayer.IsPlaying;
         }
 
         public void Stop()
         {
             _mediaPlayer?.Stop();
             if (_mediaPlayer != null)
-                this.IsPlaying = _mediaPlayer.IsPlaying;
+                IsPlaying = _mediaPlayer.IsPlaying;
         }
 
         public void SeekTo(int seekValue)
         {
             _mediaPlayer?.SeekTo(seekValue);
             if (_mediaPlayer != null)
-                this.IsPlaying = _mediaPlayer.IsPlaying;
+                IsPlaying = _mediaPlayer.IsPlaying;
         }
 
         public int GetTrackDuration(string pathToAudioFile)
         {
-            if (_mediaPlayer == null)
-            {
-                _mediaPlayer = new MediaPlayer();
-            }
+            _mediaPlayer.Reset();
+            _mediaPlayer.SetDataSource(pathToAudioFile);
+            return _mediaPlayer.Duration;
+        }
+        
+        bool isDisposed = false;
 
-            this._mediaPlayer.Reset();
-            this._mediaPlayer.SetDataSource(pathToAudioFile);
-            return this._mediaPlayer.Duration;
+        ///<Summary>
+        /// Dispose SimpleAudioPlayer and release resources
+        ///</Summary>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (isDisposed || _mediaPlayer == null)
+                return;
+
+            if (disposing)
+            {
+                _mediaPlayer.Dispose();
+                }
+            isDisposed = true;
+        }
+
+        ~AudioPlayerService()
+        {
+            Dispose(false);
+        }
+
+        ///<Summary>
+        /// Dispose SimpleAudioPlayer and release resources
+        ///</Summary>
+        public void Dispose()
+        {
+            Dispose(true);
+
+            GC.SuppressFinalize(this);
         }
     }
 }

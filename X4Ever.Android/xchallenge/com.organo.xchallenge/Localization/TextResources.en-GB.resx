@@ -1841,4 +1841,10 @@ your 3rd meal. Enjoy Pro Meals
   <data name="YouLostFormat1" xml:space="preserve">
     <value>You lost {0}</value>
   </data>
+  <data name="icon_media_backward" xml:space="preserve">
+    <value>backward.png</value>
+  </data>
+  <data name="icon_media_forward" xml:space="preserve">
+    <value>forward.png</value>
+  </data>
 </root>

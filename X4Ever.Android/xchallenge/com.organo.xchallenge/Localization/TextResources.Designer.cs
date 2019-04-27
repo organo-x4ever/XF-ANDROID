@@ -1547,6 +1547,24 @@ namespace com.organo.xchallenge.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to backward.png.
+        /// </summary>
+        internal static string icon_media_backward {
+            get {
+                return ResourceManager.GetString("icon_media_backward", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to forward.png.
+        /// </summary>
+        internal static string icon_media_forward {
+            get {
+                return ResourceManager.GetString("icon_media_forward", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to next.png.
         /// </summary>
         internal static string icon_media_next {

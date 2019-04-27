@@ -4,13 +4,11 @@ using System.Collections.Generic;
 using Android.Content;
 using Android.Database;
 using Android.Provider;
-using com.organo.xchallenge.Models;
-using com.organo.xchallenge.Droid.MediaManager;
-using com.organo.xchallenge.MediaManager;
+using com.organo.xchallenge;
 
 [assembly: Xamarin.Forms.Dependency(typeof(MusicDictionary))]
 
-namespace com.organo.xchallenge.Droid.MediaManager
+namespace com.organo.xchallenge
 {
     public class MusicDictionary : IMusicDictionary
     {

@@ -9,5 +9,7 @@ namespace com.organo.xchallenge.Permissions
         Task<bool> RequestReadStoragePermission();
 
         Task<bool> RequestWriteStoragePermission();
+
+        Task<bool> RequestDeviceKeepWakePermission();
     }
 }

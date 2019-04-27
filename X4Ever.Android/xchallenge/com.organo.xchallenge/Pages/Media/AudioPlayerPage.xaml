@@ -11,9 +11,9 @@
     <controls:TopBarAccountView></controls:TopBarAccountView>
     <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="15,15,15,0">
         <Frame Style="{DynamicResource frameStyle}" HasShadow="False">
-            <StackLayout Orientation="Vertical" VerticalOptions="Start" HorizontalOptions="FillAndExpand" IsVisible="{Binding IsMediaExists}">
-                <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalOptions="Start" Text="{Binding CurrentTimer}" Style="{DynamicResource labelStyleXXLargeHeader}" />
-              <Grid VerticalOptions="Start" HorizontalOptions="FillAndExpand" Margin="15,10,15,0">
+            <StackLayout Orientation="Vertical" VerticalOptions="Start" HorizontalOptions="FillAndExpand" IsVisible="{Binding IsPermissionGranted}">
+              <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalOptions="Start" Text="{Binding CurrentTimer}" Style="{DynamicResource labelStyleXXLargeHeader}" IsVisible="{Binding IsMediaExists}" />
+              <Grid VerticalOptions="Start" HorizontalOptions="FillAndExpand" Margin="18,10,18,0" IsVisible="{Binding IsMediaExists}">
                   <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                   </Grid.RowDefinitions>
@@ -24,8 +24,8 @@
                   <Label Grid.Row="0" Grid.Column="0" HorizontalOptions="StartAndExpand" VerticalOptions="End" Text="{Binding MediaTitle}" Style="{DynamicResource labelTimer}" FontAttributes="None" LineBreakMode="TailTruncation" TextColor="{x:Static statics:Palette._LightGrayD}" />
                   <Label Grid.Row="0" Grid.Column="1" HorizontalOptions="End" VerticalOptions="End" Text="{Binding TotalTimer}" Style="{DynamicResource labelTimer}" TextColor="{x:Static statics:Palette._LightGrayD}" />
               </Grid>
-            <Slider Minimum="0" Maximum="100" Value="{Binding CurrentPosition, Mode=OneWay}" HorizontalOptions="FillAndExpand" />
-            <Grid HorizontalOptions="FillAndExpand">
+            <Slider x:Name="SliderCurrentPosition" Minimum="0" Maximum="100" Value="{Binding CurrentPosition, Mode=OneWay}" HorizontalOptions="FillAndExpand" IsVisible="{Binding IsMediaExists}" />
+            <Grid HorizontalOptions="FillAndExpand" IsVisible="{Binding IsMediaExists}">
               <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
@@ -35,27 +35,39 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
                 <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
               </Grid.ColumnDefinitions>
-              <Image Grid.Column="2" Source="{Binding PreviousButton}" Style="{DynamicResource imageIcon}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0,3,0">
+                <Image Grid.Column="2" Source="{Binding BackwardButton}" Style="{DynamicResource imageIcon}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0,3,0">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding BackwardCommand}" />
+                    </Image.GestureRecognizers>
+                </Image>
+                <Image Grid.Column="3" Source="{Binding PreviousButton}" Style="{DynamicResource imageIcon}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0,3,0">
                 <Image.GestureRecognizers>
                   <TapGestureRecognizer Command="{Binding PreviousCommand}" />
                 </Image.GestureRecognizers>
               </Image>
-              <Image Grid.Column="3" Source="{Binding PlayPauseButton}" Style="{DynamicResource imageIcon}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0,3,0">
+              <Image Grid.Column="4" Source="{Binding PlayPauseButton}" Style="{DynamicResource imageIcon}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0,3,0">
                 <Image.GestureRecognizers>
                   <TapGestureRecognizer Command="{Binding PlayCommand}" />
                 </Image.GestureRecognizers>
               </Image>
-              <Image Grid.Column="4" Source="{Binding StopButton}" Style="{DynamicResource imageIcon}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0,3,0">
+              <Image Grid.Column="5" Source="{Binding StopButton}" Style="{DynamicResource imageIcon}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0,3,0">
                 <Image.GestureRecognizers>
                   <TapGestureRecognizer Command="{Binding StopCommand}" />
                 </Image.GestureRecognizers>
               </Image>
-              <Image Grid.Column="5" Source="{Binding NextButton}" Style="{DynamicResource imageIcon}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0,3,0">
+              <Image Grid.Column="6" Source="{Binding NextButton}" Style="{DynamicResource imageIcon}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0,3,0">
                 <Image.GestureRecognizers>
                   <TapGestureRecognizer Command="{Binding NextCommand}" />
                 </Image.GestureRecognizers>
               </Image>
+                <Image Grid.Column="7" Source="{Binding ForwardButton}" Style="{DynamicResource imageIcon}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0,3,0">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ForwardCommand}" />
+                    </Image.GestureRecognizers>
+                </Image>
             </Grid>
         </StackLayout>
       </Frame>
@@ -65,20 +77,17 @@
         <Label IsVisible="{Binding IsError}" Text="{Binding ErrorMessage}" Style="{DynamicResource labelErrorMessage}" />
         <Label IsVisible="{Binding IsMessage}" Text="{Binding MessageText}" Style="{DynamicResource labelSuccessMessage}" />
       </StackLayout>
-        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" IsEnabled="{Binding IsEditable}" BackgroundColor="{x:Static statics:Palette._Transparent}" Margin="5,15,5,0">
+      <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" IsEnabled="{Binding IsEditable}" BackgroundColor="{x:Static statics:Palette._Transparent}" Margin="5,15,5,0">
             <Label Style="{DynamicResource labelTimer}" Text="{localization:Translate Playlist}" HorizontalOptions="Start" TextColor="{x:Static statics:Palette._FooterTexts}" FontAttributes="None" Margin="0,5,0,0" />
-            <ListView x:Name="ListViewPlayer" HasUnevenRows="True" SeparatorVisibility="None" ItemsSource="{Binding MediaFiles}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" 
+            <ListView x:Name="ListViewPlayer" HasUnevenRows="True" SeparatorVisibility="None" ItemsSource="{Binding MusicFiles}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" 
                   ItemSelected="ListView_OnItemSelected" BackgroundColor="{x:Static statics:Palette._Transparent}">
-          <ListView.Header>
-              
-          </ListView.Header>
             <ListView.ItemTemplate>
             <DataTemplate>
               <ViewCell>
                 <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Padding="0,7,0,7">
                   <Label HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Start"
-                       Text="{Binding Metadata.Title, Converter={StaticResource SplitConverter}, ConverterParameter=9, StringFormat='{0}'}" Style="{DynamicResource labelStyleSmall}" 
-                       LineBreakMode="TailTruncation" Margin="0" TextColor="{x:Static statics:Palette._LightGrayD}" />
+                       Text="{Binding Title, Converter={StaticResource SplitConverter}, ConverterParameter=9, StringFormat='{0}'}" Style="{DynamicResource labelStyleSmall}" 
+                       LineBreakMode="TailTruncation" Margin="0" TextColor="{Binding TextColor}" />
                   <Grid Margin="0,-4,0,0" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
                       <Grid.ColumnDefinitions>
                           <ColumnDefinition Width="*"></ColumnDefinition>
@@ -87,14 +96,11 @@
                           <ColumnDefinition Width="Auto"></ColumnDefinition>
                           <ColumnDefinition Width="*"></ColumnDefinition>
                       </Grid.ColumnDefinitions>
-                      <Label Grid.Row="0" Grid.Column="0" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Start" 
-                             Text="{Binding Metadata.Artist}" Style="{DynamicResource labelStyleXXSmall}" LineBreakMode="TailTruncation" />
+                      <Label Grid.Row="0" Grid.Column="0" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" Text="{Binding Artist}" Style="{DynamicResource labelStyleXXSmall}" LineBreakMode="TailTruncation" />
                       <Label Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" Text=" | " Style="{DynamicResource labelStyleXXSmall}" />
-                      <Label Grid.Row="0" Grid.Column="2" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Start" 
-                             Text="{Binding Metadata.Album}" Style="{DynamicResource labelStyleXXSmall}" LineBreakMode="TailTruncation" />
+                      <Label Grid.Row="0" Grid.Column="2" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" Text="{Binding Album}" Style="{DynamicResource labelStyleXXSmall}" LineBreakMode="TailTruncation" />
                       <Label Grid.Row="0" Grid.Column="3" HorizontalOptions="Center" VerticalOptions="Center" Text=" | " Style="{DynamicResource labelStyleXXSmall}" />
-                      <Label Grid.Row="0" Grid.Column="4" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Start" 
-                             Text="{Binding Metadata.AlbumArt}" Style="{DynamicResource labelStyleXXSmall}" LineBreakMode="TailTruncation" />
+                      <Label Grid.Row="0" Grid.Column="4" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" Text="{Binding _DurationTimeSpan}" Style="{DynamicResource labelStyleXXSmall}" LineBreakMode="TailTruncation" />
                   </Grid>
                 </StackLayout>
               </ViewCell>

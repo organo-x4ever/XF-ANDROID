@@ -101,6 +101,8 @@
     <Compile Include="Helpers\IDeviceInfo.cs" />
     <Compile Include="Helpers\IImageResizerHelpers.cs" />
     <Compile Include="Helpers\ImageResizer.cs" />
+    <Compile Include="MediaManager\IAudioPlayer.cs" />
+    <Compile Include="MediaManager\IAudioPlayerManager.cs" />
     <Compile Include="MediaManager\IMusicDictionary.cs" />
     <Compile Include="Models\AppInfoModel.cs" />
     <Compile Include="Models\ApplicationSetting.cs" />
@@ -159,7 +161,7 @@
     <Compile Include="Models\MessageModel.cs" />
     <Compile Include="Models\ApplicationLanguage.cs" />
     <Compile Include="Models\MilestonePercentage.cs" />
-    <Compile Include="Models\MusicFile.cs" />
+    <Compile Include="MediaManager\MusicFile.cs" />
     <Compile Include="Models\News\NewsModel.cs" />
     <Compile Include="Models\Notifications\UserPushTokenModel.cs" />
     <Compile Include="Models\Province.cs" />
@@ -256,9 +258,6 @@
     <Compile Include="Pages\Base\ModelBoundTabbedPage.cs" />
     <Compile Include="Pages\MealPlan\MealPlanPage.xaml.cs">
       <DependentUpon>MealPlanPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\MediaPlayers\AudioMediaPlayerPage.xaml.cs">
-      <DependentUpon>AudioMediaPlayerPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Media\AudioPlayerPage.xaml.cs">
       <DependentUpon>AudioPlayerPage.xaml</DependentUpon>
@@ -891,12 +890,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\MenuGridPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Pages\MediaPlayers\AudioMediaPlayerPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

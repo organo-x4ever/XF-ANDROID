@@ -18,6 +18,7 @@ namespace com.organo.xchallenge.Droid.Notification
             var context = activity.Window.Context;
 
             // Instantiate the builder and set notification elements:
+            
             Android.App.Notification.Builder notificationBuilder = new Android.App.Notification.Builder(context)
                 .SetSmallIcon(Resource.Drawable.icon)
                 .SetContentTitle(title)

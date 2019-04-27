@@ -51,6 +51,37 @@ namespace com.organo.xchallenge.Droid.Permissions
             return true;
         }
 
+        public async Task<bool> RequestDeviceKeepWakePermission()
+        {
+            // Check if the Camera permission is already available.
+            if (ActivityCompat.CheckSelfPermission(activity, Manifest.Permission.WakeLock) !=
+                (int)Permission.Granted)
+            {
+                // Camera permission has not been granted
+                //if (ActivityCompat.ShouldShowRequestPermissionRationale(activity, Manifest.Permission.Camera))
+                //{
+                // Provide an additional rationale to the user if the permission was not granted and
+                //the user would benefit from additional context for the use of the permission.For
+                //example if the user has previously denied the permission.
+                //                    Log.Info(TAG, "Displaying camera permission rationale to provide additional context.");
+
+                // Camera permission has not been granted yet. Request it directly.
+                ActivityCompat.RequestPermissions(activity, new String[]
+                {
+                    Manifest.Permission.WakeLock
+                }, MainActivity.REQUEST_DEVICE_KEEP_AWAKE_STORAGE);
+
+                // Save the TaskCompletionSource object as a MainActivity property
+                activity.GrantPermissionTaskCompletionSource = new TaskCompletionSource<bool>();
+
+                // Return Task object
+                return await activity.GrantPermissionTaskCompletionSource.Task;
+                // }
+            }
+
+            return true;
+        }
+
         public async Task<bool> RequestReadStoragePermission()
         {
             // Check if the Camera permission is already available.
