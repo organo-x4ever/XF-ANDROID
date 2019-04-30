@@ -15,7 +15,7 @@ using com.organo.xchallenge;
 namespace com.organo.xchallenge
 {
     /// <summary>
-    /// Cross platform SimpleAudioPlayer implemenations
+    /// Cross platform AudioPlayer implemenations
     /// </summary>
 #if __ANDROID__
     [Android.Runtime.Preserve(AllMembers = true)]

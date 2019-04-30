@@ -1,7 +1,6 @@
 ﻿
 using System;
 using System.IO;
-using System.Net;
 using Android.Content;
 using Android.Content.Res;
 using Android.OS;

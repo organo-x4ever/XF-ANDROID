@@ -1846,4 +1846,28 @@
   <data name="icon_media_forward" xml:space="preserve">
     <value>forward.png</value>
   </data>
+  <data name="PushNotification" xml:space="preserve">
+    <value>Notificación de inserción</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Notificaciones</value>
+  </data>
+  <data name="Notification_GeneralMessage" xml:space="preserve">
+    <value>Mensaje general</value>
+  </data>
+  <data name="Notification_Intimation" xml:space="preserve">
+    <value>Intimación</value>
+  </data>
+  <data name="Notification_Promotional" xml:space="preserve">
+    <value>Promocional</value>
+  </data>
+  <data name="Notification_SpecialOffer" xml:space="preserve">
+    <value>Oferta especial</value>
+  </data>
+  <data name="Notification_VersionUpdate" xml:space="preserve">
+    <value>Actualización de la versión</value>
+  </data>
+  <data name="Notification_WeightSubmitReminder" xml:space="preserve">
+    <value>Peso Enviar</value>
+  </data>
 </root>

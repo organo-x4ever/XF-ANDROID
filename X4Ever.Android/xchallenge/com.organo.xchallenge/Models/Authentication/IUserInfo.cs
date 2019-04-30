@@ -4,7 +4,7 @@ namespace com.organo.xchallenge.Models.Authentication
 {
     public interface IUserInfo
     {
-        Int64 ID { get; set; }
+        long ID { get; set; }
         string UserLogin { get; set; }
         string UserFirstName { get; set; }
         string UserLastName { get; set; }
@@ -16,5 +16,12 @@ namespace com.organo.xchallenge.Models.Authentication
         string FullName { get; }
         bool IsMetaExists { get; set; }
         bool IsTrackerExists { get; set; }
+        bool IsAddressExists { get; set; }
+
+
+        string UserRegisteredDisplay { get; }
+        string LanguageCode { get; set; }
+        string WeightVolumeType { get; set; }
+        string UserApplication { get; set; }
     }
 }

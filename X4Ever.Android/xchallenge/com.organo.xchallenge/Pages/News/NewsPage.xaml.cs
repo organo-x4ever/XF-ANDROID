@@ -3,6 +3,7 @@ using com.organo.xchallenge.ViewModels.News;
 using System;
 using System.Threading.Tasks;
 using com.organo.xchallenge.Handler;
+using com.organo.xchallenge.Pages.Notification;
 using com.organo.xchallenge.Services;
 using Xamarin.Forms;
 
@@ -35,6 +36,8 @@ namespace com.organo.xchallenge.Pages.News
             SetGridNews();
             await App.Configuration.InitialAsync(this);
             NavigationPage.SetHasNavigationBar(this, false);
+
+            //await Navigation.PushAsync(new NotificationPage());
         }
 
         private async void SetGridNews()

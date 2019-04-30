@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<notification:NotificationSettingPageXaml
+    xmlns:notification="clr-namespace:com.organo.xchallenge.Pages.Notification" xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="com.organo.xchallenge.Pages.Notification.NotificationSettingPage">
+    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <!--<TableView Intent="Settings" VerticalOptions="FillAndExpand" Margin="0">
+          <TableRoot>
+            <TableSection Title="{Binding NotificationsText}">
+              <ViewCell>
+                <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                  <Label Text="{Binding WeightSubmitReminderText}" HorizontalOptions="StartAndExpand" Style="{DynamicResource labelStyleLink}" />
+                  <Switch x:Name="switchWeightSubmitReminder" IsToggled="{Binding IsWeightSubmitReminder, Mode=TwoWay}" />
+                </StackLayout>
+              </ViewCell>
+              <ViewCell>
+                <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                  <Label Text="{Binding PromotionalText}" HorizontalOptions="StartAndExpand" Style="{DynamicResource labelStyleLink}" />
+                  <Switch x:Name="switchPromotional" IsToggled="{Binding IsPromotional, Mode=TwoWay}" />
+                </StackLayout>
+              </ViewCell>
+                <ViewCell>
+                    <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                        <Label Text="{Binding SpecialOfferText}" HorizontalOptions="StartAndExpand" Style="{DynamicResource labelStyleLink}" />
+                      <Switch x:Name="switchSpecialOffer" IsToggled="{Binding IsSpecialOffer, Mode=TwoWay}" />
+                    </StackLayout>
+                </ViewCell>
+                <ViewCell>
+                    <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                        <Label Text="{Binding VersionUpdateText}" HorizontalOptions="StartAndExpand" Style="{DynamicResource labelStyleLink}" />
+                        <Switch x:Name="switchVersionUpdate" IsToggled="{Binding IsVersionUpdate, Mode=TwoWay}" />
+                    </StackLayout>
+                </ViewCell>
+                <ViewCell>
+                    <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                        <Label Text="{Binding GeneralMessageText}" HorizontalOptions="StartAndExpand" Style="{DynamicResource labelStyleLink}" />
+                        <Switch x:Name="switchGeneralMessage" IsToggled="{Binding IsGeneralMessage, Mode=TwoWay}" />
+                    </StackLayout>
+                </ViewCell>
+            </TableSection>
+          </TableRoot>
+        </TableView>-->
+    </StackLayout>
+</notification:NotificationSettingPageXaml>

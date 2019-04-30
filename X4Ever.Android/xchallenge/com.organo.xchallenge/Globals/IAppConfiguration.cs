@@ -25,7 +25,7 @@ namespace com.organo.xchallenge.Globals
         bool IsMenuLoaded { get; set; }
         string UserToken { get; }
         Task InitAsync();
-        Task SetTokenLanguageWeightAsync(string token, string languageCode, string weightVolume);
+        Task SetUserConfigurationAsync(string token, string languageCode, string weightVolume);
         Task SetUserLanguageAsync(string languageCode);
         Task SetWeightVolumeAsync(string weightVolume);
         Task SetUserTokenAsync(string token);
@@ -33,6 +33,12 @@ namespace com.organo.xchallenge.Globals
         Task<string> GetUserTokenAsync();
         Task<bool> IsUserTokenExistsAsync();
         Task DeleteUserTokenAsync();
+
+        //Task SetNotificationStatusAsync(bool notificationAllowed);
+        //bool GetNotificationStatus();
+        //Task<bool> GetNotificationStatusAsync();
+        //Task DeleteNotificationStatusAsync();
+
         void Initial(Page page, bool showBackgroundImage = false);
         Task InitialAsync(Page page, bool showBackgroundImage = false);
         void Initial(Page page, Color backgroundColor, bool showBackgroundImage = false);

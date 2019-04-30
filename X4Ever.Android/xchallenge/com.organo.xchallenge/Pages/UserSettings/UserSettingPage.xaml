@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="com.organo.xchallenge.Pages.UserSettings.UserSettingPage"
     xmlns:page="clr-namespace:com.organo.xchallenge.Pages.UserSettings"
+    xmlns:converters="clr-namespace:com.organo.xchallenge.Converters;assembly=com.organo.xchallenge"
     xmlns:controls="clr-namespace:com.organo.xchallenge.Controls;assembly=com.organo.xchallenge"
     xmlns:localization="clr-namespace:com.organo.xchallenge.Localization;assembly=com.organo.xchallenge">
   <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
@@ -39,11 +40,39 @@
                   <Picker x:Name="PickerWeightVolume" IsVisible="False"></Picker>
                 </StackLayout>
               </ViewCell>
+                <ViewCell>
+                    <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                        <Label Text="{localization:Translate PushNotification}" HorizontalOptions="StartAndExpand" Style="{DynamicResource labelStyleLink}" />
+                        <StackLayout Orientation="Horizontal" Spacing="10"> 
+                            <Label Text="{Binding NotificationStatus,Converter={StaticResource BoolToStringConverter}, ConverterParameter='enabledisable', StringFormat='{0}'}" VerticalOptions="Center" HorizontalOptions="End" Style="{Binding SwitchLabelStyle}" />
+                            <Switch x:Name="switchNotifications" IsToggled="{Binding NotificationStatus, Mode=OneWay}" />
+                        </StackLayout>
+                    </StackLayout>
+                </ViewCell>
             </TableSection>
           </TableRoot>
         </TableView>
       </StackLayout>
     </Grid>
     <controls:FooterView />
+    
+    <page:UserSettingPageXaml.Resources>
+        <ResourceDictionary>
+            <converters:BoolToStringConverter x:Key="BoolToStringConverter" />
+        </ResourceDictionary>
+    </page:UserSettingPageXaml.Resources>
   </StackLayout>
 </page:UserSettingPageXaml>
+
+
+
+
+<!--<Switch.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding UpdateNotificationCommand}" />
+                            </Switch.GestureRecognizers>-->
+                        
+<!--<Label Text="{localization:Translate Details}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding NotificationDetailCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>-->

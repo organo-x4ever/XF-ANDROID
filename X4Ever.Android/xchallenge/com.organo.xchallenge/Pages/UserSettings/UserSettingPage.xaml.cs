@@ -7,6 +7,10 @@ using com.organo.xchallenge.ViewModels.Profile;
 using System;
 using com.organo.xchallenge.Handler;
 using Xamarin.Forms;
+using Android.Widget;
+using com.organo.xchallenge;
+using com.organo.xchallenge.Controls;
+using Switch = Xamarin.Forms.Switch;
 
 namespace com.organo.xchallenge.Pages.UserSettings
 {
@@ -39,6 +43,10 @@ namespace com.organo.xchallenge.Pages.UserSettings
         {
             await _model.LoadAppLanguages(OnLanguageRetrieve);
             await _model.LoadWeightVolume(BindWeightVolume);
+            switchNotifications.Toggled += (sender, e) =>
+            {
+                _model.SetNotificationStatus(((Switch) sender).IsToggled);
+            };
         }
 
         private void OnLanguageRetrieve()

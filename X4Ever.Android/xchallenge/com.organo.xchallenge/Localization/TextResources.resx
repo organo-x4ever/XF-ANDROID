@@ -1847,4 +1847,28 @@ your 3rd meal. Enjoy Pro Meals
   <data name="icon_media_forward" xml:space="preserve">
     <value>forward.png</value>
   </data>
+  <data name="PushNotification" xml:space="preserve">
+    <value>Push Notification</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="Notification_GeneralMessage" xml:space="preserve">
+    <value>General Message</value>
+  </data>
+  <data name="Notification_Intimation" xml:space="preserve">
+    <value>Intimation</value>
+  </data>
+  <data name="Notification_Promotional" xml:space="preserve">
+    <value>Promotional</value>
+  </data>
+  <data name="Notification_SpecialOffer" xml:space="preserve">
+    <value>Special Offer</value>
+  </data>
+  <data name="Notification_VersionUpdate" xml:space="preserve">
+    <value>Version Update</value>
+  </data>
+  <data name="Notification_WeightSubmitReminder" xml:space="preserve">
+    <value>Weight Submit</value>
+  </data>
 </root>

@@ -111,15 +111,15 @@ namespace com.organo.xchallenge.Services
                         var model = JsonConvert.DeserializeObject<UserInfo>(jsonTask.Result);
                         if (model != null)
                         {
-                            await App.Configuration.SetTokenLanguageWeightAsync(tokenValue, model.LanguageCode, model.WeightVolumeType);
+                            await App.Configuration.SetUserConfigurationAsync(tokenValue, model.LanguageCode, model.WeightVolumeType);
                             var user = new AuthenticationResult
                             {
                                 AccessToken = tokenValue,
-                                ExpiresOn = DateTime.Now.AddDays(3),
+                                ExpiresOn = DateTime.Now.AddMonths(3),
                                 ExtendedLifeTimeToken = true,
                                 UserInfo = model
                             };
-                            await Task.Delay(TimeSpan.FromMilliseconds(1));
+                            //await Task.Delay(TimeSpan.FromMilliseconds(1));
                             return user;
                         }
                     }

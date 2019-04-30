@@ -70,6 +70,7 @@
       <DependentUpon>TopBarView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BoolToLabelOpacityConverter.cs" />
+    <Compile Include="Converters\BoolToStringConverter.cs" />
     <Compile Include="Converters\ConvertableConverter.cs" />
     <Compile Include="Converters\CurrencyDoubleConverter.cs" />
     <Compile Include="Converters\DoubleToIntConverter.cs" />
@@ -163,6 +164,7 @@
     <Compile Include="Models\MilestonePercentage.cs" />
     <Compile Include="MediaManager\MusicFile.cs" />
     <Compile Include="Models\News\NewsModel.cs" />
+    <Compile Include="Models\Notifications\UserNotificationSetting.cs" />
     <Compile Include="Models\Notifications\UserPushTokenModel.cs" />
     <Compile Include="Models\Province.cs" />
     <Compile Include="Models\Testimonial.cs" />
@@ -274,6 +276,12 @@
     <Compile Include="Pages\News\NewsPage.xaml.cs">
       <DependentUpon>NewsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Notification\NotificationPage.xaml.cs">
+      <DependentUpon>NotificationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Notification\NotificationSettingPage.xaml.cs">
+      <DependentUpon>NotificationSettingPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\OGX\OgxSystemPage.xaml.cs">
       <DependentUpon>OgxSystemPage.xaml</DependentUpon>
     </Compile>
@@ -373,6 +381,7 @@
     <Compile Include="Services\ITestimonialService.cs" />
     <Compile Include="Services\ITrackerPivotService.cs" />
     <Compile Include="Services\IUserMilestoneService.cs" />
+    <Compile Include="Services\IUserNotificationServices.cs" />
     <Compile Include="Services\IUserPivotService.cs" />
     <Compile Include="Services\IUserPushTokenServices.cs" />
     <Compile Include="Services\IUserSettingService.cs" />
@@ -392,6 +401,7 @@
     <Compile Include="Services\TestimonialService.cs" />
     <Compile Include="Services\TrackerPivotService.cs" />
     <Compile Include="Services\UserMilestoneService.cs" />
+    <Compile Include="Services\UserNotificationServices.cs" />
     <Compile Include="Services\UserPivotService.cs" />
     <Compile Include="Services\UserPushTokenServices.cs" />
     <Compile Include="Services\UserSettingService.cs" />
@@ -448,6 +458,7 @@
     <Compile Include="ViewModels\Message\MessageViewModel.cs" />
     <Compile Include="ViewModels\Milestones\UserMilestoneViewModel.cs" />
     <Compile Include="ViewModels\News\NewsViewModel.cs" />
+    <Compile Include="ViewModels\Notification\NotificationSettingViewModel.cs" />
     <Compile Include="ViewModels\OGX\OGXViewModel.cs" />
     <Compile Include="ViewModels\Profile\ChartType.cs" />
     <Compile Include="ViewModels\Profile\MyProfileViewModel.cs" />
@@ -543,6 +554,9 @@
     </Reference>
     <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory, Version=3.17.2.31801, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.3.17.2\lib\netstandard1.1\Microsoft.IdentityModel.Clients.ActiveDirectory.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Android">
+      <HintPath>..\..\..\..\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid\v8.0\Mono.Android.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\portable-net45+win8+wp8+wpa81\Newtonsoft.Json.dll</HintPath>
@@ -656,7 +670,6 @@
     <Folder Include="Extended\Carousel\" />
     <Folder Include="Models\Progress\" />
     <Folder Include="Notification\BackgroundService\" />
-    <Folder Include="Pages\Test\" />
     <Folder Include="ViewModels\Test\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
@@ -890,6 +903,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\MenuGridPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Notification\NotificationSettingPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Notification\NotificationPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

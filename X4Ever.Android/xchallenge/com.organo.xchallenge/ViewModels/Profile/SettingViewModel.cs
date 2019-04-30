@@ -14,17 +14,23 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using com.organo.xchallenge.Helpers;
+using com.organo.xchallenge.Models.Notifications;
+using com.organo.xchallenge.Notification;
 using Xamarin.Forms;
+using com.organo.xchallenge.Pages.Notification;
 
 namespace com.organo.xchallenge.ViewModels.Profile
 {
     public class SettingsViewModel : Base.BaseViewModel
     {
         private readonly IUserSettingService _settingService;
+        private readonly IUserNotificationServices _notificationServices;
+        private short NotificationFailureCount = 0;
         public SettingsViewModel(INavigation navigation = null) : base(navigation)
         {
             SetPageImageSize();
             _settingService = DependencyService.Get<IUserSettingService>();
+            _notificationServices = DependencyService.Get<IUserNotificationServices>();
             ProfileLoadingComplete = false;
             TitleProfile = TextResources.EditProfile;
             TitlePassword = TextResources.ChangePassword;
@@ -125,6 +131,9 @@ namespace com.organo.xchallenge.ViewModels.Profile
 
                     SettingLanguageText = TextResources.Language;
                     SettingWeightVolumeText = TextResources.WeightVolumeType;
+                    PushNotificationText = TextResources.Notifications;
+
+                    GetNotificationStatus();
 
                     //Content
                     WeightVolumeClick_Action = null;
@@ -217,6 +226,78 @@ namespace com.organo.xchallenge.ViewModels.Profile
             WeightVolumeSelected = WeightVolumeDataSelected.DisplayVolume;
         }
 
+        private async void GetNotificationStatus()
+        {
+            NotificationSetting = await _notificationServices.GetAsync();
+            if (NotificationSetting != null)
+                NotificationStatus = NotificationSetting.IsWeightSubmitReminder;
+        }
+
+        public async void SetNotificationStatus(bool notification)
+        {
+            NotificationStatus = notification;
+            if (NotificationFailureCount >= 3)
+            {
+                SetActivityResource(showError: true,
+                    errorMessage:
+                    "Sorry, we're have a problem with notification status update, please have patience concerned person has been informed");
+                await DependencyService.Get<ILogServices>().WriteLog("Notification Status update problem",
+                    "Notification Status update error in SettingViewModel.cs", false);
+                return;
+            }
+
+            var response = await _notificationServices.Update(
+                new UserNotificationSetting()
+                {
+                    IsSpecialOffer = NotificationStatus,
+                    IsPromotional = NotificationStatus,
+                    IsGeneralMessage = NotificationStatus,
+                    IsWeightSubmitReminder = NotificationStatus,
+                    IsVersionUpdate = NotificationStatus,
+                    Intimation = NotificationStatus
+                });
+            if (response != HttpConstants.SUCCESS)
+            {
+                NotificationFailureCount++;
+                NotificationStatus = notification;
+                SetActivityResource(showError: true, errorMessage: response);
+            }
+        }
+
+        private bool _notificationStatus;
+        public const string NotificationStatusPropertyName = "NotificationStatus";
+
+        public bool NotificationStatus
+        {
+            get { return _notificationStatus; }
+            set { SetProperty(ref _notificationStatus, value, NotificationStatusPropertyName, SwitchLabelStyleChange); }
+        }
+        
+        private UserNotificationSetting _notificationSetting;
+        public const string NotificationSettingPropertyName = "NotificationSetting";
+
+        public UserNotificationSetting NotificationSetting
+        {
+            get { return _notificationSetting; }
+            set { SetProperty(ref _notificationSetting, value, NotificationSettingPropertyName); }
+        }
+
+        private void SwitchLabelStyleChange()
+        {
+            SwitchLabelStyle = NotificationStatus
+                ? (Style) App.CurrentApp.Resources["labelStyleTableViewItem"]
+                : (Style) App.CurrentApp.Resources["labelStyleLink"];
+        }
+
+        private Style _switchLabelStyle;
+        public const string SwitchLabelStylePropertyName = "SwitchLabelStyle";
+
+        public Style SwitchLabelStyle
+        {
+            get => _switchLabelStyle;
+            set => SetProperty(ref _switchLabelStyle, value, SwitchLabelStylePropertyName);
+        }
+
         public List<ApplicationLanguage> ApplicationLanguages { get; set; }
 
         private string _settingLanguageText;
@@ -235,6 +316,15 @@ namespace com.organo.xchallenge.ViewModels.Profile
         {
             get { return _settingWeightVolumeText; }
             set { SetProperty(ref _settingWeightVolumeText, value, SettingWeightVolumeTextPropertyName); }
+        }
+
+        private string _pushNotificationText;
+        public const string PushNotificationTextPropertyName = "PushNotificationText";
+
+        public string PushNotificationText
+        {
+            get { return _pushNotificationText; }
+            set { SetProperty(ref _pushNotificationText, value, PushNotificationTextPropertyName); }
         }
 
         private string _weightVolumeSelected;
@@ -267,6 +357,22 @@ namespace com.organo.xchallenge.ViewModels.Profile
                     OnWeightVolumeSelected);
             }
         }
+        
+        private ICommand _notificationDetailCommand;
+
+        public ICommand NotificationDetailCommand => _notificationDetailCommand ?? (_notificationDetailCommand = new Command(
+                           async (obj) =>
+                           {
+                               try
+                               {
+                                   await PushAsync(new NotificationPage());
+                                   _ = "";
+                               }
+                               catch (Exception exception)
+                               {
+                                   _ = exception;
+                               }
+                           }));
 
         public Action WeightVolumeClick_Action;
         private ICommand _volumeSelectedCommand;

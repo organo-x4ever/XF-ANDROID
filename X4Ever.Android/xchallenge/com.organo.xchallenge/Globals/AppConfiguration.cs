@@ -141,7 +141,7 @@ namespace com.organo.xchallenge.Globals
             });
         }
 
-        public async Task SetTokenLanguageWeightAsync(string token, string languageCode, string weightVolume)
+        public async Task SetUserConfigurationAsync(string token, string languageCode, string weightVolume)
         {
             await SetUserTokenAsync(token);
             if (!string.IsNullOrEmpty(languageCode))
@@ -207,7 +207,7 @@ namespace com.organo.xchallenge.Globals
 
         public async Task SetUserTokenAsync(string token) => await Task.Run(async () =>
         {
-            await App.Configuration.DeleteUserTokenAsync();
+            await DeleteUserTokenAsync();
             _secureStorage.Store(StorageConstants.KEY_VAULT_TOKEN_ID, Encoding.UTF8.GetBytes(token));
         });
 
@@ -335,7 +335,7 @@ namespace com.organo.xchallenge.Globals
 
         public ImageSize GetImageSizeByID(string imageIdentity)
         {
-            var imageSize = App.Configuration.ImageSizes.FirstOrDefault(s =>
+            var imageSize = ImageSizes.FirstOrDefault(s =>
                 s.ImageID.ToLower() == imageIdentity.ToLower());
             return imageSize;
         }
@@ -451,5 +451,28 @@ namespace com.organo.xchallenge.Globals
         }
 
         public void DeleteUserGraph() => _secureStorage.Delete(StorageConstants.KEY_USER_GRAPH);
+
+        //public async Task SetNotificationStatusAsync(bool notificationAllowed)
+        //{
+        //    await DeleteNotificationStatusAsync();
+        //    _secureStorage.Store(StorageConstants.KEY_NOTIFICATION_STATUS,
+        //        Encoding.UTF8.GetBytes(notificationAllowed ? CommonConstants.YES : CommonConstants.NO));
+        //}
+
+        //public bool GetNotificationStatus()
+        //{
+        //    var data = _secureStorage.Retrieve(StorageConstants.KEY_NOTIFICATION_STATUS);
+        //    return data != null
+        //        ? (Encoding.UTF8.GetString(data, 0, data.Length) == CommonConstants.YES ? true : false)
+        //        : false;
+        //}
+
+        //public async Task<bool> GetNotificationStatusAsync() =>
+        //    await Task.Factory.StartNew(() => { return GetNotificationStatus(); });
+
+        //public async Task DeleteNotificationStatusAsync() => await Task.Run(() =>
+        //{
+        //    _secureStorage.Delete(StorageConstants.KEY_NOTIFICATION_STATUS);
+        //});
     }
 }

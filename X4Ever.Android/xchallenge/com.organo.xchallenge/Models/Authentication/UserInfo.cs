@@ -123,6 +123,9 @@ namespace com.organo.xchallenge.Models.Authentication
         /// </summary>
         public bool IsTrackerExists { get; set; }
 
+        /// <summary>
+        /// User Key
+        /// </summary>
         public string UserKey { get; set; }
     }
 }

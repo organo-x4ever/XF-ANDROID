@@ -1845,4 +1845,28 @@
   <data name="icon_media_forward" xml:space="preserve">
     <value>forward.png</value>
   </data>
+  <data name="PushNotification" xml:space="preserve">
+    <value>Notification push</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Les notifications</value>
+  </data>
+  <data name="Notification_GeneralMessage" xml:space="preserve">
+    <value>Message général</value>
+  </data>
+  <data name="Notification_Intimation" xml:space="preserve">
+    <value>Intimation</value>
+  </data>
+  <data name="Notification_Promotional" xml:space="preserve">
+    <value>Promotionnel</value>
+  </data>
+  <data name="Notification_SpecialOffer" xml:space="preserve">
+    <value>Offre spéciale</value>
+  </data>
+  <data name="Notification_VersionUpdate" xml:space="preserve">
+    <value>Mise à jour de la version</value>
+  </data>
+  <data name="Notification_WeightSubmitReminder" xml:space="preserve">
+    <value>Poids Soumettre</value>
+  </data>
 </root>

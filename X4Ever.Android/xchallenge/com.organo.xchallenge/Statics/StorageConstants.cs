@@ -14,5 +14,6 @@
         public static string KEY_USER_WEIGHT_VOLUME => "x_w_vol";
         public static string KEY_USER => "x_u_key";
         public static string KEY_USER_GRAPH => "x_u_graph";
+        public static string KEY_NOTIFICATION_STATUS => "x_u_notify_status";
     }
 }
