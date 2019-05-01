@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<page:LabelEffectsXaml xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       x:Class="com.organo.xchallenge.Pages.Animation_Test.LabelEffects"
+                       xmlns:page="clr-namespace:com.organo.xchallenge.Pages.Animation_Test">
+    <page:LabelEffectsXaml.Content>
+        <ContentView Padding="10" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,50,0,0">
+            <StackLayout Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="Center">
+                <StackLayout Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="Center">
+                    <Label
+                        x:Name="BlackLabel"
+                        Margin="20"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        FontAttributes="Bold"
+                        FontSize="40"
+                        Text="Hello"
+                        TextColor="Black" />
+
+                    <Label 
+                        x:Name="WhiteLabel"
+                        Margin="20"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        FontAttributes="Bold"
+                        FontSize="40"
+                        Text="Hello"
+                        TextColor="White" />
+                </StackLayout>
+                <StackLayout x:Name="stackLayoutContent" Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="Center">
+                </StackLayout>
+            </StackLayout>
+        </ContentView>
+    </page:LabelEffectsXaml.Content>
+</page:LabelEffectsXaml>

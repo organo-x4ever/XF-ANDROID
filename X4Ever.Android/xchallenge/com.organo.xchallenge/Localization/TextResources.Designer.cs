@@ -1376,6 +1376,15 @@ namespace com.organo.xchallenge.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to user_edit_ar.png.
+        /// </summary>
+        internal static string icon_edit_profile_ar {
+            get {
+                return ResourceManager.GetString("icon_edit_profile_ar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to user_edit_color.png.
         /// </summary>
         internal static string icon_edit_profile_color {
@@ -1628,6 +1637,15 @@ namespace com.organo.xchallenge.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to password_ar.png.
+        /// </summary>
+        internal static string icon_password_ar {
+            get {
+                return ResourceManager.GetString("icon_password_ar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to password_color.png.
         /// </summary>
         internal static string icon_password_color {
@@ -1759,6 +1777,15 @@ namespace com.organo.xchallenge.Localization {
         internal static string icon_user_settings {
             get {
                 return ResourceManager.GetString("icon_user_settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to user_settings_ar.png.
+        /// </summary>
+        internal static string icon_user_settings_ar {
+            get {
+                return ResourceManager.GetString("icon_user_settings_ar", resourceCulture);
             }
         }
         

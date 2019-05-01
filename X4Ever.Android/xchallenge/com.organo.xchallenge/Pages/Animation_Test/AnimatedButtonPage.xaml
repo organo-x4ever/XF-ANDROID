@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<page:AnimatedButtonPageXaml 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="com.organo.xchallenge.Pages.Animation_Test.AnimatedButtonPage"
+    xmlns:page="clr-namespace:com.organo.xchallenge.Pages.Animation_Test"
+    xmlns:views="clr-namespace:com.organo.xchallenge.Views"
+    xmlns:local="clr-namespace:com.organo.xchallenge">
+    <page:AnimatedButtonPageXaml.Content>
+        <ContentView Padding="10" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand"></ContentView>
+    </page:AnimatedButtonPageXaml.Content>
+</page:AnimatedButtonPageXaml>

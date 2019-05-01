@@ -45,6 +45,7 @@ namespace com.organo.xchallenge.Models
 
             TOP_BAR_LOGO = string.Empty;
             TOP_BAR_MENU = string.Empty;
+            TOP_BAR_SETTING = string.Empty;
             TOP_BAR_CLOSE = string.Empty;
             MAIN_PAGE_LOGO = string.Empty;
             MAIN_PAGE_XCHALLENGE_LOGO = string.Empty;
@@ -124,6 +125,7 @@ namespace com.organo.xchallenge.Models
         // Images Height and Width
         public string TOP_BAR_LOGO { get; set; }
         public string TOP_BAR_MENU { get; set; }
+        public string TOP_BAR_SETTING { get; set; }
         public string TOP_BAR_CLOSE { get; set; }
         public string MAIN_PAGE_LOGO { get; set; }
         public string MAIN_PAGE_XCHALLENGE_LOGO { get; set; }

@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="com.organo.xchallenge.Pages.Animation.AnimationPage"
+             xmlns:statics="clr-namespace:com.organo.xchallenge.Statics"
+             BackgroundColor="{x:Static statics:Palette._MainBackground}">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackLayout Grid.Row="0" Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="{x:Static statics:Palette._MainBackground}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" x:Name="labelControl" Text="Control" Style="{DynamicResource entryStyleSmall}" VerticalOptions="Center"/>
+                        <Label Grid.Column="1" x:Name="labelScale" Text="Scale" Style="{DynamicResource entryStyleSmall}" VerticalOptions="Center"/>
+                        <Label Grid.Column="2" x:Name="labelEasing" Text="Easing" Style="{DynamicResource entryStyleSmall}" VerticalOptions="Center"/>
+                        <Entry Grid.Column="3" x:Name="textSpeed" Text="200" Keyboard="Numeric" WidthRequest="60" VerticalOptions="Center" Style="{DynamicResource entryPrimarySmall}"/>
+                        <Entry Grid.Column="4" x:Name="textDelay" Text="200" Keyboard="Numeric" WidthRequest="60" VerticalOptions="Center" Style="{DynamicResource entryPrimarySmall}"/>
+                        <Button Grid.Column="5" x:Name="buttonAnimate" Text="Test" WidthRequest="50" VerticalOptions="Center" Style="{DynamicResource buttonInfo}"/>
+                    </Grid>
+                </StackLayout>
+                <StackLayout Grid.Row="1" Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="{x:Static statics:Palette._MainBackground}" Margin="0,20,0,0">
+                    <StackLayout x:Name="stackLayoutContent1" Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="0,20,0,0">
+                    </StackLayout>
+                    <StackLayout x:Name="stackLayoutContent2" Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="0,20,0,0">
+                    </StackLayout>
+                    <StackLayout x:Name="stackLayoutContent3" Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="0,20,0,0">
+                    </StackLayout>
+                    <!--<StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="0,20,0,0">
+                        <Label x:Name="labelTest" Style="{DynamicResource labelPopupPageTitleSmall}" Text="The opacity value has no effect unless IsVisible is true."></Label>
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="0,20,0,0">
+                        <Entry x:Name="textTest" Text="The opacity value has no effect unless IsVisible is true" Style="{DynamicResource entryPrimary}"></Entry>
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="0,20,0,0">
+                        <Button x:Name="buttonTest" Text="Testing Animations" Style="{DynamicResource buttonSuccessFull}"></Button>
+                    </StackLayout>-->
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

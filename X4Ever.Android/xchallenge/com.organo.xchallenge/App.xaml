@@ -136,6 +136,12 @@
                 <Setter Property="HeightRequest" Value="27" />
                 <Setter Property="VerticalOptions" Value="Center" />
             </Style>
+            <Style x:Key="imageLogoSetting" TargetType="Image" BasedOn="{StaticResource imageStyle}">
+                <Setter Property="WidthRequest" Value="50" />
+                <Setter Property="HeightRequest" Value="50" />
+                <Setter Property="Margin" Value="0,0,25,5" />
+                <Setter Property="VerticalOptions" Value="End" />
+            </Style>
             <Style x:Key="imageGallery" TargetType="Image" BasedOn="{StaticResource imageStyle}">
                 <Setter Property="WidthRequest" Value="70" />
                 <Setter Property="HeightRequest" Value="70" />

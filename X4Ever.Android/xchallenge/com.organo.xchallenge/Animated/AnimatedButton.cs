@@ -36,19 +36,19 @@ namespace com.organo.xchallenge.Animated
                 TextColor = Color.White,
                 VerticalOptions = LayoutOptions.Center,
                 HorizontalOptions = LayoutOptions.CenterAndExpand,
-                HorizontalTextAlignment = TextAlignment.Center,
+                HorizontalTextAlignment = TextAlignment.Center
             };
             _layout.Children.Add(_textLabel);
 
             GestureRecognizers.Add(new TapGestureRecognizer()
             {
                 Command = new Command(async (o) =>
-                 {
-                     await this.ScaleTo(0.95, 50, Easing.CubicOut);
-                     await this.ScaleTo(1, 50, Easing.CubicIn);
-                     if (callback != null)
-                         callback.Invoke();
-                 })
+                {
+                    await this.ScaleTo(0.95, 50, Easing.CubicOut);
+                    await this.ScaleTo(1, 50, Easing.CubicIn);
+                    if (callback != null)
+                        callback.Invoke();
+                })
             });
 
             // set the content
@@ -61,10 +61,7 @@ namespace com.organo.xchallenge.Animated
         public virtual double FontSize
         {
             get { return _textLabel.FontSize; }
-            set
-            {
-                _textLabel.FontSize = value;
-            }
+            set { _textLabel.FontSize = value; }
         }
 
         /// <summary>
@@ -73,10 +70,7 @@ namespace com.organo.xchallenge.Animated
         public virtual Color TextColor
         {
             get { return _textLabel.TextColor; }
-            set
-            {
-                _textLabel.TextColor = value;
-            }
+            set { _textLabel.TextColor = value; }
         }
     }
 }

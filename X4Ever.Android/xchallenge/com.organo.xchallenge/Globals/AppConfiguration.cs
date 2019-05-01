@@ -233,6 +233,8 @@ namespace com.organo.xchallenge.Globals
             {
                 SetImageSizes(ImageIdentity.TOP_BAR_LOGO, appConfig.TOP_BAR_LOGO, TextResources.logo_transparent);
                 SetImageSizes(ImageIdentity.TOP_BAR_MENU, appConfig.TOP_BAR_MENU, TextResources.icon_menu);
+                SetImageSizes(ImageIdentity.TOP_BAR_SETTING, appConfig.TOP_BAR_SETTING,
+                    TextResources.icon_user_settings);
                 SetImageSizes(ImageIdentity.TOP_BAR_CLOSE, appConfig.TOP_BAR_CLOSE, TextResources.icon_close);
                 SetImageSizes(ImageIdentity.MAIN_PAGE_LOGO, appConfig.MAIN_PAGE_LOGO, TextResources.logo_page);
                 SetImageSizes(ImageIdentity.MAIN_PAGE_XCHALLENGE_LOGO, appConfig.MAIN_PAGE_XCHALLENGE_LOGO,

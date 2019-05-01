@@ -27,7 +27,7 @@ namespace com.organo.xchallenge.Droid.Renderers
 
         public FloatingActionButtonViewRenderer(Android.Content.Context _context) : base(_context)
         {
-            context = Xamarin.Forms.Forms.Context;
+            context = Forms.Context;
 
             float d = context.Resources.DisplayMetrics.Density;
             var margin = (int) (MARGIN_DIPS * d); // margin in pixels

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<page:Animation_TestMainPageXaml xmlns="http://xamarin.com/schemas/2014/forms"
+                                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                                 x:Class="com.organo.xchallenge.Pages.Animation_Test.Animation_TestMainPage"
+                                 xmlns:page="clr-namespace:com.organo.xchallenge.Pages.Animation_Test">
+    <page:Animation_TestMainPageXaml.Content>
+        <ContentView Padding="10" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+            <StackLayout x:Name="stackLayoutContent" Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+            </StackLayout>
+        </ContentView>
+    </page:Animation_TestMainPageXaml.Content>
+</page:Animation_TestMainPageXaml>

@@ -26,5 +26,14 @@
                 </Image.GestureRecognizers>
             </Image>
         </StackLayout>
+        <StackLayout Grid.Column="2" HorizontalOptions="End" VerticalOptions="End" IsVisible="{Binding IsUserSettingVisible}">
+            <Image Source="{extensions:ImageResource TOP_BAR_SETTING}"  Style="{DynamicResource imageLogoSetting}" Margin="10,0,5,2">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding UserSettingCommand}" />
+                </Image.GestureRecognizers>
+            </Image>
+
+            <!--AbsoluteLayout.LayoutBounds="0,0,20,20" AbsoluteLayout.LayoutFlags="XProportional" Margin="10,0,5,2">-->
+        </StackLayout>
     </Grid>
 </ContentView>

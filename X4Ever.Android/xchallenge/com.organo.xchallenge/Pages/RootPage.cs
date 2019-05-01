@@ -74,7 +74,7 @@ namespace com.organo.xchallenge.Pages
                     switch (id)
                     {
                         case MenuType.MyProfile:
-                            var page = new XNavigationPage(new MyProfile(this)
+                            var page = new XNavigationPage(new ProfileEnhanced(this) //MyProfile(this)
                             {
                                 Title = TextResources.MainTabs_MyProfile,
                                 Icon = new FileImageSource {File = TextResources.MainTabs_MyProfile_Icon},

@@ -2,6 +2,8 @@
 using com.organo.xchallenge.Handler;
 using com.organo.xchallenge.Models.Authentication;
 using com.organo.xchallenge.Pages;
+using com.organo.xchallenge.Pages.Animation;
+using com.organo.xchallenge.Pages.Animation_Test;
 using com.organo.xchallenge.Pages.ErrorPages;
 using com.organo.xchallenge.Pages.MainPage;
 using com.organo.xchallenge.Services;
@@ -66,6 +68,7 @@ namespace com.organo.xchallenge
 
         public static void GoToAccountPage(bool loggedIn = false)
         {
+            //CurrentApp.MainPage = new NavigationPage(new AnimatedButtonPage()); // FOUND
             if (loggedIn)
                 CurrentApp.MainPage = new RootPage();
             else

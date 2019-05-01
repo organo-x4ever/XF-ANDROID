@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using com.organo.xchallenge.Globals;
+using com.organo.xchallenge.Helpers;
 using com.organo.xchallenge.Localization;
 using com.organo.xchallenge.Models.Authentication;
 using com.organo.xchallenge.Pages;
 using com.organo.xchallenge.Services;
+using com.organo.xchallenge.Statics;
+using Microsoft.Data.Edm.Library.Annotations;
 using Xamarin.Forms;
 
 namespace com.organo.xchallenge.ViewModels.Base
@@ -14,6 +18,7 @@ namespace com.organo.xchallenge.ViewModels.Base
     public class BaseViewModel : INotifyPropertyChanged
     {
         public INavigation Navigation { get; set; }
+        private readonly IHelper _helper;
 
         private static IInformationMessageServices InformationServices =>
             DependencyService.Get<IInformationMessageServices>();
@@ -21,6 +26,9 @@ namespace com.organo.xchallenge.ViewModels.Base
         public BaseViewModel(INavigation navigation = null)
         {
             Navigation = navigation;
+            _helper = DependencyService.Get<IHelper>();
+            //SetUserSettingImage();
+            IsUserSettingVisible = false;
         }
 
         public bool IsInitialized { get; set; }
@@ -40,7 +48,7 @@ namespace com.organo.xchallenge.ViewModels.Base
             get { return _layoutOptions; }
             set { SetProperty(ref _layoutOptions, value, LayoutOptionsPropertyName); }
         }
-        
+
         public async Task PushModalAsync(Page page)
         {
             if (Navigation != null)
@@ -413,5 +421,74 @@ namespace com.organo.xchallenge.ViewModels.Base
                 }));
             }
         }
+
+        #region User Settings Controls
+
+
+        //private const string SettingIcon = "icon_user_settings";
+
+        //private void SetUserSettingImage()
+        //{
+        //    float height = 30, width = 30;
+        //    var iconSize = App.Configuration.GetImageSizeByID(ImageIdentity.MENU_ITEM_ICON);
+        //    if (iconSize != null)
+        //    {
+        //        height = iconSize.Height;
+        //        width = iconSize.Width;
+        //    }
+
+        //    UserSettingImage = ImageResizer.ResizeImage(_helper.GetResource(SettingIcon), iconSize);
+        //}
+
+        //private ImageSource _userSettingImage;
+        //public const string UserSettingImagePropertyName = "UserSettingImage";
+
+        //public ImageSource UserSettingImage
+        //{
+        //    get => _userSettingImage;
+        //    set => SetProperty(ref _userSettingImage, value, UserSettingImagePropertyName);
+        //}
+
+        private bool _isUserSettingVisible;
+        public const string IsUserSettingVisiblePropertyName = "IsUserSettingVisible";
+
+        public bool IsUserSettingVisible
+        {
+            get => _isUserSettingVisible;
+            set => SetProperty(ref _isUserSettingVisible, value, IsUserSettingVisiblePropertyName);
+        }
+
+        private Action _userSettingAction;
+        public const string UserSettingActionPropertyName = "UserSettingAction";
+
+        /// <summary>
+        /// User Setting Action command
+        /// </summary>
+        public Action UserSettingAction
+        {
+            get => _userSettingAction;
+            set => SetProperty(ref _userSettingAction, value, UserSettingActionPropertyName);
+        }
+
+        private ICommand _userSettingCommand;
+
+        /// <summary>
+        /// User Setting Command
+        /// </summary>
+        public ICommand UserSettingCommand
+        {
+            get
+            {
+                return _userSettingCommand ?? (_userSettingCommand = new Command((obj) =>
+                {
+                    if (UserSettingAction != null)
+                    {
+                        UserSettingAction?.Invoke();
+                    }
+                }));
+            }
+        }
+
+        #endregion User Settings Controls
     }
 }

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!---Note that SplashPageXaml is a type defined at the bottom of the SplashPageXaml.cs file -->
+<page:SplashPageXaml
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="com.organo.xchallenge.Pages.Splash.SplashPage"
+    xmlns:app="clr-namespace:com.organo.xchallenge"
+    xmlns:page="clr-namespace:com.organo.xchallenge.Pages.Splash"
+    xmlns:statics="clr-namespace:com.organo.xchallenge.Statics"
+    xmlns:translate="clr-namespace:com.organo.xchallenge.Localization">
+  <page:SplashPageXaml.Content>
+    <ContentView Padding="10" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="*" />
+          <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackLayout Grid.Row="0" Orientation="Vertical" VerticalOptions="Start" HorizontalOptions="FillAndExpand">
+          <Image x:Name="imageCompanyLogo" Style="{DynamicResource imageCompanyLogo}" />
+        </StackLayout>
+        <StackLayout Grid.Row="1" Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+          <Image x:Name="imageLogo" Style="{DynamicResource imageLogo}" />
+        </StackLayout>
+        <StackLayout Grid.Row="2" Orientation="Vertical" VerticalOptions="End" HorizontalOptions="FillAndExpand" Margin="10,0,10,0">
+          <Grid HorizontalOptions="FillAndExpand">
+            <Image Grid.Row="0" Grid.Column="0" x:Name="UserSignUp" Style="{DynamicResource imageStyleIcon}"></Image>
+            <Image Grid.Row="0" Grid.Column="1" x:Name="UserMenu" Style="{DynamicResource imageStyleIcon}"></Image>
+            <Image Grid.Row="0" Grid.Column="2" x:Name="UserSignIn" Style="{DynamicResource imageStyleIcon}"></Image>
+            <Label Grid.Row="1" Grid.Column="0" x:Name="labelRegister" Text="{translate:Translate Register}" Style="{DynamicResource labelHeaderText}" VerticalOptions="Start" HorizontalOptions="Center" Margin="0,-2,0,0" />
+            <Label Grid.Row="1" Grid.Column="1" x:Name="labelMenu" Text="{translate:Translate Menu}" Style="{DynamicResource labelHeaderText}" VerticalOptions="Start" HorizontalOptions="Center" Margin="0,-2,0,0" />
+            <Label Grid.Row="1" Grid.Column="2" x:Name="labelLogin" Text="{translate:Translate Login}" Style="{DynamicResource labelHeaderText}" VerticalOptions="Start" HorizontalOptions="Center" Margin="0,-2,0,0" />
+          </Grid>
+        </StackLayout>
+      </Grid>
+    </ContentView>
+  </page:SplashPageXaml.Content>
+</page:SplashPageXaml>

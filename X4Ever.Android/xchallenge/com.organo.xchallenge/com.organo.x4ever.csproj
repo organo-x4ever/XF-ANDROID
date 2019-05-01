@@ -38,6 +38,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Animated\AnimatedButton.cs" />
+    <Compile Include="Animated\AnimatedImage.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -206,6 +207,18 @@
     <Compile Include="Pages\Account\UploadPhotoPage.xaml.cs">
       <DependentUpon>UploadPhotoPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Animation\AnimationPage.xaml.cs">
+      <DependentUpon>AnimationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Animation_Test\AnimatedButtonPage.xaml.cs">
+      <DependentUpon>AnimatedButtonPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Animation_Test\Animation_TestMainPage.xaml.cs">
+      <DependentUpon>Animation_TestMainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Animation_Test\LabelEffects.xaml.cs">
+      <DependentUpon>LabelEffects.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ChangePassword\ChangePasswordPage.xaml.cs">
       <DependentUpon>ChangePasswordPage.xaml</DependentUpon>
     </Compile>
@@ -288,6 +301,9 @@
     <Compile Include="Pages\Profile\LogDetailPage.xaml.cs">
       <DependentUpon>LogDetailPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Profile\ProfileEnhanced.xaml.cs">
+      <DependentUpon>ProfileEnhanced.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Profile\MyProfile.xaml.cs">
       <DependentUpon>MyProfile.xaml</DependentUpon>
     </Compile>
@@ -310,6 +326,12 @@
       <DependentUpon>RewardsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\RootPage.cs" />
+    <Compile Include="Pages\Splash\CarouselPage.cs" />
+    <Compile Include="Pages\Splash\SplashLivePage.cs" />
+    <Compile Include="Pages\Splash\SplashLivePage_Backup.cs" />
+    <Compile Include="Pages\Splash\SplashPage.xaml.cs">
+      <DependentUpon>SplashPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Splash\SplashView.cs" />
     <Compile Include="Pages\Testimonial\TestimonialPhotoPage.xaml.cs">
       <DependentUpon>TestimonialPhotoPage.xaml</DependentUpon>
@@ -442,6 +464,9 @@
     <Compile Include="ViewModels\Account\AddressViewModel.cs" />
     <Compile Include="ViewModels\Account\PersonalInfoViewModel.cs" />
     <Compile Include="ViewModels\Account\UploadPhotoViewModel.cs" />
+    <Compile Include="ViewModels\Animation_Test\AnimatedButtonViewModel.cs" />
+    <Compile Include="ViewModels\Animation_Test\Animation_TestMainViewModel.cs" />
+    <Compile Include="ViewModels\Animation_Test\LabelEffectsViewModel.cs" />
     <Compile Include="ViewModels\Base\BaseViewModel.cs" />
     <Compile Include="ViewModels\ChangePassword\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\Community\CommunityViewModel.cs" />
@@ -461,11 +486,15 @@
     <Compile Include="ViewModels\Notification\NotificationSettingViewModel.cs" />
     <Compile Include="ViewModels\OGX\OGXViewModel.cs" />
     <Compile Include="ViewModels\Profile\ChartType.cs" />
+    <Compile Include="ViewModels\Profile\ProfileEnhancedViewModel.cs" />
     <Compile Include="ViewModels\Profile\MyProfileViewModel.cs" />
     <Compile Include="ViewModels\Profile\SettingViewModel.cs" />
     <Compile Include="ViewModels\Registration\RegisterViewModel.cs" />
     <Compile Include="ViewModels\Registration\TermAndConditionViewModel.cs" />
     <Compile Include="ViewModels\Rewards\RewardsViewModel.cs" />
+    <Compile Include="ViewModels\Splash\SplashItemViewModel.cs" />
+    <Compile Include="ViewModels\Splash\SplashListViewModel.cs" />
+    <Compile Include="ViewModels\Splash\SplashLiveViewModel.cs" />
     <Compile Include="ViewModels\Splash\SplashViewModel.cs" />
     <Compile Include="ViewModels\Testimonial\TestimonialDetailViewModel.cs" />
     <Compile Include="ViewModels\Testimonial\TestimonialPhotoViewModel.cs" />
@@ -915,6 +944,42 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\Notification\NotificationPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Profile\ProfileEnhanced.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Animation\AnimationPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Animation_Test\AnimatedButtonPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Animation_Test\Animation_TestMainPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Animation_Test\LabelEffects.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Splash\SplashPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

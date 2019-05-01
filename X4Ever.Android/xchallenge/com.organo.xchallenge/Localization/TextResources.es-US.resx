@@ -1870,4 +1870,13 @@
   <data name="Notification_WeightSubmitReminder" xml:space="preserve">
     <value>Peso Enviar</value>
   </data>
+  <data name="icon_edit_profile_ar" xml:space="preserve">
+    <value>user_edit_ar.png</value>
+  </data>
+  <data name="icon_password_ar" xml:space="preserve">
+    <value>password_ar.png</value>
+  </data>
+  <data name="icon_user_settings_ar" xml:space="preserve">
+    <value>user_settings_ar.png</value>
+  </data>
 </root>

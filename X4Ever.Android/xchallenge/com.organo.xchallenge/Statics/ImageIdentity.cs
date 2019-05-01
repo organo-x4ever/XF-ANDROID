@@ -5,6 +5,7 @@ namespace com.organo.xchallenge.Statics
     {
         public static string TOP_BAR_LOGO => "TOP_BAR_LOGO";
         public static string TOP_BAR_MENU => "TOP_BAR_MENU";
+        public static string TOP_BAR_SETTING => "TOP_BAR_SETTING";
         public static string TOP_BAR_CLOSE => "TOP_BAR_CLOSE";
         public static string MAIN_PAGE_LOGO => "MAIN_PAGE_LOGO";
         public static string MAIN_PAGE_XCHALLENGE_LOGO => "MAIN_PAGE_XCHALLENGE_LOGO";
