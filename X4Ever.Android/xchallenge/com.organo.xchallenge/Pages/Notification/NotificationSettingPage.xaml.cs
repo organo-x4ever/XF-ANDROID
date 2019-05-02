@@ -19,6 +19,7 @@ namespace com.organo.xchallenge.Pages.Notification
             try
             {
                 InitializeComponent();
+                Init();
             }
             catch (Exception ex)
             {
@@ -29,7 +30,7 @@ namespace com.organo.xchallenge.Pages.Notification
         private async void Init()
         {
             await App.Configuration.InitialAsync(this);
-            NavigationPage.SetHasNavigationBar(this, false);
+            //NavigationPage.SetHasNavigationBar(this, false);
             _model = new NotificationSettingViewModel();
             BindingContext = _model;
         }

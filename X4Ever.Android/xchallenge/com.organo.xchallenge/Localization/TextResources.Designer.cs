@@ -1403,6 +1403,24 @@ namespace com.organo.xchallenge.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to email.png.
+        /// </summary>
+        internal static string icon_envelope {
+            get {
+                return ResourceManager.GetString("icon_envelope", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to email_color.png.
+        /// </summary>
+        internal static string icon_envelope_color {
+            get {
+                return ResourceManager.GetString("icon_envelope_color", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to eye_hide.png.
         /// </summary>
         internal static string icon_eye_hide {
@@ -1709,6 +1727,24 @@ namespace com.organo.xchallenge.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to icon_profile_settings.png.
+        /// </summary>
+        internal static string icon_profile_settings {
+            get {
+                return ResourceManager.GetString("icon_profile_settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to icon_profile_settings_64x64.png.
+        /// </summary>
+        internal static string icon_profile_settings_64x64 {
+            get {
+                return ResourceManager.GetString("icon_profile_settings_64x64", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to icon_rewards.png.
         /// </summary>
         internal static string icon_rewards {
@@ -1741,6 +1777,24 @@ namespace com.organo.xchallenge.Localization {
         internal static string icon_shakes_gray {
             get {
                 return ResourceManager.GetString("icon_shakes_gray", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to social_media.png.
+        /// </summary>
+        internal static string icon_social_media {
+            get {
+                return ResourceManager.GetString("icon_social_media", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to social_media_color.png.
+        /// </summary>
+        internal static string icon_social_media_color {
+            get {
+                return ResourceManager.GetString("icon_social_media_color", resourceCulture);
             }
         }
         

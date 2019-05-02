@@ -184,6 +184,20 @@ namespace com.organo.xchallenge.ViewModels.Profile
             set { SetProperty(ref userDetail, value, UserDetailPropertyName); }
         }
 
+        
+        private bool _PanelShowing = false;
+        public const string PanelShowingPropertyName = "PanelShowing";
+
+        /// <summary>
+        /// Gets a value to determine if the panel is showing or not
+        /// </summary>
+        /// <value><c>true</c> if panel showing; otherwise, <c>false</c>.</value>
+        public bool PanelShowing
+        {
+            get => _PanelShowing;
+            set => SetProperty(ref _PanelShowing, value, PanelShowingPropertyName);
+        }
+
         private double trackerWeightValue = 0;
         public const string TrackerWeightValuePropertyName = "TrackerWeightValue";
 

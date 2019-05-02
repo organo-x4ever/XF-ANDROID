@@ -17,9 +17,14 @@ namespace com.organo.xchallenge.Droid.Renderers
     {
         private const int MARGIN_DIPS = 16;
         private const int FAB_HEIGHT_NORMAL = 56;
+        private const int FAB_HEIGHT_NORMAL_MINI = 48;
         private const int FAB_HEIGHT_MINI = 40;
-        private const int FAB_FRAME_HEIGHT_WITH_PADDING = (MARGIN_DIPS * 2) + FAB_HEIGHT_NORMAL;
-        private const int FAB_FRAME_WIDTH_WITH_PADDING = (MARGIN_DIPS * 2) + FAB_HEIGHT_NORMAL;
+        private const int FAB_NORMAL_FRAME_HEIGHT_WITH_PADDING = (MARGIN_DIPS * 2) + FAB_HEIGHT_NORMAL;
+        private const int FAB_NORMAL_FRAME_WIDTH_WITH_PADDING = (MARGIN_DIPS * 2) + FAB_HEIGHT_NORMAL;
+
+        private const int FAB_NORMAL_MINI_FRAME_HEIGHT_WITH_PADDING = (MARGIN_DIPS * 2) + FAB_HEIGHT_NORMAL_MINI;
+        private const int FAB_NORMAL_MINI_FRAME_WIDTH_WITH_PADDING = (MARGIN_DIPS * 2) + FAB_HEIGHT_NORMAL_MINI;
+        
         private const int FAB_MINI_FRAME_HEIGHT_WITH_PADDING = (MARGIN_DIPS * 2) + FAB_HEIGHT_MINI;
         private const int FAB_MINI_FRAME_WIDTH_WITH_PADDING = (MARGIN_DIPS * 2) + FAB_HEIGHT_MINI;
         private readonly Android.Content.Context context;
@@ -145,11 +150,17 @@ namespace com.organo.xchallenge.Droid.Renderers
                 Element.WidthRequest = FAB_MINI_FRAME_WIDTH_WITH_PADDING;
                 Element.HeightRequest = FAB_MINI_FRAME_HEIGHT_WITH_PADDING;
             }
+            else if (size == FloatingActionButtonSize.NormalMini)
+            {
+                fab.Size = FabSize.Normal;
+                Element.WidthRequest = FAB_NORMAL_MINI_FRAME_HEIGHT_WITH_PADDING;
+                Element.HeightRequest = FAB_NORMAL_MINI_FRAME_HEIGHT_WITH_PADDING;
+            }
             else
             {
                 fab.Size = FabSize.Normal;
-                Element.WidthRequest = FAB_FRAME_WIDTH_WITH_PADDING;
-                Element.HeightRequest = FAB_FRAME_HEIGHT_WITH_PADDING;
+                Element.WidthRequest = FAB_NORMAL_FRAME_WIDTH_WITH_PADDING;
+                Element.HeightRequest = FAB_NORMAL_FRAME_HEIGHT_WITH_PADDING;
             }
         }
 

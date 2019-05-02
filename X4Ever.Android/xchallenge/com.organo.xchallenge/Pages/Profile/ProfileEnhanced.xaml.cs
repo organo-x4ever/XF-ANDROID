@@ -14,8 +14,8 @@ using com.organo.xchallenge.Extensions;
 using com.organo.xchallenge.Handler;
 using Xamarin.Forms;
 using com.organo.xchallenge.Triggers;
-using com.organo.xchallenge.Animated;
 using com.organo.xchallenge.Views;
+using com.organo.xchallenge.Animated;
 using com.organo.xchallenge.Pages.Notification;
 
 namespace com.organo.xchallenge.Pages.Profile
@@ -52,16 +52,21 @@ namespace com.organo.xchallenge.Pages.Profile
         {
             await App.Configuration.InitialAsync(this);
             NavigationPage.SetHasNavigationBar(this, false);
+
+            stackLayoutProfile.Scrolled += StackLayoutProfile_Scrolled;
+
             _model.GetPageData();
             await VersionCheck();
 
-            //stackLayoutEditProfile.GestureRecognizers.Add(new TapGestureRecognizer()
-            //{
-            //    Command = new Command((obj) => { HideEditProfilePanel(); })
-            //});
-            //UserSettingLayout();
+            UserSettingLayout();
         }
 
+        private void StackLayoutProfile_Scrolled(object sender, ScrolledEventArgs e)
+        {
+            
+        }
+
+        //private RelativeLayout _layout;
         private StackLayout _panel;
         private void UserSettingLayout()
         {
@@ -69,19 +74,20 @@ namespace com.organo.xchallenge.Pages.Profile
             {
                 Command = new Command((obj) =>
                 {
-                    if (PanelShowing)
+                    if (_model.PanelShowing)
                         AnimatePanel();
                 })
             });
-            CreatePanelWithFloatingImage();
+            CreatePanel();
         }
         
         private double _panelWidth = -1;
 
+
         /// <summary>
         /// Creates the right side menu panel
         /// </summary>
-        private void CreatePanelWithFloatingImage()
+        private void CreatePanel()
         {
             if (_panel == null)
             {
@@ -89,14 +95,6 @@ namespace com.organo.xchallenge.Pages.Profile
                 {
                     Children =
                     {
-                        new Label
-                        {
-                            Text = "Options",
-                            HorizontalOptions = LayoutOptions.Center,
-                            VerticalOptions = LayoutOptions.Start,
-                            HorizontalTextAlignment = TextAlignment.Center,
-                            TextColor = Color.White
-                        },
                         new AnimatedImage(new FloatingActionButtonView
                         {
                             ColorNormal = Palette._MainAccent,
@@ -104,7 +102,7 @@ namespace com.organo.xchallenge.Pages.Profile
                             ColorPressed = Palette._ButtonBackground,
                             HasShadow = false,
                             ImageName = TextResources.icon_edit_profile_ar,
-                            Size = FloatingActionButtonSize.Normal,
+                            Size = FloatingActionButtonSize.NormalMini,
                             Clicked = async (sender, e) =>
                             {
                                 AnimatePanel();
@@ -121,12 +119,12 @@ namespace com.organo.xchallenge.Pages.Profile
                             ColorPressed = Palette._ButtonBackground,
                             HasShadow = false,
                             ImageName = TextResources.icon_password_ar,
-                            Size = FloatingActionButtonSize.Normal,
+                            Size = FloatingActionButtonSize.NormalMini,
                             Clicked = async (sender, e) =>
                             {
                                 AnimatePanel();
                                 //ChangeBackgroundColor();
-                                await App.CurrentApp.MainPage.Navigation.PushAsync(new NotificationSettingPage());
+                                await Navigation.PushAsync(new NotificationSettingPage());
                             }
                         }),
                         new AnimatedImage(new FloatingActionButtonView
@@ -136,23 +134,41 @@ namespace com.organo.xchallenge.Pages.Profile
                             ColorPressed = Palette._ButtonBackground,
                             HasShadow = false,
                             ImageName = TextResources.icon_user_settings_ar,
-                            Size = FloatingActionButtonSize.Normal,
+                            Size = FloatingActionButtonSize.NormalMini,
                             Clicked = (sender, e) =>
                             {
                                 AnimatePanel();
                                 ChangeBackgroundColor();
                             }
                         }),
+                        new AnimatedImage(new FloatingActionButtonView
+                        {
+                            ColorNormal = Palette._MainAccent,
+                            ColorRipple = Palette._MainAccent,
+                            ColorPressed = Palette._ButtonBackground,
+                            HasShadow = false,
+                            ImageName = TextResources.icon_envelope,
+                            Size = FloatingActionButtonSize.NormalMini,
+                            Clicked = (sender, e) =>
+                            {
+                                AnimatePanel();
+                                ChangeBackgroundColor();
+                            }
+                        })
                     },
-                    Padding = 15,
+                    Padding = new Thickness(1,1),
                     VerticalOptions = LayoutOptions.FillAndExpand,
                     HorizontalOptions = LayoutOptions.EndAndExpand,
                     BackgroundColor = Palette._Transparent //Color.FromRgba(0, 0, 0, 180)
                 };
 
                 // add to layout
-                _layout.Children.Add(_panel,
-                    Constraint.RelativeToParent((p) => { return _layout.Width - (PanelShowing ? _panelWidth : 0); }),
+                _layout.Children.Add(_panel
+                    ,
+                    Constraint.RelativeToParent((p) =>
+                    {
+                        return _layout.Width - (_model.PanelShowing ? _panelWidth : 0);
+                    }),
                     Constraint.RelativeToParent((p) => { return 0; }),
                     Constraint.RelativeToParent((p) =>
                     {
@@ -164,35 +180,20 @@ namespace com.organo.xchallenge.Pages.Profile
                 );
             }
         }
-
-        private bool _PanelShowing = false;
-        /// <summary>
-        /// Gets a value to determine if the panel is showing or not
-        /// </summary>
-        /// <value><c>true</c> if panel showing; otherwise, <c>false</c>.</value>
-        private bool PanelShowing
-        {
-            get
-            {
-                return _PanelShowing;
-            }
-            set
-            {
-                _PanelShowing = value;
-            }
-        }
-
+        
         /// <summary>
         /// Animates the panel in our out depending on the state
         /// </summary>
         private async void AnimatePanel()
         {
+            if (_panel == null)
+                CreatePanel();
 
             // swap the state
-            PanelShowing = !PanelShowing;
+            _model.PanelShowing = !_model.PanelShowing;
 
             // show or hide the panel
-            if (PanelShowing)
+            if (_model.PanelShowing)
             {
                 // hide all children
                 foreach (var child in _panel.Children)
@@ -253,6 +254,8 @@ namespace com.organo.xchallenge.Pages.Profile
                 finished: (val, b) =>
                 {
                     repeatCount++;
+                    if (repeatCount > 1)
+                        _layout.BackgroundColor = App.Configuration.BackgroundColor;
                 },
 
                 // determine if we should repeat

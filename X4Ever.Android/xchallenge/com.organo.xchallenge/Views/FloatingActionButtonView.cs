@@ -6,6 +6,7 @@ namespace com.organo.xchallenge.Views
     public enum FloatingActionButtonSize
     {
         Normal,
+        NormalMini,
         Mini
     }
 

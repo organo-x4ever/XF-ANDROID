@@ -1880,4 +1880,22 @@ your 3rd meal. Enjoy Pro Meals
   <data name="icon_user_settings_ar" xml:space="preserve">
     <value>user_settings_ar.png</value>
   </data>
+  <data name="icon_envelope" xml:space="preserve">
+    <value>email.png</value>
+  </data>
+  <data name="icon_envelope_color" xml:space="preserve">
+    <value>email_color.png</value>
+  </data>
+  <data name="icon_social_media" xml:space="preserve">
+    <value>social_media.png</value>
+  </data>
+  <data name="icon_social_media_color" xml:space="preserve">
+    <value>social_media_color.png</value>
+  </data>
+  <data name="icon_profile_settings" xml:space="preserve">
+    <value>icon_profile_settings.png</value>
+  </data>
+  <data name="icon_profile_settings_64x64" xml:space="preserve">
+    <value>icon_profile_settings_64x64.png</value>
+  </data>
 </root>

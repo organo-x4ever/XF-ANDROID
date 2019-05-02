@@ -12,134 +12,138 @@
     xmlns:layout="clr-namespace:com.organo.xchallenge.Controls;assembly=com.organo.xchallenge">
   <layout:PopupLayout BackgroundColor="{x:Static statics:Palette._DarkTransparent}">
     <layout:PopupLayout.Content>
+      <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
         <controls:TopBarAccountView></controls:TopBarAccountView>
-        <RelativeLayout x:Name="_layout" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-            <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+          <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
             <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="0" Margin="0,-6,0,0" x:Name="stackLayoutProfile">
-                        <!--RelativeLayout.BoundsConstraint="" AbsoluteLayout.LayoutBounds="0,0,1,1"
-                        AbsoluteLayout.LayoutFlags="WidthProportional"-->
-              <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="15,15,15,0">
-                <Grid.RowDefinitions>
-                  <RowDefinition Height="Auto" />
-                  <RowDefinition Height="Auto" />
-                  <RowDefinition Height="Auto" />
-                  <RowDefinition Height="Auto" />
-                  <RowDefinition Height="Auto" />
-                  <RowDefinition Height="Auto" />
-                  <RowDefinition Height="Auto" />
-                  <RowDefinition Height="Auto" />
-                  <RowDefinition Height="Auto" />
-                  <RowDefinition Height="Auto" />
-                  <RowDefinition Height="Auto" />
-                  <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                  <ColumnDefinition Width="*" />
-                  <ColumnDefinition Width="*" />
-                  <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <StackLayout Grid.Row="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                  <Grid HorizontalOptions="FillAndExpand">
-                    <Grid.RowDefinitions>
-                      <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                      <ColumnDefinition Width="*" />
-                      <ColumnDefinition Width="Auto" />
-                      <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Column="1" Text="{Binding UserGreeting}" Style="{DynamicResource labelStyleXLargeHeader}" HorizontalOptions="CenterAndExpand" />
-                    <Image Grid.Column="2" Source="{Binding BadgeAchievedImage}" HorizontalOptions="End" VerticalOptions="Start"
-                           Style="{DynamicResource imageBadgeProfile}" Margin="0,-3,0,0"
-                           HeightRequest="{Binding UserBadgeImageHeight}" WidthRequest="{Binding UserBadgeImageWidth}">
-                      <Image.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding BadgeHintShowCommand}" />
-                      </Image.GestureRecognizers>
-                    </Image>
-                  </Grid>
-                </StackLayout>
-                <Label Grid.Row="1" Grid.ColumnSpan="3" Text="{translate:Translate YouJoinedTheProgramOn}" Style="{DynamicResource labelStyleInfoHeading}" HorizontalOptions="Center" />
-                <Label Grid.Row="2" Grid.ColumnSpan="3" Text="{Binding JoiningDate}" Style="{DynamicResource labelStyleText}" HorizontalOptions="Center" Margin="0,-6,0,0" />
-                <Frame Grid.Row="3" Grid.ColumnSpan="3" Margin="0,5,0,10" Style="{DynamicResource frameStyle}">
-                  <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" VerticalOptions="Center">
-                    <Label Text="{translate:Translate TargetDate}" Style="{DynamicResource labelStyleTextTitle}" />
-                    <Label Text="{Binding TargetDate}" Style="{DynamicResource labelStyleText}" />
-                  </StackLayout>
-                </Frame>
-                <Label Grid.Row="4" Grid.Column="0" Text="{Binding YourGoalText}" Style="{DynamicResource labelStyleTextTitle}" Margin="0,3,0,-6" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
-                <Label Grid.Row="4" Grid.Column="1" Text="{Binding ThisWeekText}" Style="{DynamicResource labelStyleTextTitle}" Margin="0,3,0,-6" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
-                <Label Grid.Row="4" Grid.Column="2" Text="{Binding RemainingText}" Style="{DynamicResource labelStyleTextTitle}" Margin="0,3,0,-6" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
-                <Label Grid.Row="5" Grid.Column="0" Text="{Binding ToLooseText}" Style="{DynamicResource labelStyleTextTitleIntern}" Margin="0,0,0,-6" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
-                <Label Grid.Row="5" Grid.Column="1" Text="{Binding LostText}" Style="{DynamicResource labelStyleTextTitleIntern}" Margin="0,0,0,-6" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
-                <Label Grid.Row="5" Grid.Column="2" Text="{Binding ToLooseText}" Style="{DynamicResource labelStyleTextTitleIntern}" Margin="0,0,0,-6" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
-
-                <Frame Grid.Row="6" Grid.Column="0" Style="{DynamicResource frameStyle}" HasShadow="False">
-                  <Label Text="{Binding YourGoal}" Style="{DynamicResource labelStyleLargestHeader}" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
-                </Frame>
-
-                <Frame Grid.Row="6" Grid.Column="1" Style="{DynamicResource frameStyle}" HasShadow="False">
-                  <Label Text="{Binding YouLostThisWeek}" Style="{DynamicResource labelStyleLargestHeader}" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
-                </Frame>
-
-                <Frame Grid.Row="6" Grid.Column="2" Style="{DynamicResource frameStyle}" HasShadow="False">
-                  <Label Text="{Binding ToLoose}" Style="{DynamicResource labelStyleLargestHeader}" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
-                </Frame>
-
-                <Frame Grid.Row="7" Grid.ColumnSpan="3" HeightRequest="200" HorizontalOptions="FillAndExpand" Margin="0,10,0,0" Style="{DynamicResource frameStyle}" HasShadow="False">
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="ShowDetail" NumberOfTapsRequired="2" />
-                    </Frame.GestureRecognizers>
-                    <microcharts:ChartView x:Name="chartView" Chart="{Binding ChartData}" HorizontalOptions="FillAndExpand" />
-                </Frame>
-                <StackLayout Grid.Row="8" Grid.ColumnSpan="3" Margin="0,-4,13,10" Orientation="Horizontal" HorizontalOptions="End" VerticalOptions="StartAndExpand">
-                  <Label Text="{Binding DisplayDetailLink}" Style="{DynamicResource labelStyleLinkHighlight}" IsVisible="{Binding UserDetail.IsTrackerViewAllowed}">
-                    <Label.GestureRecognizers>
-                      <TapGestureRecognizer Tapped="ShowDetail" NumberOfTapsRequired="1" />
-                    </Label.GestureRecognizers>
-                  </Label>
-                  <Label Text="{Binding Seperator}" Style="{DynamicResource labelStyleLinkHighlight}" IsVisible="{Binding UserDetail.IsTrackerViewAllowed}" />
-                  <Label Text="{Binding ChartTypeDisplay}" Style="{DynamicResource labelStyleLinkHighlight}">
-                    <Label.GestureRecognizers>
-                      <TapGestureRecognizer Tapped="ChooseGraphType" NumberOfTapsRequired="1" />
-                    </Label.GestureRecognizers>
-                  </Label>
-                  <Picker Grid.Column="0" IsVisible="False" x:Name="pickerGraphType" />
-                </StackLayout>
-                <Frame Grid.Row="9" Grid.ColumnSpan="3" Style="{DynamicResource frameStyle}" HasShadow="False">
-                  <Grid HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" Margin="0,10,0,10">
-                    <Grid.RowDefinitions>
-                      <RowDefinition Height="Auto" />
-                      <RowDefinition Height="Auto" />
-                      <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                      <ColumnDefinition Width="Auto" />
-                      <ColumnDefinition Width="*" />
-                      <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.ColumnSpan="3" HorizontalOptions="Center" Text="{translate:Translate GoalYouHaveAchievedSoFar}" Style="{DynamicResource labelStyleTextTitleIntern}" />
-                    <Label Grid.Row="1" Grid.ColumnSpan="3" HorizontalOptions="Center" Text="{Binding GaugeCurrent, Converter={StaticResource IntConverter}, ConverterParameter=1, StringFormat='{0}%'}" Style="{DynamicResource labelStyleTextGuageHeader}" />
-                    <Label Grid.Row="2" Grid.Column="0" Margin="0" Text="{Binding GaugeMin, StringFormat='{0}'}" Style="{DynamicResource labelStyleTableViewItem}" VerticalOptions="Center" HorizontalOptions="End" />
-                    <Slider Grid.Row="2" Grid.Column="1" x:Name="SliderGauge" Minimum="{Binding GaugeMin}" Maximum="{Binding GaugeMax}" Value="{Binding GaugeCurrent, Mode=OneWay}" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Margin="-7,0,-7,0" />
-                    <Label Grid.Row="2" Grid.Column="2" Margin="0" Text="{Binding GaugeMax, StringFormat='{0}'}" Style="{DynamicResource labelStyleTableViewItem}" VerticalOptions="Center" HorizontalOptions="Start" />
-                  </Grid>
-                </Frame>
-                <Button x:Name="buttonProfile" Grid.Row="10" Text="" IsVisible="False" />
-                <controls:FooterView Grid.Row="11" Grid.ColumnSpan="3"/>
-              </Grid>
-            </ScrollView>
-              <StackLayout x:Name="stackLayoutEditProfile" IsVisible="False" Orientation="Vertical" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand">
-                  <Frame Style="{DynamicResource frameStyle}">
-                      <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
-                                      AbsoluteLayout.LayoutFlags="WidthProportional">
-                          <StackLayout VerticalOptions="StartAndExpand" HorizontalOptions="StartAndExpand" Margin="0,0,0,80">
-                              <Label Text="Edit Profile Page" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                 <RelativeLayout x:Name="_layout" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                     <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+                                  RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=0}" 
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
+                     <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="15,15,15,0">
+                        <Grid.RowDefinitions>
+                          <RowDefinition Height="Auto" />
+                          <RowDefinition Height="Auto" />
+                          <RowDefinition Height="Auto" />
+                          <RowDefinition Height="Auto" />
+                          <RowDefinition Height="Auto" />
+                          <RowDefinition Height="Auto" />
+                          <RowDefinition Height="Auto" />
+                          <RowDefinition Height="Auto" />
+                          <RowDefinition Height="Auto" />
+                          <RowDefinition Height="Auto" />
+                          <RowDefinition Height="Auto" />
+                          <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                          <ColumnDefinition Width="*" />
+                          <ColumnDefinition Width="*" />
+                          <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackLayout Grid.Row="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                          <Grid HorizontalOptions="FillAndExpand">
+                            <Grid.RowDefinitions>
+                              <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                              <ColumnDefinition Width="*" />
+                              <ColumnDefinition Width="Auto" />
+                              <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="1" Text="{Binding UserGreeting}" Style="{DynamicResource labelStyleXLargeHeader}" HorizontalOptions="CenterAndExpand" />
+                            <Image Grid.Column="2" Source="{Binding BadgeAchievedImage}" HorizontalOptions="End" VerticalOptions="Start"
+                                   Style="{DynamicResource imageBadgeProfile}" Margin="0,-3,0,0"
+                                   HeightRequest="{Binding UserBadgeImageHeight}" WidthRequest="{Binding UserBadgeImageWidth}">
+                              <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding BadgeHintShowCommand}" />
+                              </Image.GestureRecognizers>
+                            </Image>
+                          </Grid>
+                        </StackLayout>
+                        <Label Grid.Row="1" Grid.ColumnSpan="3" Text="{translate:Translate YouJoinedTheProgramOn}" Style="{DynamicResource labelStyleInfoHeading}" HorizontalOptions="Center" />
+                        <Label Grid.Row="2" Grid.ColumnSpan="3" Text="{Binding JoiningDate}" Style="{DynamicResource labelStyleText}" HorizontalOptions="Center" Margin="0,-6,0,0" />
+                        <Frame Grid.Row="3" Grid.ColumnSpan="3" Margin="0,5,0,10" Style="{DynamicResource frameStyle}">
+                          <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" VerticalOptions="Center">
+                            <Label Text="{translate:Translate TargetDate}" Style="{DynamicResource labelStyleTextTitle}" />
+                            <Label Text="{Binding TargetDate}" Style="{DynamicResource labelStyleText}" />
                           </StackLayout>
-                      </AbsoluteLayout>
-                  </Frame>
-              </StackLayout>
+                        </Frame>
+                        <Label Grid.Row="4" Grid.Column="0" Text="{Binding YourGoalText}" Style="{DynamicResource labelStyleTextTitle}" Margin="0,3,0,-6" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+                        <Label Grid.Row="4" Grid.Column="1" Text="{Binding ThisWeekText}" Style="{DynamicResource labelStyleTextTitle}" Margin="0,3,0,-6" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+                        <Label Grid.Row="4" Grid.Column="2" Text="{Binding RemainingText}" Style="{DynamicResource labelStyleTextTitle}" Margin="0,3,0,-6" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+                        <Label Grid.Row="5" Grid.Column="0" Text="{Binding ToLooseText}" Style="{DynamicResource labelStyleTextTitleIntern}" Margin="0,0,0,-6" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+                        <Label Grid.Row="5" Grid.Column="1" Text="{Binding LostText}" Style="{DynamicResource labelStyleTextTitleIntern}" Margin="0,0,0,-6" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+                        <Label Grid.Row="5" Grid.Column="2" Text="{Binding ToLooseText}" Style="{DynamicResource labelStyleTextTitleIntern}" Margin="0,0,0,-6" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+
+                        <Frame Grid.Row="6" Grid.Column="0" Style="{DynamicResource frameStyle}" HasShadow="False">
+                          <Label Text="{Binding YourGoal}" Style="{DynamicResource labelStyleLargestHeader}" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+                        </Frame>
+
+                        <Frame Grid.Row="6" Grid.Column="1" Style="{DynamicResource frameStyle}" HasShadow="False">
+                          <Label Text="{Binding YouLostThisWeek}" Style="{DynamicResource labelStyleLargestHeader}" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+                        </Frame>
+
+                        <Frame Grid.Row="6" Grid.Column="2" Style="{DynamicResource frameStyle}" HasShadow="False">
+                          <Label Text="{Binding ToLoose}" Style="{DynamicResource labelStyleLargestHeader}" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+                        </Frame>
+
+                        <Frame Grid.Row="7" Grid.ColumnSpan="3" HeightRequest="200" HorizontalOptions="FillAndExpand" Margin="0,10,0,0" Style="{DynamicResource frameStyle}" HasShadow="False">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="ShowDetail" NumberOfTapsRequired="2" />
+                            </Frame.GestureRecognizers>
+                            <microcharts:ChartView x:Name="chartView" Chart="{Binding ChartData}" HorizontalOptions="FillAndExpand" />
+                        </Frame>
+                        <StackLayout Grid.Row="8" Grid.ColumnSpan="3" Margin="0,-4,13,10" Orientation="Horizontal" HorizontalOptions="End" VerticalOptions="StartAndExpand">
+                          <Label Text="{Binding DisplayDetailLink}" Style="{DynamicResource labelStyleLinkHighlight}" IsVisible="{Binding UserDetail.IsTrackerViewAllowed}">
+                            <Label.GestureRecognizers>
+                              <TapGestureRecognizer Tapped="ShowDetail" NumberOfTapsRequired="1" />
+                            </Label.GestureRecognizers>
+                          </Label>
+                          <Label Text="{Binding Seperator}" Style="{DynamicResource labelStyleLinkHighlight}" IsVisible="{Binding UserDetail.IsTrackerViewAllowed}" />
+                          <Label Text="{Binding ChartTypeDisplay}" Style="{DynamicResource labelStyleLinkHighlight}">
+                            <Label.GestureRecognizers>
+                              <TapGestureRecognizer Tapped="ChooseGraphType" NumberOfTapsRequired="1" />
+                            </Label.GestureRecognizers>
+                          </Label>
+                          <Picker Grid.Column="0" IsVisible="False" x:Name="pickerGraphType" />
+                        </StackLayout>
+                        <Frame Grid.Row="9" Grid.ColumnSpan="3" Style="{DynamicResource frameStyle}" HasShadow="False">
+                          <Grid HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" Margin="0,10,0,10">
+                            <Grid.RowDefinitions>
+                              <RowDefinition Height="Auto" />
+                              <RowDefinition Height="Auto" />
+                              <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                              <ColumnDefinition Width="Auto" />
+                              <ColumnDefinition Width="*" />
+                              <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.ColumnSpan="3" HorizontalOptions="Center" Text="{translate:Translate GoalYouHaveAchievedSoFar}" Style="{DynamicResource labelStyleTextTitleIntern}" />
+                            <Label Grid.Row="1" Grid.ColumnSpan="3" HorizontalOptions="Center" Text="{Binding GaugeCurrent, Converter={StaticResource IntConverter}, ConverterParameter=1, StringFormat='{0}%'}" Style="{DynamicResource labelStyleTextGuageHeader}" />
+                            <Label Grid.Row="2" Grid.Column="0" Margin="0" Text="{Binding GaugeMin, StringFormat='{0}'}" Style="{DynamicResource labelStyleTableViewItem}" VerticalOptions="Center" HorizontalOptions="End" />
+                            <Slider Grid.Row="2" Grid.Column="1" x:Name="SliderGauge" Minimum="{Binding GaugeMin}" Maximum="{Binding GaugeMax}" Value="{Binding GaugeCurrent, Mode=OneWay}" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Margin="-7,0,-7,0" />
+                            <Label Grid.Row="2" Grid.Column="2" Margin="0" Text="{Binding GaugeMax, StringFormat='{0}'}" Style="{DynamicResource labelStyleTableViewItem}" VerticalOptions="Center" HorizontalOptions="Start" />
+                          </Grid>
+                        </Frame>
+                        <Button x:Name="buttonProfile" Grid.Row="10" Text="" IsVisible="False" />
+                        <controls:FooterView Grid.Row="11" Grid.ColumnSpan="3"/>
+                  </Grid>
+                         </StackLayout>
+                    </RelativeLayout>
+        </ScrollView>
           </StackLayout>
-        </RelativeLayout>
+        <StackLayout x:Name="stackLayoutEditProfile" IsVisible="False" Orientation="Vertical" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand">
+              <Frame Style="{DynamicResource frameStyle}">
+                  <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                                  AbsoluteLayout.LayoutFlags="WidthProportional">
+                      <StackLayout VerticalOptions="StartAndExpand" HorizontalOptions="StartAndExpand" Margin="0,0,0,80">
+                          <Label Text="Edit Profile Page" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                      </StackLayout>
+                  </AbsoluteLayout>
+              </Frame>
+          </StackLayout>
+      </StackLayout>
     </layout:PopupLayout.Content>
   </layout:PopupLayout>
     <page:ProfileEnhanced.Resources>
