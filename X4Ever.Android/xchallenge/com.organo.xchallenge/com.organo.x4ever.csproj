@@ -488,6 +488,7 @@
     <Compile Include="ViewModels\Profile\ChartType.cs" />
     <Compile Include="ViewModels\Profile\ProfileEnhancedViewModel.cs" />
     <Compile Include="ViewModels\Profile\MyProfileViewModel.cs" />
+    <Compile Include="ViewModels\Profile\ProfileSettingViewModel.cs" />
     <Compile Include="ViewModels\Profile\SettingViewModel.cs" />
     <Compile Include="ViewModels\Registration\RegisterViewModel.cs" />
     <Compile Include="ViewModels\Registration\TermAndConditionViewModel.cs" />

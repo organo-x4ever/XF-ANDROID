@@ -505,10 +505,10 @@ namespace com.organo.xchallenge.ViewModels.Milestones
             set { SetProperty(ref _userMetas, value, UserMetasPropertyName); }
         }
 
-        private MyProfileViewModel profileViewModel;
+        private ProfileEnhancedViewModel profileViewModel;
         public const string ProfileViewModelPropertyName = "ProfileViewModel";
 
-        public MyProfileViewModel ProfileViewModel
+        public ProfileEnhancedViewModel ProfileViewModel
         {
             get { return profileViewModel; }
             set { SetProperty(ref profileViewModel, value, ProfileViewModelPropertyName); }

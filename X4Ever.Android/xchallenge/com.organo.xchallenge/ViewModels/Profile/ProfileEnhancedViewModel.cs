@@ -125,7 +125,7 @@ namespace com.organo.xchallenge.ViewModels.Profile
                     Device.BeginInvokeOnMainThread(async () =>
                     {
                         await App.CurrentApp.MainPage.Navigation.PushModalAsync(
-                            new Pages.MilestonePages.UserMilestonePage(Root, null));
+                            new Pages.MilestonePages.UserMilestonePage(Root, this));
                     });
                 }
             }
@@ -325,7 +325,7 @@ namespace com.organo.xchallenge.ViewModels.Profile
             set { SetProperty(ref seperator, value, SeperatorPropertyName); }
         }
 
-        private Xamarin.Forms.Page TrackerPage => new TrackerLogPage(null);
+        private Xamarin.Forms.Page TrackerPage => new TrackerLogPage(this);
         private bool showTrackerDetail;
         public const string ShowTrackerDetailPropertyName = "ShowTrackerDetail";
 
@@ -339,12 +339,12 @@ namespace com.organo.xchallenge.ViewModels.Profile
         {
             PopType = PopupType.None;
             if (ShowTrackerDetail)
-                await ShowTrackerDetailAsync();
+                ShowTrackerDetailAsync();
             else
                 await HideTrackerDetailAsync();
         }
 
-        public async Task ShowTrackerDetailAsync()
+        public void ShowTrackerDetailAsync()
         {
             PopType = PopupType.Detail;
             TrackerWeightMinimumValue = 0;
@@ -353,15 +353,18 @@ namespace com.organo.xchallenge.ViewModels.Profile
                 App.Configuration.AppConfig.MAXIMUM_CURRENT_WEIGHT_LB);
             TrackerWeightValue = TrackerWeightMinimumValue;
 
-            UserTrackersDescending = new List<TrackerPivot>();
-            UserTrackersDescending = UserTrackers.OrderByDescending(t => t.ModifyDate).ToList();
-            await PushModalAsync(TrackerPage);
+            //UserTrackersDescending = new List<TrackerPivot>();
+            //UserTrackersDescending = UserTrackers.OrderByDescending(t => t.ModifyDate).ToList();
+            //await PushAsync(TrackerPage);
         }
 
         public async Task HideTrackerDetailAsync()
         {
-            await Task.Delay(TimeSpan.FromMilliseconds(200));
-            Device.BeginInvokeOnMainThread(async () => { await App.CurrentApp.MainPage.Navigation.PopModalAsync(); });
+            //await Task.Delay(TimeSpan.FromMilliseconds(200));
+            //Device.BeginInvokeOnMainThread(async () =>
+            //{
+            await Navigation.PopAsync();
+            //});
         }
 
         /********** Tracker Content View : END **********/

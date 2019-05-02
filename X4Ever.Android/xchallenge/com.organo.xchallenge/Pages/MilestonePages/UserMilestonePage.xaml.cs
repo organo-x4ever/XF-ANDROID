@@ -23,7 +23,7 @@ namespace com.organo.xchallenge.Pages.MilestonePages
         private readonly IDevicePermissionServices _devicePermissionServices;
         private readonly PoundToKiligramConverter _converter = new PoundToKiligramConverter();
 
-        public UserMilestonePage(RootPage root, MyProfileViewModel profileViewModel)
+        public UserMilestonePage(RootPage root, ProfileEnhancedViewModel profileViewModel)
         {
             try
             {

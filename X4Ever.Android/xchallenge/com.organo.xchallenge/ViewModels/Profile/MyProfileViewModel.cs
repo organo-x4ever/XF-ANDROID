@@ -101,16 +101,16 @@ namespace com.organo.xchallenge.ViewModels.Profile
                     Weight = StartWeight;
                     WeightLossGoal = YourGoal;
                     double.TryParse(trackerLast.CurrentWeight, out double lastWeight);
-                    YouLost = (short)(StartWeight - lastWeight);
-                    ToLoose = (short)(YourGoal - YouLost);
-                    ToLoose = (short)(ToLoose >= 0 ? ToLoose : 0);
+                    YouLost = (short) (StartWeight - lastWeight);
+                    ToLoose = (short) (YourGoal - YouLost);
+                    ToLoose = (short) (ToLoose >= 0 ? ToLoose : 0);
 
                     if (UserTrackers.Count != 1)
                     {
                         double.TryParse(UserTrackers.OrderBy(t => t.ModifyDate)
                                 .LastOrDefault(t => t.RevisionNumber != trackerLast?.RevisionNumber)?.CurrentWeight,
                             out double previousWeight);
-                        YouLostThisWeek = (short)(previousWeight - lastWeight);
+                        YouLostThisWeek = (short) (previousWeight - lastWeight);
                     }
 
                     // Milestone Requirement Check
@@ -125,7 +125,7 @@ namespace com.organo.xchallenge.ViewModels.Profile
                     Device.BeginInvokeOnMainThread(async () =>
                     {
                         await App.CurrentApp.MainPage.Navigation.PushModalAsync(
-                            new Pages.MilestonePages.UserMilestonePage(Root, this));
+                            new Pages.MilestonePages.UserMilestonePage(Root, null)); //this));
                     });
                 }
             }
@@ -323,7 +323,7 @@ namespace com.organo.xchallenge.ViewModels.Profile
             set { SetProperty(ref seperator, value, SeperatorPropertyName); }
         }
 
-        private Xamarin.Forms.Page TrackerPage => new TrackerLogPage(this);
+        private Xamarin.Forms.Page TrackerPage => new TrackerLogPage(null);//this);
         private bool showTrackerDetail;
         public const string ShowTrackerDetailPropertyName = "ShowTrackerDetail";
 

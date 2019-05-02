@@ -58,7 +58,10 @@ namespace com.organo.xchallenge.ViewModels.Menu
             }
 
             var menuItems = await DependencyService.Get<IMenuServices>().GetByApplicationAsync();
+            App.Configuration.IsProfileEditAllowed = menuItems.Any(m =>
+                ((MenuType) Enum.Parse(typeof(MenuType), m.MenuType) == MenuType.Settings));
             MenuItems = (from m in menuItems
+            where !((MenuType) Enum.Parse(typeof(MenuType), m.MenuType) == MenuType.Settings)
                 select new HomeMenuItem
                 {
                     MenuTitle = _helper.GetResource(m.MenuTitle),
@@ -78,8 +81,6 @@ namespace com.organo.xchallenge.ViewModels.Menu
                     ItemPadding = new Thickness(15, 5, 0, 5),
                     IsVisible = !((MenuType) Enum.Parse(typeof(MenuType), m.MenuType) == MenuType.Settings)
                 }).ToList();
-
-            App.Configuration.IsProfileEditAllowed = MenuItems.Any(m => m.MenuType == MenuType.Settings);
         }
 
         public Style DefaultStyle => (Style) App.CurrentApp.Resources["labelStyleMenuItem"];

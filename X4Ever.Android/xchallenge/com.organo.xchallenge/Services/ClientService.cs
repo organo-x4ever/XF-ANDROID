@@ -2,6 +2,7 @@
 using com.organo.xchallenge.Helpers;
 using com.organo.xchallenge.Localization;
 using com.organo.xchallenge.Models;
+using com.organo.xchallenge.Notification;
 using com.organo.xchallenge.Statics;
 using Newtonsoft.Json;
 using System;
@@ -347,23 +348,7 @@ namespace com.organo.xchallenge.Services
             }
             catch (Exception)
             {
-                //try
-                //{
-                //    DependencyService.Get<IInformationMessageServices>().LongAlert(TextResources.GotError);
-                //    var methodWithParam = "postdebuglog?debugLogstring=" + GetExceptionDetail(ex);
-                //    var request = new HttpRequestMessage()
-                //    {
-                //        RequestUri = new Uri(GetRequestUri("logs", methodWithParam)),
-                //        Method = HttpMethod.Post,
-                //    };
-                //    request.Headers.Accept.Add(
-                //        new MediaTypeWithQualityHeaderValue(HttpConstants.MEDIA_TYPE_TEXT_PLAIN));
-                //    await HttpClient.SendAsync(request);
-                //}
-                //catch (Exception)
-                //{
-                //    //
-                //}
+                DependencyService.Get<IInformationMessageServices>().LongAlert("Network Failure Error");
             }
         }
 
@@ -434,7 +419,7 @@ namespace com.organo.xchallenge.Services
             Exception exception, bool showMessage = false)
         {
             await WriteLog(requestUri, exception.Message,
-                GetExceptionDetail(exception, httpContent, responseMessage), showMessage);
+                GetExceptionDetailContent(exception, httpContent, responseMessage), showMessage);
         }
 
         public static async Task WriteLog(Uri requestUri, string message, Exception exception, bool showMessage = false)
@@ -481,7 +466,7 @@ namespace com.organo.xchallenge.Services
             return stringBuilder.ToString();
         }
 
-        private static string GetExceptionDetail(Exception exception, HttpContent httpContent,
+        private static string GetExceptionDetailContent(Exception exception, HttpContent httpContent,
             HttpResponseMessage responseMessage)
         {
             var stringBuilder = new StringBuilder();

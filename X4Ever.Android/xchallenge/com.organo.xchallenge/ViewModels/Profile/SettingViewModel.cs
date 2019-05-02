@@ -84,7 +84,7 @@ namespace com.organo.xchallenge.ViewModels.Profile
                     ImageUserSetting = ImageUserSettingPath;
 
                     //Content
-                    Content = new ProfileSetting(Root, this).Content;
+                    //Content = new ProfileSetting(Root, this).Content;
 
                     CountryName = string.Empty;
                     CityName = string.Empty;

@@ -7,52 +7,30 @@
     xmlns:statics="clr-namespace:com.organo.xchallenge.Statics"
     xmlns:app="clr-namespace:com.organo.xchallenge"
     xmlns:translate="clr-namespace:com.organo.xchallenge.Localization"
-    xmlns:controls="clr-namespace:com.organo.xchallenge.Controls;assembly=com.organo.xchallenge">
-  <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-    <Grid VerticalOptions="FillAndExpand">
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="*" />
-      </Grid.ColumnDefinitions>
-      <Grid.RowDefinitions>
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="Auto" />
-      </Grid.RowDefinitions>
-      <StackLayout Orientation="Vertical" Grid.Row="0" Margin="0">
-        <Label Text="{translate:Translate EditProfile}" Style="{DynamicResource labelStyleXLargeHeader}" HorizontalOptions="Center" HorizontalTextAlignment="Center" Margin="0" />
-          <Label Text="{Binding UserEmail}" Style="{DynamicResource labelStyleInfoHeading}" HorizontalOptions="Center" />
+    xmlns:controls="clr-namespace:com.organo.xchallenge.Controls;assembly=com.organo.xchallenge"
+    xmlns:extensions="clr-namespace:com.organo.xchallenge.Extensions;assembly=com.organo.xchallenge">
+
+    <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="15,15,15,0">
+          
+      <Label Text="{translate:Translate EditProfile}" Style="{DynamicResource labelStyleXLargeHeader}" HorizontalOptions="Center" HorizontalTextAlignment="Center" Margin="0" />
+      <Label Text="{Binding UserEmail}" Style="{DynamicResource labelStyleInfoHeading}" HorizontalOptions="Center" />
+          
+      <StackLayout Orientation="Vertical" VerticalOptions="Start" HorizontalOptions="CenterAndExpand">
+          <ActivityIndicator x:Name="activityIndicator" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+          <Label IsVisible="{Binding IsBusy}" Text="{Binding BusyMessage}" Style="{DynamicResource labelBusyMessage}" />
+          <Label IsVisible="{Binding IsError}" Text="{Binding ErrorMessage}" Style="{DynamicResource labelErrorMessage}" />
+          <Label IsVisible="{Binding IsMessage}" Text="{Binding MessageText}" Style="{DynamicResource labelSuccessMessage}" />
       </StackLayout>
-      <StackLayout Grid.Row="1" Orientation="Vertical" VerticalOptions="Start" HorizontalOptions="CenterAndExpand">
-        <ActivityIndicator x:Name="activityIndicator" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
-        <Label IsVisible="{Binding IsBusy}" Text="{Binding BusyMessage}" Style="{DynamicResource labelBusyMessage}" />
-        <Label IsVisible="{Binding IsError}" Text="{Binding ErrorMessage}" Style="{DynamicResource labelErrorMessage}" />
-        <Label IsVisible="{Binding IsMessage}" Text="{Binding MessageText}" Style="{DynamicResource labelSuccessMessage}" />
+      <StackLayout Orientation="Vertical" VerticalOptions="Start" HorizontalOptions="FillAndExpand" IsVisible="{Binding IsEditable}" Margin="0,0,0,15">
+        <Entry x:Name="entryCountry" Text="{Binding CountryName, Mode=TwoWay}" Placeholder="{translate:Translate Country}" Keyboard="Text" Style="{DynamicResource entryStyle}" />
+        <Picker x:Name="pickerCountry" ItemsSource="{Binding CountryList}" IsVisible="False"></Picker>
+        <Entry x:Name="entryAddress" Text="{Binding Address, Mode=TwoWay}" Placeholder="{translate:Translate Address}" Keyboard="Text" Style="{DynamicResource entryStyle}" Completed="entry_Completed" />
+        <Entry x:Name="entryCity" Text="{Binding CityName, Mode=TwoWay}" Placeholder="{translate:Translate City}" Keyboard="Text" Style="{DynamicResource entryStyle}" Completed="entry_Completed" />
+        <Entry x:Name="entryState" Text="{Binding StateName, Mode=TwoWay}" Placeholder="{translate:Translate State}" Keyboard="Text" Style="{DynamicResource entryStyle}" />
+        <Picker x:Name="pickerState" ItemsSource="{Binding StateList}" IsVisible="False"></Picker>
+        <Entry x:Name="entryPostalCode" Text="{Binding PostalCode, Mode=TwoWay}" Placeholder="{translate:Translate PostalCode}" Keyboard="Text" Style="{DynamicResource entryStyle}" Completed="entry_Completed" />
+        <Button x:Name="buttonSubmit" Text="{translate:Translate Update}" Style="{DynamicResource buttonStyle}"></Button>
       </StackLayout>
-      <StackLayout Grid.Row="2" Orientation="Vertical" VerticalOptions="Start" HorizontalOptions="FillAndExpand" IsVisible="{Binding IsEditable}">
-        <Grid>
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-          </Grid.ColumnDefinitions>
-          <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-          </Grid.RowDefinitions>
-          <Entry Grid.Row="0" Grid.ColumnSpan="2" x:Name="entryCountry" Text="{Binding CountryName, Mode=TwoWay}" Placeholder="{translate:Translate Country}" Keyboard="Text" Style="{DynamicResource entryStyle}" />
-          <Picker x:Name="pickerCountry" ItemsSource="{Binding CountryList}" IsVisible="False"></Picker>
-          <Entry Grid.Row="1" Grid.ColumnSpan="2" x:Name="entryAddress" Text="{Binding Address, Mode=TwoWay}" Placeholder="{translate:Translate Address}" Keyboard="Text" Style="{DynamicResource entryStyle}" Completed="entry_Completed" />
-          <Entry Grid.Row="2" Grid.ColumnSpan="2" x:Name="entryCity" Text="{Binding CityName, Mode=TwoWay}" Placeholder="{translate:Translate City}" Keyboard="Text" Style="{DynamicResource entryStyle}" Completed="entry_Completed" />
-          <Entry Grid.Row="3" Grid.ColumnSpan="2" x:Name="entryState" Text="{Binding StateName, Mode=TwoWay}" Placeholder="{translate:Translate State}" Keyboard="Text" Style="{DynamicResource entryStyle}" />
-          <Picker x:Name="pickerState" ItemsSource="{Binding StateList}" IsVisible="False"></Picker>
-          <Entry Grid.Row="4" Grid.ColumnSpan="2" x:Name="entryPostalCode" Text="{Binding PostalCode, Mode=TwoWay}" Placeholder="{translate:Translate PostalCode}" Keyboard="Text" Style="{DynamicResource entryStyle}" Completed="entry_Completed" />
-          <Button Grid.Row="5" Grid.ColumnSpan="2" x:Name="buttonSubmit" Text="{translate:Translate Update}" Style="{DynamicResource buttonStyle}"></Button>
-        </Grid>
-      </StackLayout>
-    </Grid>
-    <controls:FooterView />
-  </StackLayout>
+      <controls:FooterView />
+   </StackLayout>
 </page:ProfileSettingXaml>

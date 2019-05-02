@@ -15,7 +15,8 @@ namespace com.organo.xchallenge.Droid.Renderers
 {
     public class FloatingActionButtonViewRenderer : ViewRenderer<FloatingActionButtonView, FrameLayout>
     {
-        private const int MARGIN_DIPS = 16;
+        private const int MARGIN_DIPS_SMALL = 10;
+        private const int MARGIN_DIPS = 10; //16;
         private const int FAB_HEIGHT_NORMAL = 56;
         private const int FAB_HEIGHT_NORMAL_MINI = 48;
         private const int FAB_HEIGHT_MINI = 40;

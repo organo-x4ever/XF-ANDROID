@@ -36,7 +36,6 @@ namespace com.organo.xchallenge.Pages.Profile
                     Root = root,
                     PopupAction = OpenPopupWindow,
                     SliderGaugeModel = SliderGauge,
-                    IsUserSettingVisible = App.Configuration.IsProfileEditAllowed,
                     UserSettingAction = AnimatePanel
                 };
                 BindingContext = _model;
@@ -107,11 +106,11 @@ namespace com.organo.xchallenge.Pages.Profile
                             ColorPressed = Palette._LightGrayD,
                             HasShadow = false,
                             ImageName = ImageConstants.ICON_PROFILE_EDIT,
-                            Size = FloatingActionButtonSize.Mini,
+                            Size = FloatingActionButtonSize.NormalMini,
                             Clicked = async (sender, e) =>
                             {
                                 AnimatePanel();
-                                await Navigation.PushAsync(new NotificationPage());
+                                await Navigation.PushAsync(new ProfileSetting(), true);
                             }
                         }),
                         new AnimatedImage(new FloatingActionButtonView
@@ -121,7 +120,7 @@ namespace com.organo.xchallenge.Pages.Profile
                             ColorPressed = Palette._LightGrayD,
                             HasShadow = false,
                             ImageName = ImageConstants.ICON_PROFILE_PASSWORD,
-                            Size = FloatingActionButtonSize.Mini,
+                            Size = FloatingActionButtonSize.NormalMini,
                             Clicked = (sender, e) => { AnimatePanel(); }
                         }),
                         new AnimatedImage(new FloatingActionButtonView
@@ -131,7 +130,7 @@ namespace com.organo.xchallenge.Pages.Profile
                             ColorPressed = Palette._LightGrayD,
                             HasShadow = false,
                             ImageName = ImageConstants.ICON_PROFILE_LANGUAGE,
-                            Size = FloatingActionButtonSize.Mini,
+                            Size = FloatingActionButtonSize.NormalMini,
                             Clicked = (sender, e) =>
                             {
                                 AnimatePanel();
@@ -145,7 +144,7 @@ namespace com.organo.xchallenge.Pages.Profile
                             ColorPressed = Palette._LightGrayD,
                             HasShadow = false,
                             ImageName = ImageConstants.ICON_PROFILE_NOTIFICATION,
-                            Size = FloatingActionButtonSize.Mini,
+                            Size = FloatingActionButtonSize.NormalMini,
                             Clicked = async (sender, e) =>
                             {
                                 AnimatePanel();
@@ -173,6 +172,8 @@ namespace com.organo.xchallenge.Pages.Profile
                     Constraint.RelativeToParent((p) => { return p.Height; })
                 );
             }
+
+            _model.IsUserSettingVisible = App.Configuration.IsProfileEditAllowed && _panel.Children.Count > 0;
         }
 
         /// <summary>
@@ -540,15 +541,15 @@ namespace com.organo.xchallenge.Pages.Profile
             }
         }
 
-        private void ShowDetail(object sender, EventArgs args)
+        private async void ShowDetail(object sender, EventArgs args)
         {
             if (!_model.ShowTrackerDetail)
             {
                 _model.ShowTrackerDetail = true;
-                _model.ShowHideTrackerDetailAsync();
+                _model.ShowTrackerDetailAsync();
+                await Navigation.PushAsync(new TrackerLogPage(_model));
             }
         }
-
 
         private string CurrentProfileID => ProfileModifyID;//_model.UpdateProfileRequired ? ProfileModifyID : TrackerModifyID;
         private string DefaultProfileID => "stackLayoutProfile"; //IdentityConstants.LAYOUT_PROFILE_ID;

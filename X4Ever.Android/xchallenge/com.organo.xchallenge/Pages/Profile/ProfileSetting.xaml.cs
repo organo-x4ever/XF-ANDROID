@@ -10,29 +10,25 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using com.organo.xchallenge.Extensions;
+using com.organo.xchallenge.Helpers;
 using Xamarin.Forms;
 
 namespace com.organo.xchallenge.Pages.Profile
 {
-    public partial class ProfileSetting : ProfileSettingXaml
+    public partial class ProfileSetting : ProfileSettingXaml, IDisposable
     {
-        private readonly SettingsViewModel _model;
+        private readonly ProfileSettingViewModel _model;
         private readonly IMetaPivotService _metaPivotService;
 
-        public ProfileSetting(RootPage root, SettingsViewModel model)
+        public ProfileSetting()
         {
             try
             {
                 InitializeComponent();
                 App.Configuration.InitialAsync(this);
-                NavigationPage.SetHasNavigationBar(this, false);
-                _model = model;
-                _model.Root = root;
+                _model = new ProfileSettingViewModel();
                 BindingContext = _model;
                 _model.SetActivityResource();
-                _model.CurrentPassword = string.Empty;
-                _model.NewPassword = string.Empty;
-                _model.ConfirmNewPassword = string.Empty;
                 LoadForm();
                 _metaPivotService = DependencyService.Get<IMetaPivotService>();
             }
@@ -81,6 +77,12 @@ namespace com.organo.xchallenge.Pages.Profile
             };
 
             buttonSubmit.Clicked += async (sender, e) => { await UpdateProfileAsync(); };
+
+        }
+
+        private void Show_Menu(object sender, EventArgs e)
+        {
+            
         }
 
         private async Task UpdateProfileAsync()
@@ -97,7 +99,11 @@ namespace com.organo.xchallenge.Pages.Profile
                 var response = await _metaPivotService.SaveMetaAsync(metaList);
                 _model.SetActivityResource();
                 if (response == HttpConstants.SUCCESS)
+                {
                     _model.UserMeta = null;
+                    await Navigation.PopAsync(true);
+                }
+
                 _model.SetActivityResource(showError: true,
                     errorMessage: response == HttpConstants.SUCCESS
                         ? TextResources.MessageUserDetailSaveSuccessful
@@ -136,9 +142,20 @@ namespace com.organo.xchallenge.Pages.Profile
         {
             return DependencyService.Get<IBackButtonPress>().Redirect(_model.Root);
         }
+
+        public void Dispose()
+        {
+            if (!isDispose)
+            {
+                isDispose = true;
+                GC.SuppressFinalize(this);
+            }
+        }
+
+        private bool isDispose = false;
     }
 
-    public abstract class ProfileSettingXaml : ModelBoundContentPage<SettingsViewModel>
+    public abstract class ProfileSettingXaml : ModelBoundContentPage<ProfileSettingViewModel>
     {
     }
 }

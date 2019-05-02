@@ -10,11 +10,11 @@ using Xamarin.Forms.Xaml;
 
 namespace com.organo.xchallenge.Pages.Profile
 {
-    public partial class TrackerLogPage : TrackerLogPageXaml
+    public partial class TrackerLogPage : TrackerLogPageXaml, IDisposable
     {
-        private MyProfileViewModel _model;
+        private ProfileEnhancedViewModel _model;
 
-        public TrackerLogPage(MyProfileViewModel model)
+        public TrackerLogPage(ProfileEnhancedViewModel model)
         {
             InitializeComponent();
             _model = model;
@@ -25,8 +25,9 @@ namespace com.organo.xchallenge.Pages.Profile
         {
             BindingContext = _model;
             await App.Configuration.InitialAsync(this);
-            NavigationPage.SetHasNavigationBar(this, false);
-            _model.Navigation = App.CurrentApp.MainPage.Navigation;
+            //NavigationPage.SetHasNavigationBar(this, false);
+            //if (_model.Navigation != null)
+            //    _model.Navigation = App.CurrentApp.MainPage.Navigation;
             SetGridTracker();
         }
 
@@ -39,7 +40,7 @@ namespace com.organo.xchallenge.Pages.Profile
                 gridTracker.CloseAction = async () =>
                 {
                     _model.ShowTrackerDetail = false;
-                    await _model.PopModalAsync();
+                    await Navigation.PopAsync();
                     await gridTracker.ProfileModel.GetUserAsync(
                         gridTracker.ProfileModel.UserDetail.IsTrackerRequiredAfterDelete);
                 };
@@ -48,7 +49,7 @@ namespace com.organo.xchallenge.Pages.Profile
 
         private void ClosePopup()
         {
-            Device.BeginInvokeOnMainThread(async () => { await _model.PopModalAsync(); });
+            Device.BeginInvokeOnMainThread(async () => { await Navigation.PopAsync(); });
         }
 
         protected override bool OnBackButtonPressed()
@@ -57,9 +58,22 @@ namespace com.organo.xchallenge.Pages.Profile
             ClosePopup();
             return true;
         }
+
+        public void Dispose()
+        {
+            _model.ShowTrackerDetail = false;
+            if (!isDispose)
+            {
+                isDispose = true;
+                gridTracker.Dispose();
+                GC.SuppressFinalize(this);
+            }
+        }
+
+        private bool isDispose = false;
     }
 
-    public abstract class TrackerLogPageXaml : ModelBoundContentPage<MyProfileViewModel>
+    public abstract class TrackerLogPageXaml : ModelBoundContentPage<ProfileEnhancedViewModel>
     {
     }
 }
