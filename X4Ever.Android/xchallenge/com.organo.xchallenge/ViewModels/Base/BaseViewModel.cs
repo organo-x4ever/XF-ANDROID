@@ -27,7 +27,6 @@ namespace com.organo.xchallenge.ViewModels.Base
         {
             Navigation = navigation;
             _helper = DependencyService.Get<IHelper>();
-            //SetUserSettingImage();
             IsUserSettingVisible = false;
         }
 
@@ -423,31 +422,6 @@ namespace com.organo.xchallenge.ViewModels.Base
         }
 
         #region User Settings Controls
-
-
-        //private const string SettingIcon = "icon_user_settings";
-
-        //private void SetUserSettingImage()
-        //{
-        //    float height = 30, width = 30;
-        //    var iconSize = App.Configuration.GetImageSizeByID(ImageIdentity.MENU_ITEM_ICON);
-        //    if (iconSize != null)
-        //    {
-        //        height = iconSize.Height;
-        //        width = iconSize.Width;
-        //    }
-
-        //    UserSettingImage = ImageResizer.ResizeImage(_helper.GetResource(SettingIcon), iconSize);
-        //}
-
-        //private ImageSource _userSettingImage;
-        //public const string UserSettingImagePropertyName = "UserSettingImage";
-
-        //public ImageSource UserSettingImage
-        //{
-        //    get => _userSettingImage;
-        //    set => SetProperty(ref _userSettingImage, value, UserSettingImagePropertyName);
-        //}
 
         private bool _isUserSettingVisible;
         public const string IsUserSettingVisiblePropertyName = "IsUserSettingVisible";

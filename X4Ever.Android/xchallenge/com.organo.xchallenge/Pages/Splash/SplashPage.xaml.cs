@@ -30,7 +30,7 @@ namespace com.organo.xchallenge.Pages.Splash
             }
         }
 
-        async void AddComponent()
+        void AddComponent()
         {
             //await animation.Clear();
             //await animation.Add(UserSignUp);

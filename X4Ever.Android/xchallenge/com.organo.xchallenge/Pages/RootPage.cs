@@ -296,6 +296,8 @@ namespace com.organo.xchallenge.Pages
         public Style IconStyle { get; set; }
         public Thickness ItemPadding { get; set; }
 
+        public bool IsVisible { get; set; }
+
         private Style _textStyle;
         public const string TextStylePropertyName = "TextStyle";
 

@@ -19,6 +19,8 @@ namespace com.organo.xchallenge.ViewModels.Menu
     {
         private readonly IHelper _helper;
 
+        private readonly string[] menuStrings = {"settings".ToLower(), "configuration".ToLower(), "config".ToLower()};
+
         public MenuPageViewModel(INavigation navigation = null) : base(navigation)
         {
             _helper = DependencyService.Get<IHelper>();
@@ -73,8 +75,11 @@ namespace com.organo.xchallenge.ViewModels.Menu
                         ? SelectedStyle
                         : DefaultStyle,
                     IsSelected = (MenuType) Enum.Parse(typeof(MenuType), m.MenuType) == MenuType.MyProfile,
-                    ItemPadding = new Thickness(15, 5, 0, 5)
+                    ItemPadding = new Thickness(15, 5, 0, 5),
+                    IsVisible = !((MenuType) Enum.Parse(typeof(MenuType), m.MenuType) == MenuType.Settings)
                 }).ToList();
+
+            App.Configuration.IsProfileEditAllowed = MenuItems.Any(m => m.MenuType == MenuType.Settings);
         }
 
         public Style DefaultStyle => (Style) App.CurrentApp.Resources["labelStyleMenuItem"];

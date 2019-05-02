@@ -36,7 +36,7 @@ namespace com.organo.xchallenge.Pages.Profile
                     Root = root,
                     PopupAction = OpenPopupWindow,
                     SliderGaugeModel = SliderGauge,
-                    IsUserSettingVisible = true,
+                    IsUserSettingVisible = App.Configuration.IsProfileEditAllowed,
                     UserSettingAction = AnimatePanel
                 };
                 BindingContext = _model;
@@ -53,28 +53,33 @@ namespace com.organo.xchallenge.Pages.Profile
             await App.Configuration.InitialAsync(this);
             NavigationPage.SetHasNavigationBar(this, false);
 
-            stackLayoutProfile.Scrolled += StackLayoutProfile_Scrolled;
-
             _model.GetPageData();
             await VersionCheck();
 
             UserSettingLayout();
         }
 
-        private void StackLayoutProfile_Scrolled(object sender, ScrolledEventArgs e)
-        {
-            
-        }
-
         //private RelativeLayout _layout;
         private StackLayout _panel;
+        
+        private bool _PanelShowing = false;
+        /// <summary>
+        /// Gets a value to determine if the panel is showing or not
+        /// </summary>
+        /// <value><c>true</c> if panel showing; otherwise, <c>false</c>.</value>
+        public bool PanelShowing
+        {
+            get => _PanelShowing;
+            set => _PanelShowing = value;
+        }
+
         private void UserSettingLayout()
         {
             _layout.GestureRecognizers.Add(new TapGestureRecognizer()
             {
                 Command = new Command((obj) =>
                 {
-                    if (_model.PanelShowing)
+                    if (PanelShowing)
                         AnimatePanel();
                 })
             });
@@ -98,65 +103,57 @@ namespace com.organo.xchallenge.Pages.Profile
                         new AnimatedImage(new FloatingActionButtonView
                         {
                             ColorNormal = Palette._MainAccent,
-                            ColorRipple = Palette._MainAccent,
-                            ColorPressed = Palette._ButtonBackground,
+                            ColorRipple = Palette._ButtonBackground,
+                            ColorPressed = Palette._LightGrayD,
                             HasShadow = false,
-                            ImageName = TextResources.icon_edit_profile_ar,
-                            Size = FloatingActionButtonSize.NormalMini,
+                            ImageName = ImageConstants.ICON_PROFILE_EDIT,
+                            Size = FloatingActionButtonSize.Mini,
                             Clicked = async (sender, e) =>
                             {
                                 AnimatePanel();
-                                //ChangeBackgroundColor();
-
                                 await Navigation.PushAsync(new NotificationPage());
-                                //new XNavigationPage(new NotificationPage());
                             }
                         }),
                         new AnimatedImage(new FloatingActionButtonView
                         {
                             ColorNormal = Palette._MainAccent,
-                            ColorRipple = Palette._MainAccent,
-                            ColorPressed = Palette._ButtonBackground,
+                            ColorRipple = Palette._ButtonBackground,
+                            ColorPressed = Palette._LightGrayD,
                             HasShadow = false,
-                            ImageName = TextResources.icon_password_ar,
-                            Size = FloatingActionButtonSize.NormalMini,
+                            ImageName = ImageConstants.ICON_PROFILE_PASSWORD,
+                            Size = FloatingActionButtonSize.Mini,
+                            Clicked = (sender, e) => { AnimatePanel(); }
+                        }),
+                        new AnimatedImage(new FloatingActionButtonView
+                        {
+                            ColorNormal = Palette._MainAccent,
+                            ColorRipple = Palette._ButtonBackground,
+                            ColorPressed = Palette._LightGrayD,
+                            HasShadow = false,
+                            ImageName = ImageConstants.ICON_PROFILE_LANGUAGE,
+                            Size = FloatingActionButtonSize.Mini,
+                            Clicked = (sender, e) =>
+                            {
+                                AnimatePanel();
+                                ChangeBackgroundColor();
+                            }
+                        }),
+                        new AnimatedImage(new FloatingActionButtonView
+                        {
+                            ColorNormal = Palette._MainAccent,
+                            ColorRipple = Palette._ButtonBackground,
+                            ColorPressed = Palette._LightGrayD,
+                            HasShadow = false,
+                            ImageName = ImageConstants.ICON_PROFILE_NOTIFICATION,
+                            Size = FloatingActionButtonSize.Mini,
                             Clicked = async (sender, e) =>
                             {
                                 AnimatePanel();
-                                //ChangeBackgroundColor();
                                 await Navigation.PushAsync(new NotificationSettingPage());
-                            }
-                        }),
-                        new AnimatedImage(new FloatingActionButtonView
-                        {
-                            ColorNormal = Palette._MainAccent,
-                            ColorRipple = Palette._MainAccent,
-                            ColorPressed = Palette._ButtonBackground,
-                            HasShadow = false,
-                            ImageName = TextResources.icon_user_settings_ar,
-                            Size = FloatingActionButtonSize.NormalMini,
-                            Clicked = (sender, e) =>
-                            {
-                                AnimatePanel();
-                                ChangeBackgroundColor();
-                            }
-                        }),
-                        new AnimatedImage(new FloatingActionButtonView
-                        {
-                            ColorNormal = Palette._MainAccent,
-                            ColorRipple = Palette._MainAccent,
-                            ColorPressed = Palette._ButtonBackground,
-                            HasShadow = false,
-                            ImageName = TextResources.icon_envelope,
-                            Size = FloatingActionButtonSize.NormalMini,
-                            Clicked = (sender, e) =>
-                            {
-                                AnimatePanel();
-                                ChangeBackgroundColor();
                             }
                         })
                     },
-                    Padding = new Thickness(1,1),
+                    Padding = new Thickness(1, 1),
                     VerticalOptions = LayoutOptions.FillAndExpand,
                     HorizontalOptions = LayoutOptions.EndAndExpand,
                     BackgroundColor = Palette._Transparent //Color.FromRgba(0, 0, 0, 180)
@@ -165,10 +162,7 @@ namespace com.organo.xchallenge.Pages.Profile
                 // add to layout
                 _layout.Children.Add(_panel
                     ,
-                    Constraint.RelativeToParent((p) =>
-                    {
-                        return _layout.Width - (_model.PanelShowing ? _panelWidth : 0);
-                    }),
+                    Constraint.RelativeToParent((p) => { return _layout.Width - (PanelShowing ? _panelWidth : 0); }),
                     Constraint.RelativeToParent((p) => { return 0; }),
                     Constraint.RelativeToParent((p) =>
                     {
@@ -180,7 +174,7 @@ namespace com.organo.xchallenge.Pages.Profile
                 );
             }
         }
-        
+
         /// <summary>
         /// Animates the panel in our out depending on the state
         /// </summary>
@@ -190,10 +184,10 @@ namespace com.organo.xchallenge.Pages.Profile
                 CreatePanel();
 
             // swap the state
-            _model.PanelShowing = !_model.PanelShowing;
+            PanelShowing = !PanelShowing;
 
             // show or hide the panel
-            if (_model.PanelShowing)
+            if (PanelShowing)
             {
                 // hide all children
                 foreach (var child in _panel.Children)
@@ -265,7 +259,6 @@ namespace com.organo.xchallenge.Pages.Profile
                 }
             );
         }
-
 
         public async void OpenPopupWindow()
         {
@@ -574,7 +567,7 @@ namespace com.organo.xchallenge.Pages.Profile
                 SwitchEditProfilePanel();
         }
 
-        protected async void SwitchEditProfilePanel()
+        protected void SwitchEditProfilePanel()
         {
             // swap the state
             ShowEditProfilePanel = !ShowEditProfilePanel;
@@ -587,7 +580,7 @@ namespace com.organo.xchallenge.Pages.Profile
                     Target = CurrentProfileID,
                     Direction = SwitchView.eDirection.Left
                 };
-                Device.BeginInvokeOnMainThread(async () =>
+                Device.BeginInvokeOnMainThread(() =>
                 {
                     switchView.Invoke(buttonProfile);
                     if (CurrentProfileID == ProfileModifyID)

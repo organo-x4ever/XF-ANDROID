@@ -23,6 +23,7 @@ namespace com.organo.xchallenge.Globals
         bool IsConnected { get; set; }
         bool IsAnimationAllowed { get; set; }
         bool IsMenuLoaded { get; set; }
+        bool IsProfileEditAllowed { get; set; }
         string UserToken { get; }
         Task InitAsync();
         Task SetUserConfigurationAsync(string token, string languageCode, string weightVolume);

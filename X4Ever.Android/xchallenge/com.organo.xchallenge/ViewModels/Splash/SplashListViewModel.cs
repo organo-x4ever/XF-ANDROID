@@ -109,7 +109,7 @@ namespace com.organo.xchallenge.ViewModels.Splash
             }
         }
 
-        public async Task LoadDemoCredentials()
+        public void LoadDemoCredentials()
         {
             //Username = await _ConfigFetcher.GetAsync("azureActiveDirectoryUsername", true);
             //Password = await _ConfigFetcher.GetAsync("azureActiveDirectoryPassword", true);

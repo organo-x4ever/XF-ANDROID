@@ -27,7 +27,7 @@ namespace com.organo.xchallenge.Pages.Animation
             AnimationSetup();
             AddContent_2();
         }
-        protected async Task AddContent_2()
+        protected async void AddContent_2()
         {
             try
             {
