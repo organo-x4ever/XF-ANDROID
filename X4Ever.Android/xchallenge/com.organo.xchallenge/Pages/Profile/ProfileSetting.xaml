@@ -14,14 +14,8 @@
           
       <Label Text="{translate:Translate EditProfile}" Style="{DynamicResource labelStyleXLargeHeader}" HorizontalOptions="Center" HorizontalTextAlignment="Center" Margin="0" />
       <Label Text="{Binding UserEmail}" Style="{DynamicResource labelStyleInfoHeading}" HorizontalOptions="Center" />
-          
-      <StackLayout Orientation="Vertical" VerticalOptions="Start" HorizontalOptions="CenterAndExpand">
-          <ActivityIndicator x:Name="activityIndicator" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
-          <Label IsVisible="{Binding IsBusy}" Text="{Binding BusyMessage}" Style="{DynamicResource labelBusyMessage}" />
-          <Label IsVisible="{Binding IsError}" Text="{Binding ErrorMessage}" Style="{DynamicResource labelErrorMessage}" />
-          <Label IsVisible="{Binding IsMessage}" Text="{Binding MessageText}" Style="{DynamicResource labelSuccessMessage}" />
-      </StackLayout>
-      <StackLayout Orientation="Vertical" VerticalOptions="Start" HorizontalOptions="FillAndExpand" IsVisible="{Binding IsEditable}" Margin="0,0,0,15">
+
+      <StackLayout Orientation="Vertical" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" IsVisible="{Binding IsEditable}" Margin="0,0,0,15">
         <Entry x:Name="entryCountry" Text="{Binding CountryName, Mode=TwoWay}" Placeholder="{translate:Translate Country}" Keyboard="Text" Style="{DynamicResource entryStyle}" />
         <Picker x:Name="pickerCountry" ItemsSource="{Binding CountryList}" IsVisible="False"></Picker>
         <Entry x:Name="entryAddress" Text="{Binding Address, Mode=TwoWay}" Placeholder="{translate:Translate Address}" Keyboard="Text" Style="{DynamicResource entryStyle}" Completed="entry_Completed" />
@@ -30,6 +24,12 @@
         <Picker x:Name="pickerState" ItemsSource="{Binding StateList}" IsVisible="False"></Picker>
         <Entry x:Name="entryPostalCode" Text="{Binding PostalCode, Mode=TwoWay}" Placeholder="{translate:Translate PostalCode}" Keyboard="Text" Style="{DynamicResource entryStyle}" Completed="entry_Completed" />
         <Button x:Name="buttonSubmit" Text="{translate:Translate Update}" Style="{DynamicResource buttonStyle}"></Button>
+      </StackLayout>
+      <StackLayout Orientation="Vertical" VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand">
+          <ActivityIndicator x:Name="activityIndicator" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+          <Label IsVisible="{Binding IsBusy}" Text="{Binding BusyMessage}" Style="{DynamicResource labelBusyMessage}" />
+          <Label IsVisible="{Binding IsError}" Text="{Binding ErrorMessage}" Style="{DynamicResource labelErrorMessage}" />
+          <Label IsVisible="{Binding IsMessage}" Text="{Binding MessageText}" Style="{DynamicResource labelSuccessMessage}" />
       </StackLayout>
       <controls:FooterView />
    </StackLayout>

@@ -26,6 +26,7 @@ namespace com.organo.xchallenge.Pages.Profile
             {
                 InitializeComponent();
                 App.Configuration.InitialAsync(this);
+                NavigationPage.SetHasNavigationBar(this, true);
                 _model = new ProfileSettingViewModel();
                 BindingContext = _model;
                 _model.SetActivityResource();

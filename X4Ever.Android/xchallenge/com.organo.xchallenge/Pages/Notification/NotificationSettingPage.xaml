@@ -2,43 +2,65 @@
 <notification:NotificationSettingPageXaml
     xmlns:notification="clr-namespace:com.organo.xchallenge.Pages.Notification" xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="com.organo.xchallenge.Pages.Notification.NotificationSettingPage">
+    x:Class="com.organo.xchallenge.Pages.Notification.NotificationSettingPage"
+    xmlns:converters="clr-namespace:com.organo.xchallenge.Converters;assembly=com.organo.xchallenge">
     <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
         <TableView Intent="Settings" VerticalOptions="FillAndExpand" Margin="0">
           <TableRoot>
             <TableSection Title="{Binding NotificationsText}">
               <ViewCell>
-                <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" Padding="20,0,0,0">
+                <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" Padding="25,0">
                   <Label Text="{Binding WeightSubmitReminderText}" HorizontalOptions="StartAndExpand" Style="{DynamicResource labelStyleLink}" />
-                  <Switch x:Name="switchWeightSubmitReminder" IsToggled="{Binding IsWeightSubmitReminder, Mode=OneWay}" />
+                  <StackLayout Orientation="Horizontal" Spacing="10"> 
+                      <Label Text="{Binding IsWeightSubmitReminder,Converter={StaticResource BoolToStringConverter}, ConverterParameter='enabledisable', StringFormat='{0}'}" VerticalOptions="Center" HorizontalOptions="End" Style="{Binding SwitchWeightSubmitReminderLabelStyle}" />
+                      <Switch x:Name="switchWeightSubmitReminder" IsToggled="{Binding IsWeightSubmitReminder, Mode=OneWay}" />
+                  </StackLayout>
                 </StackLayout>
               </ViewCell>
               <ViewCell>
-                <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" Padding="20,0,0,0">
+                <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" Padding="25,0">
                   <Label Text="{Binding PromotionalText}" HorizontalOptions="StartAndExpand" Style="{DynamicResource labelStyleLink}" />
-                  <Switch x:Name="switchPromotional" IsToggled="{Binding IsPromotional, Mode=OneWay}" />
+                  <StackLayout Orientation="Horizontal" Spacing="10"> 
+                      <Label Text="{Binding IsPromotional,Converter={StaticResource BoolToStringConverter}, ConverterParameter='enabledisable', StringFormat='{0}'}" VerticalOptions="Center" HorizontalOptions="End" Style="{Binding SwitchPromotionalLabelStyle}" />
+                      <Switch x:Name="switchPromotional" IsToggled="{Binding IsPromotional, Mode=OneWay}" />
+                  </StackLayout>
                 </StackLayout>
               </ViewCell>
-                <!--  <ViewCell>
-                    <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" Padding="20,0,0,0">
+                <ViewCell>
+                    <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" Padding="25,0">
                         <Label Text="{Binding SpecialOfferText}" HorizontalOptions="StartAndExpand" Style="{DynamicResource labelStyleLink}" />
-                      <Switch x:Name="switchSpecialOffer" IsToggled="{Binding IsSpecialOffer, Mode=OneWay}" />
+                        <StackLayout Orientation="Horizontal" Spacing="10"> 
+                            <Label Text="{Binding IsSpecialOffer,Converter={StaticResource BoolToStringConverter}, ConverterParameter='enabledisable', StringFormat='{0}'}" VerticalOptions="Center" HorizontalOptions="End" Style="{Binding SwitchSpecialOfferLabelStyle}" />
+                            <Switch x:Name="switchSpecialOffer" IsToggled="{Binding IsSpecialOffer, Mode=OneWay}" />
+                        </StackLayout>
                     </StackLayout>
                 </ViewCell>
                 <ViewCell>
-                    <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" Padding="20,0,0,0">
+                    <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" Padding="25,0">
                         <Label Text="{Binding VersionUpdateText}" HorizontalOptions="StartAndExpand" Style="{DynamicResource labelStyleLink}" />
-                        <Switch x:Name="switchVersionUpdate" IsToggled="{Binding IsVersionUpdate, Mode=OneWay}" />
+                        <StackLayout Orientation="Horizontal" Spacing="10"> 
+                            <Label Text="{Binding IsVersionUpdate,Converter={StaticResource BoolToStringConverter}, ConverterParameter='enabledisable', StringFormat='{0}'}" VerticalOptions="Center" HorizontalOptions="End" Style="{Binding SwitchVersionUpdateLabelStyle}" />
+                            <Switch x:Name="switchVersionUpdate" IsToggled="{Binding IsVersionUpdate, Mode=OneWay}" />
+                        </StackLayout>
                     </StackLayout>
                 </ViewCell>
                 <ViewCell>
-                    <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" Padding="20,0,0,0">
+                    <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" Padding="25,0">
                         <Label Text="{Binding GeneralMessageText}" HorizontalOptions="StartAndExpand" Style="{DynamicResource labelStyleLink}" />
-                        <Switch x:Name="switchGeneralMessage" IsToggled="{Binding IsGeneralMessage, Mode=OneWay}" />
+                        <StackLayout Orientation="Horizontal" Spacing="10"> 
+                            <Label Text="{Binding IsGeneralMessage,Converter={StaticResource BoolToStringConverter}, ConverterParameter='enabledisable', StringFormat='{0}'}" VerticalOptions="Center" HorizontalOptions="End" Style="{Binding SwitchGeneralMessageLabelStyle}" />
+                            <Switch x:Name="switchGeneralMessage" IsToggled="{Binding IsGeneralMessage, Mode=OneWay}" />
+                        </StackLayout>
                     </StackLayout>
-                </ViewCell>-->
+                </ViewCell>
             </TableSection>
           </TableRoot>
         </TableView>
     </StackLayout>
+    
+    <notification:NotificationSettingPageXaml.Resources>
+        <ResourceDictionary>
+            <converters:BoolToStringConverter x:Key="BoolToStringConverter" />
+        </ResourceDictionary>
+    </notification:NotificationSettingPageXaml.Resources>
 </notification:NotificationSettingPageXaml>

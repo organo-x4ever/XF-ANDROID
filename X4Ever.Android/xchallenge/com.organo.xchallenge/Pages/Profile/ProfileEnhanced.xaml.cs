@@ -16,7 +16,9 @@ using Xamarin.Forms;
 using com.organo.xchallenge.Triggers;
 using com.organo.xchallenge.Views;
 using com.organo.xchallenge.Animated;
+using com.organo.xchallenge.Pages.ChangePassword;
 using com.organo.xchallenge.Pages.Notification;
+using com.organo.xchallenge.Pages.UserSettings;
 
 namespace com.organo.xchallenge.Pages.Profile
 {
@@ -55,6 +57,7 @@ namespace com.organo.xchallenge.Pages.Profile
             _model.GetPageData();
             await VersionCheck();
 
+            await Task.Delay(TimeSpan.FromMilliseconds(3));
             UserSettingLayout();
         }
 
@@ -121,7 +124,11 @@ namespace com.organo.xchallenge.Pages.Profile
                             HasShadow = false,
                             ImageName = ImageConstants.ICON_PROFILE_PASSWORD,
                             Size = FloatingActionButtonSize.NormalMini,
-                            Clicked = (sender, e) => { AnimatePanel(); }
+                            Clicked = async (sender, e) =>
+                            {
+                                AnimatePanel();
+                                await Navigation.PushAsync(new ChangePasswordPage(), true);
+                            }
                         }),
                         new AnimatedImage(new FloatingActionButtonView
                         {
@@ -131,10 +138,11 @@ namespace com.organo.xchallenge.Pages.Profile
                             HasShadow = false,
                             ImageName = ImageConstants.ICON_PROFILE_LANGUAGE,
                             Size = FloatingActionButtonSize.NormalMini,
-                            Clicked = (sender, e) =>
+                            Clicked = async (sender, e) =>
                             {
                                 AnimatePanel();
-                                ChangeBackgroundColor();
+                                await Navigation.PushAsync(new UserSettingPage(),true);
+                                //ChangeBackgroundColor();
                             }
                         }),
                         new AnimatedImage(new FloatingActionButtonView
@@ -148,7 +156,7 @@ namespace com.organo.xchallenge.Pages.Profile
                             Clicked = async (sender, e) =>
                             {
                                 AnimatePanel();
-                                await Navigation.PushAsync(new NotificationSettingPage());
+                                await Navigation.PushAsync(new NotificationSettingPage(),true);
                             }
                         })
                     },

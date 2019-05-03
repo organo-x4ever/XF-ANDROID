@@ -11,26 +11,23 @@ using Android.Widget;
 using com.organo.xchallenge;
 using com.organo.xchallenge.Controls;
 using Switch = Xamarin.Forms.Switch;
+using com.organo.xchallenge.ViewModels.UserSettings;
 
 namespace com.organo.xchallenge.Pages.UserSettings
 {
     public partial class UserSettingPage : UserSettingPageXaml
     {
-        private readonly SettingsViewModel _model;
+        private readonly UserSettingsViewModel _model;
 
-        public UserSettingPage(RootPage root, SettingsViewModel model)
+        public UserSettingPage()
         {
             try
             {
                 InitializeComponent();
                 App.Configuration.InitialAsync(this);
-                NavigationPage.SetHasNavigationBar(this, false);
-                _model = model;
-                _model.Root = root;
+                NavigationPage.SetHasNavigationBar(this, true);
+                _model = new UserSettingsViewModel();
                 BindingContext = _model;
-                _model.CurrentPassword = string.Empty;
-                _model.NewPassword = string.Empty;
-                _model.ConfirmNewPassword = string.Empty;
                 Page_Load();
             }
             catch (Exception ex)
@@ -41,12 +38,13 @@ namespace com.organo.xchallenge.Pages.UserSettings
 
         private async void Page_Load()
         {
+            _model.SetActivityResource();
             await _model.LoadAppLanguages(OnLanguageRetrieve);
             await _model.LoadWeightVolume(BindWeightVolume);
-            switchNotifications.Toggled += (sender, e) =>
-            {
-                _model.SetNotificationStatus(((Switch) sender).IsToggled);
-            };
+            //switchNotifications.Toggled += (sender, e) =>
+            //{
+            //    _model.SetNotificationStatus(((Switch) sender).IsToggled);
+            //};
         }
 
         private void OnLanguageRetrieve()
@@ -91,7 +89,7 @@ namespace com.organo.xchallenge.Pages.UserSettings
         }
     }
 
-    public abstract class UserSettingPageXaml : ModelBoundContentPage<SettingsViewModel>
+    public abstract class UserSettingPageXaml : ModelBoundContentPage<UserSettingsViewModel>
     {
     }
 }

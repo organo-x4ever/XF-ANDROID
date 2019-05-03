@@ -4,6 +4,7 @@ using com.organo.xchallenge.Models.Validation;
 using com.organo.xchallenge.Pages.Base;
 using com.organo.xchallenge.Services;
 using com.organo.xchallenge.Statics;
+using com.organo.xchallenge.ViewModels.ChangePassword;
 using com.organo.xchallenge.ViewModels.Profile;
 using System;
 using System.Threading.Tasks;
@@ -14,16 +15,15 @@ namespace com.organo.xchallenge.Pages.ChangePassword
 {
     public partial class ChangePasswordPage : ChangePasswordPageXaml
     {
-        private readonly SettingsViewModel _model;
+        private readonly ChangePasswordViewModel _model;
         private readonly IUserPivotService _userPivotService;
         private readonly IHelper _helper;
 
-        public ChangePasswordPage(RootPage root, SettingsViewModel model)
+        public ChangePasswordPage()
         {
             InitializeComponent();
 
-            _model = model;
-            _model.Root = root;
+            _model = new ChangePasswordViewModel();
             BindingContext = _model;
             _userPivotService = DependencyService.Get<IUserPivotService>();
             _helper = DependencyService.Get<IHelper>();
@@ -33,10 +33,8 @@ namespace com.organo.xchallenge.Pages.ChangePassword
         private async void Load_Form()
         {
             await App.Configuration.InitialAsync(this);
+            NavigationPage.SetHasNavigationBar(this, true);
             _model.SetActivityResource();
-            _model.CurrentPassword = string.Empty;
-            _model.NewPassword = string.Empty;
-            _model.ConfirmNewPassword = string.Empty;
             buttonSubmit.Clicked += async (sender, e) => { await RequestChangeAsync(); };
         }
 
@@ -50,14 +48,14 @@ namespace com.organo.xchallenge.Pages.ChangePassword
             _model.SetActivityResource(false, true);
             if (Validate())
             {
-                var response =
-                    await _userPivotService.ChangePasswordAsync(_model.CurrentPassword.Trim(),
-                        _model.NewPassword.Trim());
+                var response = await _userPivotService.ChangePasswordAsync(_model.CurrentPassword.Trim(), _model.NewPassword.Trim());
                 if (response != null && response.Contains(HttpConstants.SUCCESS))
                 {
                     _model.CurrentPassword = string.Empty;
                     _model.NewPassword = string.Empty;
                     _model.ConfirmNewPassword = string.Empty;
+
+                    await Navigation.PopAsync();
                 }
 
                 _model.SetActivityResource(showError: true, errorMessage: response.Contains(HttpConstants.SUCCESS)
@@ -98,7 +96,7 @@ namespace com.organo.xchallenge.Pages.ChangePassword
         }
     }
 
-    public abstract class ChangePasswordPageXaml : ModelBoundContentPage<SettingsViewModel>
+    public abstract class ChangePasswordPageXaml : ModelBoundContentPage<ChangePasswordViewModel>
     {
     }
 }

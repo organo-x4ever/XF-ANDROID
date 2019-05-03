@@ -7,8 +7,8 @@
     xmlns:converters="clr-namespace:com.organo.xchallenge.Converters;assembly=com.organo.xchallenge"
     xmlns:controls="clr-namespace:com.organo.xchallenge.Controls;assembly=com.organo.xchallenge"
     xmlns:localization="clr-namespace:com.organo.xchallenge.Localization;assembly=com.organo.xchallenge">
-  <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-    <Grid VerticalOptions="FillAndExpand">
+  <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="15,15,15,0">
+    <Grid VerticalOptions="FillAndExpand" Margin="0,0,0,15">
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*" />
       </Grid.ColumnDefinitions>
@@ -40,7 +40,7 @@
                   <Picker x:Name="PickerWeightVolume" IsVisible="False"></Picker>
                 </StackLayout>
               </ViewCell>
-                <ViewCell>
+                <!--<ViewCell>
                     <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
                         <Label Text="{localization:Translate PushNotification}" HorizontalOptions="StartAndExpand" Style="{DynamicResource labelStyleLink}" />
                         <StackLayout Orientation="Horizontal" Spacing="10"> 
@@ -48,7 +48,7 @@
                             <Switch x:Name="switchNotifications" IsToggled="{Binding NotificationStatus, Mode=OneWay}" />
                         </StackLayout>
                     </StackLayout>
-                </ViewCell>
+                </ViewCell>-->
             </TableSection>
           </TableRoot>
         </TableView>
@@ -56,23 +56,10 @@
     </Grid>
     <controls:FooterView />
     
-    <page:UserSettingPageXaml.Resources>
+    <!--<page:UserSettingPageXaml.Resources>
         <ResourceDictionary>
             <converters:BoolToStringConverter x:Key="BoolToStringConverter" />
         </ResourceDictionary>
-    </page:UserSettingPageXaml.Resources>
+    </page:UserSettingPageXaml.Resources>-->
   </StackLayout>
 </page:UserSettingPageXaml>
-
-
-
-
-<!--<Switch.GestureRecognizers>
-                                <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding UpdateNotificationCommand}" />
-                            </Switch.GestureRecognizers>-->
-                        
-<!--<Label Text="{localization:Translate Details}">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding NotificationDetailCommand}" />
-                            </Label.GestureRecognizers>
-                        </Label>-->

@@ -502,6 +502,7 @@
     <Compile Include="ViewModels\Testimonial\TestimonialViewModel.cs" />
     <Compile Include="ViewModels\Tracker\TrackerGalleryViewModel.cs" />
     <Compile Include="ViewModels\TrainingVideo\TrainingVideoViewModel.cs" />
+    <Compile Include="ViewModels\UserSettings\UserSettingsViewModel.cs" />
     <Compile Include="ViewModels\Video\PlaylistViewModel.cs" />
     <Compile Include="ViewModels\Welcome\WelcomeViewModel.cs" />
     <Compile Include="ViewModels\YouTube\YoutubeViewModel.cs" />

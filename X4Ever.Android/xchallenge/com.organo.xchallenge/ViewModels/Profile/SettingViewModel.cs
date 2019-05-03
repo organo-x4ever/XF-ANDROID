@@ -20,7 +20,7 @@ using Xamarin.Forms;
 using com.organo.xchallenge.Pages.Notification;
 
 namespace com.organo.xchallenge.ViewModels.Profile
-{
+{ 
     public class SettingsViewModel : Base.BaseViewModel
     {
         private readonly IUserSettingService _settingService;
@@ -111,7 +111,7 @@ namespace com.organo.xchallenge.ViewModels.Profile
                     ImageUserSetting = ImageUserSettingPath;
 
                     //Content
-                    Content = new ChangePasswordPage(Root, this).Content;
+                    //Content = new ChangePasswordPage(Root, this).Content;
                     break;
 
                 case TabTitle.UserSettings:
@@ -137,7 +137,7 @@ namespace com.organo.xchallenge.ViewModels.Profile
 
                     //Content
                     WeightVolumeClick_Action = null;
-                    Content = new UserSettingPage(Root, this).Content;
+                    //Content = new UserSettingPage(Root, this).Content;
                     break;
             }
         }
