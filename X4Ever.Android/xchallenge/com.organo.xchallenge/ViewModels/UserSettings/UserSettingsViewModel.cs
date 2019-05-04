@@ -31,13 +31,20 @@ namespace com.organo.xchallenge.ViewModels.UserSettings
         public async Task LoadAppLanguages(Action action)
         {
             ApplicationLanguages = await DependencyService.Get<IApplicationLanguageService>().GetWithCountryAsync();
-            foreach (var language in ApplicationLanguages)
+
+            ApplicationLanguages = ApplicationLanguages.Select(l =>
             {
-                if (language.LanguageCode == App.Configuration.AppConfig.DefaultLanguage)
-                    language.IsSelected = true;
-                else
-                    language.IsSelected = false;
-            }
+                l.IsSelected = l.LanguageCode == App.Configuration.AppConfig.DefaultLanguage;
+                return l;
+            }).ToList();
+
+            //foreach (var language in ApplicationLanguages)
+            //{
+            //    if (language.LanguageCode == App.Configuration.AppConfig.DefaultLanguage)
+            //        language.IsSelected = true;
+            //    else
+            //        language.IsSelected = false;
+            //}
 
             action?.Invoke();
         }

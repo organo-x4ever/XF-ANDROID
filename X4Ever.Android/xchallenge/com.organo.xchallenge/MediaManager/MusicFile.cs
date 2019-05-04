@@ -42,6 +42,7 @@ namespace com.organo.xchallenge
             _DurationTimeSpan = string.Empty;
             IsPlayNow = false;
             TextColor = Palette._LightGrayD;
+            IsPlaylistSelected = true;
         }
 
         public string Album { get; set; }
@@ -77,5 +78,6 @@ namespace com.organo.xchallenge
         public string _DurationTimeSpan { get; set; }
         public bool IsPlayNow { get; set; }
         public Color TextColor { get; set; }
+        public bool IsPlaylistSelected { get; set; }
     }
 }

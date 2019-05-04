@@ -16,16 +16,23 @@ namespace com.organo.xchallenge.Pages.Profile
 
         public TrackerLogPage(ProfileEnhancedViewModel model)
         {
-            InitializeComponent();
-            _model = model;
-            Init();
+            try
+            {
+                InitializeComponent();
+                _model = model;
+                Init();
+            }
+            catch (Exception ex)
+            {
+                _ = ex;
+            }
         }
 
         private async void Init(object obj = null)
         {
             BindingContext = _model;
             await App.Configuration.InitialAsync(this);
-            //NavigationPage.SetHasNavigationBar(this, false);
+            NavigationPage.SetHasNavigationBar(this, true);
             //if (_model.Navigation != null)
             //    _model.Navigation = App.CurrentApp.MainPage.Navigation;
             SetGridTracker();
@@ -33,7 +40,7 @@ namespace com.organo.xchallenge.Pages.Profile
 
         private async void SetGridTracker()
         {
-            await Task.Factory.StartNew(() =>
+            await Task.Factory.StartNew(async () =>
             {
                 gridTracker.ProfileModel = _model;
                 gridTracker.Source = _model.UserTrackers;
@@ -44,6 +51,8 @@ namespace com.organo.xchallenge.Pages.Profile
                     await gridTracker.ProfileModel.GetUserAsync(
                         gridTracker.ProfileModel.UserDetail.IsTrackerRequiredAfterDelete);
                 };
+                await Task.Delay(TimeSpan.FromMilliseconds(1000));
+                _model.ShowTrackerDetail = false;
             });
         }
 

@@ -15,6 +15,7 @@ using Plugin.MediaManager.Abstractions.Enums;
 using Plugin.MediaManager.Abstractions.Implementations;
 using Xamarin.Forms;
 using com.organo.xchallenge;
+using com.organo.xchallenge.Utilities;
 using Plugin.MediaManager.Abstractions;
 
 namespace com.organo.xchallenge.ViewModels.Media
@@ -33,6 +34,8 @@ namespace com.organo.xchallenge.ViewModels.Media
             _devicePermissionServices = DependencyService.Get<IDevicePermissionServices>();
             SetPageImageSize();
             MusicFiles = new List<MusicFile>();
+            AllMusicFiles = new List<MusicFile>();
+            PlaylistMusicFiles = new List<MusicFile>();
             CurrentMusicFile = new MusicFile();
             PlayButton = ImageResizer.ResizeImage(TextResources.icon_media_play, ButtonImageSize);
             PauseButton = ImageResizer.ResizeImage(TextResources.icon_media_pause, ButtonImageSize);
@@ -43,6 +46,12 @@ namespace com.organo.xchallenge.ViewModels.Media
             BackwardButton = ImageResizer.ResizeImage(TextResources.icon_media_backward, ButtonImageSize);
             PlayPauseButton = PlayButton;
             NowPlayingButton = PlayButton;
+
+            ChecklistImage = ChecklistDefaultImage;
+            SortImage = SortDefaultImage;
+            PlaylistTextStyle = PlaylistTextStyleDefault;
+            PlaylistSortBy = PlaylistSortList.Title;
+
             IsPlaying = false;
             IsPause = false;
             IsMediaExists = false;
@@ -83,11 +92,12 @@ namespace com.organo.xchallenge.ViewModels.Media
         public async Task GetFilesAsync()
         {
             MusicFiles = new List<MusicFile>();
+            AllMusicFiles = new List<MusicFile>();
             if (await _devicePermissionServices.RequestReadStoragePermission())
             {
                 var musicFiles = _musicDictionary.GetMusic();
 
-                MusicFiles = musicFiles.Select(music =>
+                AllMusicFiles = musicFiles.Select(music =>
                 {
                     music._Duration = int.TryParse(music.Duration, out int duration) ? duration : 0;
                     music._Date = DateTime.TryParse(music.DateModified, out DateTime date)
@@ -99,7 +109,9 @@ namespace com.organo.xchallenge.ViewModels.Media
                     return music;
                 }).OrderBy(m => m.Title).ToList();
 
-                IsMediaExists = MusicFiles.Count > 0;
+                IsMediaExists = AllMusicFiles.Count > 0;
+                MusicFiles = AllMusicFiles;
+                SortOrderBy(PlaylistSortBy);
                 if (MusicFiles.Count == 0)
                     SetActivityResource(showError: true, errorMessage: TextResources.NoFileExists);
             }
@@ -213,7 +225,7 @@ namespace com.organo.xchallenge.ViewModels.Media
             get { return _forwardButton; }
             set { SetProperty(ref _forwardButton, value, ForwardButtonPropertyName); }
         }
-        
+
         private ImageSource _backwardButton;
         public string BackwardButtonPropertyName = "BackwardButton";
 
@@ -240,7 +252,7 @@ namespace com.organo.xchallenge.ViewModels.Media
             get { return _previousButton; }
             set { SetProperty(ref _previousButton, value, PreviousButtonPropertyName); }
         }
-        
+
         private ImageSource _nowPlayingButton;
         public string NowPlayingButtonPropertyName = "NowPlayingButton";
 
@@ -249,6 +261,72 @@ namespace com.organo.xchallenge.ViewModels.Media
             get { return _nowPlayingButton; }
             set { SetProperty(ref _nowPlayingButton, value, NowPlayingButtonPropertyName); }
         }
+
+        private bool _isChecklistSelected;
+        public const string IsChecklistSelectedPropertyName = "IsChecklistSelected";
+
+        public bool IsChecklistSelected
+        {
+            get => _isChecklistSelected;
+            set => SetProperty(ref _isChecklistSelected, value, IsChecklistSelectedPropertyName);
+        }
+
+        public ImageSource ChecklistSelectedImage =>
+            ImageResizer.ResizeImage(ImageConstants.ICON_CHECK_LIST_24x24, 24, 24);
+
+        public ImageSource ChecklistDefaultImage =>
+            ImageResizer.ResizeImage(ImageConstants.ICON_CHECK_LIST_LIGHT_24x24, 24, 24);
+
+        private ImageSource _checklistImage;
+        public const string ChecklistImagePropertyName = "ChecklistImage";
+
+        public ImageSource ChecklistImage
+        {
+            get => _checklistImage;
+            set => SetProperty(ref _checklistImage, value, ChecklistImagePropertyName);
+        }
+
+        public ImageSource SortSelectedImage => ImageResizer.ResizeImage(ImageConstants.ICON_SORT_24x24, 24, 24);
+        public ImageSource SortDefaultImage => ImageResizer.ResizeImage(ImageConstants.ICON_SORT_LIGHT_24x24, 24, 24);
+
+        private ImageSource _sortImage;
+        public const string SortImagePropertyName = "SortImage";
+
+        public ImageSource SortImage
+        {
+            get => _sortImage;
+            set => SetProperty(ref _sortImage, value, SortImagePropertyName);
+        }
+
+        private string _sortBy;
+        public const string SortByPropertyName = "SortBy";
+
+        public string SortBy
+        {
+            get => _sortBy;
+            set => SetProperty(ref _sortBy, value, SortByPropertyName);
+        }
+
+        private PlaylistSortList _playlistSortBy;
+        public const string PlaylistSortByPropertyName = "PlaylistSortBy";
+
+        public PlaylistSortList PlaylistSortBy
+        {
+            get => _playlistSortBy;
+            set => SetProperty(ref _playlistSortBy, value, PlaylistSortByPropertyName);
+        }
+
+        private Style _playlistTextStyle;
+        public const string PlaylistTextStylePropertyName = "PlaylistTextStyle";
+
+        public Style PlaylistTextStyle
+        {
+            get => _playlistTextStyle;
+            set => SetProperty(ref _playlistTextStyle, value, PlaylistTextStylePropertyName);
+        }
+
+        public Style PlaylistTextStyleDefault => (Style) App.CurrentApp.Resources["labelStyleInfoCheck"];
+        public Style PlaylistTextStyleSelected => (Style) App.CurrentApp.Resources["labelStyleInfoCheckHighlight"];
 
         private ImageSize ButtonImageSize { get; set; }
 
@@ -335,9 +413,10 @@ namespace com.organo.xchallenge.ViewModels.Media
                     MusicFiles = MusicFiles.Select(m =>
                     {
                         m.IsPlayNow = false;
-                        m.TextColor = Palette._LightGrayD;
+                        m.TextColor = m.IsPlaylistSelected ? Palette._ButtonBackgroundGray : Palette._LightGrayD;
                         return m;
                     }).ToList();
+
                     var currentMusicFile = MusicFiles[songIndex];
                     currentMusicFile.IsPlayNow = true;
                     currentMusicFile.TextColor = Palette._MainAccent;
@@ -375,6 +454,9 @@ namespace com.organo.xchallenge.ViewModels.Media
                 CurrentSongIndex = MusicFiles.Count - 1;
             return CurrentSongIndex;
         }
+
+        public List<MusicFile> AllMusicFiles { get; set; }
+        public List<MusicFile> PlaylistMusicFiles { get; set; }
 
         private List<MusicFile> _musicFiles;
         public const string MusicFilesPropertyName = "MusicFiles";
@@ -502,5 +584,123 @@ namespace com.organo.xchallenge.ViewModels.Media
                 }));
             }
         }
+
+        private ICommand _checklistImageCommand;
+
+        public ICommand ChecklistImageCommand => _checklistImageCommand ?? (_checklistImageCommand = new Command(() =>
+        {
+            IsChecklistSelected = !IsChecklistSelected;
+            if (IsChecklistSelected)
+            {
+                ChecklistImage = ChecklistSelectedImage;
+                PlaylistTextStyle = PlaylistTextStyleSelected;
+                MusicFiles = new List<MusicFile>();
+                MusicFiles = AllMusicFiles.Select(m =>
+                {
+                    m.IsPlayNow = false;
+                    m.IsPlaylistSelected = PlaylistMusicFiles.Any(t =>
+                        t.AlbumId == m.AlbumId && t.Id == m.Id &&
+                        t.Title == m.Title && t.Album == m.Album && t.Artist == m.Artist);
+                    m.TextColor = m.IsPlaylistSelected ? Palette._LightGrayD : Palette._ButtonBackgroundGray;
+                    return m;
+                }).ToList();
+            }
+            else
+            {
+                ChecklistImage = ChecklistDefaultImage;
+                PlaylistTextStyle = PlaylistTextStyleDefault;
+                MusicFiles = new List<MusicFile>();
+                if (PlaylistMusicFiles.Count > 0)
+                    MusicFiles = PlaylistMusicFiles;
+                else
+                    MusicFiles = AllMusicFiles.Select(m =>
+                    {
+                        m.IsPlayNow = false;
+                        m.IsPlaylistSelected = true;
+                        m.TextColor = m.IsPlaylistSelected ? Palette._LightGrayD : Palette._ButtonBackgroundGray;
+                        return m;
+                    }).ToList();
+            }
+        }));
+
+        public Action DisplaySortByListAction { get; set; }
+        public SortDirection SortDirect { get; set; }
+        private ICommand _sortCommand;
+
+        public ICommand SortCommand =>
+            _sortCommand ?? (_sortCommand = new Command(() => { DisplaySortByListAction?.Invoke(); }));
+
+        public void SortOrderBy(PlaylistSortList sort)
+        {
+            switch (sort)
+            {
+                case PlaylistSortList.Album:
+                    if (SortBy != PlaylistSortList.Album.ToString() || SortDirect != SortDirection.Asc)
+                    {
+                        MusicFiles = MusicFiles.OrderBy(m => m.Album).ToList();
+                        SortDirect = SortDirection.Asc;
+                    }
+                    else
+                    {
+                        SortDirect = SortDirection.Desc;
+                        MusicFiles = MusicFiles.OrderByDescending(m => m.Album).ToList();
+                    }
+                    SortBy = PlaylistSortList.Album.ToString();
+                    break;
+                case PlaylistSortList.Artist:
+                    if (SortBy != PlaylistSortList.Artist.ToString() || SortDirect != SortDirection.Asc)
+                    {
+                        MusicFiles = MusicFiles.OrderBy(m => m.Artist).ToList();
+                        SortDirect = SortDirection.Asc;
+                    }
+                    else
+                    {
+                        SortDirect = SortDirection.Desc;
+                        MusicFiles = MusicFiles.OrderByDescending(m => m.Artist).ToList();
+                    }
+                    SortBy = PlaylistSortList.Artist.ToString();
+                    break;
+                case PlaylistSortList.Duration:
+                    if (SortBy != PlaylistSortList.Duration.ToString() || SortDirect != SortDirection.Asc)
+                    {
+                        MusicFiles = MusicFiles.OrderBy(m => m.Duration).ToList();
+                        SortDirect = SortDirection.Asc;
+                    }
+                    else
+                    {
+                        SortDirect = SortDirection.Desc;
+                        MusicFiles = MusicFiles.OrderByDescending(m => m.Duration).ToList();
+                    }
+                    SortBy = PlaylistSortList.Duration.ToString();
+                    break;
+                default:
+                    if (SortBy != PlaylistSortList.Title.ToString() || SortDirect != SortDirection.Asc)
+                    {
+                        MusicFiles = MusicFiles.OrderBy(m => m.Title).ToList();
+                        SortDirect = SortDirection.Asc;
+                    }
+                    else
+                    {
+                        SortDirect = SortDirection.Desc;
+                        MusicFiles = MusicFiles.OrderByDescending(m => m.Title).ToList();
+                    }
+                    SortBy = PlaylistSortList.Title.ToString();
+                    break;
+            }
+        }
+    }
+
+    public enum PlaylistSortList
+    {
+        Title,
+        Album,
+        Artist,
+        Duration
+    }
+
+    public enum SortDirection
+    {
+        Asc,
+        Desc
     }
 }

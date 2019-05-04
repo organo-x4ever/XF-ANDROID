@@ -20,7 +20,8 @@ namespace com.organo.xchallenge.Pages.News
                 InitializeComponent();
                 _model = new NewsViewModel()
                 {
-                    Root = root
+                    Root = root,
+                    IsUserSettingVisible = false
                 };
                 Init();
             }

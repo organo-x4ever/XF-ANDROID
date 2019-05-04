@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using com.organo.xchallenge.Localization;
 using com.organo.xchallenge.Models.Notifications;
 using com.organo.xchallenge.Services;
@@ -29,6 +30,86 @@ namespace com.organo.xchallenge.ViewModels.Notification
             NotificationsText = TextResources.Notifications;
             GetNotificationStatus();
         }
+
+        private async void GetNotificationStatus()
+        {
+            var notification = await _notificationServices.GetAsync();
+            if (notification != null)
+            {
+                IsWeightSubmitReminder = notification.IsWeightSubmitReminder;
+                IsGeneralMessage = notification.IsGeneralMessage;
+                IsSpecialOffer = notification.IsSpecialOffer;
+                IsPromotional = notification.IsPromotional;
+                IsVersionUpdate = notification.IsVersionUpdate;
+                CreateAllEventAction();
+            }
+            else
+            {
+                IsGeneralMessage = false;
+                IsPromotional = false;
+                IsSpecialOffer = false;
+                IsVersionUpdate = false;
+                IsWeightSubmitReminder = false;
+            }
+        }
+
+        private void Set(NotifyType NotifyType, bool status)
+        {
+            switch (NotifyType)
+            {
+                case NotifyType.GENERAL_MESSAGE:
+                    IsGeneralMessage = status;
+                    break;
+                case NotifyType.PROMOTIONAL:
+                    IsPromotional = status;
+                    break;
+                case NotifyType.SPECIAL_OFFER:
+                    IsSpecialOffer = status;
+                    break;
+                case NotifyType.VERSION_UPDATE:
+                    IsVersionUpdate = status;
+                    break;
+                case NotifyType.WEIGHT_SUBMIT_REMINDER:
+                    IsWeightSubmitReminder = status;
+                    break;
+            }
+        }
+
+        public async Task<bool> Update(NotifyType NotifyType, bool status)
+        {
+            if (NotificationFailureCount >= 3)
+            {
+                SetActivityResource(showError: true,
+                    errorMessage:
+                    "Sorry, we're have a problem with notification status update, please have patience concerned person has been informed");
+                await DependencyService.Get<ILogServices>().WriteLog("Notification Status update problem",
+                    "Notification Status update error in SettingViewModel.cs", false);
+                GetNotificationStatus();
+                return false;
+            }
+
+            Set(NotifyType, status);
+            var response = await _notificationServices.Update(new UserNotificationSetting()
+            {
+                IsSpecialOffer = IsSpecialOffer,
+                IsPromotional = IsPromotional,
+                IsGeneralMessage = IsGeneralMessage,
+                IsWeightSubmitReminder = IsWeightSubmitReminder,
+                IsVersionUpdate = IsVersionUpdate
+            });
+            if (response != HttpConstants.SUCCESS)
+            {
+                Set(NotifyType, !status);
+                NotificationFailureCount++;
+                SetActivityResource(showError: true, errorMessage: response);
+                return false;
+            }
+
+            NotificationFailureCount = 0;
+            return true;
+        }
+
+        public Action CreateAllEventAction { get; set; }
 
         private string _weightSubmitReminderText;
         public const string WeightSubmitReminderTextPropertyName = "WeightSubmitReminderText";
@@ -131,96 +212,6 @@ namespace com.organo.xchallenge.ViewModels.Notification
             get => _isGeneralMessage;
             set => SetProperty(ref _isGeneralMessage, value, IsGeneralMessagePropertyName,
                 SwitchGeneralMessageLabelStyleChange);
-        }
-
-        private async void GetNotificationStatus()
-        {
-            NotificationSetting = await _notificationServices.GetAsync();
-            if (NotificationSetting != null)
-            {
-                IsWeightSubmitReminder = NotificationSetting.IsWeightSubmitReminder;
-                IsGeneralMessage = NotificationSetting.IsGeneralMessage;
-                IsSpecialOffer = NotificationSetting.IsSpecialOffer;
-                IsPromotional = NotificationSetting.IsPromotional;
-                IsVersionUpdate = NotificationSetting.IsVersionUpdate;
-            }
-            else
-            {
-                IsGeneralMessage = false;
-                IsPromotional = false;
-                IsSpecialOffer = false;
-                IsVersionUpdate = false;
-                IsWeightSubmitReminder = false;
-            }
-
-            EventSetupAction?.Invoke();
-        }
-
-        private void Set(NotifyType NotifyType, bool status)
-        {
-            switch (NotifyType)
-            {
-                case NotifyType.GENERAL_MESSAGE:
-                    IsGeneralMessage = status;
-                    break;
-                case NotifyType.PROMOTIONAL:
-                    IsPromotional = status;
-                    break;
-                case NotifyType.SPECIAL_OFFER:
-                    IsSpecialOffer = status;
-                    break;
-                case NotifyType.VERSION_UPDATE:
-                    IsVersionUpdate = status;
-                    break;
-                case NotifyType.WEIGHT_SUBMIT_REMINDER:
-                    IsWeightSubmitReminder = status;
-                    break;
-            }
-        }
-
-        public async Task<bool> Update(NotifyType NotifyType, bool status)
-        {
-            if (NotificationFailureCount >= 3)
-            {
-                SetActivityResource(showError: true,
-                    errorMessage:
-                    "Sorry, we're have a problem with notification status update, please have patience concerned person has been informed");
-                await DependencyService.Get<ILogServices>().WriteLog("Notification Status update problem",
-                    "Notification Status update error in SettingViewModel.cs", false);
-                GetNotificationStatus();
-                return false;
-            }
-
-            Set(NotifyType, status);
-            var response = await _notificationServices.Update(new UserNotificationSetting()
-            {
-                IsSpecialOffer = IsSpecialOffer,
-                IsPromotional = IsPromotional,
-                IsGeneralMessage = IsGeneralMessage,
-                IsWeightSubmitReminder = IsWeightSubmitReminder,
-                IsVersionUpdate = IsVersionUpdate
-            });
-            if (response != HttpConstants.SUCCESS)
-            {
-                Set(NotifyType, !status);
-                NotificationFailureCount++;
-                SetActivityResource(showError: true, errorMessage: response);
-                return false;
-            }
-
-            NotificationFailureCount = 0;
-            return true;
-        }
-
-        public Action EventSetupAction { get; set; }
-
-        private UserNotificationSetting _notificationSetting;
-        public const string NotificationSettingPropertyName = "NotificationSetting";
-
-        public UserNotificationSetting NotificationSetting
-        {
-            get { return _notificationSetting; }
-            set { SetProperty(ref _notificationSetting, value, NotificationSettingPropertyName); }
         }
 
         private void SwitchSpecialOfferLabelStyleChange()

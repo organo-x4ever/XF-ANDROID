@@ -165,7 +165,7 @@ namespace com.organo.xchallenge.Globals
             {
                 var data = _secureStorage.Retrieve(StorageConstants.KEY_USER_LANGUAGE);
                 var language = data != null ? Encoding.UTF8.GetString(data, 0, data.Length) : "";
-                if (string.IsNullOrEmpty(language))
+                if (!string.IsNullOrEmpty(language))
                     AppConfig.DefaultLanguage = language;
                 else
                 {

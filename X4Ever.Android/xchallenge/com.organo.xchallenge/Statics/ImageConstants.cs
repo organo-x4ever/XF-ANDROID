@@ -15,5 +15,18 @@
         public static string ICON_SOCIAL_MEDIA_COLOR => "social_media_color.png";
         public static string ICON_EMAIL => "email.png";
         public static string ICON_EMAIL_COLOR => "email_color.png";
+
+        public static string ICON_CHECK_LIST_24x24 => "checklist_24x24.png";
+        public static string ICON_CHECK_LIST_32x32 => "checklist_32x32.png";
+        public static string ICON_CHECK_LIST_DARK_24x24 => "checklist_dark_24x24.png";
+        public static string ICON_CHECK_LIST_DARK_32x32 => "checklist_dark_32x32.png";
+        public static string ICON_CHECK_LIST_LIGHT_24x24 => "checklist_light_24x24.png";
+        public static string ICON_CHECK_LIST_LIGHT_32x32 => "checklist_light_32x32.png";
+        public static string ICON_SORT_LIGHT_24x24 => "sort_light_24x24.png";
+        public static string ICON_SORT_LIGHT_32x32 => "sort_light_32x32.png";
+        public static string ICON_SORT_DARK_24x24 => "sort_dark_24x24.png";
+        public static string ICON_SORT_DARK_32x32 => "sort_dark_32x32.png";
+        public static string ICON_SORT_24x24 => "sort_24x24.png";
+        public static string ICON_SORT_32x32 => "sort_32x32.png";
     }
 }

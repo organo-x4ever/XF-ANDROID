@@ -31,20 +31,42 @@ namespace com.organo.xchallenge.Pages.Notification
         {
             await App.Configuration.InitialAsync(this);
             NavigationPage.SetHasNavigationBar(this, true);
-            _model = new NotificationSettingViewModel();
-            BindingContext = _model;
-            _model.EventSetupAction = async () =>
+            _model = new NotificationSettingViewModel()
             {
-                await Task.Delay(TimeSpan.FromMilliseconds(500));
-                switchPromotional.Toggled += async (sender, e) => await _model.Update(NotifyType.PROMOTIONAL, e.Value);
-                switchWeightSubmitReminder.Toggled += async (sender, e) =>
-                    await _model.Update(NotifyType.WEIGHT_SUBMIT_REMINDER, e.Value);
-                switchGeneralMessage.Toggled +=
-                    async (sender, e) => await _model.Update(NotifyType.GENERAL_MESSAGE, e.Value);
-                switchSpecialOffer.Toggled +=
-                    async (sender, e) => await _model.Update(NotifyType.SPECIAL_OFFER, e.Value);
-                switchVersionUpdate.Toggled +=
-                    async (sender, e) => await _model.Update(NotifyType.VERSION_UPDATE, e.Value);
+                CreateAllEventAction = CreateEvents
+            };
+            BindingContext = _model;
+        }
+
+        private async void CreateEvents()
+        {
+            await Task.Delay(TimeSpan.FromMilliseconds(1000));
+
+            switchWeightSubmitReminder.Toggled -= (sender, e) => { };
+            switchWeightSubmitReminder.Toggled += async (sender, e) =>
+            {
+                await _model.Update(NotifyType.WEIGHT_SUBMIT_REMINDER, e.Value);
+            };
+
+            switchGeneralMessage.Toggled -= (sender, e) => { };
+            switchGeneralMessage.Toggled += async (sender, e) =>
+            {
+                await _model.Update(NotifyType.GENERAL_MESSAGE, e.Value);
+            };
+
+            switchPromotional.Toggled -= (sender, e) => { };
+            switchPromotional.Toggled += async (sender, e) => { await _model.Update(NotifyType.PROMOTIONAL, e.Value); };
+
+            switchSpecialOffer.Toggled -= (sender, e) => { };
+            switchSpecialOffer.Toggled += async (sender, e) =>
+            {
+                await _model.Update(NotifyType.SPECIAL_OFFER, e.Value);
+            };
+
+            switchVersionUpdate.Toggled -= (sender, e) => { };
+            switchVersionUpdate.Toggled += async (sender, e) =>
+            {
+                await _model.Update(NotifyType.VERSION_UPDATE, e.Value);
             };
         }
     }

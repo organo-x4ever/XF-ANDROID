@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto" package="com.organo.x4ever" name="X4Ever" android:versionCode="23300" android:versionName="2.3.3.0">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto" package="com.organo.x4ever" name="X4Ever" android:versionCode="23301" android:versionName="2.3.3.1">
 	<uses-sdk android:minSdkVersion="23" android:targetSdkVersion="26" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />

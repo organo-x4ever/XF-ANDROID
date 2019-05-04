@@ -26,7 +26,7 @@
                 </Image.GestureRecognizers>
             </Image>
         </StackLayout>
-        <StackLayout Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Start" IsVisible="{Binding App.Configuration.IsProfileEditAllowed}">
+        <StackLayout Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Start" IsVisible="{Binding IsUserSettingVisible}">
             <Image Source="{extensions:ImageResource TOP_BAR_SETTING}" Style="{DynamicResource imageLogoSetting}" HeightRequest="28" WidthRequest="28" Margin="0,5,25,0">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding UserSettingCommand}" />

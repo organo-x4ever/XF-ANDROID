@@ -70,6 +70,7 @@ namespace com.organo.xchallenge.ViewModels.Profile
         {
             try
             {
+                TrackerPage = null;
                 MilestoneRequired = false;
                 UserDetail = await _userPivotService.GetFullAsync();
                 if (UserDetail == null)
@@ -128,6 +129,8 @@ namespace com.organo.xchallenge.ViewModels.Profile
                             new Pages.MilestonePages.UserMilestonePage(Root, this));
                     });
                 }
+
+                await ProduceTrackerLog();
             }
             catch (Exception ex)
             {
@@ -325,7 +328,13 @@ namespace com.organo.xchallenge.ViewModels.Profile
             set { SetProperty(ref seperator, value, SeperatorPropertyName); }
         }
 
-        private Xamarin.Forms.Page TrackerPage => new TrackerLogPage(this);
+        public Page TrackerPage { get; set; }
+
+        public async Task ProduceTrackerLog()
+        {
+            await Task.Factory.StartNew(() => { TrackerPage = new TrackerLogPage(this); });
+        }
+
         private bool showTrackerDetail;
         public const string ShowTrackerDetailPropertyName = "ShowTrackerDetail";
 

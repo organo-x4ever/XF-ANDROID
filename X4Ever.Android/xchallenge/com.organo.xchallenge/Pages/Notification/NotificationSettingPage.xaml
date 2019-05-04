@@ -13,7 +13,7 @@
                   <Label Text="{Binding WeightSubmitReminderText}" HorizontalOptions="StartAndExpand" Style="{DynamicResource labelStyleLink}" />
                   <StackLayout Orientation="Horizontal" Spacing="10"> 
                       <Label Text="{Binding IsWeightSubmitReminder,Converter={StaticResource BoolToStringConverter}, ConverterParameter='enabledisable', StringFormat='{0}'}" VerticalOptions="Center" HorizontalOptions="End" Style="{Binding SwitchWeightSubmitReminderLabelStyle}" />
-                      <Switch x:Name="switchWeightSubmitReminder" IsToggled="{Binding IsWeightSubmitReminder, Mode=OneWay}" />
+                      <Switch x:Name="switchWeightSubmitReminder" IsToggled="{Binding IsWeightSubmitReminder, Mode=TwoWay}" />
                   </StackLayout>
                 </StackLayout>
               </ViewCell>
@@ -22,7 +22,7 @@
                   <Label Text="{Binding PromotionalText}" HorizontalOptions="StartAndExpand" Style="{DynamicResource labelStyleLink}" />
                   <StackLayout Orientation="Horizontal" Spacing="10"> 
                       <Label Text="{Binding IsPromotional,Converter={StaticResource BoolToStringConverter}, ConverterParameter='enabledisable', StringFormat='{0}'}" VerticalOptions="Center" HorizontalOptions="End" Style="{Binding SwitchPromotionalLabelStyle}" />
-                      <Switch x:Name="switchPromotional" IsToggled="{Binding IsPromotional, Mode=OneWay}" />
+                      <Switch x:Name="switchPromotional" IsToggled="{Binding IsPromotional, Mode=TwoWay}" />
                   </StackLayout>
                 </StackLayout>
               </ViewCell>
@@ -31,7 +31,7 @@
                         <Label Text="{Binding SpecialOfferText}" HorizontalOptions="StartAndExpand" Style="{DynamicResource labelStyleLink}" />
                         <StackLayout Orientation="Horizontal" Spacing="10"> 
                             <Label Text="{Binding IsSpecialOffer,Converter={StaticResource BoolToStringConverter}, ConverterParameter='enabledisable', StringFormat='{0}'}" VerticalOptions="Center" HorizontalOptions="End" Style="{Binding SwitchSpecialOfferLabelStyle}" />
-                            <Switch x:Name="switchSpecialOffer" IsToggled="{Binding IsSpecialOffer, Mode=OneWay}" />
+                            <Switch x:Name="switchSpecialOffer" IsToggled="{Binding IsSpecialOffer, Mode=TwoWay}" />
                         </StackLayout>
                     </StackLayout>
                 </ViewCell>
@@ -40,7 +40,7 @@
                         <Label Text="{Binding VersionUpdateText}" HorizontalOptions="StartAndExpand" Style="{DynamicResource labelStyleLink}" />
                         <StackLayout Orientation="Horizontal" Spacing="10"> 
                             <Label Text="{Binding IsVersionUpdate,Converter={StaticResource BoolToStringConverter}, ConverterParameter='enabledisable', StringFormat='{0}'}" VerticalOptions="Center" HorizontalOptions="End" Style="{Binding SwitchVersionUpdateLabelStyle}" />
-                            <Switch x:Name="switchVersionUpdate" IsToggled="{Binding IsVersionUpdate, Mode=OneWay}" />
+                            <Switch x:Name="switchVersionUpdate" IsToggled="{Binding IsVersionUpdate, Mode=TwoWay}" />
                         </StackLayout>
                     </StackLayout>
                 </ViewCell>
@@ -49,7 +49,7 @@
                         <Label Text="{Binding GeneralMessageText}" HorizontalOptions="StartAndExpand" Style="{DynamicResource labelStyleLink}" />
                         <StackLayout Orientation="Horizontal" Spacing="10"> 
                             <Label Text="{Binding IsGeneralMessage,Converter={StaticResource BoolToStringConverter}, ConverterParameter='enabledisable', StringFormat='{0}'}" VerticalOptions="Center" HorizontalOptions="End" Style="{Binding SwitchGeneralMessageLabelStyle}" />
-                            <Switch x:Name="switchGeneralMessage" IsToggled="{Binding IsGeneralMessage, Mode=OneWay}" />
+                            <Switch x:Name="switchGeneralMessage" IsToggled="{Binding IsGeneralMessage, Mode=TwoWay}" />
                         </StackLayout>
                     </StackLayout>
                 </ViewCell>

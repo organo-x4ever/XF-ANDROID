@@ -57,7 +57,7 @@ namespace com.organo.xchallenge.Pages.Profile
             _model.GetPageData();
             await VersionCheck();
 
-            await Task.Delay(TimeSpan.FromMilliseconds(3));
+            await Task.Delay(TimeSpan.FromMilliseconds(2));
             UserSettingLayout();
         }
 
@@ -551,12 +551,9 @@ namespace com.organo.xchallenge.Pages.Profile
 
         private async void ShowDetail(object sender, EventArgs args)
         {
-            if (!_model.ShowTrackerDetail)
-            {
-                _model.ShowTrackerDetail = true;
-                _model.ShowTrackerDetailAsync();
-                await Navigation.PushAsync(new TrackerLogPage(_model));
-            }
+            if (_model.TrackerPage == null)
+                await _model.ProduceTrackerLog();
+            await Navigation.PushAsync(_model.TrackerPage);
         }
 
         private string CurrentProfileID => ProfileModifyID;//_model.UpdateProfileRequired ? ProfileModifyID : TrackerModifyID;

@@ -77,11 +77,32 @@
         <Label IsVisible="{Binding IsError}" Text="{Binding ErrorMessage}" Style="{DynamicResource labelErrorMessage}" />
         <Label IsVisible="{Binding IsMessage}" Text="{Binding MessageText}" Style="{DynamicResource labelSuccessMessage}" />
       </StackLayout>
-      <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" IsEnabled="{Binding IsEditable}" BackgroundColor="{x:Static statics:Palette._Transparent}" Margin="5,15,5,0">
-            <Label Style="{DynamicResource labelTimer}" Text="{localization:Translate Playlist}" HorizontalOptions="Start" TextColor="{x:Static statics:Palette._FooterTexts}" FontAttributes="None" Margin="0,5,0,0" />
-            <ListView x:Name="ListViewPlayer" HasUnevenRows="True" SeparatorVisibility="None" ItemsSource="{Binding MusicFiles}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" 
-                  ItemSelected="ListView_OnItemSelected" BackgroundColor="{x:Static statics:Palette._Transparent}">
-            <ListView.ItemTemplate>
+      <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" IsEnabled="{Binding IsEditable}" BackgroundColor="{x:Static statics:Palette._Transparent}" Margin="5,10,5,0">
+          <StackLayout Orientation="Horizontal" VerticalOptions="Start" HorizontalOptions="FillAndExpand" Margin="0,5,5,2">
+              <Image Source="{Binding ChecklistImage}" HeightRequest="16" WidthRequest="16" Margin="0" HorizontalOptions="Start" VerticalOptions="Center">
+                  <Image.GestureRecognizers>
+                      <TapGestureRecognizer Command="{Binding ChecklistImageCommand}" />
+                  </Image.GestureRecognizers>
+              </Image>
+              <Label Style="{Binding PlaylistTextStyle}" Text="{localization:Translate Playlist}" HorizontalOptions="StartAndExpand" VerticalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ChecklistImageCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+            <Image Source="{Binding SortImage}" HeightRequest="16" WidthRequest="16" Margin="0" HorizontalOptions="End" VerticalOptions="Center">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SortCommand}" />
+                </Image.GestureRecognizers>
+            </Image>
+            <Label Style="{Binding PlaylistTextStyleDefault}" Text="{Binding SortBy}" HorizontalOptions="End" VerticalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SortCommand}"></TapGestureRecognizer>
+                </Label.GestureRecognizers>
+            </Label>
+          </StackLayout>
+          <ListView x:Name="ListViewPlayer" HasUnevenRows="True" SeparatorVisibility="None" ItemsSource="{Binding MusicFiles}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" 
+            ItemSelected="ListView_OnItemSelected" BackgroundColor="{x:Static statics:Palette._Transparent}">
+          <ListView.ItemTemplate>
             <DataTemplate>
               <ViewCell>
                 <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Padding="0,7,0,7">
@@ -106,10 +127,12 @@
               </ViewCell>
             </DataTemplate>
           </ListView.ItemTemplate>
+              <ListView.Footer>
+                  <controls:FooterView />
+              </ListView.Footer>
         </ListView>
       </StackLayout>
     </StackLayout>
-    <controls:FooterView />
   </StackLayout>
   <media:AudioPlayerPage.Resources>
     <ResourceDictionary>
