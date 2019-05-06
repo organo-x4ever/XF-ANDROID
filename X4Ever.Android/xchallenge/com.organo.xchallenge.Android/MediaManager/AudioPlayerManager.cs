@@ -20,7 +20,7 @@ namespace com.organo.xchallenge
 #if __ANDROID__
     [Android.Runtime.Preserve(AllMembers = true)]
 #endif
-    public class AudioPlayerManager: IAudioPlayerManager
+    public class AudioPlayerManager : IAudioPlayerManager
     {
         static Lazy<IAudioPlayer> Implementation = new Lazy<IAudioPlayer>(() => CreateAudioPlayer(), System.Threading.LazyThreadSafetyMode.PublicationOnly);
 
@@ -36,6 +36,7 @@ namespace com.organo.xchallenge
                 return ret;
             }
         }
+
 
         public IAudioPlayer CurrentPlayer => Current;
 

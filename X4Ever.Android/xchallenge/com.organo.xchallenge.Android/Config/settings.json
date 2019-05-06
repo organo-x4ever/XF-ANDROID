@@ -2,7 +2,7 @@
   "AcceptedTokenName": "Token",
   "AccessTokenType": "Basic",
   "ApplicationRequestHeader": "Application",
-  "AUDIO_PLAYER_PAGE_COMMAND_IMAGE": "70*70",
+  "AUDIO_PLAYER_PAGE_COMMAND_IMAGE": "32*32",
   "AudioUrl": "x4ever/audio",
   "AuthenticationUrl": "authenticatepivot/login",
   "BADGE_HINT_ICON": "48*48",

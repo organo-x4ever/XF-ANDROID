@@ -91,7 +91,7 @@ namespace com.organo.xchallenge.ViewModels.Profile
                 YourGoal = yourGoal;
                 TargetDate = UserDetail.TargetDate; // "Sunday, March 9, 2008"
 
-                UserTrackers = UserDetail.TrackerPivot.ToList();
+                UserTrackers = UserDetail.TrackerPivot.OrderBy(t => t.ModifyDate).ToList();
                 var trackerFirst = UserTrackers.OrderBy(t => t.ModifyDate).FirstOrDefault();
                 var trackerLast = UserTrackers.OrderBy(t => t.ModifyDate).LastOrDefault();
                 MilestoneRequired = trackerFirst == null;

@@ -4,6 +4,7 @@ using System.IO;
 using Android.Content;
 using Android.Content.Res;
 using Android.OS;
+using com.organo.xchallenge.Services;
 using Environment = System.Environment;
 using Uri = Android.Net.Uri;
 
@@ -31,7 +32,7 @@ namespace com.organo.xchallenge
         ///</Summary>
         public double Duration
         {
-            get { return player == null ? 0 : ((double) player.Duration) / 1000.0; }
+            get { return player == null ? 0 : ((double)player.Duration) / 1000.0; }
         }
 
         ///<Summary>
@@ -39,7 +40,7 @@ namespace com.organo.xchallenge
         ///</Summary>
         public double CurrentPosition
         {
-            get { return player == null ? 0 : ((double) player.CurrentPosition) / 1000.0; }
+            get { return player == null ? 0 : ((double)player.CurrentPosition) / 1000.0; }
         }
 
         ///<Summary>
@@ -98,11 +99,11 @@ namespace com.organo.xchallenge
         string path;
 
         /// <summary>
-        /// Instantiates a new SimpleAudioPlayer
+        /// Instantiates a new AudioPlayer
         /// </summary>
         public AudioPlayerImplementation()
         {
-            player = new Android.Media.MediaPlayer() {Looping = Loop};
+            player = new Android.Media.MediaPlayer() { Looping = Loop };
             player.Completion += OnPlaybackEnded;
             if (player != null)
                 player.TimedText += Player_TimedText;
@@ -246,7 +247,7 @@ namespace com.organo.xchallenge
         ///</Summary>
         public void Seek(double position)
         {
-            player?.SeekTo((int) position * 1000);
+            player?.SeekTo((int)position * 1000);
         }
 
         ///<Summary>
@@ -265,7 +266,7 @@ namespace com.organo.xchallenge
             var left = Math.Cos((Math.PI * (balance + 1)) / 4) * volume;
             var right = Math.Sin((Math.PI * (balance + 1)) / 4) * volume;
 
-            player?.SetVolume((float) left, (float) right);
+            player?.SetVolume((float)left, (float)right);
         }
 
         void OnPlaybackEnded(object sender, EventArgs e)
@@ -286,7 +287,7 @@ namespace com.organo.xchallenge
         bool isDisposed = false;
 
         ///<Summary>
-        /// Dispose SimpleAudioPlayer and release resources
+        /// Dispose AudioPlayer and release resources
         ///</Summary>
         protected virtual void Dispose(bool disposing)
         {
@@ -305,7 +306,7 @@ namespace com.organo.xchallenge
         }
 
         ///<Summary>
-        /// Dispose SimpleAudioPlayer and release resources
+        /// Dispose AudioPlayer and release resources
         ///</Summary>
         public void Dispose()
         {

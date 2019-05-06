@@ -5,7 +5,7 @@ using System.IO;
 namespace com.organo.xchallenge
 {
     /// <summary>
-    /// Interface for SimpleAudioPlayer
+    /// Interface for AudioPlayer
     /// </summary>
     public interface IAudioPlayer : IDisposable
     {
@@ -48,11 +48,6 @@ namespace com.organo.xchallenge
         /// Indicates if the position of the loaded audio file can be updated
         ///</Summary>
         bool CanSeek { get; }
-        
-        ///<Summary>
-        /// Get timer details
-        ///</Summary>
-        Action TimedTextAction { get; set; }
 
         ///<Summary>
         /// Load wav or mp3 audio file as a stream

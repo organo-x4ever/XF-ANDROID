@@ -1,7 +1,6 @@
 ﻿
 using com.organo.xchallenge.Localization;
 using com.organo.xchallenge.Permissions;
-using com.organo.xchallenge.Services;
 using com.organo.xchallenge.Statics;
 using com.organo.xchallenge.ViewModels.Base;
 using System;
@@ -11,12 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using com.organo.xchallenge.Helpers;
 using com.organo.xchallenge.Models;
-using Plugin.MediaManager.Abstractions.Enums;
-using Plugin.MediaManager.Abstractions.Implementations;
 using Xamarin.Forms;
-using com.organo.xchallenge;
-using com.organo.xchallenge.Utilities;
-using Plugin.MediaManager.Abstractions;
 
 namespace com.organo.xchallenge.ViewModels.Media
 {
@@ -335,8 +329,8 @@ namespace com.organo.xchallenge.ViewModels.Media
             ButtonImageSize = App.Configuration.GetImageSizeByID(ImageIdentity.AUDIO_PLAYER_PAGE_COMMAND_IMAGE);
             if (ButtonImageSize != null)
             {
-                AudioCommandImageHeight = ButtonImageSize.Height;
-                AudioCommandImageWidth = ButtonImageSize.Width;
+                AudioCommandImageHeight = ButtonImageSize.Height - 5;
+                AudioCommandImageWidth = ButtonImageSize.Width - 5;
             }
         }
 
@@ -413,7 +407,7 @@ namespace com.organo.xchallenge.ViewModels.Media
                     MusicFiles = MusicFiles.Select(m =>
                     {
                         m.IsPlayNow = false;
-                        m.TextColor = m.IsPlaylistSelected ? Palette._ButtonBackgroundGray : Palette._LightGrayD;
+                        m.TextColor = Palette._LightGrayD;
                         return m;
                     }).ToList();
 

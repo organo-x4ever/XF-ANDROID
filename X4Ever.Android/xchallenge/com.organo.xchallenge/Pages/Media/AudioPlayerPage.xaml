@@ -11,7 +11,7 @@
     <controls:TopBarAccountView></controls:TopBarAccountView>
     <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="15,15,15,0">
         <Frame Style="{DynamicResource frameStyle}" HasShadow="False">
-            <StackLayout Orientation="Vertical" VerticalOptions="Start" HorizontalOptions="FillAndExpand" IsVisible="{Binding IsPermissionGranted}">
+            <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" IsVisible="{Binding IsPermissionGranted}">
               <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalOptions="Start" Text="{Binding CurrentTimer}" Style="{DynamicResource labelStyleXXLargeHeader}" IsVisible="{Binding IsMediaExists}" />
               <Grid VerticalOptions="Start" HorizontalOptions="FillAndExpand" Margin="18,10,18,0" IsVisible="{Binding IsMediaExists}">
                   <Grid.RowDefinitions>
@@ -25,45 +25,43 @@
                   <Label Grid.Row="0" Grid.Column="1" HorizontalOptions="End" VerticalOptions="End" Text="{Binding TotalTimer}" Style="{DynamicResource labelTimer}" TextColor="{x:Static statics:Palette._LightGrayD}" />
               </Grid>
             <Slider x:Name="SliderCurrentPosition" Minimum="0" Maximum="100" Value="{Binding CurrentPosition, Mode=OneWay}" HorizontalOptions="FillAndExpand" IsVisible="{Binding IsMediaExists}" />
-            <Grid HorizontalOptions="FillAndExpand" IsVisible="{Binding IsMediaExists}">
+            <Grid HorizontalOptions="CenterAndExpand" IsVisible="{Binding IsMediaExists}">
               <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
               </Grid.ColumnDefinitions>
-                <Image Grid.Column="2" Source="{Binding BackwardButton}" Style="{DynamicResource imageIcon}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0,3,0">
+                <Image Grid.Column="1" Source="{Binding BackwardButton}" Style="{DynamicResource imageIcon}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding BackwardCommand}" />
                     </Image.GestureRecognizers>
                 </Image>
-                <Image Grid.Column="3" Source="{Binding PreviousButton}" Style="{DynamicResource imageIcon}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0,3,0">
+                <Image Grid.Column="2" Source="{Binding PreviousButton}" Style="{DynamicResource imageIcon}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0">
                 <Image.GestureRecognizers>
                   <TapGestureRecognizer Command="{Binding PreviousCommand}" />
                 </Image.GestureRecognizers>
               </Image>
-              <Image Grid.Column="4" Source="{Binding PlayPauseButton}" Style="{DynamicResource imageIcon}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0,3,0">
+              <Image Grid.Column="3" Source="{Binding PlayPauseButton}" Style="{DynamicResource imageIcon}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0">
                 <Image.GestureRecognizers>
                   <TapGestureRecognizer Command="{Binding PlayCommand}" />
                 </Image.GestureRecognizers>
               </Image>
-              <Image Grid.Column="5" Source="{Binding StopButton}" Style="{DynamicResource imageIcon}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0,3,0">
+              <Image Grid.Column="4" Source="{Binding StopButton}" Style="{DynamicResource imageIcon}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0">
                 <Image.GestureRecognizers>
                   <TapGestureRecognizer Command="{Binding StopCommand}" />
                 </Image.GestureRecognizers>
               </Image>
-              <Image Grid.Column="6" Source="{Binding NextButton}" Style="{DynamicResource imageIcon}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0,3,0">
+              <Image Grid.Column="5" Source="{Binding NextButton}" Style="{DynamicResource imageIcon}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0">
                 <Image.GestureRecognizers>
                   <TapGestureRecognizer Command="{Binding NextCommand}" />
                 </Image.GestureRecognizers>
               </Image>
-                <Image Grid.Column="7" Source="{Binding ForwardButton}" Style="{DynamicResource imageIcon}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0,3,0">
+                <Image Grid.Column="6" Source="{Binding ForwardButton}" Style="{DynamicResource imageIcon}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding ForwardCommand}" />
                     </Image.GestureRecognizers>
