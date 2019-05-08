@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using Xamarin.Forms;
 
 [assembly:Dependency(typeof(UserPivotService))]
+
 namespace com.organo.xchallenge.Services
 {
     public class UserPivotService : IUserPivotService
@@ -31,13 +32,12 @@ namespace com.organo.xchallenge.Services
         // Authorized::REQUESTS
         public async Task<string> ChangePasswordAsync(string currentPassword, string newPassword)
         {
-            var user = new PasswordChange()
+            var response = await ClientService.PostDataAsync(new PasswordChange()
             {
                 CurrentPassword = currentPassword,
                 Password = newPassword,
                 UserID = App.CurrentUser.UserInfo.ID
-            };
-            var response = await ClientService.PostDataAsync(user, ControllerName, "changepassword");
+            }, ControllerName, "changepassword");
             if (response != null && response.IsSuccessStatusCode && response.StatusCode == HttpStatusCode.OK)
             {
                 var jsonTask = response.Content.ReadAsStringAsync();
@@ -73,8 +73,8 @@ namespace com.organo.xchallenge.Services
         {
             if (await App.Configuration.IsUserTokenExistsAsync())
             {
-                var response = await ClientService.GetDataAsync(ControllerName, "authuser_v3");
-                var authenticationResult = await _authenticationService.GetDetailAsync(response);
+                var authenticationResult = await _authenticationService.GetDetailAsync(
+                    await ClientService.GetDataAsync(ControllerName, "authuser_v3"));
                 if (authenticationResult != null)
                 {
                     App.CurrentUser = authenticationResult;
@@ -84,7 +84,7 @@ namespace com.organo.xchallenge.Services
                 else
                     await App.LogoutAsync();
             }
-            
+
             callbackFailed();
         }
 
@@ -121,13 +121,12 @@ namespace com.organo.xchallenge.Services
         // Unauthorized::REQUESTS
         public async Task<string> ChangeForgotPasswordAsync(string requestCode, string password)
         {
-            var user = new PasswordDetail()
-            {
-                RequestCode = requestCode,
-                Password = password
-            };
             var response =
-                await ClientService.PostDataNoHeaderAsync(user, ControllerNameUnauthorized, "updatepassword");
+                await ClientService.PostDataNoHeaderAsync(new PasswordDetail()
+                {
+                    RequestCode = requestCode,
+                    Password = password
+                }, ControllerNameUnauthorized, "updatepassword");
             if (response != null && response.IsSuccessStatusCode && response.StatusCode == HttpStatusCode.OK)
             {
                 Task<string> jsonTask = response.Content.ReadAsStringAsync();
@@ -160,14 +159,12 @@ namespace com.organo.xchallenge.Services
 
         public async Task<string> RequestForgotPasswordAsync(string username, string email)
         {
-            var recover = new ForgotPassword()
-            {
-                UserLogin = username,
-                UserEmail = email
-            };
-
             var response =
-                await ClientService.PostDataNoHeaderAsync(recover, ControllerNameUnauthorized, "requestpassword");
+                await ClientService.PostDataNoHeaderAsync(new ForgotPassword()
+                {
+                    UserLogin = username,
+                    UserEmail = email
+                }, ControllerNameUnauthorized, "requestpassword");
             if (response != null && response.IsSuccessStatusCode && response.StatusCode == HttpStatusCode.OK)
             {
                 Task<string> jsonTask = response.Content.ReadAsStringAsync();

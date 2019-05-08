@@ -259,9 +259,9 @@ namespace com.organo.xchallenge.Services
             {
                 if (!request.Headers.Contains(App.Configuration?.AppConfig.AcceptedTokenName))
                 {
-                    var token = App.Configuration.UserToken;
-                    if (!string.IsNullOrEmpty(token))
-                        request.Headers.Add(App.Configuration?.AppConfig.AcceptedTokenName,token);
+                    if (!string.IsNullOrEmpty(App.Configuration.UserToken))
+                        request.Headers.Add(App.Configuration?.AppConfig.AcceptedTokenName,
+                            App.Configuration.UserToken);
                 }
 
                 if (!request.Headers.Contains(App.Configuration?.AppConfig.ApplicationRequestHeader))
@@ -282,7 +282,7 @@ namespace com.organo.xchallenge.Services
             if (!request.Headers.Contains(HttpConstants.PLATFORM))
             {
                 var platform = DeviceInfo.GetPlatform;
-                if (platform != null)
+                if (!string.IsNullOrEmpty(platform))
                     request.Headers.Add(HttpConstants.PLATFORM, platform);
             }
 
@@ -295,9 +295,9 @@ namespace com.organo.xchallenge.Services
             {
                 if (!request.Headers.Contains(App.Configuration?.AppConfig.AcceptedTokenName))
                 {
-                    var token = App.Configuration.UserToken;
-                    if (!string.IsNullOrEmpty(token))
-                        request.Headers.Add(App.Configuration?.AppConfig.AcceptedTokenName, token);
+                    if (!string.IsNullOrEmpty(App.Configuration.UserToken))
+                        request.Headers.Add(App.Configuration?.AppConfig.AcceptedTokenName,
+                            App.Configuration.UserToken);
                 }
 
                 if (!request.Headers.Contains(App.Configuration?.AppConfig.ApplicationRequestHeader))

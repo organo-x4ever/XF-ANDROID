@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-
+﻿
 namespace com.organo.xchallenge.Models
 {
     public class AppConfig

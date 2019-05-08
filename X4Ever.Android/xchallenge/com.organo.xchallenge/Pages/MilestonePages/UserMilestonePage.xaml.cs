@@ -99,17 +99,6 @@ namespace com.organo.xchallenge.Pages.MilestonePages
                         Command = new Command(async (obj) => { await UploadImageAsync(ImageSide.SIDE); })
                     };
                     imageSide.GestureRecognizers.Add(tapImageSide);
-
-                    //    _model.ViewComponents.Add(sliderCurrentWeight);
-                    //    _model.ViewComponents.Add(imageFront);
-                    //    _model.ViewComponents.Add(imageSide);
-                    //    _model.ViewComponents.Add(ImageMale);
-                    //    _model.ViewComponents.Add(LabelMale);
-                    //    _model.ViewComponents.Add(ImageFemale);
-                    //    _model.ViewComponents.Add(LabelFemale);
-                    //    _model.ViewComponents.Add(entryTShirtSize);
-                    //    _model.ViewComponents.Add(pickerTShirtSize);
-                    //    _model.ViewComponents.Add(entryAboutJourney);
                 });
             }
             catch (Exception ex)
@@ -205,7 +194,7 @@ namespace com.organo.xchallenge.Pages.MilestonePages
                         }
                     }
 
-                    if (localMessage != null && localMessage.Trim().Length > 0)
+                    if (!string.IsNullOrEmpty(localMessage))
                         _model.SetActivityResource(showError: true, errorMessage: localMessage);
                 }
             });

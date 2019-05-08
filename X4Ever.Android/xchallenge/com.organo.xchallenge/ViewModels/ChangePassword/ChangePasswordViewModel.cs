@@ -12,7 +12,6 @@ namespace com.organo.xchallenge.ViewModels.ChangePassword
             ConfirmNewPassword = string.Empty;
         }
 
-
         #region Change Password Properties
 
         private string currentPassword;

@@ -24,7 +24,7 @@ namespace com.organo.xchallenge.Views
 
         //public static readonly BindableProperty ColorNormalProperty = BindableProperty.Create<FloatingActionButtonView, Color>(p => p.ColorNormal, Color.White);
         public static readonly BindableProperty ColorNormalProperty =
-            BindableProperty.Create("ColorNormal", typeof(Color), typeof(Color), Color.White);
+            BindableProperty.Create("ColorNormal", typeof(Color), typeof(FloatingActionButtonView), Color.White);
 
         public Color ColorNormal
         {
@@ -34,7 +34,7 @@ namespace com.organo.xchallenge.Views
 
         //public static readonly BindableProperty ColorPressedProperty = BindableProperty.Create<FloatingActionButtonView, Color>(p => p.ColorPressed, Color.White);
         public static readonly BindableProperty ColorPressedProperty =
-            BindableProperty.Create("ColorPressed", typeof(Color), typeof(Color), Color.White);
+            BindableProperty.Create("ColorPressed", typeof(Color), typeof(FloatingActionButtonView), Color.White);
 
         public Color ColorPressed
         {
@@ -44,7 +44,7 @@ namespace com.organo.xchallenge.Views
 
         //public static readonly BindableProperty ColorRippleProperty = BindableProperty.Create<FloatingActionButtonView, Color>(p => p.ColorRipple, Color.White);
         public static readonly BindableProperty ColorRippleProperty =
-            BindableProperty.Create("ColorRipple", typeof(Color), typeof(Color), Color.White);
+            BindableProperty.Create("ColorRipple", typeof(Color), typeof(FloatingActionButtonView), Color.White);
 
         public Color ColorRipple
         {
@@ -54,7 +54,7 @@ namespace com.organo.xchallenge.Views
 
         //public static readonly BindableProperty SizeProperty = BindableProperty.Create<FloatingActionButtonView, FloatingActionButtonSize>(p => p.Size, FloatingActionButtonSize.Normal);
         public static readonly BindableProperty SizeProperty = BindableProperty.Create("Size",
-            typeof(FloatingActionButtonSize), typeof(FloatingActionButtonSize), FloatingActionButtonSize.Normal);
+            typeof(FloatingActionButtonSize), typeof(FloatingActionButtonView), FloatingActionButtonSize.Normal);
 
         public FloatingActionButtonSize Size
         {

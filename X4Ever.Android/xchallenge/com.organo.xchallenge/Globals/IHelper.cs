@@ -35,9 +35,5 @@ namespace com.organo.xchallenge.Globals
         object GetFileObject(string fileName, FileType fileType);
 
         string GetUniqueCode();
-
-        string Encrypt(string input, string key = "");
-
-        string Decrypt(string input, string key = "");
     }
 }

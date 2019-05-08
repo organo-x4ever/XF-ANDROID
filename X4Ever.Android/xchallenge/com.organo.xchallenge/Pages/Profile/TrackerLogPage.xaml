@@ -6,7 +6,6 @@
              xmlns:statics="clr-namespace:com.organo.xchallenge.Statics;assembly=com.organo.xchallenge"
              x:Class="com.organo.xchallenge.Pages.Profile.TrackerLogPage">
     <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-        <!--<controls:TopBarPopupView></controls:TopBarPopupView>-->
         <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="{x:Static statics:Palette._Transparent}">
             <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="0" Margin="0,-6,0,0">
                 <controls:GridTracker x:Name="gridTracker" BackgroundColor="{x:Static statics:Palette._Transparent}" Margin="15,15,15,5" />

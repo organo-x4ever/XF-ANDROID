@@ -80,12 +80,7 @@ namespace com.organo.xchallenge.Pages.Profile
             buttonSubmit.Clicked += async (sender, e) => { await UpdateProfileAsync(); };
 
         }
-
-        private void Show_Menu(object sender, EventArgs e)
-        {
-            
-        }
-
+        
         private async Task UpdateProfileAsync()
         {
             _model.SetActivityResource(false, true);

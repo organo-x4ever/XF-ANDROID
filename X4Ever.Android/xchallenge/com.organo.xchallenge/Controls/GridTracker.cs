@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using com.organo.xchallenge.Helpers;
 using com.organo.xchallenge.Localization;
 using com.organo.xchallenge.Models.User;

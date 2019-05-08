@@ -24,10 +24,7 @@ namespace com.organo.xchallenge.Pages.UserSettings
             try
             {
                 InitializeComponent();
-                App.Configuration.InitialAsync(this);
-                NavigationPage.SetHasNavigationBar(this, true);
                 _model = new UserSettingsViewModel();
-                BindingContext = _model;
                 Page_Load();
             }
             catch (Exception ex)
@@ -38,13 +35,12 @@ namespace com.organo.xchallenge.Pages.UserSettings
 
         private async void Page_Load()
         {
+           await App.Configuration.InitialAsync(this);
+            NavigationPage.SetHasNavigationBar(this, true);
+            BindingContext = _model;
             _model.SetActivityResource();
             await _model.LoadAppLanguages(OnLanguageRetrieve);
             await _model.LoadWeightVolume(BindWeightVolume);
-            //switchNotifications.Toggled += (sender, e) =>
-            //{
-            //    _model.SetNotificationStatus(((Switch) sender).IsToggled);
-            //};
         }
 
         private void OnLanguageRetrieve()

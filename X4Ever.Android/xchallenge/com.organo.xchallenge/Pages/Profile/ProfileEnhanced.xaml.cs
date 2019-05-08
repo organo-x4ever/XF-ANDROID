@@ -1,24 +1,24 @@
-﻿using com.organo.xchallenge.Controls;
+﻿
+using com.organo.xchallenge.Animated;
+using com.organo.xchallenge.Controls;
+using com.organo.xchallenge.Handler;
 using com.organo.xchallenge.Helpers;
 using com.organo.xchallenge.Localization;
 using com.organo.xchallenge.Pages.Base;
+using com.organo.xchallenge.Pages.ChangePassword;
+using com.organo.xchallenge.Pages.Notification;
+using com.organo.xchallenge.Pages.UserSettings;
 using com.organo.xchallenge.Services;
 using com.organo.xchallenge.Statics;
+using com.organo.xchallenge.Triggers;
 using com.organo.xchallenge.Utilities;
 using com.organo.xchallenge.ViewModels.Profile;
+using com.organo.xchallenge.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using com.organo.xchallenge.Extensions;
-using com.organo.xchallenge.Handler;
 using Xamarin.Forms;
-using com.organo.xchallenge.Triggers;
-using com.organo.xchallenge.Views;
-using com.organo.xchallenge.Animated;
-using com.organo.xchallenge.Pages.ChangePassword;
-using com.organo.xchallenge.Pages.Notification;
-using com.organo.xchallenge.Pages.UserSettings;
 
 namespace com.organo.xchallenge.Pages.Profile
 {

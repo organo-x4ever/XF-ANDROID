@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿
+using System.Collections.Generic;
 using com.organo.xchallenge.Models;
 using com.organo.xchallenge.Models.User;
 using com.organo.xchallenge.Notification;
@@ -34,12 +35,7 @@ namespace com.organo.xchallenge.Globals
         Task<string> GetUserTokenAsync();
         Task<bool> IsUserTokenExistsAsync();
         Task DeleteUserTokenAsync();
-
-        //Task SetNotificationStatusAsync(bool notificationAllowed);
-        //bool GetNotificationStatus();
-        //Task<bool> GetNotificationStatusAsync();
-        //Task DeleteNotificationStatusAsync();
-
+        
         void Initial(Page page, bool showBackgroundImage = false);
         Task InitialAsync(Page page, bool showBackgroundImage = false);
         void Initial(Page page, Color backgroundColor, bool showBackgroundImage = false);

@@ -1,4 +1,5 @@
-﻿using com.organo.xchallenge.Connection;
+﻿
+using com.organo.xchallenge.Connection;
 using com.organo.xchallenge.Helpers;
 using com.organo.xchallenge.Localization;
 using com.organo.xchallenge.Models;
@@ -10,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using com.organo.xchallenge.ViewModels.Profile;
@@ -71,6 +71,7 @@ namespace com.organo.xchallenge.Globals
             IsFullScreenMode = false;
             ActivityType = ActivityType.NONE;
             IsConnected = false;
+            IsAnimationAllowed = true;
             InitialTasks();
         }
 
@@ -87,6 +88,7 @@ namespace com.organo.xchallenge.Globals
         public async Task InitAsync()
         {
             IsMenuLoaded = false;
+            GetUserToken();
             await GetLanguageAsync();
             await GetWeightVolumeAsync();
         }
@@ -193,9 +195,8 @@ namespace com.organo.xchallenge.Globals
             await Task.Run(() =>
             {
                 var data = _secureStorage.Retrieve(StorageConstants.KEY_USER_WEIGHT_VOLUME);
-                if (data != null)
-                    weightVolume = Encoding.UTF8.GetString(data, 0, data.Length);
-                if (weightVolume != null && weightVolume.Trim().Length > 0)
+                if (data != null) weightVolume = Encoding.UTF8.GetString(data, 0, data.Length);
+                if (!string.IsNullOrEmpty(weightVolume))
                     AppConfig.DefaultWeightVolume = weightVolume;
             });
         }
@@ -238,13 +239,10 @@ namespace com.organo.xchallenge.Globals
                 SetImageSizes(ImageIdentity.TOP_BAR_SETTING, appConfig.TOP_BAR_SETTING, ImageConstants.ICON_PROFILE_SETTINGS);
                 SetImageSizes(ImageIdentity.TOP_BAR_CLOSE, appConfig.TOP_BAR_CLOSE, TextResources.icon_close);
                 SetImageSizes(ImageIdentity.MAIN_PAGE_LOGO, appConfig.MAIN_PAGE_LOGO, TextResources.logo_page);
-                SetImageSizes(ImageIdentity.MAIN_PAGE_XCHALLENGE_LOGO, appConfig.MAIN_PAGE_XCHALLENGE_LOGO,
-                    TextResources.logo_challenge);
+                SetImageSizes(ImageIdentity.MAIN_PAGE_XCHALLENGE_LOGO, appConfig.MAIN_PAGE_XCHALLENGE_LOGO, TextResources.logo_challenge);
                 SetImageSizes(ImageIdentity.MENU_PAGE_USER_IMAGE, appConfig.MENU_PAGE_USER_IMAGE, null, true);
                 SetImageSizes(ImageIdentity.USER_PROFILE_BADGE_ICON, appConfig.USER_PROFILE_BADGE_ICON, null, true);
-                SetImageSizes(ImageIdentity.MILESTONE_ACHEIVEMENT_BADGE_ICON,
-                    appConfig.MILESTONE_ACHEIVEMENT_BADGE_ICON,
-                    null, true);
+                SetImageSizes(ImageIdentity.MILESTONE_ACHEIVEMENT_BADGE_ICON, appConfig.MILESTONE_ACHEIVEMENT_BADGE_ICON, null, true);
                 SetImageSizes(ImageIdentity.BADGE_HINT_WINDOW, appConfig.BADGE_HINT_WINDOW);
                 SetImageSizes(ImageIdentity.BADGE_HINT_WINDOW_CLOSE, appConfig.BADGE_HINT_WINDOW_CLOSE);
                 SetImageSizes(ImageIdentity.BADGE_HINT_ICON, appConfig.BADGE_HINT_ICON);
@@ -258,10 +256,8 @@ namespace com.organo.xchallenge.Globals
                 SetImageSizes(ImageIdentity.MEAL_PLAN_PAGE_MEAL_HEADER, appConfig.MEAL_PLAN_PAGE_MEAL_HEADER);
                 SetImageSizes(ImageIdentity.AUDIO_PLAYER_PAGE_COMMAND_IMAGE, appConfig.AUDIO_PLAYER_PAGE_COMMAND_IMAGE);
                 SetImageSizes(ImageIdentity.VIDEO_PLAYER_PAGE_COMMAND_IMAGE, appConfig.VIDEO_PLAYER_PAGE_COMMAND_IMAGE);
-                SetImageSizes(ImageIdentity.VIDEO_PLAYER_PAGE_EXPAND_LIST_IMAGE,
-                    appConfig.VIDEO_PLAYER_PAGE_EXPAND_LIST_IMAGE);
-                SetImageSizes(ImageIdentity.VIDEO_PLAYER_PAGE_NOTE_PLAY_IMAGE,
-                    appConfig.VIDEO_PLAYER_PAGE_NOTE_PLAY_IMAGE);
+                SetImageSizes(ImageIdentity.VIDEO_PLAYER_PAGE_EXPAND_LIST_IMAGE, appConfig.VIDEO_PLAYER_PAGE_EXPAND_LIST_IMAGE);
+                SetImageSizes(ImageIdentity.VIDEO_PLAYER_PAGE_NOTE_PLAY_IMAGE, appConfig.VIDEO_PLAYER_PAGE_NOTE_PLAY_IMAGE);
                 SetImageSizes(ImageIdentity.PICTURE_GALLERY_IMAGE, appConfig.PICTURE_GALLERY_IMAGE);
                 SetImageSizes(ImageIdentity.USER_SETTING_TAB_ICON, appConfig.USER_SETTING_TAB_ICON);
                 SetImageSizes(ImageIdentity.CHECKBOX_ICON, appConfig.CHECKBOX_ICON);
@@ -333,14 +329,12 @@ namespace com.organo.xchallenge.Globals
 
         public async Task<ImageSize> GetImageSizeByIDAsync(string imageIdentity)
         {
-            return await Task.Factory.StartNew(() => { return GetImageSizeByID(imageIdentity); });
+            return await Task.Factory.StartNew(() => GetImageSizeByID(imageIdentity));
         }
 
         public ImageSize GetImageSizeByID(string imageIdentity)
         {
-            var imageSize = ImageSizes.FirstOrDefault(s =>
-                s.ImageID.ToLower() == imageIdentity.ToLower());
-            return imageSize;
+            return ImageSizes.FirstOrDefault(s => s.ImageID.ToLower() == imageIdentity.ToLower());
         }
 
         public async Task SetImageAsync(string imageIdentity, string badgeImage)
@@ -454,28 +448,5 @@ namespace com.organo.xchallenge.Globals
         }
 
         public void DeleteUserGraph() => _secureStorage.Delete(StorageConstants.KEY_USER_GRAPH);
-
-        //public async Task SetNotificationStatusAsync(bool notificationAllowed)
-        //{
-        //    await DeleteNotificationStatusAsync();
-        //    _secureStorage.Store(StorageConstants.KEY_NOTIFICATION_STATUS,
-        //        Encoding.UTF8.GetBytes(notificationAllowed ? CommonConstants.YES : CommonConstants.NO));
-        //}
-
-        //public bool GetNotificationStatus()
-        //{
-        //    var data = _secureStorage.Retrieve(StorageConstants.KEY_NOTIFICATION_STATUS);
-        //    return data != null
-        //        ? (Encoding.UTF8.GetString(data, 0, data.Length) == CommonConstants.YES ? true : false)
-        //        : false;
-        //}
-
-        //public async Task<bool> GetNotificationStatusAsync() =>
-        //    await Task.Factory.StartNew(() => { return GetNotificationStatus(); });
-
-        //public async Task DeleteNotificationStatusAsync() => await Task.Run(() =>
-        //{
-        //    _secureStorage.Delete(StorageConstants.KEY_NOTIFICATION_STATUS);
-        //});
     }
 }

@@ -7,8 +7,7 @@
     xmlns:statics="clr-namespace:com.organo.xchallenge.Statics"
     xmlns:app="clr-namespace:com.organo.xchallenge"
     xmlns:translate="clr-namespace:com.organo.xchallenge.Localization"
-    xmlns:controls="clr-namespace:com.organo.xchallenge.Controls;assembly=com.organo.xchallenge"
-    xmlns:extensions="clr-namespace:com.organo.xchallenge.Extensions;assembly=com.organo.xchallenge">
+    xmlns:controls="clr-namespace:com.organo.xchallenge.Controls;assembly=com.organo.xchallenge">
 
     <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="15,15,15,0">
           

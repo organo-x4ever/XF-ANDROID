@@ -1,16 +1,13 @@
-﻿using System;
+﻿
+using com.organo.xchallenge.Globals;
+using com.organo.xchallenge.Localization;
+using com.organo.xchallenge.Pages;
+using com.organo.xchallenge.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using com.organo.xchallenge.Globals;
-using com.organo.xchallenge.Helpers;
-using com.organo.xchallenge.Localization;
-using com.organo.xchallenge.Models.Authentication;
-using com.organo.xchallenge.Pages;
-using com.organo.xchallenge.Services;
-using com.organo.xchallenge.Statics;
-using Microsoft.Data.Edm.Library.Annotations;
 using Xamarin.Forms;
 
 namespace com.organo.xchallenge.ViewModels.Base
@@ -52,7 +49,7 @@ namespace com.organo.xchallenge.ViewModels.Base
         {
             if (Navigation != null)
             {
-                await Task.Delay(TimeSpan.FromSeconds(1));
+                await Task.Delay(TimeSpan.FromMilliseconds(100));
                 Device.BeginInvokeOnMainThread(async () => { await Navigation.PushModalAsync(page); });
             }
         }
@@ -61,7 +58,7 @@ namespace com.organo.xchallenge.ViewModels.Base
         {
             if (Navigation != null)
             {
-                await Task.Delay(TimeSpan.FromSeconds(1));
+                await Task.Delay(TimeSpan.FromMilliseconds(100));
                 Device.BeginInvokeOnMainThread(async () => { await Navigation.PopModalAsync(); });
             }
         }
@@ -70,7 +67,7 @@ namespace com.organo.xchallenge.ViewModels.Base
         {
             if (Navigation != null)
             {
-                await Task.Delay(TimeSpan.FromSeconds(1));
+                await Task.Delay(TimeSpan.FromMilliseconds(100));
                 Device.BeginInvokeOnMainThread(async () => { await Navigation.PushAsync(page); });
             }
         }
@@ -79,7 +76,7 @@ namespace com.organo.xchallenge.ViewModels.Base
         {
             if (Navigation != null)
             {
-                await Task.Delay(TimeSpan.FromSeconds(1));
+                await Task.Delay(TimeSpan.FromMilliseconds(100));
                 Device.BeginInvokeOnMainThread(async () => { await Navigation.PopAsync(); });
             }
         }

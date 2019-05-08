@@ -267,15 +267,5 @@ namespace com.organo.xchallenge.Globals
         {
             return Guid.NewGuid().ToString().Replace("-","").ToUpper();
         }
-
-        public string Encrypt(string input, string key = "")
-        {
-            return input;
-        }
-
-        public string Decrypt(string input, string key = "")
-        {
-            return input;
-        }
     }
 }

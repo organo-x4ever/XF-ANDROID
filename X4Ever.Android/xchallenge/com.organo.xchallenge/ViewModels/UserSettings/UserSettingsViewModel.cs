@@ -38,14 +38,6 @@ namespace com.organo.xchallenge.ViewModels.UserSettings
                 return l;
             }).ToList();
 
-            //foreach (var language in ApplicationLanguages)
-            //{
-            //    if (language.LanguageCode == App.Configuration.AppConfig.DefaultLanguage)
-            //        language.IsSelected = true;
-            //    else
-            //        language.IsSelected = false;
-            //}
-
             action?.Invoke();
         }
 

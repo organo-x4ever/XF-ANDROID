@@ -13,12 +13,10 @@ namespace com.organo.xchallenge.ViewModels.Profile
     public class ProfileSettingViewModel : Base.BaseViewModel
     {
         private readonly IUserSettingService _settingService;
-        private readonly IUserNotificationServices _notificationServices;
 
         public ProfileSettingViewModel(INavigation navigation = null) : base(navigation)
         {
             _settingService = DependencyService.Get<IUserSettingService>();
-            _notificationServices = DependencyService.Get<IUserNotificationServices>();
             ProfileLoadingComplete = false;
             CountryProvinces = new List<CountryProvince>();
             CountryList = new List<string>();

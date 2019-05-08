@@ -33,8 +33,6 @@ namespace com.organo.xchallenge.Pages.Profile
             BindingContext = _model;
             await App.Configuration.InitialAsync(this);
             NavigationPage.SetHasNavigationBar(this, true);
-            //if (_model.Navigation != null)
-            //    _model.Navigation = App.CurrentApp.MainPage.Navigation;
             SetGridTracker();
         }
 
