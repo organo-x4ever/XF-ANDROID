@@ -8,6 +8,7 @@ using System;
 using System.Threading.Tasks;
 using com.organo.xchallenge.Handler;
 using com.organo.xchallenge.Helpers;
+using com.organo.xchallenge.Models;
 using com.organo.xchallenge.Services;
 using Xamarin.Forms;
 
@@ -17,24 +18,26 @@ namespace com.organo.xchallenge.Pages.Video
     {
         private PlaylistViewModel _model;
         private PopupLayout _popupLayout;
+        private readonly IDeviceInfo _deviceInfo;
 
         public PlaylistPage(RootPage root)
         {
             try
             {
                 InitializeComponent();
-                this._model = new PlaylistViewModel(App.CurrentApp.MainPage.Navigation)
+                _deviceInfo = DependencyService.Get<IDeviceInfo>();
+                _model = new PlaylistViewModel(App.CurrentApp.MainPage.Navigation)
                 {
                     Root = root,
                     BindDataSourceAction = () =>
                     {
-                        AccordionMain.DataSource = this._model.AccordionSources;
+                        AccordionMain.DataSource = _model.AccordionSources;
                         AccordionMain.DataBind();
                     },
                     PopupAction = OpenPopupWindow,
                     ClosePopupAction = CloseWindow
                 };
-                this.Init();
+                Init();
             }
             catch (Exception ex)
             {
@@ -47,83 +50,104 @@ namespace com.organo.xchallenge.Pages.Video
             await App.Configuration.InitialAsync(this);
             NavigationPage.SetHasNavigationBar(this, false);
 
-            BindingContext = this._model;
+            BindingContext = _model;
             AccordionMain.FirstExpaned = true;
-            await this.Page_Load();
+            await Page_Load();
         }
 
         private async Task Page_Load()
         {
-            await this._model.UpdateButtonSelected(ButtonSelected.Beginner);
+            await _model.UpdateButtonSelected(ButtonSelected.Beginner);
         }
 
         public async void OpenPopupWindow()
         {
             var imageSizeWindow = await App.Configuration.GetImageSizeByIDAsync(ImageIdentity.WORKOUT_VIDEO_WINDOW);
-            Int16 height = 340, width = 360;
+            int height = 340, width = 360;
             if (imageSizeWindow != null)
             {
-                height = (Int16) imageSizeWindow.Height;
-                width = (Int16) imageSizeWindow.Width;
+                height = (int) imageSizeWindow.Height;
+                width = (int) imageSizeWindow.Width;
             }
 
-            this.CloseWindow();
-            _popupLayout = this.Content as PopupLayout;
+            if (_deviceInfo.WidthPixels != 0)
+            {
+                var d = _deviceInfo.ScaledDensity;
+                width = _deviceInfo.WidthPixels / (int)d;
+                width -= 60;
+                height = width - 10;
+            }
+
+            CloseWindow();
+            _popupLayout = Content as PopupLayout;
             var stackLayout = new StackLayout()
             {
                 HorizontalOptions = LayoutOptions.FillAndExpand,
                 VerticalOptions = LayoutOptions.Center,
-                BackgroundColor = Palette._MainAccent,
+                BackgroundColor = Palette._Transparent,
                 Orientation = StackOrientation.Vertical,
                 HeightRequest = height,
                 WidthRequest = width
             };
             StackLayout stackLayoutTitle = new StackLayout()
             {
-                HorizontalOptions = LayoutOptions.FillAndExpand,
-                VerticalOptions = LayoutOptions.Start,
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
+                VerticalOptions = LayoutOptions.End,
                 Orientation = StackOrientation.Horizontal,
                 BackgroundColor = Palette._Transparent,
             };
-            Label labelTitle = new Label()
+            //Label labelTitle = new Label()
+            //{
+            //    Text = _model.CurrentMediaContent.MediaTitle,
+            //    LineBreakMode = LineBreakMode.TailTruncation,
+            //    Style = (Style) App.CurrentApp.Resources["labelStyleInfoHeading"],
+            //    HorizontalOptions = LayoutOptions.Start,
+            //    Margin = new Thickness(3, 0, 0, 0)
+            //};
+            //Label labelSets = new Label()
+            //{
+            //    Text = (_model.CurrentMediaContent.SetsAndRepeats != null &&
+            //            _model.CurrentMediaContent.SetsAndRepeats.Trim().Length > 0
+            //        ? " [" + _model.CurrentMediaContent.SetsAndRepeats + "]"
+            //        : ""),
+            //    LineBreakMode = LineBreakMode.TailTruncation,
+            //    Style = (Style) App.CurrentApp.Resources["labelStyleInfoHeading"],
+            //    HorizontalOptions = LayoutOptions.StartAndExpand,
+            //};
+            //var imageSize = App.Configuration.GetImageSizeByID(ImageIdentity.TOP_BAR_CLOSE);
+            //Image imageClose = new Image()
+            //{
+            //    Source = ImageResizer.ResizeImage(TextResources.icon_close, imageSize),
+            //    Style = (Style) App.CurrentApp.Resources["imagePopupClose"],
+            //    Margin = new Thickness(0, 2, 5, 2)
+            //};
+            
+            var closeImageSize = App.Configuration.GetImageSizeByID(ImageIdentity.BADGE_HINT_WINDOW_CLOSE);
+            var closeImage = new Image()
             {
-                Text = this._model.CurrentMediaContent.MediaTitle,
-                LineBreakMode = LineBreakMode.TailTruncation,
-                Style = (Style) App.CurrentApp.Resources["labelStyleInfoHeading"],
-                HorizontalOptions = LayoutOptions.Start,
-                Margin = new Thickness(3, 0, 0, 0)
+                Source = ImageResizer.ResizeImage(TextResources.icon_BadgeCloseCircle, closeImageSize),
+                Style = (Style) App.CurrentApp.Resources["imageBadgeHintClose"],
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.Center,
+                Margin = new Thickness(0),
+                WidthRequest = 60,
+                HeightRequest = 60
             };
-            Label labelSets = new Label()
-            {
-                Text = (this._model.CurrentMediaContent.SetsAndRepeats != null &&
-                        this._model.CurrentMediaContent.SetsAndRepeats.Trim().Length > 0
-                    ? " [" + this._model.CurrentMediaContent.SetsAndRepeats + "]"
-                    : ""),
-                LineBreakMode = LineBreakMode.TailTruncation,
-                Style = (Style) App.CurrentApp.Resources["labelStyleInfoHeading"],
-                HorizontalOptions = LayoutOptions.StartAndExpand,
-            };
-            var imageSize = App.Configuration.GetImageSizeByID(ImageIdentity.TOP_BAR_CLOSE);
-            Image imageClose = new Image()
-            {
-                Source = ImageResizer.ResizeImage(TextResources.icon_close, imageSize),
-                Style = (Style) App.CurrentApp.Resources["imagePopupClose"],
-                Margin = new Thickness(0, 2, 5, 2)
-            };
+
             GestureRecognizer gestureRecognizer = new TapGestureRecognizer()
             {
                 Command = new Command(CloseWindow)
             };
-            imageClose.GestureRecognizers.Add(gestureRecognizer);
+            closeImage.GestureRecognizers.Add(gestureRecognizer);
             //if (imageSize != null)
             //{
             //    imageClose.HeightRequest = imageSize.Height;
             //    imageClose.WidthRequest = imageSize.Width;
             //}
 
-            stackLayoutTitle.Children.Add(labelTitle);
-            stackLayoutTitle.Children.Add(labelSets);
-            stackLayoutTitle.Children.Add(imageClose);
+            //stackLayoutTitle.Children.Add(labelTitle);
+            //stackLayoutTitle.Children.Add(labelSets);
+            stackLayoutTitle.Children.Add(closeImage);
 
             var videoView = new VideoView()
             {
@@ -139,16 +163,16 @@ namespace com.organo.xchallenge.Pages.Video
             stackLayout.Children.Add(stackLayoutTitle);
             stackLayout.Children.Add(videoView);
             _popupLayout.ShowPopup(stackLayout);
-            this._model.UpdateCurrentMedia();
+            _model.UpdateCurrentMedia();
         }
 
         public void CloseWindow()
         {
-            _popupLayout = this.Content as PopupLayout;
+            _popupLayout = Content as PopupLayout;
             if (_popupLayout.IsPopupActive)
             {
                 _model.StopPlayer();
-                this._model.IsPlaying = false;
+                _model.IsPlaying = false;
                 _popupLayout.DismissPopup();
             }
         }

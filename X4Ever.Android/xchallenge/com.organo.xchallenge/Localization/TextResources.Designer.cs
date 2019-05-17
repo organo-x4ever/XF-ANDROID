@@ -4225,6 +4225,15 @@ namespace com.organo.xchallenge.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Region.
+        /// </summary>
+        internal static string Region {
+            get {
+                return ResourceManager.GetString("Region", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Register.
         /// </summary>
         internal static string Register {
@@ -4423,15 +4432,6 @@ namespace com.organo.xchallenge.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select your continent.
-        /// </summary>
-        internal static string SelectContinent {
-            get {
-                return ResourceManager.GetString("SelectContinent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Select your country.
         /// </summary>
         internal static string SelectCountry {
@@ -4464,6 +4464,15 @@ namespace com.organo.xchallenge.Localization {
         internal static string SelectProvince {
             get {
                 return ResourceManager.GetString("SelectProvince", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select your region.
+        /// </summary>
+        internal static string SelectRegion {
+            get {
+                return ResourceManager.GetString("SelectRegion", resourceCulture);
             }
         }
         
@@ -4581,6 +4590,15 @@ namespace com.organo.xchallenge.Localization {
         internal static string SomethingWentWrongArgs {
             get {
                 return ResourceManager.GetString("SomethingWentWrongArgs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sort By.
+        /// </summary>
+        internal static string SortBy {
+            get {
+                return ResourceManager.GetString("SortBy", resourceCulture);
             }
         }
         

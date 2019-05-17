@@ -672,7 +672,13 @@ namespace com.organo.xchallenge.ViewModels.Profile
         public double GaugeCurrent
         {
             get { return _gaugeCurrent; }
-            set { SetProperty(ref _gaugeCurrent, value, GaugeCurrentPropertyName); }
+            set
+            {
+                double gaugeCurrent = 0;
+                if (value > 0)
+                    gaugeCurrent = value;
+                SetProperty(ref _gaugeCurrent, gaugeCurrent, GaugeCurrentPropertyName);
+            }
         }
 
         public double _gaugeCurrentPercentage;

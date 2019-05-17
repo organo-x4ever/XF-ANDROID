@@ -49,7 +49,7 @@ namespace com.organo.xchallenge.ViewModels.Menu
 
         public async Task GetMenuData()
         {
-            float height = 30, width = 30;
+            float height = 32, width = 32;
             var iconSize = App.Configuration.GetImageSizeByID(ImageIdentity.MENU_ITEM_ICON);
             if (iconSize != null)
             {
@@ -58,10 +58,11 @@ namespace com.organo.xchallenge.ViewModels.Menu
             }
 
             var menuItems = await DependencyService.Get<IMenuServices>().GetByApplicationAsync();
+            
             App.Configuration.IsProfileEditAllowed = menuItems.Any(m =>
                 ((MenuType) Enum.Parse(typeof(MenuType), m.MenuType) == MenuType.Settings));
             MenuItems = (from m in menuItems
-            where !((MenuType) Enum.Parse(typeof(MenuType), m.MenuType) == MenuType.Settings)
+                where !((MenuType) Enum.Parse(typeof(MenuType), m.MenuType) == MenuType.Settings)
                 select new HomeMenuItem
                 {
                     MenuTitle = _helper.GetResource(m.MenuTitle),
@@ -71,8 +72,8 @@ namespace com.organo.xchallenge.ViewModels.Menu
                     IconSource = m.MenuIcon != null
                         ? ImageResizer.ResizeImage(_helper.GetResource(m.MenuIcon), iconSize)
                         : null,
-                    IconHeight = height,
-                    IconWidth = width,
+                    IconHeight = height / 2,
+                    IconWidth = width / 2,
                     IsIconVisible = m.MenuIconVisible,
                     TextStyle = (MenuType) Enum.Parse(typeof(MenuType), m.MenuType) == MenuType.MyProfile
                         ? SelectedStyle

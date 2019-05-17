@@ -13,5 +13,10 @@ namespace com.organo.xchallenge.Helpers
         string GetVersionString { get; }
         string GetPlatform { get; }
         string GetAppName { get; }
+        int HeightPixels { get; }
+        float ScaledDensity { get; }
+        int WidthPixels { get; }
+        float Xdpi { get; }
+        float Ydpi { get; }
     }
 }

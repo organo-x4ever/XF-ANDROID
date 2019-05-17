@@ -35,8 +35,8 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
           </Grid.RowDefinitions>
-          <Entry Grid.Row="0" Grid.ColumnSpan="2" x:Name="entryApplication" Text="{Binding SelectedContinent, Mode=TwoWay}" Placeholder="{translate:Translate SelectContinent}" Keyboard="Text" Style="{DynamicResource entryStyle}" />
-          <Picker x:Name="pickerApplication" ItemsSource="{Binding ApplicationList}" Title="{translate:Translate SelectContinent}" SelectedItem="{Binding SelectedApplication, Mode=TwoWay}" IsVisible="False" />
+          <Entry Grid.Row="0" Grid.ColumnSpan="2" x:Name="entryApplication" Text="{Binding SelectedContinent, Mode=TwoWay}" Placeholder="{translate:Translate SelectRegion}" Keyboard="Text" Style="{DynamicResource entryStyle}" />
+          <Picker x:Name="pickerApplication" ItemsSource="{Binding ApplicationList}" Title="{translate:Translate SelectRegion}" SelectedItem="{Binding SelectedApplication, Mode=TwoWay}" IsVisible="False" />
           <Entry Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding EmailAddress,Mode=TwoWay}" Placeholder="{translate:Translate EmailAddress}" IsPassword="False" Keyboard="Email" Style="{DynamicResource entryStyle}" Completed="Entry_Completed" x:Name="entryEmail" />
           <Entry Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding UserPassword,Mode=TwoWay}" Placeholder="{translate:Translate Password}" IsPassword="True" Style="{DynamicResource entryStyle}" Completed="Entry_Completed" />
           <Entry Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding UserConfirmPassword,Mode=TwoWay}" Placeholder="{translate:Translate ConfirmPassword}" IsPassword="True" Style="{DynamicResource entryStyle}" Completed="Entry_Completed" />

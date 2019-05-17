@@ -19,8 +19,8 @@ namespace com.organo.xchallenge.ViewModels.Media
         private IAudioPlayerManager _audioPlayerManager;
         private readonly IMusicDictionary _musicDictionary;
         private IDevicePermissionServices _devicePermissionServices;
-        private static short timerSeconds = 1;
-
+        private readonly short timerSeconds = 1;
+        
         public AudioPlayerViewModel(INavigation navigation = null) : base(navigation)
         {
             _audioPlayerManager = DependencyService.Get<IAudioPlayerManager>();

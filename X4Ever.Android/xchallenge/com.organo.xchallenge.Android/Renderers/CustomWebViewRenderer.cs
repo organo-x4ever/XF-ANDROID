@@ -29,8 +29,7 @@ namespace com.organo.xchallenge.Droid.Renderers
                 Control.Settings.AllowUniversalAccessFromFileURLs = true;
                 if (customWebView != null)
                 {
-                    var filePath = DependencyService.Get<IFileDownloadService>()
-                        .GetFile(WebUtility.UrlEncode(customWebView.Uri));
+                    var filePath = DependencyService.Get<IFileDownloadService>().GetFile(WebUtility.UrlEncode(customWebView.Uri));
                     var finalPath = string.Format($"file:///android_asset/pdfjs/web/viewer.html?file={filePath}");
                     Control.LoadUrl(finalPath);
                 }

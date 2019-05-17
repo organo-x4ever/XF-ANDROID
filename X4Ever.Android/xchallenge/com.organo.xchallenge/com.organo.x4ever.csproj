@@ -100,6 +100,7 @@
     <Compile Include="Globals\IAppConfiguration.cs" />
     <Compile Include="Globals\IHelper.cs" />
     <Compile Include="Handler\ExceptionHandler.cs" />
+    <Compile Include="Helpers\DeviceDisplay.cs" />
     <Compile Include="Helpers\IDeviceInfo.cs" />
     <Compile Include="Helpers\IImageResizerHelpers.cs" />
     <Compile Include="Helpers\ImageResizer.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="Models\ApplicationSetting.cs" />
     <Compile Include="Models\ApplicationUserSelection.cs" />
     <Compile Include="Models\CountryProvince.cs" />
+    <Compile Include="Models\Display\DisplayInfo.cs" />
     <Compile Include="Models\ImageSize.cs" />
     <Compile Include="Globals\IMedia.cs" />
     <Compile Include="Globals\IMessage.cs" />
@@ -455,6 +457,8 @@
     <Compile Include="Statics\UserSettings.cs" />
     <Compile Include="Statics\WriteLog.cs" />
     <Compile Include="Statics\YoutubeVideoCollectionType.cs" />
+    <Compile Include="Statistic\IStatisticServices.cs" />
+    <Compile Include="Statistic\StatisticModel.cs" />
     <Compile Include="Triggers\SwitchViewEventTrigger.cs" />
     <Compile Include="Triggers\SwitchView.cs" />
     <Compile Include="Utilities\ActionType.cs" />

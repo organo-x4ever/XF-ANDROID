@@ -36,32 +36,32 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
               </Grid.ColumnDefinitions>
-                <Image Grid.Column="1" Source="{Binding BackwardButton}" Style="{DynamicResource imageIcon}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0">
+                <Image Grid.Column="1" Source="{Binding BackwardButton}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding BackwardCommand}" />
                     </Image.GestureRecognizers>
                 </Image>
-                <Image Grid.Column="2" Source="{Binding PreviousButton}" Style="{DynamicResource imageIcon}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0">
+                <Image Grid.Column="2" Source="{Binding PreviousButton}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0">
                 <Image.GestureRecognizers>
                   <TapGestureRecognizer Command="{Binding PreviousCommand}" />
                 </Image.GestureRecognizers>
               </Image>
-              <Image Grid.Column="3" Source="{Binding PlayPauseButton}" Style="{DynamicResource imageIcon}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0">
+              <Image Grid.Column="3" Source="{Binding PlayPauseButton}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0">
                 <Image.GestureRecognizers>
                   <TapGestureRecognizer Command="{Binding PlayCommand}" />
                 </Image.GestureRecognizers>
               </Image>
-              <Image Grid.Column="4" Source="{Binding StopButton}" Style="{DynamicResource imageIcon}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0">
+              <Image Grid.Column="4" Source="{Binding StopButton}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0">
                 <Image.GestureRecognizers>
                   <TapGestureRecognizer Command="{Binding StopCommand}" />
                 </Image.GestureRecognizers>
               </Image>
-              <Image Grid.Column="5" Source="{Binding NextButton}" Style="{DynamicResource imageIcon}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0">
+              <Image Grid.Column="5" Source="{Binding NextButton}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0">
                 <Image.GestureRecognizers>
                   <TapGestureRecognizer Command="{Binding NextCommand}" />
                 </Image.GestureRecognizers>
               </Image>
-                <Image Grid.Column="6" Source="{Binding ForwardButton}" Style="{DynamicResource imageIcon}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0">
+                <Image Grid.Column="6" Source="{Binding ForwardButton}" HeightRequest="{Binding AudioCommandImageHeight}" WidthRequest="{Binding AudioCommandImageWidth}" Margin="3,0">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding ForwardCommand}" />
                     </Image.GestureRecognizers>
@@ -132,9 +132,9 @@
       </StackLayout>
     </StackLayout>
   </StackLayout>
-  <media:AudioPlayerPage.Resources>
+  <media:AudioPlayerPageXaml.Resources>
     <ResourceDictionary>
       <converters:SplitStringConverter x:Key="SplitConverter" />
     </ResourceDictionary>
-  </media:AudioPlayerPage.Resources>
+  </media:AudioPlayerPageXaml.Resources>
 </media:AudioPlayerPageXaml>

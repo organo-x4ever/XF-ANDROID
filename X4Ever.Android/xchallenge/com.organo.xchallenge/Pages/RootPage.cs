@@ -12,6 +12,7 @@ using com.organo.xchallenge.Pages.Profile;
 using com.organo.xchallenge.Pages.Rewards;
 using com.organo.xchallenge.Pages.Video;
 using com.organo.xchallenge.Pages.YouTube;
+using com.organo.xchallenge.Statics;
 using com.organo.xchallenge.ViewModels.Base;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace com.organo.xchallenge.Pages
     public class RootPage : MasterDetailPage
     {
         private Dictionary<MenuType, NavigationPage> Pages { get; set; }
-        private MenuType lastMenuType { get; set; }
+        private MenuType LastMenuType { get; set; }
         private VisitedPages _visitedPages { get; set; }
 
         public VisitedPages VisitedPages
@@ -36,7 +37,7 @@ namespace com.organo.xchallenge.Pages
 
         public RootPage()
         {
-            lastMenuType = MenuType.Logout;
+            LastMenuType = MenuType.Logout;
             Pages = new Dictionary<MenuType, NavigationPage>();
             Title = TextResources.XChallenge;
             Master = new MenuPage(this);
@@ -74,10 +75,10 @@ namespace com.organo.xchallenge.Pages
                     switch (id)
                     {
                         case MenuType.MyProfile:
-                            var page = new XNavigationPage(new ProfileEnhanced(this) //MyProfile(this)
+                            var page = new XNavigationPage(new ProfileEnhanced(this)
                             {
                                 Title = TextResources.MainTabs_MyProfile,
-                                Icon = new FileImageSource {File = TextResources.MainTabs_MyProfile_Icon},
+                                Icon = new FileImageSource {File = TextResources.MainTabs_MyProfile_Icon}
                             });
                             SetDetailIfNull(page);
                             Pages.Add(id, page);
@@ -185,7 +186,6 @@ namespace com.organo.xchallenge.Pages
 
                         case MenuType.Logout:
                             await App.LogoutAsync();
-                            App.Configuration.DeleteUserKey();
                             App.GoToAccountPage();
                             return;
                     }
@@ -245,7 +245,10 @@ namespace com.organo.xchallenge.Pages
         }
 
         private void Init()
-        {
+        { 
+            BarBackgroundColor = Palette._MainAccent;
+            BarTextColor = Palette._MainBackground;
+            Title = "My Profile";
             SetHasBackButton(CurrentPage, false);
             SetHasNavigationBar(CurrentPage, false);
         }

@@ -44,8 +44,8 @@
         <DataTemplate>
           <ViewCell>
             <StackLayout Padding="{Binding ItemPadding}" Orientation="Horizontal" VerticalOptions="StartAndExpand" BackgroundColor="{x:Static statics:Palette._Transparent}" IsVisible="{Binding IsVisible}">
-              <Image Source="{Binding IconSource}" Style="{DynamicResource imageIconMenuItem}" VerticalOptions="Center" IsVisible="{Binding IsIconVisible}" BackgroundColor="{x:Static statics:Palette._Transparent}"/>
-              <Label x:Name="LabelMenuTitle" Text="{Binding MenuTitle}" Style="{Binding TextStyle}" VerticalOptions="Center" BackgroundColor="{x:Static statics:Palette._Transparent}" />
+              <Image Source="{Binding IconSource}" Style="{DynamicResource imageIconMenuItem}" HeightRequest="{Binding IconHeight}" WidthRequest="{Binding IconWidth}" VerticalOptions="Start" IsVisible="{Binding IsIconVisible}" BackgroundColor="{x:Static statics:Palette._Transparent}"/>
+              <Label x:Name="LabelMenuTitle" Text="{Binding MenuTitle}" Style="{Binding TextStyle}" VerticalOptions="Start" BackgroundColor="{x:Static statics:Palette._Transparent}" />
             </StackLayout>
           </ViewCell>
         </DataTemplate>

@@ -113,13 +113,7 @@ namespace com.organo.xchallenge.Pages.MainPage
             _model.SetActivityResource();
             ButtonSignIn.Clicked += async (sender, e) => { await LoginCommand(); };
             Initialization(Message);
-            VersionCheck();
-
-            if (!App.Configuration.IsUserKeyExists())
-            {
-                App.Configuration.SetUserKey();
-                await DependencyService.Get<IUserPushTokenServices>().SaveDeviceTokenUnauthorized();
-            }
+            await VersionCheck();
         }
 
         private void Initialization(string message = "")
@@ -131,7 +125,7 @@ namespace com.organo.xchallenge.Pages.MainPage
             EntryPassword.Unfocused += (sender, e) => { _model.BoxHeight = 1; };
         }
 
-        async void VersionCheck()
+        async Task VersionCheck()
         {
             await Task.Delay(TimeSpan.FromSeconds(2));
             if (!App.Configuration.IsVersionPrompt())

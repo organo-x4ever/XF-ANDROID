@@ -417,24 +417,6 @@ namespace com.organo.xchallenge.Globals
             _secureStorage.Delete(StorageConstants.KEY_VAULT_VERSION_PROMPT);
         }
 
-        public void SetUserKey() =>
-            _secureStorage.Store(StorageConstants.KEY_USER, Encoding.UTF8.GetBytes(_helper.GetUniqueCode()));
-
-        public string GetUserKey()
-        {
-            if (App.CurrentUser?.UserInfo != null && !string.IsNullOrEmpty(App.CurrentUser?.UserInfo?.UserKey))
-                return App.CurrentUser?.UserInfo?.UserKey;
-
-            var data = _secureStorage.Retrieve(StorageConstants.KEY_USER);
-            if (data != null)
-                return Encoding.UTF8.GetString(data, 0, data.Length);
-            return string.Empty;
-        }
-
-        public bool IsUserKeyExists() => !string.IsNullOrEmpty(GetUserKey());
-
-        public void DeleteUserKey() => _secureStorage.Delete(StorageConstants.KEY_USER);
-
         public void SetUserGraph(ChartType chartType) => _secureStorage.Store(StorageConstants.KEY_USER_GRAPH,
             Encoding.UTF8.GetBytes(chartType.ToString()));
 

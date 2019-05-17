@@ -10,7 +10,6 @@ using com.organo.xchallenge.Pages.Notification;
 using com.organo.xchallenge.Pages.UserSettings;
 using com.organo.xchallenge.Services;
 using com.organo.xchallenge.Statics;
-using com.organo.xchallenge.Triggers;
 using com.organo.xchallenge.Utilities;
 using com.organo.xchallenge.ViewModels.Profile;
 using com.organo.xchallenge.Views;
@@ -55,10 +54,9 @@ namespace com.organo.xchallenge.Pages.Profile
             NavigationPage.SetHasNavigationBar(this, false);
 
             _model.GetPageData();
-            await VersionCheck();
-
-            await Task.Delay(TimeSpan.FromMilliseconds(2));
+            await DependencyService.Get<IUserPushTokenServices>().SaveDeviceToken();
             UserSettingLayout();
+            await VersionCheck();
         }
 
         //private RelativeLayout _layout;
@@ -75,8 +73,9 @@ namespace com.organo.xchallenge.Pages.Profile
             set => _PanelShowing = value;
         }
 
-        private void UserSettingLayout()
+        private async void UserSettingLayout()
         {
+            await Task.Delay(TimeSpan.FromMilliseconds(750));
             _layout.GestureRecognizers.Add(new TapGestureRecognizer()
             {
                 Command = new Command((obj) =>
@@ -141,7 +140,7 @@ namespace com.organo.xchallenge.Pages.Profile
                             Clicked = async (sender, e) =>
                             {
                                 AnimatePanel();
-                                await Navigation.PushAsync(new UserSettingPage(),true);
+                                await Navigation.PushAsync(new UserSettingPage(), true);
                                 //ChangeBackgroundColor();
                             }
                         }),
@@ -156,7 +155,7 @@ namespace com.organo.xchallenge.Pages.Profile
                             Clicked = async (sender, e) =>
                             {
                                 AnimatePanel();
-                                await Navigation.PushAsync(new NotificationSettingPage(),true);
+                                await Navigation.PushAsync(new NotificationSettingPage(), true);
                             }
                         })
                     },
@@ -181,7 +180,7 @@ namespace com.organo.xchallenge.Pages.Profile
                 );
             }
 
-            _model.IsUserSettingVisible = App.Configuration.IsProfileEditAllowed && _panel.Children.Count > 0;
+            _model.IsUserSettingVisible = _panel.Children.Count > 0 && App.Configuration.IsProfileEditAllowed;
         }
 
         /// <summary>
@@ -288,8 +287,6 @@ namespace com.organo.xchallenge.Pages.Profile
                 BackgroundColor = Palette._Transparent,
                 WidthRequest = width,
                 HeightRequest = height,
-                MinimumWidthRequest = width,
-                MinimumHeightRequest = height,
             };
 
             var stackInner = new StackLayout()
@@ -306,17 +303,12 @@ namespace com.organo.xchallenge.Pages.Profile
             {
                 Source = ImageResizer.ResizeImage(TextResources.icon_BadgeCloseCircle, closeImageSize),
                 Style = (Style) App.CurrentApp.Resources["imageBadgeHintClose"],
-                HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions = LayoutOptions.Center,
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
+                VerticalOptions = LayoutOptions.EndAndExpand,
                 Margin = new Thickness(0, 0, 0, -10),
+                HeightRequest = 50,
+                WidthRequest = 50
             };
-            if (closeImageSize != null)
-            {
-                closeImage.WidthRequest = closeImageSize.Width;
-                closeImage.HeightRequest = closeImageSize.Height;
-                closeImage.MinimumWidthRequest = closeImageSize.Width;
-                closeImage.MinimumHeightRequest = closeImageSize.Height;
-            }
 
             var tapGestureRecognizer = new TapGestureRecognizer()
             {
@@ -553,67 +545,8 @@ namespace com.organo.xchallenge.Pages.Profile
         {
             if (_model.TrackerPage == null)
                 await _model.ProduceTrackerLog();
-            await Navigation.PushAsync(_model.TrackerPage);
+            await Navigation.PushAsync(_model.TrackerPage, true);
         }
-
-        private string CurrentProfileID => ProfileModifyID;//_model.UpdateProfileRequired ? ProfileModifyID : TrackerModifyID;
-        private string DefaultProfileID => "stackLayoutProfile"; //IdentityConstants.LAYOUT_PROFILE_ID;
-        private string TrackerModifyID => "stackLayoutTracker"; //IdentityConstants.LAYOUT_TRACKER_ID;
-        private string ProfileModifyID => "stackLayoutEditProfile"; //IdentityConstants.LAYOUT_EDIT_PROFILE_ID;
-
-        bool ShowEditProfilePanel = false;
-        protected void DisplayEditProfilePanel()
-        {
-            if (!ShowEditProfilePanel) // && !((View)buttonProfile.Parent.Parent).FindByName<View>(CurrentProfileID).IsVisible
-                SwitchEditProfilePanel();
-        }
-        protected void HideEditProfilePanel()
-        {
-            if (ShowEditProfilePanel)// && ((View)buttonProfile.Parent.Parent).FindByName<View>(CurrentProfileID).IsVisible)
-                SwitchEditProfilePanel();
-        }
-
-        protected void SwitchEditProfilePanel()
-        {
-            // swap the state
-            ShowEditProfilePanel = !ShowEditProfilePanel;
-
-            if (ShowEditProfilePanel)
-            {
-                SwitchView switchView = new SwitchView()
-                {
-                    Source = DefaultProfileID,
-                    Target = CurrentProfileID,
-                    Direction = SwitchView.eDirection.Left
-                };
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    switchView.Invoke(buttonProfile);
-                    if (CurrentProfileID == ProfileModifyID)
-                    {
-                        //await EditProfile();
-                    }
-                    else
-                    {
-                        //await UpdateTracker();
-                    }
-                });
-            }
-            else
-            {
-                SwitchView switchView = new SwitchView()
-                {
-                    Source = CurrentProfileID,
-                    Target = DefaultProfileID,
-                    Direction = SwitchView.eDirection.Right
-                };
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    switchView.Invoke(buttonProfile);
-                });
-            }
-        }
-
 
         protected override bool OnBackButtonPressed()
         {

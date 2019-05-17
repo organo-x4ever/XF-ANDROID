@@ -1802,8 +1802,8 @@ your 3rd meal. Enjoy Pro Meals
   <data name="ContinentCAPS" xml:space="preserve">
     <value>CONTINENT</value>
   </data>
-  <data name="SelectContinent" xml:space="preserve">
-    <value>Select your continent</value>
+  <data name="SelectRegion" xml:space="preserve">
+    <value>Select your region</value>
   </data>
   <data name="UpdateMessageArgs" xml:space="preserve">
     <value>A new version of {0} is available. Please update to version {1} now.</value>
@@ -1897,5 +1897,11 @@ your 3rd meal. Enjoy Pro Meals
   </data>
   <data name="icon_profile_settings_64x64" xml:space="preserve">
     <value>icon_profile_settings_64x64.png</value>
+  </data>
+  <data name="SortBy" xml:space="preserve">
+    <value>Sort By</value>
+  </data>
+  <data name="Region" xml:space="preserve">
+    <value>Region</value>
   </data>
 </root>

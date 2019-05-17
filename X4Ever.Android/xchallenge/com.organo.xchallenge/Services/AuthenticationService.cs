@@ -119,7 +119,6 @@ namespace com.organo.xchallenge.Services
                                 ExtendedLifeTimeToken = true,
                                 UserInfo = model
                             };
-                            //await Task.Delay(TimeSpan.FromMilliseconds(1));
                             return user;
                         }
                     }

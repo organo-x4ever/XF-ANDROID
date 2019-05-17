@@ -54,10 +54,6 @@ namespace com.organo.xchallenge.Globals
         bool IsVersionPrompt();
         void VersionPrompted();
         void DeleteVersionPrompt();
-        void SetUserKey();
-        string GetUserKey();
-        bool IsUserKeyExists();
-        void DeleteUserKey();
         void SetUserGraph(ChartType chartType);
         ChartType GetUserGraph();
         void DeleteUserGraph();

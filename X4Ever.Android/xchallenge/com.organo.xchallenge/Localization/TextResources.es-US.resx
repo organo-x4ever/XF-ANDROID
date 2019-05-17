@@ -1798,7 +1798,7 @@
   <data name="ContinentCAPS" xml:space="preserve">
     <value>CONTINENTE</value>
   </data>
-  <data name="SelectContinent" xml:space="preserve">
+  <data name="SelectRegion" xml:space="preserve">
     <value>Selecciona tu continente</value>
   </data>
   <data name="UpdateMessageArgs" xml:space="preserve">
@@ -1896,5 +1896,11 @@
   </data>
   <data name="icon_profile_settings_64x64" xml:space="preserve">
     <value>icon_profile_settings_64x64.png</value>
+  </data>
+  <data name="SortBy" xml:space="preserve">
+    <value>Sort By</value>
+  </data>
+  <data name="Region" xml:space="preserve">
+    <value>Region</value>
   </data>
 </root>

@@ -427,7 +427,7 @@ namespace com.organo.xchallenge.Services
             await WriteLog(requestUri, message, GetExceptionDetail(exception), showMessage);
         }
 
-        private static string GetExceptionDetail(Exception exception)
+        public static string GetExceptionDetail(Exception exception)
         {
             var stringBuilder = new StringBuilder();
             while (exception != null)

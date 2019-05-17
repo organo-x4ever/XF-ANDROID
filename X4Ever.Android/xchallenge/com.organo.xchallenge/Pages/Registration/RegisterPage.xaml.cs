@@ -96,8 +96,7 @@ namespace com.organo.xchallenge.Pages.Registration
                     UserRegistered = DateTime.Now,
                     UserActivationKey = guid.ToString(),
                     UserMetas = null,
-                    UserApplication = _model.SelectedApplication,
-                    UserKey = App.Configuration?.GetUserKey()
+                    UserApplication = _model.SelectedApplication
                 };
                 var response = await _userPivotService.RegisterAsync(user);
                 _model.SetActivityResource();
@@ -133,7 +132,7 @@ namespace com.organo.xchallenge.Pages.Registration
         {
             ValidationErrors validationErrors = new ValidationErrors();
             if (_model.SelectedApplication == null || string.IsNullOrEmpty(_model.SelectedApplication))
-                validationErrors.Add(string.Format(TextResources.Required_MustBeSelected, TextResources.Continent));
+                validationErrors.Add(string.Format(TextResources.Required_MustBeSelected, TextResources.Region));
             if (_model.EmailAddress == null || _model.EmailAddress.Trim().Length == 0)
                 validationErrors.Add(string.Format(TextResources.Required_IsMandatory, TextResources.EmailAddress));
             else if (!Regex.IsMatch(_model.EmailAddress.Trim(), CommonConstants.EMAIL_VALIDATION_REGEX))

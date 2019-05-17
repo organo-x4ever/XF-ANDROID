@@ -126,22 +126,11 @@
                             <Label Grid.Row="2" Grid.Column="2" Margin="0" Text="{Binding GaugeMax, StringFormat='{0}'}" Style="{DynamicResource labelStyleTableViewItem}" VerticalOptions="Center" HorizontalOptions="Start" />
                           </Grid>
                         </Frame>
-                        <Button x:Name="buttonProfile" Grid.Row="10" Text="" IsVisible="False" />
                         <controls:FooterView Grid.Row="11" Grid.ColumnSpan="3"/>
                   </Grid>
                          </StackLayout>
                     </RelativeLayout>
         </ScrollView>
-          </StackLayout>
-        <StackLayout x:Name="stackLayoutEditProfile" IsVisible="False" Orientation="Vertical" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand">
-              <Frame Style="{DynamicResource frameStyle}">
-                  <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
-                                  AbsoluteLayout.LayoutFlags="WidthProportional">
-                      <StackLayout VerticalOptions="StartAndExpand" HorizontalOptions="StartAndExpand" Margin="0,0,0,80">
-                          <Label Text="Edit Profile Page" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
-                      </StackLayout>
-                  </AbsoluteLayout>
-              </Frame>
           </StackLayout>
       </StackLayout>
     </layout:PopupLayout.Content>

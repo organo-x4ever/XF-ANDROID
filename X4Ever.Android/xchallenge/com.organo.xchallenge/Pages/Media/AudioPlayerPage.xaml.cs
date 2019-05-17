@@ -110,7 +110,7 @@ namespace com.organo.xchallenge.Pages.Media
             }
 
             var result =
-                await DisplayActionSheet(TextResources.ChooseOption, TextResources.Cancel, null, list.ToArray());
+                await DisplayActionSheet(TextResources.SortBy, TextResources.Cancel, null, list.ToArray());
             if (result != null && result != TextResources.Cancel)
             {
                 _model.PlaylistSortBy = (PlaylistSortList) Enum.Parse(typeof(PlaylistSortList), result.ToString());

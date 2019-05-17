@@ -35,7 +35,7 @@ using String = Java.Lang.String;
 namespace com.organo.xchallenge.Droid
 {
     [Activity(Label = "X4Ever", Icon = "@drawable/logo", Theme = "@style/Theme.Splash", MainLauncher = true,
-        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : Xamarin.Forms.Platform.Android.FormsAppCompatActivity
         , ActivityCompat.IOnRequestPermissionsResultCallback
     {
