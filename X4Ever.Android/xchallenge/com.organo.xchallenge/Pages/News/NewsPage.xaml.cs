@@ -11,7 +11,7 @@ namespace com.organo.xchallenge.Pages.News
 {
     public partial class NewsPage : NewsPageXaml
     {
-        private NewsViewModel _model;
+        private readonly NewsViewModel _model;
 
         public NewsPage(RootPage root)
         {

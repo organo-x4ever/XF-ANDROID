@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<blog:BlogPageXaml
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:blog="clr-namespace:com.organo.xchallenge.Pages.Blog" 
+    xmlns:controls="clr-namespace:com.organo.xchallenge.Controls"
+    x:Class="com.organo.xchallenge.Pages.Blog.BlogPage">
+    <blog:BlogPageXaml.Content>
+        <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <controls:TopBarAccountView />
+            <ContentView x:Name="contentView" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+            <!--<controls:HybridWebView x:Name="hybridWebView"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,-6,0,0" />-->
+        </StackLayout>
+    </blog:BlogPageXaml.Content>
+</blog:BlogPageXaml>

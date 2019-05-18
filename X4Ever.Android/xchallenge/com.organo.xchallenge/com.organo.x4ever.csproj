@@ -56,6 +56,7 @@
     <Compile Include="Controls\GridMenu.cs" />
     <Compile Include="Controls\GridNews.cs" />
     <Compile Include="Controls\GridTracker.cs" />
+    <Compile Include="Controls\HybridWebView.cs" />
     <Compile Include="Controls\ImageAlignment.cs" />
     <Compile Include="Controls\EntryWithImage.cs" />
     <Compile Include="Controls\MenuUser.cs" />
@@ -221,6 +222,9 @@
     <Compile Include="Pages\Animation_Test\LabelEffects.xaml.cs">
       <DependentUpon>LabelEffects.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Blog\BlogPage.xaml.cs">
+      <DependentUpon>BlogPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ChangePassword\ChangePasswordPage.xaml.cs">
       <DependentUpon>ChangePasswordPage.xaml</DependentUpon>
     </Compile>
@@ -371,6 +375,7 @@
     <Compile Include="Services\AuthenticationService.cs" />
     <Compile Include="Services\BackButtonPress.cs" />
     <Compile Include="Services\ClientService.cs" />
+    <Compile Include="Services\ConstantServices.cs" />
     <Compile Include="Services\IAppInfoService.cs" />
     <Compile Include="Services\IApplicationLanguageService.cs" />
     <Compile Include="Services\IApplicationServices.cs" />
@@ -384,6 +389,7 @@
     <Compile Include="Services\IAuthenticationService.cs" />
     <Compile Include="Services\IAuthenticator.cs" />
     <Compile Include="Services\IConfigFetcher.cs" />
+    <Compile Include="Services\IConstantServices.cs" />
     <Compile Include="Services\IFileDownloadService.cs" />
     <Compile Include="Services\IFileService.cs" />
     <Compile Include="Services\IGeoCodingService.cs" />
@@ -472,6 +478,7 @@
     <Compile Include="ViewModels\Animation_Test\Animation_TestMainViewModel.cs" />
     <Compile Include="ViewModels\Animation_Test\LabelEffectsViewModel.cs" />
     <Compile Include="ViewModels\Base\BaseViewModel.cs" />
+    <Compile Include="ViewModels\Blog\BlogViewModel.cs" />
     <Compile Include="ViewModels\ChangePassword\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\Community\CommunityViewModel.cs" />
     <Compile Include="ViewModels\Content\ContentViewModel.cs" />
@@ -986,6 +993,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\Splash\SplashPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Blog\BlogPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

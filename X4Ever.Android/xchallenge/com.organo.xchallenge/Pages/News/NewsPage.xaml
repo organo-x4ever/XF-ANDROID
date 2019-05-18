@@ -1,12 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<news1:NewsPageXaml xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:news1="clr-namespace:com.organo.xchallenge.Pages.News;assembly=com.organo.xchallenge"
-             xmlns:statics="clr-namespace:com.organo.xchallenge.Statics;assembly=com.organo.xchallenge"
-             xmlns:localization="clr-namespace:com.organo.xchallenge.Localization;assembly=com.organo.xchallenge"
-             xmlns:controls="clr-namespace:com.organo.xchallenge.Controls;assembly=com.organo.xchallenge"
-             x:Class="com.organo.xchallenge.Pages.News.NewsPage"
-             BackgroundColor="{x:Static statics:Palette._MainBackground}">
+<news1:NewsPageXaml 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:news1="clr-namespace:com.organo.xchallenge.Pages.News;assembly=com.organo.xchallenge"
+    xmlns:statics="clr-namespace:com.organo.xchallenge.Statics;assembly=com.organo.xchallenge"
+    xmlns:localization="clr-namespace:com.organo.xchallenge.Localization;assembly=com.organo.xchallenge"
+    xmlns:controls="clr-namespace:com.organo.xchallenge.Controls;assembly=com.organo.xchallenge"
+    x:Class="com.organo.xchallenge.Pages.News.NewsPage"
+    BackgroundColor="{x:Static statics:Palette._MainBackground}">
   <news1:NewsPageXaml.Content>
     <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
       <controls:TopBarAccountView></controls:TopBarAccountView>

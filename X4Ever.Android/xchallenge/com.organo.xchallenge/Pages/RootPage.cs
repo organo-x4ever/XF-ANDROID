@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using com.organo.xchallenge.Pages.Blog;
 using Xamarin.Forms;
 
 namespace com.organo.xchallenge.Pages
@@ -85,7 +86,7 @@ namespace com.organo.xchallenge.Pages
                             break;
 
                         case MenuType.LatestNews:
-                            page = new XNavigationPage(new NewsPage(this)
+                            page = new XNavigationPage(new BlogPage(this) //NewsPage(this)
                             {
                                 Title = TextResources.MainTabs_LatestNews,
                                 Icon = new FileImageSource {File = TextResources.MainTabs_LatestNews_Icon}
