@@ -12,13 +12,11 @@
         public static string ICON_PROFILE_SETTINGS => "profile_settings.png";
         public static string ICON_PROFILE_SETTINGS_64x64 => "profile_settings_64x64.png";
 
-        
         public static string ICON_PROFILE_EDIT_128 => "profile_user_edit_128.png";
         public static string ICON_PROFILE_PASSWORD_128 => "profile_user_password_128.png";
         public static string ICON_PROFILE_LOCK_128 => "profile_user_lock_128.png";
         public static string ICON_PROFILE_LANGUAGE_128 => "profile_user_language_128.png";
         public static string ICON_PROFILE_NOTIFICATION_128 => "profile_user_notification_128.png";
-
 
         public static string ICON_SOCIAL_MEDIA => "social_media.png";
         public static string ICON_SOCIAL_MEDIA_COLOR => "social_media_color.png";

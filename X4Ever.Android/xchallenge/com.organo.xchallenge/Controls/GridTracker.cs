@@ -253,8 +253,6 @@ namespace com.organo.xchallenge.Controls
                                     if (response != null && response.Contains(HttpConstants.SUCCESS))
                                     {
                                         control.CloseAction.Invoke();
-                                        //var showTracker = control.ProfileModel.UserDetail.IsTrackerRequiredAfterDelete;
-                                        //await control.ProfileModel.GetUserAsync(showTracker);
                                     }
                                 })
                             };

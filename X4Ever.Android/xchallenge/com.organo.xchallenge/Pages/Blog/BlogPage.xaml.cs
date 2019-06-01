@@ -34,16 +34,14 @@ namespace com.organo.xchallenge.Pages.Blog
             NavigationPage.SetHasNavigationBar(this, false);
             BindingContext = _model;
             _model.WebUri = await _model.GetLink();
-            var webUri =
-                $"?token={App.Configuration.UserToken}&theme=dark&languagecode={App.Configuration?.AppConfig.DefaultLanguage}&active=true&application={App.Configuration.GetApplication()}";
-
+            
             contentView.Content = new HybridWebView()
             {
                 HorizontalOptions = LayoutOptions.FillAndExpand,
                 VerticalOptions = LayoutOptions.FillAndExpand,
                 Margin = new Thickness(0, -6, 0, 0),
                 BackgroundColor = Palette._MainBackground,
-                Uri = _model.WebUri + webUri
+                Uri = _model.WebUri
             };
         }
 

@@ -70,7 +70,20 @@ namespace com.organo.xchallenge.Pages.Animation_Test
                     }),
                     Constraint.RelativeToParent((p) =>
                     {
-                        return Device.OnPlatform(28, 0, 0);
+                        double topPadding;
+
+                        switch(Device.RuntimePlatform)
+                        {
+                            case Device.iOS:
+                                topPadding = 28;
+                                break;
+                            default:
+                                topPadding = 0;
+                                break;
+                        }
+
+                        return topPadding;
+                        //return Device.OnPlatform(28, 0, 0);
                     }),
                     Constraint.RelativeToParent((p) =>
                     {

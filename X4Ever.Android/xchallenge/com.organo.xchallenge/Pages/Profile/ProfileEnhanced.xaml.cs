@@ -159,7 +159,7 @@ namespace com.organo.xchallenge.Pages.Profile
                             }
                         })
                     },
-                    Padding = new Thickness(1, 1),
+                    Padding = new Thickness(1, 10, 10, 0),
                     VerticalOptions = LayoutOptions.FillAndExpand,
                     HorizontalOptions = LayoutOptions.EndAndExpand,
                     BackgroundColor = Palette._Transparent //Color.FromRgba(0, 0, 0, 180)
@@ -543,9 +543,16 @@ namespace com.organo.xchallenge.Pages.Profile
 
         private async void ShowDetail(object sender, EventArgs args)
         {
-            if (_model.TrackerPage == null)
-                await _model.ProduceTrackerLog();
-            await Navigation.PushAsync(_model.TrackerPage, true);
+            if (!_model.ShowTrackerDetail)
+            {
+                _model.ShowTrackerDetail = true;
+                if (_model.TrackerPage == null)
+                    await _model.ProduceTrackerLog();
+                await Navigation.PushAsync(_model.TrackerPage, true);
+            }
+
+            await Task.Delay(TimeSpan.FromSeconds(2));
+            _model.ShowTrackerDetail = false;
         }
 
         protected override bool OnBackButtonPressed()

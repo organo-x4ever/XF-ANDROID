@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿
+using System;
 using System.Threading.Tasks;
 using com.organo.xchallenge.Pages.Base;
 using com.organo.xchallenge.ViewModels.Profile;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace com.organo.xchallenge.Pages.Profile
 {
@@ -49,20 +46,13 @@ namespace com.organo.xchallenge.Pages.Profile
                     await gridTracker.ProfileModel.GetUserAsync(
                         gridTracker.ProfileModel.UserDetail.IsTrackerRequiredAfterDelete);
                 };
-                await Task.Delay(TimeSpan.FromMilliseconds(1000));
-                _model.ShowTrackerDetail = false;
             });
-        }
-
-        private void ClosePopup()
-        {
-            Device.BeginInvokeOnMainThread(async () => { await Navigation.PopAsync(); });
         }
 
         protected override bool OnBackButtonPressed()
         {
             _model.ShowTrackerDetail = false;
-            ClosePopup();
+            Device.BeginInvokeOnMainThread(async () => { await Navigation.PopAsync(); });
             return true;
         }
 

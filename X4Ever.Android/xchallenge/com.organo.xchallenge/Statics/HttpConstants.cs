@@ -13,6 +13,7 @@
         public static string APPLICATION => "Application";
         public static string REQUEST_HEADER_LANGUAGE => "Language";
         public static string PLATFORM => "Platform";
+        public static string VERSION => "Version";
         public static string MEDIA_TYPE_TEXT_PLAIN => "text/plain";
         public static string MEDIA_TYPE_APPLICATION_JSON => "application/json";
         public static string MEDIA_TYPE_APPLICATION_FORM => "application/x-www-form-urlencoded";

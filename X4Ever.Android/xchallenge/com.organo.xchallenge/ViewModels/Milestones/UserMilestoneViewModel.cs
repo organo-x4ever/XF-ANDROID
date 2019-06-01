@@ -310,14 +310,11 @@ namespace com.organo.xchallenge.ViewModels.Milestones
                     if (await MilestoneSaveAsync())
                     {
                         SaveGender();
-                        SaveSuccessful(string.Empty);
-                        await Task.Delay(TimeSpan.FromMilliseconds(500));
-                        Device.BeginInvokeOnMainThread(async () =>
-                        {
-                            await App.CurrentApp.MainPage.Navigation.PopModalAsync();
-                        });
+                        SaveSuccessful();
                     }
                 }
+                else if (response.Contains("MessageInvalidObject"))
+                    SaveSuccessful();
                 else
                     SetActivityResource(showError: true, errorMessage: response, modalWindow: true);
             }
@@ -370,16 +367,18 @@ namespace com.organo.xchallenge.ViewModels.Milestones
             return response == HttpConstants.SUCCESS;
         }
 
-        private async void SaveSuccessful(string message = "")
+        private async void SaveSuccessful()
         {
             ShowBadgeAchievedImage = BadgeAchievedImage != null && BadgeAchievedImage.Trim().Length > 0;
             await ProfileViewModel.GetUserAsync();
             SetActivityResource();
-            DependencyService.Get<IInformationMessageServices>().ShortAlert(message.Trim().Length > 0
-                ? message
-                : GoalAchieved
-                    ? TextResources.MessageMilestoneSubmissionSuccessful
-                    : TextResources.MessageCurrentWeightSubmissionSuccessful);
+            var message = "";
+            if (GoalAchieved)
+                message = TextResources.MessageMilestoneSubmissionSuccessful;
+            else
+                message = TextResources.MessageCurrentWeightSubmissionSuccessful;
+            DependencyService.Get<IInformationMessageServices>().ShortAlert(message);
+            Device.BeginInvokeOnMainThread(async () => { await App.CurrentApp.MainPage.Navigation.PopModalAsync(); });
         }
 
         private List<Models.User.Tracker> BuildTracker()

@@ -24,7 +24,6 @@ namespace com.organo.xchallenge.ViewModels.Base
         {
             Navigation = navigation;
             _helper = DependencyService.Get<IHelper>();
-            IsUserSettingVisible = false;
         }
 
         public bool IsInitialized { get; set; }

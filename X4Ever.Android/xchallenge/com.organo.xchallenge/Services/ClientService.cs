@@ -252,7 +252,7 @@ namespace com.organo.xchallenge.Services
 
             return null;
         }
-        
+
         private static HttpRequestMessage CheckHeaders(HttpRequestMessage request)
         {
             if (App.Configuration != null)
@@ -284,6 +284,13 @@ namespace com.organo.xchallenge.Services
                 var platform = DeviceInfo.GetPlatform;
                 if (!string.IsNullOrEmpty(platform))
                     request.Headers.Add(HttpConstants.PLATFORM, platform);
+            }
+
+            if (!request.Headers.Contains(HttpConstants.VERSION))
+            {
+                var version = App.Configuration?.AppConfig.ApplicationVersion;
+                if (!string.IsNullOrEmpty(version))
+                    request.Headers.Add(HttpConstants.VERSION, version);
             }
 
             return request;
@@ -320,6 +327,13 @@ namespace com.organo.xchallenge.Services
                 var platform = DeviceInfo.GetPlatform;
                 if (platform != null)
                     request.Headers.Add(HttpConstants.PLATFORM, platform);
+            }
+            
+            if (!request.Headers.Contains(HttpConstants.VERSION))
+            {
+                var version = App.Configuration?.AppConfig.ApplicationVersion;
+                if (!string.IsNullOrEmpty(version))
+                    request.Headers.Add(HttpConstants.VERSION, version);
             }
 
             return request;
