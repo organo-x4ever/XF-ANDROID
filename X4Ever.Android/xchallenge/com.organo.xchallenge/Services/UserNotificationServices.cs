@@ -14,7 +14,7 @@ namespace com.organo.xchallenge.Services
     public class UserNotificationServices : IUserNotificationServices
     {
         public string ControllerName => "notificationsettings";
-        
+
         public async Task<UserNotificationSetting> GetAsync()
         {
             var response = await ClientService.GetDataAsync(ControllerName, "getbytokenasync");
@@ -23,6 +23,19 @@ namespace com.organo.xchallenge.Services
                 var jsonTask = response.Content.ReadAsStringAsync();
                 jsonTask.Wait();
                 return JsonConvert.DeserializeObject<UserNotificationSetting>(jsonTask.Result);
+            }
+
+            return null;
+        }
+
+        public async Task<UserNotificationSettingViewModel> GetAdvancedAsync()
+        {
+            var response = await ClientService.GetDataAsync(ControllerName, "getbytokenasync");
+            if (response != null)
+            {
+                var jsonTask = response.Content.ReadAsStringAsync();
+                jsonTask.Wait();
+                return JsonConvert.DeserializeObject<UserNotificationSettingViewModel>(jsonTask.Result);
             }
 
             return null;

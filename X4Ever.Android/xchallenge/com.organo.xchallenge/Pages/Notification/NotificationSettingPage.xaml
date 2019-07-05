@@ -9,7 +9,7 @@
           <TableRoot>
             <TableSection Title="{Binding NotificationsText}">
               <ViewCell>
-                <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" Padding="25,0">
+                <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" Padding="25,0" IsVisible="{Binding IsVisibleWeightSubmitReminder}">
                   <Label Text="{Binding WeightSubmitReminderText}" HorizontalOptions="StartAndExpand" Style="{DynamicResource labelStyleLink}" />
                   <StackLayout Orientation="Horizontal" Spacing="10"> 
                       <Label Text="{Binding IsWeightSubmitReminder,Converter={StaticResource BoolToStringConverter}, ConverterParameter='enabledisable', StringFormat='{0}'}" VerticalOptions="Center" HorizontalOptions="End" Style="{Binding SwitchWeightSubmitReminderLabelStyle}" />
@@ -18,7 +18,7 @@
                 </StackLayout>
               </ViewCell>
               <ViewCell>
-                <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" Padding="25,0">
+                <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" Padding="25,0" IsVisible="{Binding IsVisiblePromotional}">
                   <Label Text="{Binding PromotionalText}" HorizontalOptions="StartAndExpand" Style="{DynamicResource labelStyleLink}" />
                   <StackLayout Orientation="Horizontal" Spacing="10"> 
                       <Label Text="{Binding IsPromotional,Converter={StaticResource BoolToStringConverter}, ConverterParameter='enabledisable', StringFormat='{0}'}" VerticalOptions="Center" HorizontalOptions="End" Style="{Binding SwitchPromotionalLabelStyle}" />
@@ -27,7 +27,7 @@
                 </StackLayout>
               </ViewCell>
                 <ViewCell>
-                    <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" Padding="25,0">
+                    <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" Padding="25,0" IsVisible="{Binding IsVisibleSpecialOffer}">
                         <Label Text="{Binding SpecialOfferText}" HorizontalOptions="StartAndExpand" Style="{DynamicResource labelStyleLink}" />
                         <StackLayout Orientation="Horizontal" Spacing="10"> 
                             <Label Text="{Binding IsSpecialOffer,Converter={StaticResource BoolToStringConverter}, ConverterParameter='enabledisable', StringFormat='{0}'}" VerticalOptions="Center" HorizontalOptions="End" Style="{Binding SwitchSpecialOfferLabelStyle}" />
@@ -36,7 +36,7 @@
                     </StackLayout>
                 </ViewCell>
                 <ViewCell>
-                    <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" Padding="25,0">
+                    <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" Padding="25,0" IsVisible="{Binding IsVisibleVersionUpdate}">
                         <Label Text="{Binding VersionUpdateText}" HorizontalOptions="StartAndExpand" Style="{DynamicResource labelStyleLink}" />
                         <StackLayout Orientation="Horizontal" Spacing="10"> 
                             <Label Text="{Binding IsVersionUpdate,Converter={StaticResource BoolToStringConverter}, ConverterParameter='enabledisable', StringFormat='{0}'}" VerticalOptions="Center" HorizontalOptions="End" Style="{Binding SwitchVersionUpdateLabelStyle}" />
@@ -45,7 +45,7 @@
                     </StackLayout>
                 </ViewCell>
                 <ViewCell>
-                    <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" Padding="25,0">
+                    <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" Padding="25,0" IsVisible="{Binding IsVisibleGeneralMessage}">
                         <Label Text="{Binding GeneralMessageText}" HorizontalOptions="StartAndExpand" Style="{DynamicResource labelStyleLink}" />
                         <StackLayout Orientation="Horizontal" Spacing="10"> 
                             <Label Text="{Binding IsGeneralMessage,Converter={StaticResource BoolToStringConverter}, ConverterParameter='enabledisable', StringFormat='{0}'}" VerticalOptions="Center" HorizontalOptions="End" Style="{Binding SwitchGeneralMessageLabelStyle}" />

@@ -10,6 +10,7 @@ namespace com.organo.xchallenge.Services
     public interface IUserNotificationServices : IBaseService
     {
         Task<UserNotificationSetting> GetAsync();
+        Task<UserNotificationSettingViewModel> GetAdvancedAsync();
         Task<string> Update(UserNotificationSetting notificationSetting);
     }
 }

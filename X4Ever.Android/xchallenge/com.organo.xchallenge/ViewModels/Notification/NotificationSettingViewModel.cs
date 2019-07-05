@@ -28,12 +28,19 @@ namespace com.organo.xchallenge.ViewModels.Notification
             VersionUpdateText = TextResources.Notification_VersionUpdate;
             GeneralMessageText = TextResources.Notification_GeneralMessage;
             NotificationsText = TextResources.Notifications;
+
+            IsVisibleWeightSubmitReminder = true;
+            IsVisibleGeneralMessage = true;
+            IsVisibleSpecialOffer = true;
+            IsVisiblePromotional = true;
+            IsVisibleVersionUpdate = true;
+
             GetNotificationStatus();
         }
 
         private async void GetNotificationStatus()
         {
-            var notification = await _notificationServices.GetAsync();
+            var notification = await _notificationServices.GetAdvancedAsync();
             if (notification != null)
             {
                 IsWeightSubmitReminder = notification.IsWeightSubmitReminder;
@@ -41,6 +48,13 @@ namespace com.organo.xchallenge.ViewModels.Notification
                 IsSpecialOffer = notification.IsSpecialOffer;
                 IsPromotional = notification.IsPromotional;
                 IsVersionUpdate = notification.IsVersionUpdate;
+
+                //IsVisibleWeightSubmitReminder = notification.IsVisibleWeightSubmitReminder;
+                //IsVisibleGeneralMessage = notification.IsVisibleGeneralMessage;
+                //IsVisibleSpecialOffer = notification.IsVisibleSpecialOffer;
+                //IsVisiblePromotional = notification.IsVisiblePromotional;
+                //IsVisibleVersionUpdate = notification.IsVisibleVersionUpdate;
+
                 CreateAllEventAction();
             }
             else
@@ -212,6 +226,52 @@ namespace com.organo.xchallenge.ViewModels.Notification
             get => _isGeneralMessage;
             set => SetProperty(ref _isGeneralMessage, value, IsGeneralMessagePropertyName,
                 SwitchGeneralMessageLabelStyleChange);
+        }
+
+
+        private bool _isVisibleWeightSubmitReminder;
+        public const string IsVisibleWeightSubmitReminderPropertyName = "IsVisibleWeightSubmitReminder";
+
+        public bool IsVisibleWeightSubmitReminder
+        {
+            get => _isVisibleWeightSubmitReminder;
+            set => SetProperty(ref _isVisibleWeightSubmitReminder, value, IsVisibleWeightSubmitReminderPropertyName);
+        }
+
+        private bool _isVisiblePromotional;
+        public const string IsVisiblePromotionalPropertyName = "IsVisiblePromotional";
+
+        public bool IsVisiblePromotional
+        {
+            get => _isVisiblePromotional;
+            set => SetProperty(ref _isVisiblePromotional, value, IsVisiblePromotionalPropertyName);
+        }
+
+        private bool _isVisibleSpecialOffer;
+        public const string IsVisibleSpecialOfferPropertyName = "IsVisibleSpecialOffer";
+
+        public bool IsVisibleSpecialOffer
+        {
+            get => _isVisibleSpecialOffer;
+            set => SetProperty(ref _isVisibleSpecialOffer, value, IsVisibleSpecialOfferPropertyName);
+        }
+
+        private bool _isVisibleVersionUpdate;
+        public const string IsVisibleVersionUpdatePropertyName = "IsVisibleVersionUpdate";
+
+        public bool IsVisibleVersionUpdate
+        {
+            get => _isVisibleVersionUpdate;
+            set => SetProperty(ref _isVisibleVersionUpdate, value, IsVisibleVersionUpdatePropertyName);
+        }
+
+        public bool _isVisibleGeneralMessage;
+        public const string IsVisibleGeneralMessagePropertyName = "IsVisibleGeneralMessage";
+
+        public bool IsVisibleGeneralMessage
+        {
+            get => _isVisibleGeneralMessage;
+            set => SetProperty(ref _isVisibleGeneralMessage, value, IsVisibleGeneralMessagePropertyName);
         }
 
         private void SwitchSpecialOfferLabelStyleChange()

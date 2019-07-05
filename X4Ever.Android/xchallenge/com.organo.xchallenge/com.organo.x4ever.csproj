@@ -169,6 +169,7 @@
     <Compile Include="MediaManager\MusicFile.cs" />
     <Compile Include="Models\News\NewsModel.cs" />
     <Compile Include="Models\Notifications\UserNotificationSetting.cs" />
+    <Compile Include="Models\Notifications\UserNotificationSettingViewModel.cs" />
     <Compile Include="Models\Notifications\UserPushTokenModel.cs" />
     <Compile Include="Models\Province.cs" />
     <Compile Include="Models\Testimonial.cs" />
