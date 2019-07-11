@@ -1903,4 +1903,10 @@
   <data name="Region" xml:space="preserve">
     <value>Region</value>
   </data>
+  <data name="MainTabs_More" xml:space="preserve">
+    <value>MÁS</value>
+  </data>
+  <data name="MainTabs_More_Icon" xml:space="preserve">
+    <value>icon_more.png</value>
+  </data>
 </root>

@@ -49,39 +49,47 @@ namespace com.organo.xchallenge.ViewModels.Menu
 
         public async Task GetMenuData()
         {
-            float height = 32, width = 32;
-            var iconSize = App.Configuration.GetImageSizeByID(ImageIdentity.MENU_ITEM_ICON);
-            if (iconSize != null)
+            try
             {
-                height = iconSize.Height;
-                width = iconSize.Width;
-            }
-
-            var menuItems = await DependencyService.Get<IMenuServices>().GetByApplicationAsync();
-            
-            App.Configuration.IsProfileEditAllowed = menuItems.Any(m =>
-                ((MenuType) Enum.Parse(typeof(MenuType), m.MenuType) == MenuType.Settings));
-            MenuItems = (from m in menuItems
-                where !((MenuType) Enum.Parse(typeof(MenuType), m.MenuType) == MenuType.Settings)
-                select new HomeMenuItem
+                float height = 32, width = 32;
+                var iconSize = App.Configuration.GetImageSizeByID(ImageIdentity.MENU_ITEM_ICON);
+                if (iconSize != null)
                 {
-                    MenuTitle = _helper.GetResource(m.MenuTitle),
-                    MenuType = (MenuType) Enum.Parse(typeof(MenuType), m.MenuType),
-                    MenuIcon = m.MenuIcon != null ? _helper.GetResource(m.MenuIcon) : "",
-                    IconStyle = IconStyle,
-                    IconSource = m.MenuIcon != null
-                        ? ImageResizer.ResizeImage(_helper.GetResource(m.MenuIcon), iconSize)
-                        : null,
-                    IconHeight = height / 2,
-                    IconWidth = width / 2,
-                    IsIconVisible = m.MenuIconVisible,
-                    TextStyle = (MenuType) Enum.Parse(typeof(MenuType), m.MenuType) == MenuType.MyProfile
-                        ? SelectedStyle
-                        : DefaultStyle,
-                    IsSelected = (MenuType) Enum.Parse(typeof(MenuType), m.MenuType) == MenuType.MyProfile,
-                    ItemPadding = new Thickness(15, 5, 0, 5),
-                    IsVisible = !((MenuType) Enum.Parse(typeof(MenuType), m.MenuType) == MenuType.Settings)
-                }).ToList();
+                    height = iconSize.Height;
+                    width = iconSize.Width;
+                }
+
+                var menuItems = await DependencyService.Get<IMenuServices>().GetByApplicationAsync();
+
+                App.Configuration.IsProfileEditAllowed = menuItems.Any(m =>
+                    ((MenuType)Enum.Parse(typeof(MenuType), m.MenuType) == MenuType.Settings));
+                MenuItems = (from m in menuItems
+                             where !((MenuType)Enum.Parse(typeof(MenuType), m.MenuType) == MenuType.Settings)
+                             select new HomeMenuItem
+                             {
+                                 MenuTitle = _helper.GetResource(m.MenuTitle),
+                                 MenuType = (MenuType)Enum.Parse(typeof(MenuType), m.MenuType),
+                                 MenuIcon = m.MenuIcon != null ? _helper.GetResource(m.MenuIcon) : "",
+                                 IconStyle = IconStyle,
+                                 IconSource = m.MenuIcon != null
+                                     ? ImageResizer.ResizeImage(_helper.GetResource(m.MenuIcon), iconSize)
+                                     : null,
+                                 IconHeight = height / 2,
+                                 IconWidth = width / 2,
+                                 IsIconVisible = m.MenuIconVisible,
+                                 TextStyle = (MenuType)Enum.Parse(typeof(MenuType), m.MenuType) == MenuType.MyProfile
+                                     ? SelectedStyle
+                                     : DefaultStyle,
+                                 IsSelected = (MenuType)Enum.Parse(typeof(MenuType), m.MenuType) == MenuType.MyProfile,
+                                 ItemPadding = new Thickness(15, 5, 0, 5),
+                                 IsVisible = !((MenuType)Enum.Parse(typeof(MenuType), m.MenuType) == MenuType.Settings)
+                             }).ToList();
+            }
+            catch (Exception ex)
+            {
+                SetActivityResource(showMessage: true, message: "Sorry, there is an unresolved issue. We are fixing it please have patience and try again later.");
+                new ExceptionHandler(typeof(MenuPageViewModel).FullName, ex);
+            }
         }
 
         public Style DefaultStyle => (Style) App.CurrentApp.Resources["labelStyleMenuItem"];

@@ -2258,6 +2258,24 @@ namespace com.organo.xchallenge.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to MORE.
+        /// </summary>
+        internal static string MainTabs_More {
+            get {
+                return ResourceManager.GetString("MainTabs_More", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to icon_more.png.
+        /// </summary>
+        internal static string MainTabs_More_Icon {
+            get {
+                return ResourceManager.GetString("MainTabs_More_Icon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to MY MUSIC.
         /// </summary>
         internal static string MainTabs_MyMusic {

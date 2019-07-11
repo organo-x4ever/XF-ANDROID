@@ -142,6 +142,22 @@ namespace com.organo.xchallenge.Droid
             LoadApplication(new App(this.GetActivity(message)));
         }
 
+        private Action<int, Result, Intent> _resultCallback;
+        public void StartActivity(Intent intent, int requestCode, Action<int, Result, Intent> resultCallback)
+        {
+            _resultCallback = resultCallback;
+            StartActivityForResult(intent, requestCode);
+        }
+        protected override void OnActivityResult (int requestCode, Result resultCode, Intent data)
+        {
+            base.OnActivityResult (requestCode, resultCode, data);
+            if (_resultCallback != null)
+            {
+                _resultCallback(requestCode, resultCode, data);
+                _resultCallback = null;
+            }
+        }
+
         // Error/Exception Handling
         private static void TaskSchedulerOnUnobservedTaskException(object sender,
             UnobservedTaskExceptionEventArgs unobservedTaskExceptionEventArgs)

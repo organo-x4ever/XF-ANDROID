@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<miscellaneous:MiscContentPageXaml 
+    xmlns:miscellaneous="clr-namespace:com.organo.xchallenge.Pages.Miscellaneous"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:com.organo.xchallenge.Controls"
+    x:Class="com.organo.xchallenge.Pages.Miscellaneous.MiscContentPage">
+    <miscellaneous:MiscContentPageXaml.Content>
+      <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <controls:TopBarAccountView />
+            <ContentView x:Name="contentView" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+        </StackLayout>
+    </miscellaneous:MiscContentPageXaml.Content>
+</miscellaneous:MiscContentPageXaml>

@@ -33,12 +33,14 @@ namespace com.organo.xchallenge.Droid.Renderers
             if (e.OldElement != null)
             {
                 Control.RemoveJavascriptInterface("jsBridge");
+                Control.Settings.JavaScriptEnabled = true;
                 var hybridWebView = e.OldElement as HybridWebView;
                 hybridWebView.Cleanup();
             }
             if (e.NewElement != null)
             {
                 Control.AddJavascriptInterface(new JSBridge(this), "jsBridge");
+                Control.Settings.JavaScriptEnabled = true;
                 Control.LoadUrl(Element.Uri);
             }
         }

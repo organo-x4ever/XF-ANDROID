@@ -21,6 +21,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using com.organo.xchallenge.Pages.Blog;
 using Xamarin.Forms;
+using com.organo.xchallenge.Pages.Miscellaneous;
 
 namespace com.organo.xchallenge.Pages
 {
@@ -184,6 +185,16 @@ namespace com.organo.xchallenge.Pages
                             SetDetailIfNull(page);
                             Pages.Add(id, page);
                             break;
+                            
+                        case MenuType.More:
+                            page = new XNavigationPage(new MiscContentPage(this)
+                            {
+                                Title = TextResources.MainTabs_More,
+                                Icon = new FileImageSource {File = TextResources.MainTabs_More_Icon}
+                            });
+                            SetDetailIfNull(page);
+                            Pages.Add(id, page);
+                            break;
 
                         case MenuType.Logout:
                             await App.LogoutAsync();
@@ -200,7 +211,8 @@ namespace com.organo.xchallenge.Pages
                 if (id == MenuType.MyMusic ||
                     id == MenuType.WorkoutVideos ||
                     id == MenuType.Settings ||
-                    id == MenuType.OgxSystem)
+                    id == MenuType.OgxSystem ||
+                    id == MenuType.More)
                     Pages.Remove(id);
 
                 //pop to root for Windows Phone
@@ -227,7 +239,7 @@ namespace com.organo.xchallenge.Pages
             }
             catch (Exception ex)
             {
-                var exceptionHandler = new ExceptionHandler("RootPage.cs", ex);
+                var exceptionHandler = new ExceptionHandler(typeof(RootPage).FullName, ex);
             }
         }
     }
@@ -268,6 +280,7 @@ namespace com.organo.xchallenge.Pages
         MyMusic,
         Community,
         Settings,
+        More,
         Logout
     }
 

@@ -1904,4 +1904,10 @@ your 3rd meal. Enjoy Pro Meals
   <data name="Region" xml:space="preserve">
     <value>Region</value>
   </data>
+  <data name="MainTabs_More" xml:space="preserve">
+    <value>MORE</value>
+  </data>
+  <data name="MainTabs_More_Icon" xml:space="preserve">
+    <value>icon_more.png</value>
+  </data>
 </root>

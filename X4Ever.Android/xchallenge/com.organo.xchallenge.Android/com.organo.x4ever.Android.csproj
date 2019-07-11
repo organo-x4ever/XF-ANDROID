@@ -277,7 +277,9 @@
     <Compile Include="Helpers\DeviceDisplay.cs" />
     <Compile Include="Helpers\DeviceInfo.cs" />
     <Compile Include="Helpers\ImageResizerHelpers.cs" />
+    <Compile Include="Helpers\ChromeWebViewClient.cs" />
     <Compile Include="Helpers\JavascriptWebViewClient.cs" />
+    <Compile Include="Helpers\JSBridgeChrome.cs" />
     <Compile Include="Helpers\JSBridge.cs" />
     <Compile Include="Helpers\Platform.cs" />
     <Compile Include="MediaManager\AudioPlayerImplementation.cs" />
@@ -294,6 +296,7 @@
     <Compile Include="Renderers\CustomWebViewRenderer.cs" />
     <Compile Include="Renderers\EntryWithImageRenderer.cs" />
     <Compile Include="Renderers\FloatingActionButtonViewRenderer.cs" />
+    <Compile Include="Renderers\HybridChromeWebViewRenderer.cs" />
     <Compile Include="Renderers\HybridWebViewRenderer.cs" />
     <Compile Include="Renderers\ImageCircleRenderer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -1041,6 +1044,9 @@
     <EmbeddedResource Include="temp\statistics.log">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\drawable\icon_more.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

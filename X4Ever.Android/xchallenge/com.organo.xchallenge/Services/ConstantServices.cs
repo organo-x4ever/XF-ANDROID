@@ -1,7 +1,10 @@
-﻿using com.organo.xchallenge.Services;
+﻿
 using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using com.organo.xchallenge.Services;
+using com.organo.xchallenge.Helpers;
+using com.organo.xchallenge.Statics;
 
 [assembly:Dependency(typeof(ConstantServices))]
 
@@ -9,8 +12,16 @@ namespace com.organo.xchallenge.Services
 {
     public class ConstantServices : IConstantServices
     {
-        public async Task<string> Blogs() => await ClientService.GetStringAsync(new Uri(
-            ClientService.GetRequestUri("constants",
+        private static readonly IDeviceInfo DeviceInfo = DependencyService.Get<IDeviceInfo>();
+        public async Task<string> Blogs() =>
+            await ClientService.GetStringAsync(new Uri(ClientService.GetRequestUri("constants",
                 $"blogs?region={App.Configuration.GetApplication()}&lang={App.Configuration?.AppConfig.DefaultLanguage}")));
+
+        public async Task<string> MoreWebLinks() => await ClientService.GetStringAsync(new Uri(ClientService.GetRequestUri("constants",
+                $"more_links_path" +
+            $"?{App.Configuration?.AppConfig.ApplicationRequestHeader}={App.Configuration?.GetApplication()}" +
+            $"&{HttpConstants.REQUEST_HEADER_LANGUAGE}={App.Configuration?.AppConfig.DefaultLanguage}" +
+            $"&{HttpConstants.VERSION}={App.Configuration?.AppConfig.ApplicationVersion}" +
+            $"&{HttpConstants.PLATFORM}={DeviceInfo.GetPlatform}")));
     }
 }
