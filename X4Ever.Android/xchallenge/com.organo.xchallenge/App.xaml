@@ -530,6 +530,20 @@
                 <Setter Property="FontSize" Value="{StaticResource FontSizeXXSmall}" />
             </Style>
 
+            <Style x:Key="labelErrorMessageLarge" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._Error}" />
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
+                <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
+            </Style>
+            
+            <Style x:Key="labelErrorMessageWhiteLarge" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+                <Setter Property="TextColor" Value="{x:Static statics:Palette._White}" />
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
+                <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
+            </Style>
+            
             <Style x:Key="labelSuccessMessage" TargetType="Label" BasedOn="{StaticResource labelStyle}">
                 <Setter Property="TextColor" Value="{x:Static statics:Palette._Success}" />
                 <Setter Property="HorizontalTextAlignment" Value="Start" />

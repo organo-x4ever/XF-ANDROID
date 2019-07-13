@@ -1909,4 +1909,13 @@
   <data name="MainTabs_More_Icon" xml:space="preserve">
     <value>icon_more.png</value>
   </data>
+  <data name="Note" xml:space="preserve">
+    <value>NOTA</value>
+  </data>
+  <data name="ReviseWeightText" xml:space="preserve">
+    <value>¿Quiere perder más del {0}% del peso actual, REALMENTE?</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>ADVERTENCIA</value>
+  </data>
 </root>

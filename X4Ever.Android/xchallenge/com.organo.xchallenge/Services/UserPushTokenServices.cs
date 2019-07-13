@@ -2,6 +2,7 @@
 using System;
 using System.Text;
 using System.Threading.Tasks;
+using com.organo.xchallenge.Helpers;
 using com.organo.xchallenge.Localization;
 using com.organo.xchallenge.Models.Notifications;
 using com.organo.xchallenge.Services;
@@ -69,6 +70,8 @@ namespace com.organo.xchallenge.Services
                         DeviceIdentity = string.Format(TextResources.AppVersion,
                             App.Configuration.AppConfig.ApplicationVersion),
                         DeviceIdiom = Device.Idiom.ToString(),
+                        DeviceApplication = App.Configuration?.GetApplication(),
+                        DevicePlatform = DependencyService.Get<IDeviceInfo>().GetPlatform
                     });
                 }
             }

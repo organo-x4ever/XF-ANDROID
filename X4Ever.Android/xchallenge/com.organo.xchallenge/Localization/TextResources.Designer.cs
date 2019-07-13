@@ -3581,6 +3581,15 @@ namespace com.organo.xchallenge.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to NOTE.
+        /// </summary>
+        internal static string Note {
+            get {
+                return ResourceManager.GetString("Note", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tap on.
         /// </summary>
         internal static string NoteTapOn {
@@ -4387,6 +4396,15 @@ namespace com.organo.xchallenge.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Want to lose more than {0}% of current weight, REALLY?.
+        /// </summary>
+        internal static string ReviseWeightText {
+            get {
+                return ResourceManager.GetString("ReviseWeightText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Log:.
         /// </summary>
         internal static string Revision {
@@ -5112,6 +5130,15 @@ namespace com.organo.xchallenge.Localization {
         internal static string VideoPlaylist {
             get {
                 return ResourceManager.GetString("VideoPlaylist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WARNING.
+        /// </summary>
+        internal static string Warning {
+            get {
+                return ResourceManager.GetString("Warning", resourceCulture);
             }
         }
         

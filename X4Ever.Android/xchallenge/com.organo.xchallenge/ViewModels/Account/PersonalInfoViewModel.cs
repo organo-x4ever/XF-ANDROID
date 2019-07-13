@@ -4,13 +4,16 @@ using System;
 using com.organo.xchallenge.Converters;
 using com.organo.xchallenge.Extensions;
 using Xamarin.Forms;
+using com.organo.xchallenge.Services;
+using System.Text.RegularExpressions;
 
 namespace com.organo.xchallenge.ViewModels.Account
 {
     public class PersonalInfoViewModel : BaseViewModel
     {
         private readonly PoundToKiligramConverter _converter = new PoundToKiligramConverter();
-
+        // Ask to revise if user wants to lose more than
+        private const int _weightLosePercent = 50;
         public PersonalInfoViewModel(INavigation navigation = null) : base(navigation)
         {
             AgeMinimumValue = 0;
@@ -28,6 +31,7 @@ namespace com.organo.xchallenge.ViewModels.Account
                 _converter.DisplayWeightVolume(App.Configuration.AppConfig.MAXIMUM_WEIGHT_LOSE_KG,
                     App.Configuration.AppConfig.MAXIMUM_WEIGHT_LOSE_LB);
             WeightLossGoalValue = WeightLossGoalMinimumValue;
+            NextButtonText = TextResources.Next;
         }
 
         public void SetSliders()
@@ -69,6 +73,14 @@ namespace com.organo.xchallenge.ViewModels.Account
             SliderWeightLossGoalModel.SetMinValueAsync(
                 _converter.DisplayWeightVolume(App.Configuration.AppConfig.MINIMUM_WEIGHT_LOSE_KG,
                     App.Configuration.AppConfig.MINIMUM_WEIGHT_LOSE_LB), delay: 2);
+        }
+        
+        public async void GetWeightLoseWarning()
+        {
+            WeightLoseWarningPercent = _weightLosePercent;
+            var _weightLoseWarning = await DependencyService.Get<IConstantServices>().WeightLoseWarningPercentile();
+            if (double.TryParse(Regex.Replace(_weightLoseWarning, "\"", ""), out double percent))
+                WeightLoseWarningPercent = percent;
         }
 
         public string YourCurrentWeightText => string.Format(TextResources.YourCurrentWeightFormat1,
@@ -117,7 +129,42 @@ namespace com.organo.xchallenge.ViewModels.Account
             get { return ageMinimumValue; }
             set { SetProperty(ref ageMinimumValue, value, AgeMinimumValuePropertyName); }
         }
+        
+        private string reviseRequestText;
+        public const string ReviseRequestTextPropertyName = "ReviseRequestText";
 
+        public string ReviseRequestText
+        {
+            get => reviseRequestText;
+            set => SetProperty(ref reviseRequestText, value, ReviseRequestTextPropertyName);
+        }
+            
+        private string reviseHeaderText;
+        public const string ReviseHeaderTextPropertyName = "ReviseHeaderText";
+
+        public string ReviseHeaderText
+        {
+            get => reviseHeaderText;
+            set => SetProperty(ref reviseHeaderText, value, ReviseHeaderTextPropertyName);
+        }
+        
+        private double weightLoseWarningPercent = 0;
+        public const string WeightLoseWarningPercentPropertyName = "WeightLoseWarningPercent";
+
+        public double WeightLoseWarningPercent
+        {
+            get { return weightLoseWarningPercent; }
+            set { SetProperty(ref weightLoseWarningPercent, value, WeightLoseWarningPercentPropertyName); }
+        }
+
+        private string nextButtonText;
+        public const string NextButtonTextPropertyName = "NextButtonText";
+
+        public string NextButtonText
+        {
+            get => nextButtonText;
+            set => SetProperty(ref nextButtonText, value, NextButtonTextPropertyName);
+        }
 
         private Slider _sliderCurrentWeightModel;
         public const string SliderCurrentWeightModelPropertyName = "SliderCurrentWeightModel";

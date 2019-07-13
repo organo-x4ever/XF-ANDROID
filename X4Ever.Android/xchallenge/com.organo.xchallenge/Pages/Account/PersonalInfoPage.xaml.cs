@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using com.organo.xchallenge.Converters;
 using com.organo.xchallenge.Globals;
 using Xamarin.Forms;
+using com.organo.xchallenge.Handler;
 
 namespace com.organo.xchallenge.Pages.Account
 {
@@ -19,16 +20,29 @@ namespace com.organo.xchallenge.Pages.Account
     {
         private PersonalInfoViewModel _model;
         private readonly UserFirstUpdate _user;
-        private IMetaPivotService _metaPivotService;
-        private ITrackerPivotService _trackerPivotService;
-        private IHelper _helper;
+        private readonly IMetaPivotService _metaPivotService;
+        private readonly ITrackerPivotService _trackerPivotService;
+        private readonly IHelper _helper;
         private readonly PoundToKiligramConverter _converter = new PoundToKiligramConverter();
+        private const string revisionNumber = "10000";
+        private bool IsRevised { get; set; }
 
         public PersonalInfoPage(UserFirstUpdate user)
         {
-            InitializeComponent();
-            _user = user;
-            Init();
+            try
+            {
+                InitializeComponent();
+                _user = user;
+                _helper = DependencyService.Get<IHelper>();
+                _metaPivotService = DependencyService.Get<IMetaPivotService>();
+                _trackerPivotService = DependencyService.Get<ITrackerPivotService>();
+                IsRevised = false;
+                Init();
+            }
+            catch (Exception ex)
+            {
+                new ExceptionHandler(TAG, ex);
+            }
         }
 
         private void Init()
@@ -42,20 +56,10 @@ namespace com.organo.xchallenge.Pages.Account
                 SliderWeightLossGoalModel = sliderWeightLossGoal
             };
             _model.SetSliders();
-            _helper = DependencyService.Get<IHelper>();
-            _metaPivotService = DependencyService.Get<IMetaPivotService>();
-            _trackerPivotService = DependencyService.Get<ITrackerPivotService>();
             BindingContext = _model;
-            Initialization();
-        }
 
-        private void Initialization()
-        {
             if (_user?.UserMetas?.Count > 0)
             {
-                //var age = _model.AgeValue;
-                //var weight = _converter.DisplayWeightVolume(_model.CurrentWeightValue);
-                //var weightLossGoal = _converter.DisplayWeightVolume(_model.WeightLossGoalValue);
                 if (short.TryParse(_user.UserMetas?.ToList().Get(MetaEnum.age), out short age) && age > 0)
                     _model.AgeValue = age;
 
@@ -72,6 +76,7 @@ namespace com.organo.xchallenge.Pages.Account
             }
 
             buttonNext.Clicked += async (sender, e) => { await NextStepAsync(); };
+            _model.GetWeightLoseWarning();
         }
 
         private async Task NextStepAsync()
@@ -83,17 +88,17 @@ namespace com.organo.xchallenge.Pages.Account
                     MetaConstants.AGE, MetaConstants.LABEL));
                 var tracker = _trackerPivotService.AddTracker(TrackerConstants.CURRENT_WEIGHT,
                     _model.CurrentWeightValue.ToString());
-                tracker.RevisionNumber = "10000";
+                tracker.RevisionNumber = revisionNumber;
                 _user.UserTrackers.Add(tracker);
 
                 tracker = _trackerPivotService.AddTracker(TrackerConstants.CURRENT_WEIGHT_UI,
                     _model.CurrentWeightValue.ToString());
-                tracker.RevisionNumber = "10000";
+                tracker.RevisionNumber = revisionNumber;
                 _user.UserTrackers.Add(tracker);
 
                 tracker = _trackerPivotService.AddTracker(TrackerConstants.WEIGHT_VOLUME_TYPE,
                     App.Configuration.AppConfig.DefaultWeightVolume);
-                tracker.RevisionNumber = "10000";
+                tracker.RevisionNumber = revisionNumber;
                 _user.UserTrackers.Add(tracker);
 
                 _user.UserMetas.Add(_metaPivotService.AddMeta(_model.WeightLossGoalValue.ToString(),
@@ -123,6 +128,7 @@ namespace com.organo.xchallenge.Pages.Account
 
         private bool Validate()
         {
+            _model.NextButtonText = TextResources.Next;
             ValidationErrors validationErrors = new ValidationErrors();
             if (_model.AgeValue == 0)
                 validationErrors.Add(string.Format(TextResources.Required_IsMandatory, TextResources.YourAge));
@@ -151,6 +157,46 @@ namespace com.organo.xchallenge.Pages.Account
                     TextResources.WeightLossGoal,
                     _converter.DisplayWeightVolume(App.Configuration.AppConfig.MINIMUM_WEIGHT_LOSE_KG,
                         App.Configuration.AppConfig.MINIMUM_WEIGHT_LOSE_LB)));
+            else if(_model.WeightLossGoalValue>_model.CurrentWeightValue)
+                validationErrors.Add(string.Format(TextResources.Validation_MustBeLessThan, TextResources.WeightLossGoal,TextResources.YourCurrentWeight));
+
+            _model.ReviseHeaderText = _model.ReviseRequestText = string.Empty;
+            labelReviseRequest.FormattedText = new FormattedString();
+            if (!IsRevised && (_model.WeightLossGoalValue > ((_model.CurrentWeightValue / 100) * _model.WeightLoseWarningPercent)))
+            {
+                _model.ReviseRequestText = string.Format(TextResources.ReviseWeightText, (int)((_model.WeightLossGoalValue * 100) / _model.CurrentWeightValue));
+                _model.ReviseHeaderText = TextResources.Warning;
+                validationErrors.Add(_model.ReviseRequestText);
+                _model.NextButtonText = TextResources.Yes + ", " + TextResources.Continue;
+
+                try {
+                    labelReviseRequest.FormattedText = new FormattedString() {
+                        Spans = {
+                            new Span() {
+                                Text=_model.ReviseHeaderText,
+                                ForegroundColor = Palette._Error,
+                                FontAttributes = FontAttributes.Bold,
+                            },
+                            new Span() {
+                                Text=": ",
+                                ForegroundColor = Palette._Error,
+                                FontAttributes = FontAttributes.Bold,
+                            },
+                            new Span() {
+                                Text=_model.ReviseRequestText,
+                                ForegroundColor = Palette._White,
+                                FontAttributes = FontAttributes.None,
+                            },
+                        }
+                    };
+                }
+                catch(Exception ex)
+                {
+                    new ExceptionHandler(TAG, ex);
+                }
+            }
+            IsRevised = true;
+
             if (validationErrors.Count() > 0)
                 _model.SetActivityResource(showError: true,
                     errorMessage: validationErrors.Count() > 2

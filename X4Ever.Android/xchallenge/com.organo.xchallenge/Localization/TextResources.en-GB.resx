@@ -1910,4 +1910,13 @@ your 3rd meal. Enjoy Pro Meals
   <data name="MainTabs_More_Icon" xml:space="preserve">
     <value>icon_more.png</value>
   </data>
+  <data name="Note" xml:space="preserve">
+    <value>NOTE</value>
+  </data>
+  <data name="ReviseWeightText" xml:space="preserve">
+    <value>Want to lose more than {0}% of current weight, REALLY?</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>WARNING</value>
+  </data>
 </root>
