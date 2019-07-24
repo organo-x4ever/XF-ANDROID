@@ -29,6 +29,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
           </Grid.RowDefinitions>
 
           <Label Grid.Row="0" Grid.Column="0" Text="{translate:Translate Front}" Style="{DynamicResource labelStyleInfoHighlight}" HorizontalOptions="Center" />
@@ -38,6 +39,7 @@
           <Image Grid.Row="1" Grid.Column="1" x:Name="imageSide" Source="{Binding ImageSideSource}" Style="{DynamicResource imageCamera}" HeightRequest="{Binding CameraImageHeight}" WidthRequest="{Binding CameraImageWidth}" />
 
           <Button Grid.Row="2" Grid.ColumnSpan="2" x:Name="buttonSubmit" Text="{translate:Translate Submit}" Style="{DynamicResource buttonStyle}"></Button>
+          <Button Grid.Row="3" Grid.ColumnSpan="2" x:Name="buttonSkip" IsVisible="{Binding SkipPhotoOption}" Text="{translate:Translate SkipAndContinue}" Style="{DynamicResource buttonStyleGray}" Margin="0,15,0,0"></Button>
         </Grid>
         <StackLayout Orientation="Vertical">
           <Label Text="Note:" Style="{DynamicResource labelStyleTableViewItem}"></Label>

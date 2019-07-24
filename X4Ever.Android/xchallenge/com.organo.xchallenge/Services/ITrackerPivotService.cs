@@ -24,5 +24,6 @@ namespace com.organo.xchallenge.Services
         Task<bool> SaveTrackerStep3Async(List<Tracker> trackers, bool loadUserProfile = false);
         Task<bool> UpdateLatestTrackerAsync(double newValue, double oldValue, DateTime lastModifyDate);
         Task<string> DeleteTrackerAsync(string revisionNumber);
+        Task PostSkipOptionAsync(string email, bool skip);
     }
 }

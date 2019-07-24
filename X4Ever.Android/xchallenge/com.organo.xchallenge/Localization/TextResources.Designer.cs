@@ -4612,6 +4612,15 @@ namespace com.organo.xchallenge.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Skip &amp; Continue.
+        /// </summary>
+        internal static string SkipAndContinue {
+            get {
+                return ResourceManager.GetString("SkipAndContinue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Something went wrong..
         /// </summary>
         internal static string SomethingWentWrong {

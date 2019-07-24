@@ -80,6 +80,16 @@ namespace com.organo.xchallenge.Pages.Account
             imageSide.GestureRecognizers.Add(tapImageSide);
 
             buttonSubmit.Clicked += async (sender, e) => { await SubmitAsync(); };
+            buttonSkip.Clicked += (sender, e) =>
+                 {
+                     UpdateSkipOption();
+                     App.GoToAccountPage(true);
+                 };
+        }
+
+        private async void UpdateSkipOption()
+        {
+            await _trackerPivotService.PostSkipOptionAsync(App.CurrentUser.UserInfo.UserEmail, true);
         }
 
         private async Task UploadImageAsync(ImageSide side)
@@ -96,7 +106,7 @@ namespace com.organo.xchallenge.Pages.Account
             }
 
             var result = await DisplayActionSheet(TextResources.ChooseOption, TextResources.Cancel, null,
-                new string[] {TextResources.PickFromGallery, TextResources.TakeFromCamera});
+                new string[] { TextResources.PickFromGallery, TextResources.TakeFromCamera });
 
             if (result != null)
             {

@@ -8,5 +8,6 @@ namespace com.organo.xchallenge.Services
         Task<string> Blogs();
         Task<string> MoreWebLinks();
         Task<string> WeightLoseWarningPercentile();
+        Task<bool> TrackerSkipPhotos();
     }
 }

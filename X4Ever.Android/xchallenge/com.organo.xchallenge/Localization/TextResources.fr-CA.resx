@@ -1917,4 +1917,7 @@
   <data name="Warning" xml:space="preserve">
     <value>ATTENTION</value>
   </data>
+  <data name="SkipAndContinue" xml:space="preserve">
+    <value>Passer et continuer</value>
+  </data>
 </root>

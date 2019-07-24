@@ -1914,4 +1914,7 @@
   <data name="Warning" xml:space="preserve">
     <value>AVVERTIMENTO</value>
   </data>
+  <data name="SkipAndContinue" xml:space="preserve">
+    <value>Salta e continua</value>
+  </data>
 </root>

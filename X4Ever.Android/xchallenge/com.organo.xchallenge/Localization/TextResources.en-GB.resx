@@ -1919,4 +1919,10 @@ your 3rd meal. Enjoy Pro Meals
   <data name="Warning" xml:space="preserve">
     <value>WARNING</value>
   </data>
+  <data name="SkipAndContinue" xml:space="preserve">
+    <value>Skip &amp; Continue</value>
+  </data>
+  <data name="YoutubeVideoDescriptionNoAvail" xml:space="preserve">
+    <value>Description does not found on YouTube for this video.</value>
+  </data>
 </root>

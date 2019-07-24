@@ -2,6 +2,7 @@
 using com.organo.xchallenge.Helpers;
 using com.organo.xchallenge.Localization;
 using com.organo.xchallenge.Models;
+using com.organo.xchallenge.Services;
 using com.organo.xchallenge.Statics;
 using com.organo.xchallenge.ViewModels.Base;
 using Xamarin.Forms;
@@ -11,13 +12,22 @@ namespace com.organo.xchallenge.ViewModels.Account
     public class UploadPhotoViewModel : BaseViewModel
     {
         private readonly IHelper _helper;
-
+        private readonly IConstantServices _constantServices;
         public UploadPhotoViewModel(INavigation navigation = null) : base(navigation)
         {
+            SkipPhotoOption = false;
             _helper = DependencyService.Get<IHelper>();
             this.SetPageImageSize();
             this.ImageFront = this.ImageDefault;
             this.ImageSide = this.ImageDefault;
+            _constantServices = DependencyService.Get<IConstantServices>();
+            SetSkipPhotoOption();
+        }
+
+        public async void SetSkipPhotoOption()
+        {
+            var _skip=await _constantServices.TrackerSkipPhotos();
+            SkipPhotoOption = _skip;
         }
 
         public string ImageDefault => TextResources.icon_camera;
@@ -100,6 +110,14 @@ namespace com.organo.xchallenge.ViewModels.Account
         {
             get { return cameraImageWidth; }
             set { SetProperty(ref cameraImageWidth, value, CameraImageWidthPropertyName); }
+        }
+        
+        private bool skipPhotoOption;
+        public const string SkipPhotoOptionPropertyName = "SkipPhotoOption";
+        public bool SkipPhotoOption
+        {
+            get => skipPhotoOption;
+            set => SetProperty(ref skipPhotoOption, value, SkipPhotoOptionPropertyName);
         }
     }
 }
