@@ -17,16 +17,16 @@ namespace com.organo.xchallenge.ViewModels.Account
         {
             SkipPhotoOption = false;
             _helper = DependencyService.Get<IHelper>();
-            this.SetPageImageSize();
-            this.ImageFront = this.ImageDefault;
-            this.ImageSide = this.ImageDefault;
+            SetPageImageSize();
+            ImageFront = ImageDefault;
+            ImageSide = ImageDefault;
             _constantServices = DependencyService.Get<IConstantServices>();
             SetSkipPhotoOption();
         }
 
         public async void SetSkipPhotoOption()
         {
-            var _skip=await _constantServices.TrackerSkipPhotos();
+            var _skip = await _constantServices.TrackerSkipPhotos();
             SkipPhotoOption = _skip;
         }
 
